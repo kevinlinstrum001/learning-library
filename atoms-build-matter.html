@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal chemistry lesson for Klins on atoms, elements, electrons, bonding behavior, states of matter, metals, carbon, and the periodic table.">
+
+  <title>Atoms Build Matter | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --orange: #c8671c;
+      --purple: #6d4a8d;
+      --red: #a64336;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(61, 111, 168, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(211, 154, 47, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,228,191,.56));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong {
+      color: var(--navy);
+    }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section {
+      margin: 3rem 0;
+    }
+
+    .section-heading {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--blue-light);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(244, 228, 191, 0.62);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p {
+      margin: 0;
+    }
+
+    .element-card {
+      border-top: 4px solid var(--green);
+    }
+
+    .element-card.oxygen {
+      border-top-color: var(--red);
+    }
+
+    .element-card.iron {
+      border-top-color: var(--blue);
+    }
+
+    .element-card.gold {
+      border-top-color: var(--gold);
+    }
+
+    .state-card {
+      border-top: 4px solid var(--green);
+    }
+
+    .state-card.liquid {
+      border-top-color: var(--blue);
+    }
+
+    .state-card.gas {
+      border-top-color: var(--orange);
+    }
+
+    .path {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .path-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .path-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .periodic-map {
+      padding: 1.2rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+    }
+
+    .periodic-map strong {
+      color: var(--navy);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-4,
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Chemistry · Atoms · Elements · Matter</p>
+        <h1>Atoms Build Matter</h1>
+        <p class="hero-copy">
+          A lesson for Klins on why each element is unique, how electrons control chemical behavior,
+          and how atomic structure produces the materials and states of matter around us.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        the number of protons tells us what an element is.
+        The arrangement of electrons—especially the outermost electrons—helps determine how that element behaves and what it can build.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="atoms-build-matter.png" alt="Poster explaining how atoms build matter, why elements differ, valence electrons, states of matter, metals, carbon, and the periodic table.">
+      <figcaption>
+        Reference poster: how differences in atomic structure create different elements, properties, bonds, and materials.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. Every element is defined by its protons</h2>
+        <p>The atomic number is the number of protons in the nucleus.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">Hydrogen</span>
+          <h3>1 proton</h3>
+          <p>
+            Hydrogen is the simplest element. A neutral hydrogen atom also has one electron.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Oxygen</span>
+          <h3>8 protons</h3>
+          <p>
+            Oxygen is defined by eight protons. Changing the number of neutrons creates an isotope,
+            but changing the number of protons creates a different element.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Copper</span>
+          <h3>29 protons</h3>
+          <p>
+            Copper’s atomic structure gives it excellent electrical conductivity, making it valuable in wiring and electronics.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>A useful distinction</h3>
+      <p>
+        Protons determine identity. Electrons determine much of the behavior.
+        Neutrons help stabilize the nucleus and affect atomic mass.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. Why elements behave differently</h2>
+        <p>Valence electrons control many chemical interactions.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Sodium: one outer electron</h3>
+          <p>
+            Sodium tends to lose one electron because doing so leaves a more stable outer arrangement.
+            This makes sodium highly reactive.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Chlorine: seven outer electrons</h3>
+          <p>
+            Chlorine tends to gain one electron to complete its outer shell.
+            This makes it reactive in the opposite direction from sodium.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Neon: a full outer shell</h3>
+          <p>
+            Neon already has a stable electron arrangement, so it rarely reacts.
+            That is why noble gases are chemically quiet.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. Common elements and their roles</h2>
+        <p>Different atomic structures produce very different properties.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card element-card">
+          <h3>Carbon</h3>
+          <p>
+            Carbon forms strong bonds with itself and many other elements.
+            Its flexibility makes it the backbone of organic chemistry and life.
+          </p>
+        </article>
+
+        <article class="card element-card oxygen">
+          <h3>Oxygen</h3>
+          <p>
+            Oxygen is highly reactive and participates in combustion, respiration, corrosion, and many biological reactions.
+          </p>
+        </article>
+
+        <article class="card element-card iron">
+          <h3>Iron</h3>
+          <p>
+            Iron is abundant, strong, and magnetic. It is central to tools, machines, structures, and blood chemistry.
+          </p>
+        </article>
+
+        <article class="card element-card gold">
+          <h3>Gold</h3>
+          <p>
+            Gold resists corrosion and conducts electricity, making it useful in jewelry and high-reliability electronics.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. States of matter come from particle behavior</h2>
+        <p>The same type of atom can exist in different states depending on energy and arrangement.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card state-card">
+          <h3>Solid</h3>
+          <p>
+            Particles are packed closely and remain in relatively fixed positions.
+            They vibrate but do not move freely past one another.
+          </p>
+        </article>
+
+        <article class="card state-card liquid">
+          <h3>Liquid</h3>
+          <p>
+            Particles remain close together but can move past one another,
+            allowing the material to flow and take the shape of its container.
+          </p>
+        </article>
+
+        <article class="card state-card gas">
+          <h3>Gas</h3>
+          <p>
+            Particles are far apart and move rapidly, filling the available space.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. Why sodium reacts violently with water</h2>
+        <p>Sodium’s outer electron makes it eager to react.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Electron transfer</h3>
+          <p>
+            Sodium gives up its outer electron and becomes a positively charged sodium ion.
+            Water molecules participate in the transfer.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Heat and hydrogen</h3>
+          <p>
+            The reaction releases heat and forms hydrogen gas.
+            The heat can ignite the hydrogen, making the reaction appear explosive.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Why oxygen is a gas</h2>
+        <p>Bonding strength and particle attraction influence physical state.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Oxygen forms O₂ molecules</h3>
+          <p>
+            Two oxygen atoms share electrons in a double bond, creating a stable molecule.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Weak attraction between molecules</h3>
+          <p>
+            The bond inside each O₂ molecule is strong, but the attraction between separate O₂ molecules is much weaker.
+            At room temperature, the molecules move freely as a gas.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Why iron is strong, conductive, and magnetic</h2>
+        <p>Metallic bonding creates a shared electron structure.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Metal lattice</h3>
+          <p>
+            Iron atoms occupy an organized lattice rather than existing as separate molecules.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Mobile electrons</h3>
+          <p>
+            Some electrons are shared throughout the metal, allowing electrical and thermal energy to move efficiently.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Magnetic alignment</h3>
+          <p>
+            Electron behavior in iron allows magnetic domains to align, producing strong magnetic effects.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. Carbon: the ultimate builder</h2>
+        <p>Carbon can form up to four bonds and create many stable structures.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Diamond</h3>
+          <p>
+            Each carbon atom bonds strongly in a rigid three-dimensional network.
+            The result is extreme hardness.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Graphite</h3>
+          <p>
+            Carbon atoms form layered sheets.
+            The layers slide easily, making graphite soft and useful in pencils and lubricants.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Organic molecules</h3>
+          <p>
+            Carbon forms chains, rings, and branching structures used in proteins, sugars, DNA, fuels, and plastics.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>9. The periodic table is a map of behavior</h2>
+        <p>Elements are arranged so recurring properties become visible.</p>
+      </div>
+
+      <div class="periodic-map">
+        <p>
+          <strong>Rows, called periods,</strong> reflect increasing electron shells.
+          <strong>Columns, called groups,</strong> contain elements with similar outer-electron patterns and therefore similar behavior.
+        </p>
+        <p>
+          Alkali metals tend to lose one electron. Halogens tend to gain one.
+          Noble gases have full outer shells. Transition metals often conduct well and form multiple ions.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>10. A learning path for Klins</h2>
+        <p>Use this sequence to connect atomic structure to real materials.</p>
+      </div>
+
+      <div class="path">
+        <article class="path-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>Identify the element</h3>
+            <p>Use the number of protons to determine atomic identity.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>Count the outer electrons</h3>
+            <p>Use valence electrons to predict whether the element tends to gain, lose, or share electrons.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>Predict bonding</h3>
+            <p>Decide whether ionic, covalent, or metallic bonding is likely.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>Connect structure to properties</h3>
+            <p>Ask how particle arrangement explains hardness, conductivity, magnetism, reactivity, or state of matter.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>Connect properties to use</h3>
+            <p>Explain why copper becomes wire, iron becomes tools, gold becomes contacts, and carbon becomes life chemistry.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The visible world is built from invisible differences.
+        One extra proton creates a different element. One different electron arrangement changes reactivity.
+        One different atomic structure can turn carbon into graphite, diamond, or living tissue.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Atoms and elements lesson
+  </footer>
+</body>
+</html>
