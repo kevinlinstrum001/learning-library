@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 5 in Klins' History of the Transistor course: semiconductor science, energy bands, crystal growth, doping, germanium, silicon, and the materials foundation of the transistor.">
+
+  <title>Building the Foundation: The Science of Semiconductors | History of the Transistor</title>
+
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --blue-light: #e8f0f8;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --gold-light: #f2e2c3;
+      --amber: #b86922;
+      --green: #356a54;
+      --purple: #6d4a8d;
+      --red: #8e3e33;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 145px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(53, 106, 84, 0.13), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 740px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(53, 106, 84, 0.26);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(223,237,229,.68));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3.2rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--green);
+      background: #e6f0ea;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .band-card { border-top: 4px solid var(--blue); }
+    .crystal-card { border-top: 4px solid var(--green); }
+    .doping-card { border-top: 4px solid var(--purple); }
+    .bench-card { border-top: 4px solid var(--amber); }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(223, 237, 229, 0.72);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 850;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      html { scroll-padding-top: 190px; }
+
+      .header-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .course-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item { grid-template-columns: 1fr; }
+
+      .lesson-nav { flex-direction: column; }
+
+      .lesson-nav a { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 05</span>
+      </div>
+
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#why-semiconductors">Why Semiconductors?</a>
+      <a href="#bands">Energy Bands</a>
+      <a href="#elements">Germanium & Silicon</a>
+      <a href="#crystals">Crystal Growth</a>
+      <a href="#doping">Doping</a>
+      <a href="#purity">Purity</a>
+      <a href="#bench">Your Bench</a>
+      <a href="#timeline">Timeline</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 5 · The Materials Foundation</p>
+        <h1>Building the Foundation</h1>
+        <p class="hero-copy">
+          A lesson for Klins on the science that had to exist before the transistor could become practical:
+          energy bands, pure crystals, controlled impurities, semiconductor junctions, and the ability to shape electrical behavior atom by atom.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        a transistor is not merely a clever circuit arrangement.
+        It is a carefully engineered material. Its behavior begins with crystal structure, purity, and doping.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster05.png" alt="Poster explaining semiconductor science, energy bands, crystal growth, germanium, silicon, doping, purity, and the materials foundation of the transistor.">
+      <figcaption>
+        Course poster 5: the semiconductor materials science that made transistors possible.
+      </figcaption>
+    </figure>
+
+    <section id="why-semiconductors">
+      <div class="section-heading">
+        <h2>1. Why semiconductors?</h2>
+        <p>Their electrical behavior can be controlled rather than simply accepted.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Conductors are always ready</h3>
+          <p>
+            Metals contain many mobile electrons, so they conduct easily.
+            That is useful for wires but not enough for building a controllable switch.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Insulators block current</h3>
+          <p>
+            In insulators, electrons are held too tightly for ordinary voltages to move them through the material.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Semiconductors sit between</h3>
+          <p>
+            Their conductivity can be changed by temperature, light, electric fields, and carefully selected impurities.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="bands">
+      <div class="section-heading">
+        <h2>2. Energy bands in solids</h2>
+        <p>Electron behavior depends on the allowed energy ranges inside the material.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card band-card">
+          <span class="tag">Conductor</span>
+          <h3>Available states overlap</h3>
+          <p>
+            Electrons can move into nearby available states with little added energy, so current flows readily.
+          </p>
+        </article>
+
+        <article class="card band-card">
+          <span class="tag">Semiconductor</span>
+          <h3>Small band gap</h3>
+          <p>
+            Some electrons can cross from the valence band into the conduction band when given enough energy.
+          </p>
+        </article>
+
+        <article class="card band-card">
+          <span class="tag">Insulator</span>
+          <h3>Large band gap</h3>
+          <p>
+            The energy barrier is too large for ordinary conditions, so very few carriers become mobile.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Why the band gap matters</h3>
+      <p>
+        The band gap gives engineers leverage.
+        If it is small enough, carefully introduced carriers can turn conduction on, off, or somewhere in between.
+      </p>
+    </div>
+
+    <section id="elements">
+      <div class="section-heading">
+        <h2>3. The right elements: germanium and silicon</h2>
+        <p>Not every crystal offers useful semiconductor behavior.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card crystal-card">
+          <span class="tag">Germanium</span>
+          <h3>The early transistor material</h3>
+          <p>
+            Germanium was central to the first successful devices because its carrier behavior could be controlled with the materials and methods available in the 1940s.
+          </p>
+        </article>
+
+        <article class="card crystal-card">
+          <span class="tag">Silicon</span>
+          <h3>The future foundation</h3>
+          <p>
+            Silicon later became dominant because it is abundant, thermally robust, and forms a stable oxide that is extremely useful in manufacturing.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="crystals">
+      <div class="section-heading">
+        <h2>4. Growing useful crystals</h2>
+        <p>Before engineers could dope a semiconductor, they had to make a crystal worth doping.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card crystal-card">
+          <h3>Start with ultra-pure material</h3>
+          <p>
+            Uncontrolled contamination could overwhelm the intended electrical behavior.
+          </p>
+        </article>
+
+        <article class="card crystal-card">
+          <h3>Melt and cool carefully</h3>
+          <p>
+            Crystal growth required controlled temperature so atoms would arrange into an ordered lattice.
+          </p>
+        </article>
+
+        <article class="card crystal-card">
+          <h3>Shape and polish precisely</h3>
+          <p>
+            Surface condition affected contacts, fields, leakage, and repeatability.
+          </p>
+        </article>
+
+        <article class="card crystal-card">
+          <h3>Control defects</h3>
+          <p>
+            Dislocations and imperfections could trap carriers or create unpredictable current paths.
+          </p>
+        </article>
+
+        <article class="card crystal-card">
+          <h3>Measure the result</h3>
+          <p>
+            Resistivity, carrier type, and crystal quality had to be characterized before device fabrication.
+          </p>
+        </article>
+
+        <article class="card crystal-card">
+          <h3>Repeat the process</h3>
+          <p>
+            A discovery becomes technology only when useful material can be produced consistently.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="doping">
+      <div class="section-heading">
+        <h2>5. Control through doping</h2>
+        <p>Tiny amounts of selected atoms change the number and type of mobile charge carriers.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card doping-card">
+          <span class="tag">N-type</span>
+          <h3>Extra electrons</h3>
+          <p>
+            Donor atoms such as phosphorus contribute an extra electron that can move through the crystal.
+          </p>
+        </article>
+
+        <article class="card doping-card">
+          <span class="tag">P-type</span>
+          <h3>Holes</h3>
+          <p>
+            Acceptor atoms such as boron create missing-electron positions called holes, which behave like positive charge carriers.
+          </p>
+        </article>
+
+        <article class="card doping-card">
+          <span class="tag">Junction</span>
+          <h3>Different regions in one crystal</h3>
+          <p>
+            Placing P-type and N-type regions together creates an interface with useful electrical behavior.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">pure crystal + controlled dopants → N-type and P-type regions → junction → transistor action</div>
+    </section>
+
+    <div class="callout">
+      <h3>Doping is deliberate imperfection</h3>
+      <p>
+        Semiconductor engineering depends on adding the right impurity in the right amount.
+        The same material can become electrically different without changing its basic crystal lattice.
+      </p>
+    </div>
+
+    <section id="purity">
+      <div class="section-heading">
+        <h2>6. Why purity mattered so much</h2>
+        <p>The wrong impurity could destroy the intended carrier behavior.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Too many free carriers</h3>
+          <p>
+            Unwanted impurities could make the material conduct too strongly and reduce control.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Unpredictable results</h3>
+          <p>
+            Different pieces of crystal could behave differently even when the device geometry was the same.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Leakage and short life</h3>
+          <p>
+            Defects and contamination could create unwanted current paths, instability, and early failure.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. From science to device</h2>
+        <p>Each transistor begins as a materials-processing sequence.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Pure crystal</h3>
+          <p>Produce semiconductor material with controlled composition.</p>
+        </article>
+
+        <article class="card">
+          <h3>Cut and polish</h3>
+          <p>Prepare surfaces and geometry for fabrication.</p>
+        </article>
+
+        <article class="card">
+          <h3>Create doped regions</h3>
+          <p>Form areas with different carrier types and concentrations.</p>
+        </article>
+
+        <article class="card">
+          <h3>Add contacts and packaging</h3>
+          <p>Connect the active material to the outside circuit and protect it mechanically.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. Pioneers behind the materials science</h2>
+        <p>The transistor depended on a larger community than the three names usually remembered.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>W. G. Pfann</h3>
+          <p>
+            Advanced crystal purification and zone-refining methods that made semiconductor materials far more controllable.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>John Bardeen</h3>
+          <p>
+            Contributed deep theoretical understanding of solids, surfaces, and carrier behavior.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Morris Tanenbaum</h3>
+          <p>
+            Helped advance silicon crystal growth and processing during the move beyond early germanium devices.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>William Shockley</h3>
+          <p>
+            Developed semiconductor device theory and pushed the transition toward junction transistors.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="bench">
+      <div class="section-heading">
+        <h2>9. Connecting semiconductor science to your bench</h2>
+        <p>Your components are manufactured examples of controlled crystal behavior.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card bench-card">
+          <h3>NPN transistor regions</h3>
+          <p>
+            The emitter, base, and collector are differently doped semiconductor regions arranged to control carrier flow.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Diodes and junctions</h3>
+          <p>
+            LEDs, flyback diodes, and rectifiers all rely on P-N junction behavior.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Raspberry Pi processor</h3>
+          <p>
+            The processor contains billions of transistor structures fabricated through repeated doping, deposition, patterning, and etching.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Sensor chips</h3>
+          <p>
+            Temperature, motion, light, and inertial sensors all depend on engineered semiconductor regions and microfabricated structures.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Material limits become circuit limits</h3>
+          <p>
+            Leakage, heat, voltage rating, current capacity, and switching speed all begin with device physics and materials.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Datasheets reflect the crystal</h3>
+          <p>
+            Parameters such as gain, threshold voltage, saturation voltage, and maximum temperature are the practical expression of semiconductor structure.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-heading">
+        <h2>10. Timeline of the foundation</h2>
+        <p>The transistor became possible only after decades of materials and physics research.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1831</div>
+          <div>
+            <h3>Faraday studies electromagnetic induction</h3>
+            <p>Electrical science begins revealing deep relationships between fields, motion, and matter.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1874</div>
+          <div>
+            <h3>Rectifying behavior observed in crystals</h3>
+            <p>Solid materials are shown to conduct differently depending on direction and contact conditions.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1900s</div>
+          <div>
+            <h3>Solid-state physics grows</h3>
+            <p>Quantum theory and atomic models begin explaining electron behavior in solids.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1920s–1930s</div>
+          <div>
+            <h3>Semiconductor materials improve</h3>
+            <p>Purification, crystal study, and detector work make semiconductor behavior more useful and measurable.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1940s</div>
+          <div>
+            <h3>Doping and junction ideas mature</h3>
+            <p>Researchers gain enough control over impurities and crystal regions to create purposeful electrical behavior.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">December 1947</div>
+          <div>
+            <h3>The knowledge converges</h3>
+            <p>Materials, theory, measurement, and experiment come together in the first working transistor.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The transistor was possible because scientists learned to control matter at the atomic level.
+        Once crystal structure, purity, and doping could be controlled, electrical behavior became something engineers could design rather than merely observe.
+      </p>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="transistor-history-lesson04.html">← Lesson 04</a>
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Course Index</a>
+      <a href="#overview">Back to Top ↑</a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 05
+  </footer>
+</body>
+</html>
