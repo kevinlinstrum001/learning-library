@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal chemistry lesson for Klins on pure substances, mixtures, solutions, solutes, solvents, and physical separation methods.">
+
+  <title>Pure Substances and Mixtures | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --orange: #c8671c;
+      --purple: #6d4a8d;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(109, 74, 141, 0.13), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--purple);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(109, 74, 141, 0.26);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(237,229,247,.7));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong {
+      color: var(--navy);
+    }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section {
+      margin: 3rem 0;
+    }
+
+    .section-heading {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--purple);
+      background: #eee7f6;
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--purple);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(237, 229, 247, 0.76);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p {
+      margin: 0;
+    }
+
+    .comparison-card {
+      border-top: 4px solid var(--green);
+    }
+
+    .comparison-card.heterogeneous {
+      border-top-color: var(--orange);
+    }
+
+    .comparison-card.pure {
+      border-top-color: var(--purple);
+    }
+
+    .comparison-table {
+      width: 100%;
+      margin-top: 1rem;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      padding: 0.55rem;
+      border: 1px solid var(--border);
+      text-align: left;
+    }
+
+    .comparison-table th {
+      color: var(--navy);
+      background: #eee7f6;
+    }
+
+    .separation-card {
+      border-top: 4px solid var(--blue);
+    }
+
+    .decision-path {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .decision-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .decision-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .decision-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .decision-step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Chemistry · Composition · Separation</p>
+        <h1>Pure Substances and Mixtures</h1>
+        <p class="hero-copy">
+          A lesson for Klins on how chemists distinguish fixed composition from variable composition,
+          how solutions work, and why mixtures can be separated without changing chemical identity.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        pure substances contain one chemically defined kind of material.
+        Mixtures contain two or more substances physically combined, so each component keeps its own identity.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="pure-substances-mixtures.png" alt="Poster explaining pure substances, mixtures, solutions, solutes, solvents, and physical separation methods.">
+      <figcaption>
+        Reference poster: fixed composition, variable composition, solution structure, and methods for separating mixtures.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. The first division: fixed or variable composition</h2>
+        <p>This question separates pure substances from mixtures.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card comparison-card pure">
+          <span class="tag">Pure substance</span>
+          <h3>Fixed composition</h3>
+          <p>
+            A pure substance always has the same chemical makeup and characteristic properties.
+            It may be an element or a compound.
+          </p>
+          <ul>
+            <li>Gold</li>
+            <li>Oxygen</li>
+            <li>Distilled water</li>
+            <li>Carbon dioxide</li>
+          </ul>
+        </article>
+
+        <article class="card comparison-card">
+          <span class="tag">Mixture</span>
+          <h3>Variable composition</h3>
+          <p>
+            A mixture may contain different proportions of its components.
+            Those components are not chemically bonded to one another.
+          </p>
+          <ul>
+            <li>Air</li>
+            <li>Salt water</li>
+            <li>Soil</li>
+            <li>Brass</li>
+          </ul>
+        </article>
+      </div>
+
+      <table class="comparison-table">
+        <tr>
+          <th>Feature</th>
+          <th>Pure substance</th>
+          <th>Mixture</th>
+        </tr>
+        <tr>
+          <td>Composition</td>
+          <td>Fixed</td>
+          <td>Variable</td>
+        </tr>
+        <tr>
+          <td>Particles present</td>
+          <td>One chemically defined kind</td>
+          <td>Two or more kinds</td>
+        </tr>
+        <tr>
+          <td>Separation</td>
+          <td>Chemical change may be required for compounds</td>
+          <td>Physical methods can be used</td>
+        </tr>
+      </table>
+    </section>
+
+    <div class="callout">
+      <h3>A useful distinction</h3>
+      <p>
+        A glass of salt water may look like one thing, but it is still a mixture.
+        The salt has not become water, and the water has not become salt.
+        The particles are distributed together while keeping their own chemical identities.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. Homogeneous and heterogeneous mixtures</h2>
+        <p>Mixtures differ in how evenly their components are distributed.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card comparison-card">
+          <span class="tag">Homogeneous</span>
+          <h3>Uniform throughout</h3>
+          <p>
+            A homogeneous mixture has the same composition in every sampled region.
+            Its individual components are not visibly distinct.
+          </p>
+          <ul>
+            <li>Salt water</li>
+            <li>Sugar water</li>
+            <li>Air</li>
+            <li>Vinegar</li>
+            <li>Brass</li>
+          </ul>
+        </article>
+
+        <article class="card comparison-card heterogeneous">
+          <span class="tag">Heterogeneous</span>
+          <h3>Not uniform throughout</h3>
+          <p>
+            A heterogeneous mixture contains visibly or microscopically distinct regions with different compositions.
+          </p>
+          <ul>
+            <li>Trail mix</li>
+            <li>Soil</li>
+            <li>Sand and gravel</li>
+            <li>Oil and water</li>
+            <li>Granite</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. Solutions: a closer look</h2>
+        <p>A solution is a homogeneous mixture formed when one substance dissolves in another.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">Solute</span>
+          <h3>The substance dissolved</h3>
+          <p>
+            The solute is usually the smaller component. In salt water, salt is the solute.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Solvent</span>
+          <h3>The dissolving medium</h3>
+          <p>
+            The solvent is usually the larger component. In salt water, water is the solvent.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Solution</span>
+          <h3>The uniform result</h3>
+          <p>
+            Solute particles become evenly distributed among solvent particles at the molecular or ionic level.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. What affects dissolving</h2>
+        <p>Not every solute dissolves equally well in every solvent.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Nature of the substances</h3>
+          <p>
+            Polar substances tend to dissolve in polar solvents, while nonpolar substances tend to dissolve in nonpolar solvents.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Temperature</h3>
+          <p>
+            Temperature can change solubility and dissolving rate. Many solids dissolve more readily in warmer liquids.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Pressure</h3>
+          <p>
+            Pressure has its strongest effect on gases. Higher pressure can force more gas into solution.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. Physical separation methods</h2>
+        <p>Because mixture components are not chemically bonded, they can often be separated physically.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card separation-card">
+          <h3>Filtration</h3>
+          <p>Separates an insoluble solid from a liquid by passing the mixture through a porous barrier.</p>
+        </article>
+
+        <article class="card separation-card">
+          <h3>Evaporation</h3>
+          <p>Removes the solvent by turning it into vapor, leaving dissolved solids behind.</p>
+        </article>
+
+        <article class="card separation-card">
+          <h3>Distillation</h3>
+          <p>Separates liquids or recovers a solvent using differences in boiling point.</p>
+        </article>
+
+        <article class="card separation-card">
+          <h3>Magnetism</h3>
+          <p>Removes magnetic materials such as iron from nonmagnetic materials.</p>
+        </article>
+
+        <article class="card separation-card">
+          <h3>Decanting</h3>
+          <p>Pours off a liquid after a solid settles or after two liquid layers separate.</p>
+        </article>
+
+        <article class="card separation-card">
+          <h3>Sieving</h3>
+          <p>Separates solids according to particle size.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Why separation works</h3>
+      <p>
+        Separation methods exploit differences in physical properties:
+        particle size, boiling point, solubility, density, magnetic behavior, or phase.
+        No new substance has to be created.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Everyday examples</h2>
+        <p>The distinction appears constantly outside the laboratory.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Coffee</h3>
+          <p>A solution containing dissolved flavor compounds, plus possible suspended particles depending on preparation.</p>
+        </article>
+
+        <article class="card">
+          <h3>Salad</h3>
+          <p>A heterogeneous mixture whose components remain visibly separate.</p>
+        </article>
+
+        <article class="card">
+          <h3>Gold</h3>
+          <p>A pure elemental substance when sufficiently refined.</p>
+        </article>
+
+        <article class="card">
+          <h3>Soda</h3>
+          <p>A solution containing water, dissolved sugar or sweeteners, flavor compounds, and dissolved carbon dioxide.</p>
+        </article>
+
+        <article class="card">
+          <h3>Granite</h3>
+          <p>A heterogeneous mixture of different minerals such as quartz, feldspar, and mica.</p>
+        </article>
+
+        <article class="card">
+          <h3>Brass</h3>
+          <p>A homogeneous solid mixture, or alloy, mainly composed of copper and zinc.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. A decision path for Klins</h2>
+        <p>Use these questions to classify a material.</p>
+      </div>
+
+      <div class="decision-path">
+        <article class="decision-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>Does it have a fixed composition?</h3>
+            <p>If yes, it is a pure substance. If no, it is a mixture.</p>
+          </div>
+        </article>
+
+        <article class="decision-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>If it is a pure substance, is it an element or compound?</h3>
+            <p>An element contains one kind of atom. A compound contains elements chemically bonded in a fixed ratio.</p>
+          </div>
+        </article>
+
+        <article class="decision-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>If it is a mixture, is it uniform throughout?</h3>
+            <p>If yes, it is homogeneous. If no, it is heterogeneous.</p>
+          </div>
+        </article>
+
+        <article class="decision-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>If homogeneous, is one substance dissolved in another?</h3>
+            <p>If so, it is a solution with a solute and solvent.</p>
+          </div>
+        </article>
+
+        <article class="decision-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>How could the components be separated?</h3>
+            <p>Look for useful physical differences such as size, density, boiling point, solubility, or magnetism.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        Composition is one of chemistry’s most important organizing ideas.
+        A material may look uniform while still containing multiple substances,
+        and a material may look complex while still being chemically pure.
+        Classification depends on particles and composition, not appearance alone.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Pure substances and mixtures lesson
+  </footer>
+</body>
+</html>
