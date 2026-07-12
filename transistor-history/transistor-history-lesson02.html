@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 2 in Klins' History of the Transistor course: Bell Labs, semiconductor materials, solid-state physics, germanium, silicon, and the search for a solid-state amplifier.">
+
+  <title>The Search for a Solid-State Amplifier | History of the Transistor</title>
+
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --blue-light: #e8f0f8;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --gold-light: #f2e2c3;
+      --amber: #b86922;
+      --green: #356a54;
+      --purple: #6d4a8d;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 145px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(200, 139, 49, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 740px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(200, 139, 49, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(242,226,195,.6));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong {
+      color: var(--navy);
+    }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section {
+      margin: 3.2rem 0;
+    }
+
+    .section-heading {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--amber);
+      background: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .science-card {
+      border-top: 4px solid var(--blue);
+    }
+
+    .materials-card {
+      border-top: 4px solid var(--green);
+    }
+
+    .team-card {
+      border-top: 4px solid var(--purple);
+    }
+
+    .bench-card {
+      border-top: 4px solid var(--amber);
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(242, 226, 195, 0.65);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p {
+      margin: 0;
+    }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 850;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-4,
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      html {
+        scroll-padding-top: 190px;
+      }
+
+      .header-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .course-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .lesson-nav {
+        flex-direction: column;
+      }
+
+      .lesson-nav a {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 02</span>
+      </div>
+
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#why-change">Why Change?</a>
+      <a href="#disciplines">The Disciplines</a>
+      <a href="#materials">Materials</a>
+      <a href="#journey">Research Journey</a>
+      <a href="#team">The Bell Labs Team</a>
+      <a href="#goals">What They Wanted</a>
+      <a href="#bench">Your Bench</a>
+      <a href="#timeline">Timeline</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 2 · Bell Labs and the Search</p>
+        <h1>The Search for a Solid-State Amplifier</h1>
+        <p class="hero-copy">
+          A lesson for Klins on how Bell Labs tried to replace the vacuum tube with a smaller,
+          cooler, more reliable device made from solid material—and why the solution required physics,
+          chemistry, materials science, precision measurement, and persistence.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        the transistor was not a lucky guess.
+        It emerged from years of failed ideas, better materials, deeper theory,
+        and careful experiments performed by people with different strengths.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster02.png" alt="Poster about Bell Labs, semiconductor research, germanium, silicon, materials science, the transistor team, and the search for a solid-state amplifier.">
+      <figcaption>
+        Course poster 2: Bell Labs, semiconductor materials, dead ends, measurement, and the team that brought the first transistor to life.
+      </figcaption>
+    </figure>
+
+    <section id="why-change">
+      <div class="section-heading">
+        <h2>1. Why replace the vacuum tube?</h2>
+        <p>Vacuum tubes worked, but their limitations blocked the next generation of technology.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Large and fragile</h3>
+          <p>
+            Tubes required glass envelopes, heaters, metal electrodes, sockets, and physical spacing.
+            They were bulky and vulnerable to vibration and breakage.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Hot and power-hungry</h3>
+          <p>
+            Their cathodes had to be heated continuously, consuming power before amplification even began.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Difficult to scale</h3>
+          <p>
+            Building more complex systems meant adding more tubes, more wiring, more cooling,
+            and more failure points.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The design goal</h3>
+      <p>
+        Bell Labs wanted an amplifier that was smaller, more reliable, longer-lived,
+        cooler, and less power-hungry—without depending on electrons moving through a vacuum.
+      </p>
+    </div>
+
+    <section id="disciplines">
+      <div class="section-heading">
+        <h2>2. An impossible problem required every kind of mind</h2>
+        <p>No single discipline could solve the whole problem.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card science-card">
+          <span class="tag">Physics</span>
+          <h3>Understand electrons in solids</h3>
+          <p>
+            Researchers needed models of energy bands, charge carriers, barriers,
+            and how electrons could move through a crystal.
+          </p>
+        </article>
+
+        <article class="card science-card">
+          <span class="tag">Chemistry</span>
+          <h3>Create the right material</h3>
+          <p>
+            The electrical behavior depended on composition, purity,
+            surface chemistry, and tiny concentrations of impurities.
+          </p>
+        </article>
+
+        <article class="card science-card">
+          <span class="tag">Materials science</span>
+          <h3>Grow trustworthy crystals</h3>
+          <p>
+            Researchers needed crystals pure and uniform enough that measurements reflected real physics rather than random contamination.
+          </p>
+        </article>
+
+        <article class="card science-card">
+          <span class="tag">Engineering</span>
+          <h3>Make a useful device</h3>
+          <p>
+            A theory was not enough. The device needed contacts, geometry,
+            test fixtures, repeatable construction, and real gain.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="materials">
+      <div class="section-heading">
+        <h2>3. Materials mattered most</h2>
+        <p>The device could succeed only if the material was exceptionally controlled.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card materials-card">
+          <span class="tag">Germanium</span>
+          <h3>The early practical material</h3>
+          <p>
+            Germanium became central to the first successful transistor experiments because researchers could obtain and control useful semiconductor behavior in it.
+          </p>
+        </article>
+
+        <article class="card materials-card">
+          <span class="tag">Silicon</span>
+          <h3>The long-term foundation</h3>
+          <p>
+            Silicon ultimately became dominant because of its abundance, thermal performance,
+            oxide chemistry, and suitability for large-scale manufacturing.
+          </p>
+        </article>
+
+        <article class="card materials-card">
+          <span class="tag">Doping</span>
+          <h3>Tiny impurities, enormous effects</h3>
+          <p>
+            Adding very small amounts of selected elements could change carrier concentration
+            and turn the same base crystal into different electrical regions.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Purity was not merely cleanliness</h3>
+      <p>
+        In semiconductor work, an impurity measured in tiny fractions can completely change the result.
+        The challenge was not simply to remove contamination, but to control exactly what remained and where it was placed.
+      </p>
+    </div>
+
+    <section id="journey">
+      <div class="section-heading">
+        <h2>4. The research journey: many ideas, many dead ends</h2>
+        <p>Progress often came from finding out why an idea failed.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Point-contact devices</h3>
+          <p>
+            Fine contacts pressed against semiconductor surfaces explored how localized electric fields could change current.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Crystal rectifiers</h3>
+          <p>
+            Earlier detector devices showed that solid crystals could conduct asymmetrically and respond to radio-frequency signals.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Surface-barrier ideas</h3>
+          <p>
+            Researchers studied how fields and charges near a semiconductor surface could alter conduction.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Thin films and alloys</h3>
+          <p>
+            Different materials, geometries, contact methods, and junction ideas were tried—many without producing useful amplification.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. Better measurement changed what could be discovered</h2>
+        <p>Tiny effects are invisible without trustworthy instruments.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Small signals</h3>
+          <p>
+            Semiconductor experiments often produced weak currents and voltages that could be confused with noise or contact problems.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Repeatability</h3>
+          <p>
+            A real effect had to appear again under controlled conditions, not merely once on one piece of crystal.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Instrumentation as discovery</h3>
+          <p>
+            Better oscilloscopes, amplifiers, fixtures, and measurement techniques did not merely record results—they made new questions testable.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="team">
+      <div class="section-heading">
+        <h2>6. A team for a new kind of solution</h2>
+        <p>Different strengths converged on one shared problem.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card team-card">
+          <h3>William Shockley</h3>
+          <p>
+            A theoretical leader who pushed the solid-state amplifier problem and sought a general semiconductor solution.
+          </p>
+        </article>
+
+        <article class="card team-card">
+          <h3>John Bardeen</h3>
+          <p>
+            A physicist with deep insight into electron behavior, surfaces, and why expected field effects were not appearing.
+          </p>
+        </article>
+
+        <article class="card team-card">
+          <h3>Walter Brattain</h3>
+          <p>
+            An exceptionally skilled experimentalist whose careful hands, measurements,
+            and physical intuition were crucial to the successful device.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The team lesson</h3>
+      <p>
+        Theoretical insight, experimental skill, materials control, and engineering discipline were not competing contributions.
+        They were parts of one system. The transistor appeared when those parts finally lined up.
+      </p>
+    </div>
+
+    <section id="goals">
+      <div class="section-heading">
+        <h2>7. What they were really aiming for</h2>
+        <p>The amplifier problem opened the door to an entirely different technological future.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Better communication</h3>
+          <p>
+            Smaller, more reliable amplifiers could improve telephone networks, radio systems,
+            repeaters, and long-distance communication.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Radar and defense</h3>
+          <p>
+            Solid-state electronics promised lower weight, faster startup,
+            and greater reliability in detection and control systems.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Medical equipment</h3>
+          <p>
+            Compact amplification would eventually support portable monitors,
+            hearing devices, imaging systems, and instrumentation.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Electronic computers</h3>
+          <p>
+            Replacing tubes with solid-state switches would allow computers to become smaller,
+            cooler, faster, and more reliable.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Space exploration</h3>
+          <p>
+            Rockets and spacecraft demanded electronics that could survive vibration,
+            conserve power, reduce weight, and operate without constant maintenance.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Everything becoming portable</h3>
+          <p>
+            The search was not only for one better amplifier.
+            It was the opening move toward radios, sensors, computers, controllers, and instruments that could travel anywhere.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="bench">
+      <div class="section-heading">
+        <h2>8. Connecting the Bell Labs search to your bench</h2>
+        <p>Your Raspberry Pi and transistor experiments sit at the far end of this same chain.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card bench-card">
+          <h3>Discrete transistor switching</h3>
+          <p>
+            When you use an NPN transistor to control a fan, relay, or LED,
+            you are using the same solid-state principle Bell Labs was trying to establish: a small input controlling a larger current.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Integrated circuits</h3>
+          <p>
+            The Raspberry Pi, ESP32, sensor boards, and relay modules compress enormous numbers of transistor functions into tiny packages.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Measurement still matters</h3>
+          <p>
+            Your multimeter, oscilloscope-style tools, logs, and test code play the same basic role:
+            they turn invisible electrical behavior into evidence.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Materials still matter</h3>
+          <p>
+            Silicon, copper, solder, oxides, insulating layers, and doped regions determine whether the circuit works reliably.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Dead ends still teach</h3>
+          <p>
+            A failed breadboard circuit can reveal wiring, biasing, grounding, load, or measurement problems.
+            “No” is still information.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>You are part of the same story</h3>
+          <p>
+            The bench turns a historic breakthrough into something directly observable:
+            voltage at the base, current through the collector, and useful work at the load.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">1947 transistor → integrated circuits → microcontrollers → Raspberry Pi / ESP32 → your projects</div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-heading">
+        <h2>9. Timeline of the search</h2>
+        <p>The breakthrough grew from decades of theory and experimental pressure.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1920s–1930s</div>
+          <div>
+            <h3>Vacuum tubes dominate</h3>
+            <p>Electronic amplification and switching depend mainly on heated devices operating in vacuum.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1930s–1940s</div>
+          <div>
+            <h3>Quantum and solid-state theory mature</h3>
+            <p>Researchers develop better explanations for energy levels, bands, carriers, and electrical behavior in solids.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">Early 1940s</div>
+          <div>
+            <h3>Semiconductor research expands</h3>
+            <p>Wartime radar and detector work increases interest in crystal behavior and solid-state devices.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1945</div>
+          <div>
+            <h3>Shockley forms a focused Bell Labs group</h3>
+            <p>The team attacks the solid-state amplifier problem with theory, materials work, and experiment.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1945–1947</div>
+          <div>
+            <h3>Hundreds of experiments</h3>
+            <p>Surface effects, contacts, crystals, impurities, and measurement methods are tested through repeated failure and refinement.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">December 1947</div>
+          <div>
+            <h3>The first working transistor</h3>
+            <p>A point-contact transistor demonstrates useful amplification inside a solid semiconductor.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The first transistor was not simply a device.
+        It was the proof that electrons inside a solid could be controlled well enough to replace a vacuum tube.
+        Once that was demonstrated, electronics could begin shrinking from cabinets and rooms into modules, chips, boards, and eventually the bench in front of you.
+      </p>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="transistor-history-lesson01.html">← Lesson 01</a>
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Course Index</a>
+      <a href="#overview">Back to Top ↑</a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 02
+  </footer>
+</body>
+</html>
