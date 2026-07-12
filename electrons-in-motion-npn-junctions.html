@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal electronics lesson for Klins on electron motion, electric fields, batteries, relays, and NPN transistor junctions.">
+
+  <title>Electrons in Motion and NPN Junctions | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --orange: #c8671c;
+      --purple: #6d4a8d;
+      --red: #a64336;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(61, 111, 168, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(211, 154, 47, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,228,191,.56));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--blue-light);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(244, 228, 191, 0.62);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .npn-card { border-top: 4px solid var(--purple); }
+    .field-card { border-top: 4px solid var(--blue); }
+    .device-card { border-top: 4px solid var(--green); }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .path {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .path-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .path-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Electronics · Fields · Current · Transistors</p>
+        <h1>Electrons in Motion</h1>
+        <p class="hero-copy">
+          A lesson for Klins on what really happens in a wire, why the electrical effect moves faster than individual electrons,
+          how batteries and coils create useful motion, and how NPN transistor junctions use electric fields to control current.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        electrons do move, but usually by slow drift.
+        Electric fields and energy propagate through a circuit much faster.
+        NPN transistors exploit that difference by using a small base signal to control a much larger collector-emitter current.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="electrons-in-motion-npn-junctions.png" alt="Poster explaining electron motion, electric fields, battery action, relays, motors, and particle versus field models.">
+      <figcaption>
+        Reference poster: electron drift, fast field propagation, battery chemistry, magnetic work, and the difference between particle motion and energy transfer.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. What moves in a copper wire</h2>
+        <p>The wire already contains mobile charge carriers before the circuit is energized.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">Electrons</span>
+          <h3>Particles drift slowly</h3>
+          <p>
+            In copper, mobile electrons wander randomly. When voltage is applied, their motion gains a slight net direction.
+          </p>
+        </article>
+
+        <article class="card field-card">
+          <span class="tag">Electric field</span>
+          <h3>The effect moves quickly</h3>
+          <p>
+            The electric field propagates through the conductor at a large fraction of the speed of light.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Energy</span>
+          <h3>Useful power arrives fast</h3>
+          <p>
+            Energy transfer through the electromagnetic field is what allows a distant LED or relay to respond almost immediately.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The distinction that matters</h3>
+      <p>
+        Electron drift and signal propagation are not the same thing.
+        Electrons can move only a tiny distance while the electrical influence travels through the whole circuit.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. Useful analogies</h2>
+        <p>These models help separate local particle motion from fast-moving effects.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Pipe full of bearings</h3>
+          <p>
+            Push one bearing into a full pipe and another comes out the far end quickly.
+            The disturbance moved through the line; no single bearing crossed the whole pipe.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Stadium wave</h3>
+          <p>
+            The wave travels around the stadium while most people remain near their seats.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Ocean wave</h3>
+          <p>
+            Energy travels across the surface while most water moves locally up, down, and in small loops.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. When electrons really transfer between atoms</h2>
+        <p>Ordinary current in metal is not the same as a chemical reaction.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Metallic conduction</h3>
+          <p>
+            In copper, electrons are already delocalized. They drift through the shared electron system rather than hopping from atom to atom as a chemical event.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Chemical transfer</h3>
+          <p>
+            In reactions, electrons may be transferred between atoms or molecules.
+            Sodium losing an electron to chlorine is a true change in chemical identity.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. How a battery creates electricity</h2>
+        <p>Chemistry establishes the voltage that drives the field.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Chemical reaction</h3>
+          <p>Active materials react and separate charge.</p>
+        </article>
+
+        <article class="card">
+          <h3>Potential difference</h3>
+          <p>The terminals develop different electrical potentials.</p>
+        </article>
+
+        <article class="card">
+          <h3>Closed circuit</h3>
+          <p>Connecting a path allows the electric field to establish through the circuit.</p>
+        </article>
+
+        <article class="card">
+          <h3>Energy delivery</h3>
+          <p>Electrons drift and the field transfers energy to the load.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. NPN transistor junctions</h2>
+        <p>An NPN transistor controls a large current with a much smaller base input.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card npn-card">
+          <span class="tag">Emitter</span>
+          <h3>N-type source region</h3>
+          <p>
+            The emitter contains many mobile electrons and is heavily doped so it can inject carriers efficiently.
+          </p>
+        </article>
+
+        <article class="card npn-card">
+          <span class="tag">Base</span>
+          <h3>Thin P-type control region</h3>
+          <p>
+            The base is very thin and lightly doped. A small base-emitter current changes the electric-field conditions at the junction.
+          </p>
+        </article>
+
+        <article class="card npn-card">
+          <span class="tag">Collector</span>
+          <h3>N-type collection region</h3>
+          <p>
+            The collector gathers most electrons that cross the base and carries the larger controlled current.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">small base-emitter input → junction field changes → large collector-emitter current flows</div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. What happens at the base-emitter junction</h2>
+        <p>The base-emitter junction behaves like a forward-biased diode.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card npn-card">
+          <h3>No base drive</h3>
+          <p>
+            Without sufficient forward bias, the depletion region blocks substantial carrier injection.
+            The transistor is effectively off.
+          </p>
+        </article>
+
+        <article class="card npn-card">
+          <h3>Forward bias</h3>
+          <p>
+            Raising the base above the emitter reduces the junction barrier and allows electrons to enter the base region.
+          </p>
+        </article>
+
+        <article class="card npn-card">
+          <h3>Carrier sweep</h3>
+          <p>
+            Because the base is thin, most injected electrons cross it and are swept into the collector by the collector-base electric field.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. NPN transistor on the bench</h2>
+        <p>This is how a small GPIO signal controls a larger load.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card device-card">
+          <h3>GPIO drives the base</h3>
+          <p>
+            A Raspberry Pi or Arduino output supplies a small current through a base resistor.
+          </p>
+        </article>
+
+        <article class="card device-card">
+          <h3>Collector carries load current</h3>
+          <p>
+            The relay coil, fan, buzzer, or lamp draws current from its own supply through the transistor.
+          </p>
+        </article>
+
+        <article class="card device-card">
+          <h3>Emitter returns to ground</h3>
+          <p>
+            In a common low-side switch, the emitter connects to ground and the transistor completes the load’s return path.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">GPIO HIGH → base current → NPN turns on → collector current flows → load operates</div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. Cutoff, active region, and saturation</h2>
+        <p>These operating states explain how NPN transistors behave in amplifiers and switches.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card npn-card">
+          <h3>Cutoff</h3>
+          <p>
+            Base-emitter drive is too small. Collector current is nearly zero. For switching, this is the OFF state.
+          </p>
+        </article>
+
+        <article class="card npn-card">
+          <h3>Active region</h3>
+          <p>
+            Collector current responds to base drive. This region is used for analog amplification.
+          </p>
+        </article>
+
+        <article class="card npn-card">
+          <h3>Saturation</h3>
+          <p>
+            The transistor is driven fully on and the collector-emitter voltage becomes small.
+            For switching, this is the desired ON state.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>NPN transistor as a controlled gate</h3>
+      <p>
+        The base does not directly supply all the load current.
+        It changes the junction conditions that permit a much larger collector-emitter current.
+        That is why a low-power GPIO pin can control a relay coil or motor through a transistor.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>9. Relays, motors, and magnetic fields</h2>
+        <p>Moving charge creates magnetism, and magnetism creates mechanical work.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card device-card">
+          <h3>Relay coil</h3>
+          <p>
+            Current through copper wire produces a magnetic field that moves an armature and changes contacts.
+          </p>
+        </article>
+
+        <article class="card device-card">
+          <h3>Motor winding</h3>
+          <p>
+            Current in coils interacts with magnetic fields to produce torque.
+          </p>
+        </article>
+
+        <article class="card device-card">
+          <h3>Flyback diode</h3>
+          <p>
+            When coil current stops, the collapsing magnetic field creates a voltage spike.
+            A flyback diode gives that current a safe path.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>10. Bench experiments for Klins</h2>
+        <p>Projects for connecting fields, charge, and transistor behavior.</p>
+      </div>
+
+      <div class="path">
+        <article class="path-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>LED with NPN low-side switching</h3>
+            <p>Use a GPIO pin, base resistor, NPN transistor, LED, and load resistor. Measure base, collector, and emitter voltages.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>Relay driver with flyback diode</h3>
+            <p>Drive a relay coil through an NPN transistor and observe why the diode is placed across the coil.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>Cutoff versus saturation</h3>
+            <p>Change the base resistor and compare collector-emitter voltage and load current.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>Current gain experiment</h3>
+            <p>Measure base current and collector current in the active region and compare their ratio.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>GPIO protection study</h3>
+            <p>Compare direct load driving with transistor isolation and explain why the transistor protects the controller pin.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        Circuits make sense when you keep two pictures in mind at once:
+        particles drift through materials, while fields establish forces and transfer energy quickly.
+        NPN transistors are a perfect example—small changes at one junction reshape the field conditions
+        and control a much larger current elsewhere.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Electron motion and NPN transistor lesson
+  </footer>
+</body>
+</html>
