@@ -1,0 +1,933 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 6 in Klins' History of the Transistor course: how Bell Labs transformed the first fragile transistor into a reliable, repeatable, manufacturable component.">
+
+  <title>Making It Work in the Real World | History of the Transistor</title>
+
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --blue-light: #e8f0f8;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --gold-light: #f2e2c3;
+      --amber: #b86922;
+      --green: #356a54;
+      --purple: #6d4a8d;
+      --red: #8e3e33;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 145px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(53, 106, 84, 0.13), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 740px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(53, 106, 84, 0.26);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(223,237,229,.68));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3.2rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .grid-5 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--green);
+      background: #e6f0ea;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .reliability-card { border-top: 4px solid var(--green); }
+    .manufacturing-card { border-top: 4px solid var(--blue); }
+    .characteristic-card { border-top: 4px solid var(--purple); }
+    .package-card { border-top: 4px solid var(--amber); }
+    .bench-card { border-top: 4px solid var(--red); }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(223, 237, 229, 0.72);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 850;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 1050px) {
+      .grid-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      html { scroll-padding-top: 190px; }
+
+      .header-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .course-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .grid-5 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item { grid-template-columns: 1fr; }
+
+      .lesson-nav { flex-direction: column; }
+
+      .lesson-nav a { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 06</span>
+      </div>
+
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#challenge">The Challenge</a>
+      <a href="#reliability">Reliability</a>
+      <a href="#manufacturing">Manufacturing</a>
+      <a href="#characteristics">Characteristics</a>
+      <a href="#packages">Packages</a>
+      <a href="#applications">Applications</a>
+      <a href="#bench">Your Bench</a>
+      <a href="#timeline">Milestones</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 6 · From Discovery to Device</p>
+        <h1>Making It Work in the Real World</h1>
+        <p class="hero-copy">
+          A lesson for Klins on the engineering transformation that followed the first transistor:
+          turning one fragile laboratory success into a reliable, measurable, repeatable,
+          packaged component that could be built in quantity and trusted inside real systems.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        discovery proves that something can happen.
+        Engineering creates the processes, controls, tests, and standards that make it happen again on demand.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster06.png" alt="Poster explaining how early transistors became reliable, manufacturable, packaged, tested, standardized, and useful in commercial equipment.">
+      <figcaption>
+        Course poster 6: the move from delicate experiment to dependable component.
+      </figcaption>
+    </figure>
+
+    <section id="challenge">
+      <div class="section-heading">
+        <h2>1. The challenge after discovery</h2>
+        <p>The first transistor worked, but it was not yet a product.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>It had to be reliable</h3>
+          <p>
+            A transistor had to continue working after hours, months, temperature changes,
+            vibration, handling, and normal circuit stress.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>It had to be reproducible</h3>
+          <p>
+            Two devices built from the same design needed to behave within predictable limits.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>It had to be manufacturable</h3>
+          <p>
+            The device needed a process that trained workers, fixtures, instruments,
+            and production lines could repeat in useful quantities.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>It had to survive packaging</h3>
+          <p>
+            The active crystal needed protection from contamination, moisture, shock, and broken connections.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>It had to be measurable</h3>
+          <p>
+            Gain, leakage, breakdown voltage, frequency response, and noise all had to be tested and specified.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>It had to be useful in circuits</h3>
+          <p>
+            Engineers needed standard leads, predictable biasing, and enough documentation to design around the component.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The key transition</h3>
+      <p>
+        The first transistor was a scientific event.
+        A practical transistor had to become an engineered object—something another person could purchase,
+        install, test, replace, and trust.
+      </p>
+    </div>
+
+    <section id="reliability">
+      <div class="section-heading">
+        <h2>2. Making reliability possible</h2>
+        <p>Every part of the device had to be controlled.</p>
+      </div>
+
+      <div class="grid-5">
+        <article class="card reliability-card">
+          <span class="tag">Pure materials</span>
+          <h3>Remove unwanted current paths</h3>
+          <p>
+            High-purity germanium and silicon reduced unpredictable behavior caused by contamination.
+          </p>
+        </article>
+
+        <article class="card reliability-card">
+          <span class="tag">Controlled doping</span>
+          <h3>Create the intended regions</h3>
+          <p>
+            Exact dopant concentrations produced repeatable electrical behavior.
+          </p>
+        </article>
+
+        <article class="card reliability-card">
+          <span class="tag">Clean junctions</span>
+          <h3>Control the microscopic boundary</h3>
+          <p>
+            Junction shape, cleanliness, and defect density strongly affected leakage and gain.
+          </p>
+        </article>
+
+        <article class="card reliability-card">
+          <span class="tag">Proper contacts</span>
+          <h3>Connect without damaging</h3>
+          <p>
+            Metal contacts had to produce low resistance without contaminating or cracking the semiconductor.
+          </p>
+        </article>
+
+        <article class="card reliability-card">
+          <span class="tag">Rugged packaging</span>
+          <h3>Protect the active device</h3>
+          <p>
+            Packaging shielded the transistor from handling, moisture, vibration, dust, and thermal stress.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="manufacturing">
+      <div class="section-heading">
+        <h2>3. Manufacturing became a system</h2>
+        <p>The practical transistor emerged from an organized chain, not one isolated breakthrough.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card manufacturing-card">
+          <h3>Research</h3>
+          <p>
+            Physicists and materials scientists established how the device should behave.
+          </p>
+        </article>
+
+        <article class="card manufacturing-card">
+          <h3>Process development</h3>
+          <p>
+            Engineers converted laboratory steps into controlled, documented methods.
+          </p>
+        </article>
+
+        <article class="card manufacturing-card">
+          <h3>Instrumentation</h3>
+          <p>
+            Test equipment measured tiny currents, gain, leakage, noise, and failure behavior.
+          </p>
+        </article>
+
+        <article class="card manufacturing-card">
+          <h3>Pilot production</h3>
+          <p>
+            Small production runs exposed hidden problems in repeatability, handling, and yield.
+          </p>
+        </article>
+
+        <article class="card manufacturing-card">
+          <h3>Reliability testing</h3>
+          <p>
+            Devices were stressed with heat, time, vibration, humidity, and electrical overload.
+          </p>
+        </article>
+
+        <article class="card manufacturing-card">
+          <h3>Full production</h3>
+          <p>
+            Statistical control and standardized procedures made performance consistent enough for commercial use.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">research → process development → measurement → pilot production → reliability testing → full production</div>
+    </section>
+
+    <div class="callout">
+      <h3>Manufacturing created knowledge</h3>
+      <p>
+        Building thousands of devices revealed patterns that a few laboratory samples could not.
+        Yield data, failure analysis, drift, and variation turned guesswork into process knowledge.
+      </p>
+    </div>
+
+    <section id="characteristics">
+      <div class="section-heading">
+        <h2>4. Transistor characteristics had to be controlled</h2>
+        <p>A usable part needed predictable limits, not merely transistor action.</p>
+      </div>
+
+      <div class="grid-5">
+        <article class="card characteristic-card">
+          <h3>Gain</h3>
+          <p>
+            Engineers needed to know how much collector current or output change resulted from the input.
+          </p>
+        </article>
+
+        <article class="card characteristic-card">
+          <h3>Leakage</h3>
+          <p>
+            Current that flowed when the device should be off had to remain small.
+          </p>
+        </article>
+
+        <article class="card characteristic-card">
+          <h3>Breakdown voltage</h3>
+          <p>
+            The transistor needed a defined maximum voltage beyond which it might fail.
+          </p>
+        </article>
+
+        <article class="card characteristic-card">
+          <h3>Frequency response</h3>
+          <p>
+            Devices had to maintain useful gain over the intended signal range.
+          </p>
+        </article>
+
+        <article class="card characteristic-card">
+          <h3>Noise</h3>
+          <p>
+            Random electrical fluctuations limited performance in sensitive amplifiers and receivers.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="packages">
+      <div class="section-heading">
+        <h2>5. Packaging turned a device into a component</h2>
+        <p>Standard packages made transistors easier to handle, identify, mount, and replace.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card package-card">
+          <span class="tag">Metal can</span>
+          <h3>Rugged and shielded</h3>
+          <p>
+            Metal-can packages protected the semiconductor and provided a durable standard form.
+          </p>
+        </article>
+
+        <article class="card package-card">
+          <span class="tag">Glass package</span>
+          <h3>Hermetically sealed</h3>
+          <p>
+            Glass packages kept moisture and contamination away from sensitive internal structures.
+          </p>
+        </article>
+
+        <article class="card package-card">
+          <span class="tag">Miniature package</span>
+          <h3>Smaller and lighter</h3>
+          <p>
+            Compact packages enabled portable radios, hearing aids, instrumentation, and dense circuit assemblies.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Why standardization mattered</h2>
+        <p>Electronics could scale only when components became predictable building blocks.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Known pin arrangements</h3>
+          <p>
+            Designers could connect emitter, base, and collector without inspecting the internal structure.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Published characteristics</h3>
+          <p>
+            Datasheets allowed engineers to choose bias resistors, voltage limits, loads, and operating regions.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Replaceable parts</h3>
+          <p>
+            A failed transistor could be swapped for another device of the same type instead of rebuilding the circuit.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="applications">
+      <div class="section-heading">
+        <h2>7. A world of new possibilities</h2>
+        <p>Reliable transistors unlocked applications that fragile laboratory devices never could.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Hearing aids</h3>
+          <p>
+            Small size and low power made wearable amplification practical.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Portable radios</h3>
+          <p>
+            Transistors replaced hot tubes and allowed radios to operate from small batteries.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Telephone systems</h3>
+          <p>
+            Reliable solid-state amplifiers improved long-distance communication and reduced maintenance.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Computers</h3>
+          <p>
+            Smaller, cooler switches allowed logic systems to grow without requiring rooms of vacuum tubes.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Space systems</h3>
+          <p>
+            Low weight, low power, vibration resistance, and fast startup made transistors essential for rockets, satellites, and spacecraft.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Medical instruments</h3>
+          <p>
+            Compact, reliable amplifiers improved monitoring, diagnostics, and portable devices.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="bench">
+      <div class="section-heading">
+        <h2>8. Connecting practical transistor engineering to your bench</h2>
+        <p>Your modern components inherit the manufacturing lessons of the 1950s.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card bench-card">
+          <h3>Your transistor has a datasheet</h3>
+          <p>
+            Gain range, current limits, saturation voltage, package, and pinout exist because the device has been standardized and tested.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your package protects the silicon</h3>
+          <p>
+            The black plastic or metal body shields a microscopic die and provides leads sturdy enough for real circuits.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your base resistor controls stress</h3>
+          <p>
+            A resistor limits base current and keeps the transistor and Raspberry Pi GPIO within safe operating conditions.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your flyback diode improves reliability</h3>
+          <p>
+            The diode across a relay coil protects the transistor from the voltage spike created when the magnetic field collapses.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your measurements verify the operating region</h3>
+          <p>
+            Base-emitter voltage, collector-emitter voltage, load current, and temperature show whether the device is in cutoff, active operation, or saturation.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your repeated builds are process development</h3>
+          <p>
+            Wiring diagrams, known resistor values, test points, and documented results turn one successful breadboard into a repeatable design.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>A bench-level version of industrialization</h3>
+      <p>
+        The first time your circuit works, you have a discovery.
+        When you can rebuild it, measure it, explain it, protect it, and hand the diagram to someone else,
+        you have begun engineering.
+      </p>
+    </div>
+
+    <section id="timeline">
+      <div class="section-heading">
+        <h2>9. Milestones along the way</h2>
+        <p>The practical transistor emerged through rapid refinement after 1947.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1947</div>
+          <div>
+            <h3>The first transistor works</h3>
+            <p>A fragile point-contact device proves that solid-state amplification is possible.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1948</div>
+          <div>
+            <h3>Improved materials and designs</h3>
+            <p>Researchers refine contacts, crystal preparation, and device geometry.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1949</div>
+          <div>
+            <h3>More stable and repeatable devices</h3>
+            <p>Better control of materials and fabrication reduces drift and variation.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1950</div>
+          <div>
+            <h3>Manufacturing methods improve</h3>
+            <p>Pilot production, standardized testing, and packaging move the transistor toward commercial use.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1951–1952</div>
+          <div>
+            <h3>Transistors enter commercial equipment</h3>
+            <p>Solid-state devices begin appearing in practical amplifiers and electronic products.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1953 onward</div>
+          <div>
+            <h3>Applications multiply</h3>
+            <p>Portable electronics, communication systems, computers, and instruments begin adopting transistors rapidly.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The first transistor was the discovery. Making it stable, packaged, testable, replaceable,
+        and manufacturable was the revolution. Science found the effect; engineering built the system around it.
+      </p>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="transistor-history-lesson05.html">← Lesson 05</a>
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Course Index</a>
+      <a href="#overview">Back to Top ↑</a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 06
+  </footer>
+</body>
+</html>
