@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 10 in Klins' History of the Transistor course: Bell Labs as an idea factory, its mission, interdisciplinary culture, hallway effect, chemistry and electronics connections, and how the environment helped make the transistor possible.">
+  <title>Bell Labs: The Factory of Ideas | History of the Transistor</title>
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --green: #356a54;
+      --green-light: #e6f0ea;
+      --purple: #6d4a8d;
+      --red: #8e3e33;
+      --amber: #b86922;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 145px; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(53, 106, 84, 0.13), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.6rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(53, 106, 84, 0.26);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(223,237,229,.68));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img { display: block; width: 100%; height: auto; }
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3.2rem 0; }
+    .section-heading { margin-bottom: 1.2rem; }
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+    .section-heading p { margin: 0; color: var(--muted); }
+
+    .grid-2, .grid-3, .grid-4 { display: grid; gap: 1.2rem; }
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+    .card h3 { margin: 0 0 0.55rem; color: var(--navy); font-size: 1.16rem; }
+    .card p { margin: 0; color: var(--muted); }
+    .card ul { margin: 0.75rem 0 0; padding-left: 1.2rem; }
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--green);
+      background: var(--green-light);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .culture-card { border-top: 4px solid var(--green); }
+    .discipline-card { border-top: 4px solid var(--blue); }
+    .winter-card { border-top: 4px solid var(--purple); }
+    .legacy-card { border-top: 4px solid var(--amber); }
+    .bench-card { border-top: 4px solid var(--red); }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(223, 237, 229, 0.72);
+    }
+    .callout h3 { margin: 0 0 0.5rem; color: var(--navy); }
+    .callout p { margin: 0; }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline { display: grid; gap: 0.85rem; }
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+    .timeline-date { color: var(--gold); font-weight: 850; }
+    .timeline-item h3 { margin: 0 0 0.25rem; color: var(--navy); font-size: 1.05rem; }
+    .timeline-item p { margin: 0; color: var(--muted); }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 680px) {
+      html { scroll-padding-top: 190px; }
+      .header-top { align-items: flex-start; flex-direction: column; }
+      .course-link { width: 100%; justify-content: center; }
+      .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+      .timeline-item { grid-template-columns: 1fr; }
+      .lesson-nav { flex-direction: column; }
+      .lesson-nav a { justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 10</span>
+      </div>
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#mission">Mission</a>
+      <a href="#disciplines">Disciplines</a>
+      <a href="#culture">Freedom to Explore</a>
+      <a href="#hallway">Hallway Effect</a>
+      <a href="#winter1947">Winter 1947</a>
+      <a href="#tree">Bell Labs Tree</a>
+      <a href="#bench">Your Bench</a>
+      <a href="#legacy">Legacy</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 10 · Bell Labs as an Idea Factory</p>
+        <h1>Bell Labs: The Factory of Ideas</h1>
+        <p class="hero-copy">
+          A lesson for Klins on the place behind the transistor story. This poster is not mainly about one device.
+          It is about an environment—an organization intentionally designed so smart people from different disciplines
+          could collide, collaborate, test ideas, and gradually produce breakthroughs that changed the world.
+        </p>
+      </div>
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        the transistor did not spring from one isolated genius. It emerged from a system that connected mission,
+        disciplines, curiosity, hallway conversations, chemistry, mathematics, engineering, and practical testing.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster10.png" alt="Poster showing Bell Labs as a factory of ideas, including its mission, disciplines, hallway effect, winter 1947 team, Bell Labs tree, chemistry and electronics connections, and legacy.">
+      <figcaption>
+        Course poster 10: Bell Labs as the environment that made the transistor and many other breakthroughs possible.
+      </figcaption>
+    </figure>
+
+    <section id="mission">
+      <div class="section-heading">
+        <h2>1. The mission: solve real problems</h2>
+        <p>Bell Labs existed inside a practical system with enormous technical challenges.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card culture-card">
+          <h3>The Bell System needed answers</h3>
+          <p>
+            The telephone network connected millions of people, but large systems bring stubborn problems:
+            weak amplification, noisy switching, distortion, long-distance loss, and reliability issues.
+          </p>
+        </article>
+        <article class="card culture-card">
+          <h3>Problems drove discovery</h3>
+          <p>
+            Bell Labs did not begin with "let's invent a transistor." It began with "what stands in the way of better communication?"
+          </p>
+        </article>
+        <article class="card culture-card">
+          <h3>Applications followed understanding</h3>
+          <p>
+            Solve the important problem first. The device, system, and industry consequences can come later.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="disciplines">
+      <div class="section-heading">
+        <h2>2. The disciplines: different questions, one goal</h2>
+        <p>The poster emphasizes that Bell Labs worked because multiple kinds of minds were gathered together.</p>
+      </div>
+      <div class="grid-4">
+        <article class="card discipline-card">
+          <span class="tag">Physics</span>
+          <h3>Understanding electrons and fields</h3>
+          <p>Physics explained how solids, electrons, junctions, and signals behaved.</p>
+        </article>
+        <article class="card discipline-card">
+          <span class="tag">Chemistry</span>
+          <h3>Purity, crystals, and doping</h3>
+          <p>Chemistry made it possible to purify materials, grow crystals, and control doping.</p>
+        </article>
+        <article class="card discipline-card">
+          <span class="tag">Engineering</span>
+          <h3>Turning ideas into working systems</h3>
+          <p>Engineering asked whether the idea could survive the real world and be built reliably.</p>
+        </article>
+        <article class="card discipline-card">
+          <span class="tag">Mathematics</span>
+          <h3>Models, signals, and abstraction</h3>
+          <p>Mathematics helped organize theory, measurement, prediction, and complex system design.</p>
+        </article>
+      </div>
+
+      <div class="callout">
+        <h3>Why this matters</h3>
+        <p>
+          Big breakthroughs usually do not belong to one discipline. They happen at the seam where different ways of thinking meet.
+          Bell Labs created those seams on purpose.
+        </p>
+      </div>
+    </section>
+
+    <section id="culture">
+      <div class="section-heading">
+        <h2>3. Freedom to explore</h2>
+        <p>The poster presents Bell Labs as a place where researchers had room to follow hunches.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card culture-card">
+          <h3>Time for strange ideas</h3>
+          <p>
+            Bell Labs did not demand that every path show immediate profit. That gave room for experiments that looked uncertain at first.
+          </p>
+        </article>
+        <article class="card culture-card">
+          <h3>Investigation over premature certainty</h3>
+          <p>
+            Researchers could test what the material really did instead of forcing the answer to match old expectations.
+          </p>
+        </article>
+        <article class="card culture-card">
+          <h3>Discovery grows from patience</h3>
+          <p>
+            Not every path leads to a device, but every discovery starts somewhere. Bell Labs accepted that reality.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="hallway">
+      <div class="section-heading">
+        <h2>4. The hallway effect</h2>
+        <p>Some of the most important thinking happened in conversation, not in formal meetings.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card winter-card">
+          <h3>Idea collisions</h3>
+          <p>
+            The famous long corridors at Murray Hill increased accidental contact. One person carried a question. Another carried a clue.
+            A hallway conversation could push an experiment in a new direction.
+          </p>
+        </article>
+        <article class="card winter-card">
+          <h3>From "what if" to "let's test it"</h3>
+          <p>
+            The poster's sequence captures the Bell Labs rhythm: notice something, wonder about it, challenge it, purify it, and test it.
+            Conversation was not fluff. It was part of the research mechanism.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">question → hallway conversation → experiment → measurement → new question → better experiment</div>
+    </section>
+
+    <section id="winter1947">
+      <div class="section-heading">
+        <h2>5. Winter, 1947</h2>
+        <p>A small group, a difficult problem, and a world-changing moment approaching.</p>
+      </div>
+      <div class="grid-4">
+        <article class="card winter-card">
+          <span class="tag">William Shockley</span>
+          <h3>Theorist and organizer</h3>
+          <p>He pushed the solid-state amplifier problem and helped shape the research direction.</p>
+        </article>
+        <article class="card winter-card">
+          <span class="tag">John Bardeen</span>
+          <h3>Deep physical insight</h3>
+          <p>He brought crucial understanding of surfaces, electrons, and what the material was really doing.</p>
+        </article>
+        <article class="card winter-card">
+          <span class="tag">Walter Brattain</span>
+          <h3>Experimental skill</h3>
+          <p>He excelled at careful laboratory work and translating ideas into physical tests.</p>
+        </article>
+        <article class="card winter-card">
+          <span class="tag">The Group</span>
+          <h3>A team, not a myth</h3>
+          <p>The transistor story becomes clearer when seen as a coordinated effort rather than a lone-hero tale.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="tree">
+      <div class="section-heading">
+        <h2>6. The Bell Labs tree</h2>
+        <p>The transistor was one branch of a much larger organism.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card legacy-card">
+          <h3>The roots</h3>
+          <p>
+            Physics, chemistry, mathematics, and engineering formed the root system. Without those roots, the visible breakthroughs could not grow.
+          </p>
+        </article>
+        <article class="card legacy-card">
+          <h3>The trunk</h3>
+          <p>
+            The organizational culture—curiosity, collaboration, persistence, and institutional support—acted as the trunk holding it all together.
+          </p>
+        </article>
+        <article class="card legacy-card">
+          <h3>The branches</h3>
+          <p>
+            The poster names multiple branches: transistor, laser, information theory, solar cell, UNIX, digital computing, CCD imaging, C language, and more.
+          </p>
+        </article>
+      </div>
+
+      <div class="callout">
+        <h3>A useful way to think about it</h3>
+        <p>
+          The transistor was not just an invention. It was evidence that Bell Labs had learned how to grow inventions.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Chemistry connection</h2>
+        <p>The poster rightly gives chemistry its own box because the transistor would not exist without materials control.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Purity mattered</h3>
+          <p>
+            Semiconductor behavior is exquisitely sensitive. Impurities in the wrong place can ruin the effect researchers are trying to produce.
+          </p>
+        </article>
+        <article class="card">
+          <h3>Doping and crystal growth</h3>
+          <p>
+            The chemistry of germanium and silicon—purity, crystal structure, and carefully introduced dopants—made controlled solid-state behavior possible.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="bench">
+      <div class="section-heading">
+        <h2>8. Electronics connection: from Bell Labs to your bench</h2>
+        <p>The poster closes the loop beautifully by connecting those hallways to the devices on your workbench.</p>
+      </div>
+      <div class="grid-4">
+        <article class="card bench-card">
+          <h3>Vacuum tube</h3>
+          <p>The older amplification world Bell Labs was trying to improve upon.</p>
+        </article>
+        <article class="card bench-card">
+          <h3>Transistor</h3>
+          <p>The first solid-state breakthrough that changed the trajectory of electronics.</p>
+        </article>
+        <article class="card bench-card">
+          <h3>Integrated circuit</h3>
+          <p>Many transistors working together on one chip, leading to modern systems.</p>
+        </article>
+        <article class="card bench-card">
+          <h3>ESP32 on your bench</h3>
+          <p>A tiny descendant of this history, carrying in one package what once required rooms of hardware and decades of discovery.</p>
+        </article>
+      </div>
+
+      <div class="flow-box">Bell Labs culture → transistor → integrated circuit → microprocessor → ESP32 / Raspberry Pi / your bench projects</div>
+    </section>
+
+    <section id="legacy">
+      <div class="section-heading">
+        <h2>9. The legacy</h2>
+        <p>Bell Labs proved that the right environment can multiply intelligence.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card legacy-card">
+          <h3>It changed the modern world</h3>
+          <p>
+            The transistor was just the beginning. Bell Labs helped define communications, computing, materials science, and modern electronics.
+          </p>
+        </article>
+        <article class="card legacy-card">
+          <h3>It offers a model</h3>
+          <p>
+            Great work needs mission, tools, patience, open doors, conversation, and interdisciplinary contact.
+          </p>
+        </article>
+        <article class="card legacy-card">
+          <h3>It matters for your own learning</h3>
+          <p>
+            Klins, one lesson here is that a learning ecosystem matters. Your posters, notes, bench, Pi, ESP32, and linked lessons are not separate things—they are your own small idea factory.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>10. Practical takeaways for Klins</h2>
+        <p>This poster is really about how discovery environments are built.</p>
+      </div>
+      <div class="grid-2">
+        <article class="card">
+          <h3>Build channels for idea collisions</h3>
+          <ul>
+            <li>Keep notes visible.</li>
+            <li>Let chemistry, electronics, computing, and history speak to one another.</li>
+            <li>Return to unfinished questions instead of forcing quick closure.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Treat your bench as a small Bell Labs</h3>
+          <ul>
+            <li>Use the Raspberry Pi, ESP32, sensors, and posters as interacting parts of one system.</li>
+            <li>Let experiments feed documentation and documentation feed new experiments.</li>
+            <li>Preserve room for play, because play is often disguised research.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>11. A short timeline behind the atmosphere</h2>
+        <p>The poster spans an institutional story, not just a technical one.</p>
+      </div>
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1920s–1930s</div>
+          <div>
+            <h3>Bell Labs grows into a research powerhouse</h3>
+            <p>Telephony problems create a steady stream of practical challenges requiring deep scientific work.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-date">1930s–1940s</div>
+          <div>
+            <h3>Disciplines converge</h3>
+            <p>Physics, chemistry, mathematics, and engineering increasingly interact around shared problems.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-date">Winter 1947</div>
+          <div>
+            <h3>The solid-state group nears a breakthrough</h3>
+            <p>Surface effects, material purity, and experimental insight begin to line up.</p>
+          </div>
+        </article>
+        <article class="timeline-item">
+          <div class="timeline-date">After 1947</div>
+          <div>
+            <h3>The idea factory keeps producing</h3>
+            <p>The transistor becomes one major branch in a much larger Bell Labs legacy.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Final thought</h3>
+      <p>
+        The transistor was invented in a laboratory, but it was born from a culture. Poster 10 helps you see the invisible part of innovation:
+        the place, the disciplines, the conversations, and the structure that make breakthroughs possible.
+      </p>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="transistor-history-lesson09.html">← Lesson 09</a>
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Course Index</a>
+      <a href="#overview">Back to Top ↑</a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 10
+  </footer>
+</body>
+</html>
