@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal lesson for Klins on logic gates, Boolean algebra, their history, practical uses, and modern digital implementation.">
+
+  <title>Logic Gates | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(61, 111, 168, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(211, 154, 47, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,228,191,.56));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong {
+      color: var(--navy);
+    }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section {
+      margin: 3rem 0;
+    }
+
+    .section-heading {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .gate {
+      display: flex;
+      flex-direction: column;
+      min-height: 100%;
+    }
+
+    .gate-label {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--blue-light);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .truth-table {
+      width: 100%;
+      margin-top: 1rem;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+      text-align: center;
+    }
+
+    .truth-table th,
+    .truth-table td {
+      padding: 0.45rem;
+      border: 1px solid var(--border);
+    }
+
+    .truth-table th {
+      color: var(--navy);
+      background: var(--blue-light);
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(244, 228, 191, 0.62);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p {
+      margin: 0;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.9rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 150px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 800;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .bench-flow {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    .exercise {
+      border-top: 4px solid var(--green);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Digital Electronics · Boolean Logic · Computing</p>
+        <h1>Logic Gates</h1>
+        <p class="hero-copy">
+          A lesson for Klins on how simple true-or-false decisions become circuits,
+          how those circuits became modern computers, and how the same ideas appear
+          on the Raspberry Pi bench today.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        a logic gate is a physical circuit that performs a rule. It receives one or more
+        electrical inputs, interprets them as LOW or HIGH, and produces an output according
+        to Boolean logic. Complex digital systems are built by combining enormous numbers of these simple rules.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="image_008.png" alt="Poster showing logic gates, Boolean operations, truth tables, common IC packages, universal gates, and practical examples.">
+      <figcaption>
+        Reference poster: basic logic gates, their truth tables, Boolean relationships, and common integrated circuits.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. Binary is a physical agreement</h2>
+        <p>Digital logic begins by dividing electrical conditions into two useful states.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>LOW</h3>
+          <p>
+            LOW is interpreted as 0, false, off, or inactive. It is usually represented by a voltage near ground.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>HIGH</h3>
+          <p>
+            HIGH is interpreted as 1, true, on, or active. It is represented by a voltage above a defined threshold.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Thresholds matter</h3>
+          <p>
+            Real circuits do not see perfect mathematical zeros and ones. They see voltages. A logic family defines
+            which voltage ranges count as LOW, HIGH, or uncertain.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Bench connection</h3>
+      <p>
+        When we set a Raspberry Pi GPIO pin to HIGH, software is not creating an abstract truth by itself.
+        It is commanding transistor circuitry inside the processor to produce a voltage. That voltage can drive
+        another logic input, an LED through a resistor, or the control side of a relay interface.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. The essential gates</h2>
+        <p>Each gate answers a different kind of question.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card gate">
+          <span class="gate-label">NOT</span>
+          <h3>Invert the input</h3>
+          <p>If the input is 0, the output is 1. If the input is 1, the output is 0.</p>
+          <table class="truth-table">
+            <tr><th>A</th><th>Y</th></tr>
+            <tr><td>0</td><td>1</td></tr>
+            <tr><td>1</td><td>0</td></tr>
+          </table>
+        </article>
+
+        <article class="card gate">
+          <span class="gate-label">AND</span>
+          <h3>Require every condition</h3>
+          <p>The output becomes 1 only when all required inputs are 1.</p>
+          <table class="truth-table">
+            <tr><th>A</th><th>B</th><th>Y</th></tr>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>0</td><td>1</td><td>0</td></tr>
+            <tr><td>1</td><td>0</td><td>0</td></tr>
+            <tr><td>1</td><td>1</td><td>1</td></tr>
+          </table>
+        </article>
+
+        <article class="card gate">
+          <span class="gate-label">OR</span>
+          <h3>Accept any condition</h3>
+          <p>The output becomes 1 when at least one input is 1.</p>
+          <table class="truth-table">
+            <tr><th>A</th><th>B</th><th>Y</th></tr>
+            <tr><td>0</td><td>0</td><td>0</td></tr>
+            <tr><td>0</td><td>1</td><td>1</td></tr>
+            <tr><td>1</td><td>0</td><td>1</td></tr>
+            <tr><td>1</td><td>1</td><td>1</td></tr>
+          </table>
+        </article>
+
+        <article class="card gate">
+          <span class="gate-label">NAND</span>
+          <h3>AND, then invert</h3>
+          <p>The output is 0 only when every input is 1. NAND is a universal gate.</p>
+        </article>
+
+        <article class="card gate">
+          <span class="gate-label">NOR</span>
+          <h3>OR, then invert</h3>
+          <p>The output is 1 only when every input is 0. NOR is also a universal gate.</p>
+        </article>
+
+        <article class="card gate">
+          <span class="gate-label">XOR</span>
+          <h3>Detect a difference</h3>
+          <p>The output becomes 1 when the inputs are different. XOR is central to addition, comparison, and parity checks.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. Examples of use</h2>
+        <p>Logic gates turn combinations of conditions into decisions.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Safety interlock</h3>
+          <p>
+            A machine may run only when the guard is closed <strong>AND</strong> the start button is pressed.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Alarm system</h3>
+          <p>
+            An alarm may trigger if the door sensor <strong>OR</strong> the window sensor becomes active.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Mismatch detector</h3>
+          <p>
+            An <strong>XOR</strong> gate can indicate that two signals disagree, which is useful in checking data or comparing states.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Relay permission rule</h3>
+          <p>
+            The Pi may energize a relay only if a sensor is active <strong>AND</strong> the manual-enable input is true.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Two-way conditions</h3>
+          <p>
+            A light can turn on when switch A <strong>OR</strong> switch B is active, even if the switches are far apart.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Memory and state</h3>
+          <p>
+            Cross-coupled NAND or NOR gates can form a latch, allowing a circuit to remember one bit even after the original input changes.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. How logic gates developed</h2>
+        <p>The rules stayed simple while the physical machinery changed dramatically.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1840s</div>
+          <div>
+            <h3>Boolean algebra</h3>
+            <p>
+              George Boole developed a mathematical system built around true and false relationships.
+              At the time, it was abstract mathematics rather than electronics.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1930s</div>
+          <div>
+            <h3>Logic meets switching circuits</h3>
+            <p>
+              Claude Shannon showed that Boolean algebra could describe relay switching networks.
+              This connected mathematical logic to real electrical systems.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1940s</div>
+          <div>
+            <h3>Relays and vacuum tubes</h3>
+            <p>
+              Early digital computers used electromechanical relays and then vacuum tubes to perform logic.
+              They worked, but they were large, hot, power-hungry, and prone to failure.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1950s</div>
+          <div>
+            <h3>Transistor logic</h3>
+            <p>
+              Transistors replaced vacuum tubes. They were smaller, faster, cooler, and more reliable,
+              making practical digital electronics much easier to build.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1960s–1970s</div>
+          <div>
+            <h3>Integrated circuits</h3>
+            <p>
+              Multiple transistors and gates were manufactured together on one chip. Families such as TTL
+              became standard building blocks, including familiar packages like the 7400 series.
+            </p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">Today</div>
+          <div>
+            <h3>Billions of gates on a chip</h3>
+            <p>
+              Modern processors use extremely small MOSFET transistors arranged into CMOS logic.
+              Billions of transistors cooperate to form gates, memory, arithmetic units, communication systems, and processors.
+            </p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. How gates are achieved today</h2>
+        <p>Most modern digital logic is built from MOSFET transistors using CMOS design.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Transistors act as controlled switches</h3>
+          <p>
+            A transistor uses one electrical signal to control whether current can flow through another path.
+            Arranged carefully, transistors reproduce the truth table of a NOT, AND, OR, NAND, NOR, or XOR gate.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>CMOS uses complementary devices</h3>
+          <p>
+            CMOS combines two transistor types so that one network pulls the output upward while another pulls it downward.
+            This arrangement gives strong digital states and low static power consumption.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Software describes hardware</h3>
+          <p>
+            Engineers often design logic using hardware-description languages such as Verilog or VHDL.
+            The design is synthesized into gate networks for FPGAs or custom chips.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Microcontrollers hide the gates</h3>
+          <p>
+            The Raspberry Pi, ESP32, and Arduino expose simple functions such as reading a pin or setting an output,
+            but those functions are executed by vast networks of logic gates inside the processor.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The modern shift</h3>
+      <p>
+        We rarely wire thousands of physical gates by hand now. Instead, we use integrated circuits,
+        programmable logic, microcontrollers, and software. The gate-level logic is still present,
+        but it has been packaged into larger and more convenient layers.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Projects for our bench</h2>
+        <p>These experiments connect the poster directly to the Raspberry Pi, ESP32, breadboard, LEDs, switches, and relays.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card exercise">
+          <h3>Two-switch AND circuit</h3>
+          <p>
+            Wire two pushbuttons so an LED turns on only when both are pressed.
+            First build it physically, then duplicate the same rule in Python using two GPIO inputs.
+          </p>
+        </article>
+
+        <article class="card exercise">
+          <h3>Two-switch OR circuit</h3>
+          <p>
+            Build a circuit in which either switch can light the LED. Compare the hardware path with a software statement using <code>or</code>.
+          </p>
+        </article>
+
+        <article class="card exercise">
+          <h3>NOT gate with a transistor</h3>
+          <p>
+            Use a transistor and resistor network so that a HIGH input produces a LOW output.
+            This makes inversion visible as an electrical action rather than only a truth table.
+          </p>
+        </article>
+
+        <article class="card exercise">
+          <h3>NAND-only challenge</h3>
+          <p>
+            Use several NAND gates from a 74HC00 chip to construct NOT, AND, and OR behavior.
+            This demonstrates why NAND is called universal.
+          </p>
+        </article>
+
+        <article class="card exercise">
+          <h3>Relay permission controller</h3>
+          <p>
+            Let the relay activate only when a motion sensor is active AND a manual-enable switch is on.
+            This combines sensing, logic, and control.
+          </p>
+        </article>
+
+        <article class="card exercise">
+          <h3>One-bit memory latch</h3>
+          <p>
+            Build an SR latch with NAND or NOR gates. Press one button to set the output and another to reset it.
+            The circuit remembers its state.
+          </p>
+        </article>
+      </div>
+
+      <div class="bench-flow">
+switches / sensors → GPIO or logic IC → Boolean decision → LED / relay / log entry / web display
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Logic in code and logic in hardware</h2>
+        <p>The same rule can exist in different physical forms.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Hardware logic</h3>
+          <p>
+            The result appears because voltages move through transistor networks. It is immediate,
+            parallel, and does not require a program loop.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Software logic</h3>
+          <p>
+            A processor reads values, executes instructions, and calculates the result.
+            The code appears abstract, but the processor performs every step through physical logic gates.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        Logic gates are where electrical engineering and reasoning meet. A condition such as “both switches must be on”
+        can be written as Boolean algebra, expressed in Python, drawn as a gate diagram, or built from transistors.
+        These are not separate ideas. They are different representations of the same rule.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Digital logic and electronics lesson
+  </footer>
+</body>
+</html>
