@@ -1,0 +1,898 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 11 in Klins' History of the Transistor course: the global scientific community behind the transistor, quantum mechanics, immigration, chemistry, women in science, human computers, and the worldwide flow of knowledge into Bell Labs.">
+
+  <title>The Global Scientific Community | History of the Transistor</title>
+
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --green: #356a54;
+      --green-light: #e6f0ea;
+      --purple: #6d4a8d;
+      --red: #8e3e33;
+      --amber: #b86922;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 145px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(200, 139, 49, 0.13), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.65rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.22rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(200, 139, 49, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(242,226,195,.62));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3.2rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .grid-5 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--amber);
+      background: #f4e5ca;
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .quantum-card { border-top: 4px solid var(--blue); }
+    .global-card { border-top: 4px solid var(--gold); }
+    .chemistry-card { border-top: 4px solid var(--green); }
+    .people-card { border-top: 4px solid var(--purple); }
+    .legacy-card { border-top: 4px solid var(--amber); }
+    .bench-card { border-top: 4px solid var(--red); }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(242, 226, 195, 0.65);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 145px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 850;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 1050px) {
+      .grid-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      html { scroll-padding-top: 190px; }
+
+      .header-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .course-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .grid-5 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item { grid-template-columns: 1fr; }
+
+      .lesson-nav { flex-direction: column; }
+
+      .lesson-nav a { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 11</span>
+      </div>
+
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#quantum">Quantum Roots</a>
+      <a href="#global">Ideas Cross Borders</a>
+      <a href="#chemistry">Chemistry Builds the Crystal</a>
+      <a href="#immigration">Immigration & Knowledge</a>
+      <a href="#human-computers">Human Computers</a>
+      <a href="#women">Women in Science</a>
+      <a href="#river">Bell Labs Receives the River</a>
+      <a href="#bench">Your Bench</a>
+      <a href="#legacy">Legacy</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 11 · The Many Minds Behind the Transistor</p>
+        <h1>The Global Scientific Community</h1>
+        <p class="hero-copy">
+          A lesson for Klins on the worldwide human network behind the transistor.
+          The device appeared at Bell Labs, but its roots stretched across countries, generations,
+          universities, laboratories, wars, migrations, disciplines, and thousands of people whose names rarely appear in the simplified story.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        the transistor was invented in one laboratory, but it was built from knowledge gathered across the world.
+        Ideas traveled farther than the people who first carried them.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster11.png" alt="Poster explaining the global scientific community behind the transistor, including quantum mechanics, international collaboration, chemistry, migration, human computers, women in science, Bell Labs, and the legacy of modern electronics.">
+      <figcaption>
+        Course poster 11: the global scientific community whose accumulated knowledge made the transistor possible.
+      </figcaption>
+    </figure>
+
+    <section id="quantum">
+      <div class="section-heading">
+        <h2>1. Quantum mechanics is born</h2>
+        <p>Before anyone could design a transistor, scientists had to understand matter at a much smaller scale.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card quantum-card">
+          <span class="tag">Max Planck</span>
+          <h3>Quantized energy</h3>
+          <p>
+            Planck's work introduced the idea that energy could come in discrete amounts rather than changing only as a smooth continuum.
+          </p>
+        </article>
+
+        <article class="card quantum-card">
+          <span class="tag">Niels Bohr</span>
+          <h3>Atomic structure</h3>
+          <p>
+            Bohr developed an early atomic model that helped connect electron arrangement with the behavior of matter.
+          </p>
+        </article>
+
+        <article class="card quantum-card">
+          <span class="tag">Erwin Schrödinger</span>
+          <h3>Wave mechanics</h3>
+          <p>
+            Schrödinger's work helped describe electrons as quantum states distributed through space rather than tiny planets on fixed tracks.
+          </p>
+        </article>
+
+        <article class="card quantum-card">
+          <span class="tag">Werner Heisenberg</span>
+          <h3>Uncertainty and quantum behavior</h3>
+          <p>
+            Heisenberg helped establish the mathematical structure of quantum mechanics and the limits of classical intuition at atomic scales.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">quantum mechanics → semiconductor theory → controlled carrier motion → transistor</div>
+    </section>
+
+    <div class="callout">
+      <h3>Why this matters</h3>
+      <p>
+        Semiconductor theory did not emerge directly from telephone engineering.
+        It depended on decades of abstract physics that initially seemed far removed from practical electronics.
+      </p>
+    </div>
+
+    <section id="global">
+      <div class="section-heading">
+        <h2>2. Ideas crossed borders</h2>
+        <p>Knowledge moved through letters, journals, conferences, universities, laboratories, and migration.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card global-card">
+          <h3>Europe built much of the early theory</h3>
+          <p>
+            Researchers in Germany, Denmark, Sweden, Austria, and the United Kingdom contributed major pieces of quantum mechanics,
+            solid-state theory, crystal structure, and electron behavior.
+          </p>
+        </article>
+
+        <article class="card global-card">
+          <h3>The United States became a meeting place</h3>
+          <p>
+            American universities and laboratories received scientists, ideas, and methods from many parts of the world.
+          </p>
+        </article>
+
+        <article class="card global-card">
+          <h3>Bell Labs became a convergence point</h3>
+          <p>
+            Murray Hill did not create all the knowledge itself. It became the place where many streams of knowledge could finally meet around one difficult problem.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. War, persecution, and political turmoil</h2>
+        <p>The scientific map was shaped not only by curiosity, but also by human displacement.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card global-card">
+          <h3>Scientists were forced to move</h3>
+          <p>
+            Political persecution and war drove many researchers from their homes, especially in Europe during the 1930s and 1940s.
+          </p>
+        </article>
+
+        <article class="card global-card">
+          <h3>Knowledge moved with them</h3>
+          <p>
+            A scientist may leave a country, but carries training, techniques, questions, and intellectual networks into the next institution.
+          </p>
+        </article>
+
+        <article class="card global-card">
+          <h3>New institutions became stronger</h3>
+          <p>
+            Universities and laboratories receiving displaced scholars gained knowledge that later contributed to physics, electronics, radar, computing, and materials science.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="chemistry">
+      <div class="section-heading">
+        <h2>4. Chemistry builds the crystal</h2>
+        <p>Physics explained what a semiconductor could do; chemistry made suitable material possible.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card chemistry-card">
+          <span class="tag">Purification</span>
+          <h3>Remove unwanted impurities</h3>
+          <p>
+            Semiconductor behavior can be altered by tiny contamination levels.
+            Purification had to reach extraordinary precision.
+          </p>
+        </article>
+
+        <article class="card chemistry-card">
+          <span class="tag">Crystal growth</span>
+          <h3>Create an ordered solid</h3>
+          <p>
+            Germanium and silicon had to be grown into controlled crystal lattices with very few defects.
+          </p>
+        </article>
+
+        <article class="card chemistry-card">
+          <span class="tag">Materials science</span>
+          <h3>Control surfaces and defects</h3>
+          <p>
+            Researchers needed to understand polishing, oxidation, junction formation, and how defects changed current flow.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>No pure crystal, no transistor</h3>
+      <p>
+        The transistor is a perfect example of theory depending on material reality.
+        The equations could be correct, but the device would still fail if the crystal was impure, damaged, or badly prepared.
+      </p>
+    </div>
+
+    <section id="immigration">
+      <div class="section-heading">
+        <h2>5. Immigration and knowledge</h2>
+        <p>People carried scientific traditions into new laboratories and universities.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card global-card">
+          <h3>New homes</h3>
+          <p>
+            Immigrants and refugees rebuilt their lives while continuing scientific work in unfamiliar countries.
+          </p>
+        </article>
+
+        <article class="card global-card">
+          <h3>New laboratories</h3>
+          <p>
+            Their knowledge strengthened research centers, teaching programs, and industrial laboratories.
+          </p>
+        </article>
+
+        <article class="card global-card">
+          <h3>New possibilities</h3>
+          <p>
+            Cross-border movement created combinations of expertise that might never have formed otherwise.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="human-computers">
+      <div class="section-heading">
+        <h2>6. The human computers</h2>
+        <p>Before digital computers, teams of people performed the calculations that made modern technology possible.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card people-card">
+          <h3>Trajectory calculations</h3>
+          <p>
+            Human computers calculated tables, trajectories, signal behavior, and engineering results by hand and with mechanical aids.
+          </p>
+        </article>
+
+        <article class="card people-card">
+          <h3>Slide rules and log tables</h3>
+          <p>
+            These tools compressed multiplication, division, powers, and logarithmic calculations into manageable workflows.
+          </p>
+        </article>
+
+        <article class="card people-card">
+          <h3>Mechanical calculators</h3>
+          <p>
+            Mechanical machines accelerated arithmetic but still depended on trained operators and organized procedures.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="women">
+      <div class="section-heading">
+        <h2>7. Women in science</h2>
+        <p>The poster restores attention to people whose work was often essential but under-credited.</p>
+      </div>
+
+      <div class="grid-5">
+        <article class="card people-card">
+          <span class="tag">Lise Meitner</span>
+          <h3>Nuclear physics pioneer</h3>
+          <p>Her work helped transform understanding of atomic structure and nuclear processes.</p>
+        </article>
+
+        <article class="card people-card">
+          <span class="tag">Mabel Macferran Rockwell</span>
+          <h3>Engineering and mathematics</h3>
+          <p>Representative of the many women whose technical work supported communications and scientific systems.</p>
+        </article>
+
+        <article class="card people-card">
+          <span class="tag">Shirley Jackson</span>
+          <h3>Physicist and Bell Labs researcher</h3>
+          <p>Her later career illustrates how Bell Labs continued to benefit from broadening participation in advanced science.</p>
+        </article>
+
+        <article class="card people-card">
+          <span class="tag">Maria Khon</span>
+          <h3>Mathematics and numerical analysis</h3>
+          <p>Mathematical labor and numerical methods formed part of the invisible infrastructure of modern engineering.</p>
+        </article>
+
+        <article class="card people-card">
+          <span class="tag">Ida Rhodes</span>
+          <h3>Mathematics and computation</h3>
+          <p>Her work represents the transition from hand computation toward programmable digital systems.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The broader point</h3>
+      <p>
+        The history of science becomes distorted when it is reduced to a few famous men.
+        Laboratories also depended on mathematicians, technicians, human computers, chemists, assistants, machinists, and organizers.
+      </p>
+    </div>
+
+    <section id="river">
+      <div class="section-heading">
+        <h2>8. Bell Labs receives the river</h2>
+        <p>The poster's river metaphor is one of its strongest ideas.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card legacy-card">
+          <h3>Many tributaries</h3>
+          <p>
+            Physics, chemistry, mathematics, engineering, and materials science each carried different forms of knowledge toward the same problem.
+          </p>
+        </article>
+
+        <article class="card legacy-card">
+          <h3>One convergence point</h3>
+          <p>
+            At Murray Hill, those streams entered a laboratory culture capable of combining them into a practical solid-state amplifier.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">physics + chemistry + mathematics + engineering + materials science → Bell Labs → transistor</div>
+    </section>
+
+    <section id="bench">
+      <div class="section-heading">
+        <h2>9. Connecting the global community to your bench</h2>
+        <p>Your projects are small, but they inherit a vast international history.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card bench-card">
+          <h3>Your transistor contains quantum theory</h3>
+          <p>
+            Every NPN transistor on your breadboard depends on quantum ideas developed long before the device existed.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your Raspberry Pi contains global industry</h3>
+          <p>
+            Its processor, memory, board fabrication, software, standards, and supply chain come from worldwide collaboration.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your ESP32 contains accumulated disciplines</h3>
+          <p>
+            Materials science, RF engineering, computer architecture, chemistry, fabrication, and software all meet inside one small module.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your learning library mirrors the same pattern</h3>
+          <p>
+            Chemistry lessons, electronics lessons, history lessons, bench notes, and software experiments become stronger when linked together.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your measurements continue the tradition</h3>
+          <p>
+            Using a meter, recording results, and comparing evidence places your work inside the same culture of tested knowledge.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>You are learning inside a network</h3>
+          <p>
+            Even when working alone at the bench, you are using ideas, tools, and conventions created by communities across generations.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="legacy">
+      <div class="section-heading">
+        <h2>10. A legacy that continues</h2>
+        <p>From these foundations came the systems now surrounding us.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card legacy-card">
+          <h3>Transistors and integrated circuits</h3>
+          <p>The direct technological descendants of semiconductor physics and materials control.</p>
+        </article>
+
+        <article class="card legacy-card">
+          <h3>Computers and the internet</h3>
+          <p>Digital systems scaled because transistor technology could scale.</p>
+        </article>
+
+        <article class="card legacy-card">
+          <h3>Modern electronics</h3>
+          <p>Phones, routers, laptops, sensors, microcontrollers, and embedded systems all carry this lineage.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>11. A concise historical sequence</h2>
+        <p>The global story is easier to remember as a chain.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1900s–1920s</div>
+          <div>
+            <h3>Quantum mechanics develops</h3>
+            <p>Planck, Bohr, Schrödinger, Heisenberg, and others reshape the understanding of matter.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1920s–1930s</div>
+          <div>
+            <h3>Solid-state and crystal theory deepen</h3>
+            <p>Researchers connect quantum ideas to the electrical behavior of solids.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1930s–1940s</div>
+          <div>
+            <h3>War and migration redistribute knowledge</h3>
+            <p>Scientists carry ideas into new universities, laboratories, and industrial research centers.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1940s</div>
+          <div>
+            <h3>Chemistry and materials science mature</h3>
+            <p>Pure germanium, silicon, crystal growth, doping, and better measurement become available.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1947</div>
+          <div>
+            <h3>The streams converge at Bell Labs</h3>
+            <p>The first working transistor appears from a global inheritance of theory, materials, labor, and experiment.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The transistor was not the product of one mind standing alone.
+        It was the visible result of a hidden network: teachers, refugees, chemists, mathematicians,
+        human computers, physicists, technicians, engineers, and institutions sharing knowledge across time and borders.
+      </p>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="transistor-history-lesson10.html">← Lesson 10</a>
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Course Index</a>
+      <a href="#overview">Back to Top ↑</a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 11
+  </footer>
+</body>
+</html>
