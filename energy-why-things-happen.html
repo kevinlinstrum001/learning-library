@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal chemistry lesson for Klins on energy landscapes, activation energy, molecular collisions, heat flow, batteries, combustion, and chemical energy.">
+
+  <title>Energy: Why Things Happen | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --orange: #c8671c;
+      --purple: #6d4a8d;
+      --red: #a64336;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(61, 111, 168, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(211, 154, 47, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,228,191,.56));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--orange);
+      background: #f8e9d9;
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(244, 228, 191, 0.62);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .energy-card { border-top: 4px solid var(--orange); }
+    .energy-card.heat { border-top-color: var(--red); }
+    .energy-card.battery { border-top-color: var(--purple); }
+    .energy-card.sun { border-top-color: var(--gold); }
+
+    .equation {
+      margin-top: 1rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .path {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .path-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .path-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Chemistry · Energy · Heat · Reactions</p>
+        <h1>Energy: Why Things Happen</h1>
+        <p class="hero-copy">
+          A lesson for Klins on why matter changes, why reactions need a push,
+          how heat and chemical energy move, and how energy connects the Sun, plants, food,
+          batteries, electronics, and the work done on our bench.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        matter tells us what the universe is made of.
+        Energy tells us why that matter moves, reacts, transforms, heats, cools, glows, and does work.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="energy-why-things-happen.png" alt="Poster explaining energy landscapes, activation energy, molecular collisions, heat transfer, batteries, combustion, and solar energy.">
+      <figcaption>
+        Reference poster: how energy drives chemical reactions and links stars, life, heat, electricity, and motion.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. Energy landscapes</h2>
+        <p>Systems often move toward lower-energy, more stable arrangements.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">Potential energy</span>
+          <h3>Stored possibility</h3>
+          <p>
+            A system can store energy because of position, composition, or arrangement.
+            Chemical bonds, raised objects, compressed springs, and charged batteries all store potential energy.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Lower-energy state</span>
+          <h3>More stable arrangement</h3>
+          <p>
+            Just as a ball tends to roll downhill, chemical systems often move toward arrangements with lower energy.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Energy release</span>
+          <h3>The difference goes somewhere</h3>
+          <p>
+            When a system drops to a lower-energy state, the difference may appear as heat, light, sound, electricity, or motion.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>A useful image</h3>
+      <p>
+        Energy is like elevation on a landscape.
+        A system may be sitting on a hill, holding stored potential.
+        Once it finds a path downward, that stored potential becomes motion, heat, light, or some other form.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. Activation energy: the hill to climb</h2>
+        <p>A reaction may be favorable and still need an initial push.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card energy-card">
+          <h3>The barrier</h3>
+          <p>
+            Reactants must first reach a high-energy transition state before old bonds can break and new bonds can form.
+            The required minimum is called activation energy.
+          </p>
+        </article>
+
+        <article class="card energy-card">
+          <h3>The trigger</h3>
+          <p>
+            Heat, a spark, light, friction, or another reaction can provide the energy needed to cross the barrier.
+          </p>
+        </article>
+      </div>
+
+      <div class="equation">reactants + activation energy → transition state → products + released or absorbed energy</div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. Molecular collisions</h2>
+        <p>Particles must collide with enough energy and the right orientation.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Too little energy</h3>
+          <p>
+            Molecules collide and separate without rearranging because the impact cannot overcome the activation barrier.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Wrong orientation</h3>
+          <p>
+            Even an energetic collision may fail if the reactive parts of the molecules are not aligned properly.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Successful collision</h3>
+          <p>
+            The right energy and orientation allow bonds to change and products to form.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. Heat is energy in motion</h2>
+        <p>Heat describes energy transferred because of a temperature difference.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card energy-card heat">
+          <h3>Warmer to cooler</h3>
+          <p>
+            Thermal energy naturally flows from a warmer object toward a cooler one until they approach thermal equilibrium.
+          </p>
+        </article>
+
+        <article class="card energy-card heat">
+          <h3>Thermal images</h3>
+          <p>
+            Infrared cameras reveal surface temperature differences, making otherwise invisible energy flow visible.
+          </p>
+        </article>
+
+        <article class="card energy-card heat">
+          <h3>Electronics produce heat</h3>
+          <p>
+            Current moving through resistance converts electrical energy into thermal energy.
+            This is why processors, regulators, motors, and resistors warm during operation.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. The roller-coaster analogy</h2>
+        <p>Energy changes form while the total remains accounted for.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>At the top</h3>
+          <p>
+            The roller coaster has more gravitational potential energy because of its height.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>At the bottom</h3>
+          <p>
+            Much of that potential energy has become kinetic energy.
+            Friction also transforms some into heat and sound.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Conservation does not mean nothing changes</h3>
+      <p>
+        Energy is conserved, but it is constantly transformed.
+        Stored energy becomes motion, motion becomes heat, chemical energy becomes electricity,
+        and light becomes chemical energy in plants.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Batteries: chemistry that drives electricity</h2>
+        <p>A battery converts chemical potential energy into electrical energy.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card energy-card battery">
+          <h3>Chemical separation</h3>
+          <p>
+            Reactions inside the battery create a difference in electrical potential between its terminals.
+          </p>
+        </article>
+
+        <article class="card energy-card battery">
+          <h3>Electron flow</h3>
+          <p>
+            When a circuit is connected, electrons move through the external path and deliver energy to a load.
+          </p>
+        </article>
+
+        <article class="card energy-card battery">
+          <h3>Useful work</h3>
+          <p>
+            The electrical energy may become light in an LED, motion in a motor, sound in a speaker, or computation in a processor.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">chemical energy → electrical potential → electron flow → light / motion / heat / computation</div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Fire: chemistry plus heat and light</h2>
+        <p>Combustion rapidly releases stored chemical energy.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Candle</h3>
+          <p>Wax vapor reacts with oxygen and releases heat and light.</p>
+        </article>
+
+        <article class="card">
+          <h3>Magnesium</h3>
+          <p>Magnesium burns with intense light because the reaction releases energy rapidly.</p>
+        </article>
+
+        <article class="card">
+          <h3>Bunsen burner</h3>
+          <p>Different flame colors can reveal combustion conditions and chemical species.</p>
+        </article>
+
+        <article class="card">
+          <h3>Steel wool</h3>
+          <p>Finely divided iron reacts quickly with oxygen because of its large surface area.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. Energy in chemical equations</h2>
+        <p>Energy belongs in the reaction story even when it is not written explicitly.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Exothermic</h3>
+          <p>
+            If more energy is released when new bonds form than is required to break old bonds,
+            the reaction releases energy overall.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Endothermic</h3>
+          <p>
+            If more energy is required than released, the reaction absorbs energy from its surroundings.
+          </p>
+        </article>
+      </div>
+
+      <div class="equation">CH₄ + 2O₂ → CO₂ + 2H₂O + energy</div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>9. Real-world energy changes</h2>
+        <p>Energy transformations are everywhere.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Ice melting</h3>
+          <p>Absorbs heat as solid water becomes liquid.</p>
+        </article>
+
+        <article class="card">
+          <h3>Iron rusting</h3>
+          <p>Releases energy slowly during oxidation.</p>
+        </article>
+
+        <article class="card">
+          <h3>Digestion</h3>
+          <p>Breaks food molecules down and releases energy the body can use.</p>
+        </article>
+
+        <article class="card">
+          <h3>Explosions</h3>
+          <p>Release stored energy very rapidly, producing heat, gas expansion, light, and sound.</p>
+        </article>
+
+        <article class="card">
+          <h3>Photosynthesis</h3>
+          <p>Absorbs sunlight and stores it in chemical bonds.</p>
+        </article>
+
+        <article class="card">
+          <h3>Muscle activity</h3>
+          <p>Chemical energy becomes motion and heat.</p>
+        </article>
+
+        <article class="card">
+          <h3>Electric heating</h3>
+          <p>Electrical energy becomes thermal energy through resistance.</p>
+        </article>
+
+        <article class="card">
+          <h3>LED light</h3>
+          <p>Electrical energy becomes photons with relatively little wasted heat.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>10. The Sun: the ultimate energy source</h2>
+        <p>Much of Earth’s usable energy traces back to the Sun.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card energy-card sun">
+          <h3>Nuclear fusion</h3>
+          <p>
+            Hydrogen nuclei combine inside the Sun, and a small amount of mass becomes energy.
+          </p>
+        </article>
+
+        <article class="card energy-card sun">
+          <h3>Light reaches Earth</h3>
+          <p>
+            Solar energy travels through space as electromagnetic radiation.
+          </p>
+        </article>
+
+        <article class="card energy-card sun">
+          <h3>Life captures it</h3>
+          <p>
+            Plants store sunlight in chemical bonds.
+            Food, muscles, fuels, wind, and many forms of life activity ultimately depend on that energy flow.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>11. A learning path for Klins</h2>
+        <p>Use this sequence to connect chemistry, electronics, and energy systems.</p>
+      </div>
+
+      <div class="path">
+        <article class="path-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>Identify the stored energy</h3>
+            <p>Ask where the potential energy resides: chemical bonds, position, charge separation, pressure, or strain.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>Find the activation step</h3>
+            <p>Ask what starts the change: heat, spark, light, switch closure, impact, or another reaction.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>Track the transformation</h3>
+            <p>Follow energy as it becomes heat, motion, electricity, light, sound, or stored chemical energy.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>Look for losses and spreading</h3>
+            <p>Notice where useful energy disperses as heat, friction, vibration, or sound.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>Connect to the bench</h3>
+            <p>Relate battery voltage, current, resistance, relay coils, LEDs, motors, processors, and heat sinks to energy conversion.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        Energy is the reason systems do anything at all.
+        It is stored, released, transferred, and transformed—but never simply vanishes.
+        Chemistry explains how matter carries and exchanges that energy, while electronics gives us tools for directing it.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Energy and chemical change lesson
+  </footer>
+</body>
+</html>
