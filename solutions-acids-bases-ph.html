@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal chemistry lesson for Klins on solutions, electrolytes, acids, bases, pH, neutralization, buffers, and indicators.">
+
+  <title>Solutions, Acids, Bases, and pH | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --orange: #c8671c;
+      --purple: #6d4a8d;
+      --red: #a64336;
+      --teal: #1f6b7a;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(109, 74, 141, 0.12), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--purple);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.55rem, 7vw, 5.35rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(109, 74, 141, 0.25);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(237,229,247,.68));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--purple);
+      background: #eee7f6;
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--purple);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(237, 229, 247, 0.76);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .topic-card { border-top: 4px solid var(--blue); }
+    .topic-card.acid { border-top-color: var(--red); }
+    .topic-card.base { border-top-color: var(--green); }
+    .topic-card.buffer { border-top-color: var(--purple); }
+    .topic-card.electrolyte { border-top-color: var(--teal); }
+
+    .equation {
+      margin-top: 1rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .ph-scale {
+      display: grid;
+      grid-template-columns: repeat(15, 1fr);
+      overflow: hidden;
+      margin-top: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .ph-scale span {
+      display: grid;
+      place-items: center;
+      min-height: 44px;
+      color: #fff;
+      font-weight: 800;
+      text-shadow: 0 1px 2px rgba(0,0,0,.35);
+    }
+
+    .ph-scale span:nth-child(1) { background:#b8202a; }
+    .ph-scale span:nth-child(2) { background:#d2352f; }
+    .ph-scale span:nth-child(3) { background:#e5582f; }
+    .ph-scale span:nth-child(4) { background:#ef7c2d; }
+    .ph-scale span:nth-child(5) { background:#f2a62b; }
+    .ph-scale span:nth-child(6) { background:#d7bd27; }
+    .ph-scale span:nth-child(7) { background:#9fbd2f; }
+    .ph-scale span:nth-child(8) { background:#55a84b; }
+    .ph-scale span:nth-child(9) { background:#29968f; }
+    .ph-scale span:nth-child(10) { background:#2581b8; }
+    .ph-scale span:nth-child(11) { background:#2565ae; }
+    .ph-scale span:nth-child(12) { background:#3e4aa3; }
+    .ph-scale span:nth-child(13) { background:#5b3b96; }
+    .ph-scale span:nth-child(14) { background:#713184; }
+    .ph-scale span:nth-child(15) { background:#84236f; }
+
+    .path {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .path-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .path-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        grid-template-columns: 1fr;
+      }
+
+      .ph-scale {
+        grid-template-columns: repeat(5, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Chemistry · Solutions · Acids · Bases · pH</p>
+        <h1>Solutions, Acids, Bases, and pH</h1>
+        <p class="hero-copy">
+          A lesson for Klins on what happens when substances dissolve, why some solutions conduct electricity,
+          how acids and bases behave, and why pH balance matters in batteries, biology, water, cleaning, and technology.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        when a substance dissolves, it does not disappear.
+        Its particles become distributed among solvent particles, where they can move, interact, conduct charge,
+        react faster, and influence acidity or basicity.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="solutions-acids-bases-ph.png" alt="Poster explaining solutions, electrolytes, acids, bases, pH, neutralization, buffers, indicators, and real-world applications.">
+      <figcaption>
+        Reference poster: how dissolved particles create conductivity, acidity, basicity, neutralization, and biological balance.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. Solutions: mixing at the molecular level</h2>
+        <p>Dissolving separates particles and distributes them through a solvent.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card topic-card">
+          <span class="tag">Solute</span>
+          <h3>The material being dissolved</h3>
+          <p>
+            Salt, sugar, and copper sulfate can all act as solutes.
+            Their particles separate to different degrees depending on their chemical structure.
+          </p>
+        </article>
+
+        <article class="card topic-card">
+          <span class="tag">Solvent</span>
+          <h3>The dissolving medium</h3>
+          <p>
+            Water is a common solvent because its polar molecules can surround many ions and polar molecules.
+          </p>
+        </article>
+
+        <article class="card topic-card">
+          <span class="tag">Solution</span>
+          <h3>A uniform mixture</h3>
+          <p>
+            In a solution, dissolved particles are spread evenly enough that the mixture appears uniform.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>What dissolving really means</h3>
+      <p>
+        A sugar crystal vanishes from sight, but its molecules are still present.
+        They have separated from the crystal and become surrounded by water molecules.
+        Dissolving changes distribution, not existence.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. Electrolytes: solutions that conduct</h2>
+        <p>Mobile ions allow electrical charge to move through a liquid.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card topic-card electrolyte">
+          <h3>Strong electrolyte</h3>
+          <p>
+            A strong electrolyte separates almost completely into ions.
+            Hydrochloric acid and many soluble salts produce many mobile charge carriers.
+          </p>
+        </article>
+
+        <article class="card topic-card electrolyte">
+          <h3>Weak electrolyte</h3>
+          <p>
+            A weak electrolyte ionizes only partially, so fewer charged particles are available to carry current.
+          </p>
+        </article>
+
+        <article class="card topic-card electrolyte">
+          <h3>Non-electrolyte</h3>
+          <p>
+            Sugar dissolves as neutral molecules rather than ions, so sugar water conducts poorly compared with salt water.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. The pH scale</h2>
+        <p>pH describes hydrogen-ion activity and tells us how acidic or basic a solution is.</p>
+      </div>
+
+      <div class="ph-scale" aria-label="pH scale from zero to fourteen">
+        <span>0</span><span>1</span><span>2</span><span>3</span><span>4</span>
+        <span>5</span><span>6</span><span>7</span><span>8</span><span>9</span>
+        <span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+      </div>
+
+      <div class="grid-3" style="margin-top:1.2rem;">
+        <article class="card topic-card acid">
+          <h3>Below 7: acidic</h3>
+          <p>
+            Acidic solutions have greater hydrogen-ion activity.
+            Battery acid, stomach acid, lemon juice, and tomato juice are examples.
+          </p>
+        </article>
+
+        <article class="card topic-card">
+          <h3>7: neutral</h3>
+          <p>
+            Pure water is approximately neutral under ordinary conditions.
+          </p>
+        </article>
+
+        <article class="card topic-card base">
+          <h3>Above 7: basic</h3>
+          <p>
+            Basic or alkaline solutions have lower hydrogen-ion activity and often contain or generate hydroxide ions.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Why small pH changes matter</h3>
+      <p>
+        The pH scale is logarithmic.
+        A change of one pH unit represents roughly a tenfold change in hydrogen-ion activity.
+        A small numerical change can therefore represent a major chemical difference.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. Acids: proton donors</h2>
+        <p>Acids increase hydrogen-ion activity in water.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card topic-card acid">
+          <h3>Hydrochloric acid</h3>
+          <p>
+            HCl is a strong acid that separates extensively into hydrogen and chloride ions.
+          </p>
+          <div class="equation">HCl → H⁺ + Cl⁻</div>
+        </article>
+
+        <article class="card topic-card acid">
+          <h3>Sulfuric acid</h3>
+          <p>
+            Sulfuric acid can donate two protons and is widely used in industry and lead-acid batteries.
+          </p>
+          <div class="equation">H₂SO₄ → 2H⁺ + SO₄²⁻</div>
+        </article>
+
+        <article class="card topic-card acid">
+          <h3>Acetic acid</h3>
+          <p>
+            Acetic acid is weak and only partially ionizes in water.
+            It is the characteristic acid in vinegar.
+          </p>
+          <div class="equation">CH₃COOH ⇌ H⁺ + CH₃COO⁻</div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. Bases: proton acceptors</h2>
+        <p>Bases accept hydrogen ions or increase hydroxide-ion concentration.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card topic-card base">
+          <h3>Sodium hydroxide</h3>
+          <p>
+            NaOH separates into sodium and hydroxide ions and is strongly basic.
+          </p>
+          <div class="equation">NaOH → Na⁺ + OH⁻</div>
+        </article>
+
+        <article class="card topic-card base">
+          <h3>Ammonia</h3>
+          <p>
+            Ammonia accepts a proton from water, producing ammonium and hydroxide ions.
+          </p>
+          <div class="equation">NH₃ + H₂O ⇌ NH₄⁺ + OH⁻</div>
+        </article>
+
+        <article class="card topic-card base">
+          <h3>Calcium hydroxide</h3>
+          <p>
+            Calcium hydroxide releases hydroxide ions and is used in construction, water treatment, and soil adjustment.
+          </p>
+          <div class="equation">Ca(OH)₂ → Ca²⁺ + 2OH⁻</div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Neutralization</h2>
+        <p>An acid and a base can react to form water and a salt.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>The essential reaction</h3>
+          <p>
+            Hydrogen ions from the acid combine with hydroxide ions from the base to form water.
+          </p>
+          <div class="equation">H⁺ + OH⁻ → H₂O</div>
+        </article>
+
+        <article class="card">
+          <h3>The remaining ions</h3>
+          <p>
+            Other ions remain and form a salt.
+            For hydrochloric acid and sodium hydroxide, the salt is sodium chloride.
+          </p>
+          <div class="equation">HCl + NaOH → NaCl + H₂O</div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Buffers: resisting sudden change</h2>
+        <p>Buffers help keep pH within a limited range.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card topic-card buffer">
+          <h3>Without a buffer</h3>
+          <p>
+            Adding a small amount of acid or base can cause a sharp pH change.
+          </p>
+        </article>
+
+        <article class="card topic-card buffer">
+          <h3>With a buffer</h3>
+          <p>
+            Buffer components absorb added acid or base, reducing the size of the pH shift.
+          </p>
+        </article>
+
+        <article class="card topic-card buffer">
+          <h3>Why life depends on them</h3>
+          <p>
+            Blood, cells, lakes, and oceans rely on buffering systems because many processes work only within a narrow pH range.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. Indicators: pH made visible</h2>
+        <p>Indicators change color in response to acidity or basicity.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Litmus paper</h3>
+          <p>
+            Red and blue litmus provide a quick acid-or-base test.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Phenolphthalein</h3>
+          <p>
+            Phenolphthalein is colorless in acidic and neutral conditions and pink in sufficiently basic solution.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Universal indicator</h3>
+          <p>
+            A blended indicator produces a range of colors across the pH scale.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>9. Real-world impact</h2>
+        <p>Solutions and pH control systems throughout life and technology.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Your body</h3>
+          <p>Stomach acid aids digestion, while blood is tightly buffered near pH 7.4.</p>
+        </article>
+
+        <article class="card">
+          <h3>Soil</h3>
+          <p>Soil pH affects nutrient availability and plant growth.</p>
+        </article>
+
+        <article class="card">
+          <h3>Oceans</h3>
+          <p>Ocean pH affects corals, shell-forming organisms, and marine chemistry.</p>
+        </article>
+
+        <article class="card">
+          <h3>Industry</h3>
+          <p>Manufacturing, plating, food production, and water treatment require pH control.</p>
+        </article>
+
+        <article class="card">
+          <h3>Batteries</h3>
+          <p>Electrolytes carry ions and enable electrochemical reactions.</p>
+        </article>
+
+        <article class="card">
+          <h3>Cleaning</h3>
+          <p>Acidic and basic cleaners attack different soils and mineral deposits.</p>
+        </article>
+
+        <article class="card">
+          <h3>Electronics</h3>
+          <p>Etching, plating, battery chemistry, and semiconductor processing all use controlled solutions.</p>
+        </article>
+
+        <article class="card">
+          <h3>Water systems</h3>
+          <p>pH affects corrosion, disinfection, taste, and treatment performance.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>10. A learning path for Klins</h2>
+        <p>A sequence for reading solution chemistry clearly.</p>
+      </div>
+
+      <div class="path">
+        <article class="path-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>Identify solute and solvent</h3>
+            <p>Determine what is dissolved and what does the dissolving.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>Ask whether ions form</h3>
+            <p>Predict whether the solution will conduct electricity strongly, weakly, or hardly at all.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>Locate the pH</h3>
+            <p>Classify the solution as acidic, neutral, or basic.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>Identify proton behavior</h3>
+            <p>Ask whether the substance donates H⁺, accepts H⁺, or releases OH⁻.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>Predict neutralization</h3>
+            <p>Combine acid and base components and identify the resulting salt and water.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">6</div>
+          <div>
+            <h3>Connect it to a system</h3>
+            <p>Relate solution chemistry to batteries, cleaning, biology, corrosion, agriculture, or water treatment.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        Solution chemistry is the chemistry of interaction.
+        Once particles are mobile in a solvent, they can carry charge, exchange protons,
+        react efficiently, and influence entire systems.
+        That is why pH and electrolytes matter from a single cell to an ocean.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Solutions, acids, bases, and pH lesson
+  </footer>
+</body>
+</html>
