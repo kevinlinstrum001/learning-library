@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal chemistry lesson for Klins on how atomic arrangement creates material properties, including crystals, metals, graphite, diamond, copper, and semiconductors.">
+
+  <title>The Architecture of Matter | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --orange: #c8671c;
+      --purple: #6d4a8d;
+      --teal: #1f6b7a;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(61, 111, 168, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(211, 154, 47, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,228,191,.56));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--blue-light);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(244, 228, 191, 0.62);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .structure-card { border-top: 4px solid var(--green); }
+    .structure-card.graphite { border-top-color: var(--purple); }
+    .structure-card.metal { border-top-color: var(--orange); }
+    .structure-card.semi { border-top-color: var(--teal); }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .path {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .path-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .path-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Chemistry · Structure · Materials · Technology</p>
+        <h1>The Architecture of Matter</h1>
+        <p class="hero-copy">
+          A lesson for Klins on one of chemistry’s biggest ideas: the same atoms can create
+          very different materials depending on how those atoms are arranged. Structure is what
+          turns carbon into diamond, graphite, charcoal, or graphene—and what turns silicon into the foundation of electronics.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        composition tells us what the pieces are, but structure tells us how the pieces are arranged.
+        Together, composition and structure create the material’s properties.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="architecture-of-matter.png" alt="Poster explaining how atomic arrangement creates different materials, including diamond, graphite, crystals, metals, copper, and semiconductors.">
+      <figcaption>
+        Reference poster: how structure, lattices, and atomic arrangement create different material properties.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. Same atoms, different materials</h2>
+        <p>The identity of the atoms matters, but arrangement matters just as much.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card structure-card">
+          <span class="tag">Diamond</span>
+          <h3>Rigid 3D carbon network</h3>
+          <p>
+            Diamond is made only of carbon, but each carbon atom bonds strongly in a three-dimensional framework.
+            That architecture produces extreme hardness and transparency.
+          </p>
+        </article>
+
+        <article class="card structure-card graphite">
+          <span class="tag">Graphite</span>
+          <h3>Layered carbon sheets</h3>
+          <p>
+            Graphite is also pure carbon, but its atoms form flat sheets that slide over one another.
+            That makes it soft, slippery, and electrically conductive.
+          </p>
+        </article>
+
+        <article class="card structure-card">
+          <span class="tag">Charcoal</span>
+          <h3>Porous disordered carbon</h3>
+          <p>
+            Charcoal has a more irregular structure with pores and internal surface area, which helps it adsorb substances.
+          </p>
+        </article>
+
+        <article class="card structure-card semi">
+          <span class="tag">Graphene</span>
+          <h3>Single carbon layer</h3>
+          <p>
+            Graphene is one atom thick, extraordinarily strong, and an excellent conductor.
+            It shows how changing dimensionality changes behavior.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>A useful chemistry lesson</h3>
+      <p>
+        “What is it made of?” is only half the question.
+        The other half is “How are the particles arranged?” The answer to that second question often explains hardness,
+        conductivity, brittleness, flexibility, transparency, melting point, and usefulness.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. Diamond versus graphite</h2>
+        <p>These are one of the best examples of structure creating property.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card structure-card">
+          <h3>Diamond</h3>
+          <ul>
+            <li>Each carbon bonds to four neighbors</li>
+            <li>Three-dimensional covalent network</li>
+            <li>Extremely hard</li>
+            <li>Very high melting point</li>
+            <li>Electrical insulator</li>
+          </ul>
+        </article>
+
+        <article class="card structure-card graphite">
+          <h3>Graphite</h3>
+          <ul>
+            <li>Each carbon bonds to three neighbors in sheets</li>
+            <li>Layers stack and slide</li>
+            <li>Soft and slippery</li>
+            <li>Good electrical conductor</li>
+            <li>Used in pencils and lubricants</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. Crystals: repeating geometric order</h2>
+        <p>Many solids are built from repeating atomic patterns called crystal lattices.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <span class="tag">Table salt</span>
+          <h3>NaCl crystal</h3>
+          <p>
+            In sodium chloride, positive sodium ions and negative chloride ions alternate in a regular three-dimensional pattern.
+            Strong attraction exists in all directions, which helps explain salt’s hardness and brittleness.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Quartz</span>
+          <h3>SiO₂ crystal</h3>
+          <p>
+            Quartz forms a repeating network of silicon and oxygen.
+            Its crystal architecture influences hardness, fracture, and external crystal shape.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. The metallic lattice</h2>
+        <p>Metals behave differently because their atoms are arranged and bonded differently.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card structure-card metal">
+          <h3>Ordered metal ions</h3>
+          <p>
+            In a metal, positive metal ions occupy a repeating lattice rather than forming separate molecules.
+          </p>
+        </article>
+
+        <article class="card structure-card metal">
+          <h3>Shared mobile electrons</h3>
+          <p>
+            Outer electrons are not tied to one atom. They are shared throughout the structure as a mobile “sea” of electrons.
+          </p>
+        </article>
+
+        <article class="card structure-card metal">
+          <h3>Resulting properties</h3>
+          <p>
+            This architecture gives metals conductivity, malleability, ductility, and often high thermal conductivity.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. Why copper conducts</h2>
+        <p>Copper’s usefulness in wire comes from its atomic architecture.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>One easy-to-move outer electron</h3>
+          <p>
+            Copper has an outer electron that can move readily through the metallic lattice.
+            Because many such electrons are mobile, electrical charge can travel efficiently through the metal.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Strength plus flexibility</h3>
+          <p>
+            Copper combines conductivity with ductility. It can be drawn into wires without breaking easily,
+            which is why it is so widely used in electrical systems.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">
+atoms → lattice + mobile electrons → conductivity + ductility + heat transfer → wire, motors, electronics
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Semiconductors: the game changers</h2>
+        <p>Semiconductors sit between conductors and insulators.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card structure-card semi">
+          <h3>Pure silicon</h3>
+          <p>
+            Silicon forms a covalent network with conductivity that is limited but controllable.
+            That controllability is the key to semiconductor behavior.
+          </p>
+        </article>
+
+        <article class="card structure-card semi">
+          <h3>Doping changes behavior</h3>
+          <p>
+            Adding tiny amounts of other elements changes how electrons move.
+            Boron can create “holes” (p-type), while phosphorus can donate extra electrons (n-type).
+          </p>
+        </article>
+
+        <article class="card structure-card semi">
+          <h3>Why it matters</h3>
+          <p>
+            Controlled semiconductor behavior makes transistors, microchips, solar cells, LEDs, computers, and phones possible.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Structure creates properties</h2>
+        <p>Different architectures lead to different material behaviors.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Ionic crystals</h3>
+          <p>Hard, brittle, often high melting point.</p>
+        </article>
+
+        <article class="card">
+          <h3>Metals</h3>
+          <p>Conductive, malleable, ductile, thermally conductive.</p>
+        </article>
+
+        <article class="card">
+          <h3>Network covalent solids</h3>
+          <p>Very hard, strong bonds, often very high melting point.</p>
+        </article>
+
+        <article class="card">
+          <h3>Layered structures</h3>
+          <p>Soft or slippery in one direction, often conductive within layers.</p>
+        </article>
+
+        <article class="card">
+          <h3>Molecular solids</h3>
+          <p>Often lower melting points and weaker intermolecular attractions.</p>
+        </article>
+
+        <article class="card">
+          <h3>Polymers</h3>
+          <p>Flexible, lightweight, versatile, shaped by long repeating chains.</p>
+        </article>
+
+        <article class="card">
+          <h3>Glasses</h3>
+          <p>Rigid but non-crystalline, with disordered structure.</p>
+        </article>
+
+        <article class="card">
+          <h3>Semiconductors</h3>
+          <p>Conductivity can be tuned rather than being simply high or low.</p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The big picture</h3>
+      <p>
+        A powerful chain runs through this lesson:
+        atoms create structure, structure creates properties, and properties enable technology.
+        This is one of chemistry’s most useful organizing frameworks.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. Why this matters in technology</h2>
+        <p>Atomic architecture is not abstract—it determines what we can build.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Stronger materials</h3>
+          <p>
+            By understanding structure, engineers can design hard ceramics, tough composites, better alloys, and improved coatings.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Electronics</h3>
+          <p>
+            Semiconductor architecture makes modern computing possible, from Raspberry Pi boards to satellites.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Energy systems</h3>
+          <p>
+            Batteries, solar cells, catalysts, and conductors all depend on carefully engineered materials.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Medical materials</h3>
+          <p>
+            Drug delivery systems, implants, coatings, and diagnostic tools all rely on structure-dependent properties.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Everyday plastics</h3>
+          <p>
+            Polymer structure determines flexibility, strength, transparency, and heat resistance.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Exploration</h3>
+          <p>
+            Rockets, spacecraft, electronics, and sensors all depend on materials chosen for their microscopic architecture.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>9. A learning path for Klins</h2>
+        <p>A sequence for turning poster ideas into working understanding.</p>
+      </div>
+
+      <div class="path">
+        <article class="path-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>Identify composition</h3>
+            <p>Ask what atoms or ions are present.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>Identify structure</h3>
+            <p>Ask whether the material is ionic, metallic, network covalent, layered, polymeric, crystalline, or disordered.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>Predict properties</h3>
+            <p>Use the structure to predict hardness, conductivity, brittleness, melting point, flexibility, and transparency.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>Connect to use</h3>
+            <p>Explain why that material is chosen for wire, chips, lenses, coatings, batteries, or tools.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>Compare similar substances</h3>
+            <p>Use examples like diamond versus graphite to see how changed arrangement can transform behavior.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        Chemistry is not only the study of ingredients.
+        It is also the study of architecture. Once you understand that matter’s properties come from structure,
+        the world starts to look like a library of atomic designs.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Structure and materials lesson
+  </footer>
+</body>
+</html>
