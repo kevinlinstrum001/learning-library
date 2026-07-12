@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal chemistry lesson for Klins on chemical reactions, activation energy, reaction types, rates, catalysts, and conservation of mass.">
+
+  <title>Phase 8: Chemical Reactions | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #d39a2f;
+      --gold-light: #f4e4bf;
+      --green: #3f7f58;
+      --orange: #c8671c;
+      --purple: #6d4a8d;
+      --red: #a64336;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(61, 111, 168, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--orange);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.6rem, 7vw, 5.5rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 720px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(211, 154, 47, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,228,191,.56));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--orange);
+      background: #f8e9d9;
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(244, 228, 191, 0.62);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .reaction-card { border-top: 4px solid var(--blue); }
+    .reaction-card.rate { border-top-color: var(--green); }
+    .reaction-card.catalyst { border-top-color: var(--purple); }
+    .reaction-card.energy { border-top-color: var(--red); }
+
+    .equation {
+      margin-top: 1rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.95rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .path {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .path-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .path-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2, .grid-3, .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Chemistry · Bonds · Energy · Change</p>
+        <h1>Phase 8: Chemical Reactions</h1>
+        <p class="hero-copy">
+          A lesson for Klins on how atoms rearrange, why reactions need successful collisions,
+          how energy enters and leaves a reaction, and how chemists classify, speed up, and balance chemical change.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        chemical reactions break some bonds and form new ones.
+        The atoms remain, but their arrangement changes—and with that change come new substances and new properties.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="phase-8-chemical-reactions.png" alt="Poster explaining chemical reactions, collisions, energy changes, reaction types, catalysts, reaction rates, and balancing equations.">
+      <figcaption>
+        Reference poster: the full reaction story, from molecular collisions to energy flow, products, and real-world chemistry.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. What a chemical reaction is</h2>
+        <p>A reaction rearranges atoms into new combinations.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <span class="tag">Reactants</span>
+          <h3>The starting materials</h3>
+          <p>
+            Reactants contain atoms connected in their original arrangement.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Bond changes</span>
+          <h3>Old bonds break, new bonds form</h3>
+          <p>
+            Breaking bonds requires energy. Forming bonds releases energy.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="tag">Products</span>
+          <h3>New substances appear</h3>
+          <p>
+            The same atoms are now connected differently, creating substances with new properties.
+          </p>
+        </article>
+      </div>
+
+      <div class="equation">CH₄ + 2O₂ → CO₂ + 2H₂O</div>
+    </section>
+
+    <div class="callout">
+      <h3>The key conservation idea</h3>
+      <p>
+        Atoms are not used up or created during an ordinary chemical reaction.
+        They are reorganized. Balancing an equation is how we show that every atom is still accounted for.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. The dance of atoms</h2>
+        <p>Reactions need collisions, energy, and orientation.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card reaction-card">
+          <h3>Particles must collide</h3>
+          <p>
+            Reactants must physically meet before their bonds can rearrange.
+          </p>
+        </article>
+
+        <article class="card reaction-card">
+          <h3>They need enough energy</h3>
+          <p>
+            The collision must overcome the activation-energy barrier.
+          </p>
+        </article>
+
+        <article class="card reaction-card">
+          <h3>They must be aligned correctly</h3>
+          <p>
+            Even an energetic collision can fail if the reactive parts do not meet in a useful orientation.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. Energy changes</h2>
+        <p>Every reaction exchanges energy with its surroundings.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card reaction-card energy">
+          <h3>Exothermic</h3>
+          <p>
+            More energy is released when new bonds form than is required to break old bonds.
+            Heat, light, or sound may be given off.
+          </p>
+        </article>
+
+        <article class="card reaction-card energy">
+          <h3>Endothermic</h3>
+          <p>
+            The reaction absorbs more energy than it releases.
+            The surroundings may cool as energy enters the reacting system.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. Signs that a reaction may be happening</h2>
+        <p>These observations suggest chemical change.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card"><h3>Color change</h3><p>A new color can indicate that a new substance formed.</p></article>
+        <article class="card"><h3>Temperature change</h3><p>Unexpected heating or cooling reveals energy transfer.</p></article>
+        <article class="card"><h3>Gas production</h3><p>Bubbles or fizzing may indicate a gaseous product.</p></article>
+        <article class="card"><h3>Precipitate</h3><p>A solid may form from two reacting solutions.</p></article>
+        <article class="card"><h3>Light emission</h3><p>Some reactions release energy as visible light.</p></article>
+        <article class="card"><h3>Odor change</h3><p>A new odor can indicate volatile products, though chemicals should never be smelled directly.</p></article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. Common reaction patterns</h2>
+        <p>Reaction types help us recognize recurring structures.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card reaction-card">
+          <h3>Synthesis</h3>
+          <p>Two or more simpler substances combine.</p>
+          <div class="equation">A + B → AB</div>
+        </article>
+
+        <article class="card reaction-card">
+          <h3>Decomposition</h3>
+          <p>One compound breaks into simpler substances.</p>
+          <div class="equation">AB → A + B</div>
+        </article>
+
+        <article class="card reaction-card">
+          <h3>Single replacement</h3>
+          <p>One element replaces another in a compound.</p>
+          <div class="equation">A + BC → AC + B</div>
+        </article>
+
+        <article class="card reaction-card">
+          <h3>Double replacement</h3>
+          <p>Two compounds exchange components.</p>
+          <div class="equation">AB + CD → AD + CB</div>
+        </article>
+
+        <article class="card reaction-card">
+          <h3>Combustion</h3>
+          <p>A fuel reacts rapidly with oxygen and releases energy.</p>
+          <div class="equation">fuel + O₂ → products + energy</div>
+        </article>
+
+        <article class="card reaction-card">
+          <h3>Redox</h3>
+          <p>Electrons move between substances, as in batteries, rusting, and combustion.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. Reaction rates</h2>
+        <p>Rate depends on how often successful collisions occur.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card reaction-card rate">
+          <h3>Temperature</h3>
+          <p>Higher temperature usually increases particle speed and collision energy.</p>
+        </article>
+
+        <article class="card reaction-card rate">
+          <h3>Concentration</h3>
+          <p>More particles in a given volume means more collisions.</p>
+        </article>
+
+        <article class="card reaction-card rate">
+          <h3>Surface area</h3>
+          <p>Smaller pieces expose more particles to contact.</p>
+        </article>
+
+        <article class="card reaction-card rate">
+          <h3>Mixing</h3>
+          <p>Stirring brings reactants together more often.</p>
+        </article>
+
+        <article class="card reaction-card rate">
+          <h3>Pressure</h3>
+          <p>For gases, higher pressure packs particles closer together.</p>
+        </article>
+
+        <article class="card reaction-card rate">
+          <h3>Catalyst</h3>
+          <p>A catalyst lowers the activation-energy barrier.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Catalysts: nature’s helpers</h2>
+        <p>A catalyst changes the route without being consumed overall.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card reaction-card catalyst">
+          <h3>Lower barrier</h3>
+          <p>
+            The catalyst provides a pathway that requires less activation energy.
+          </p>
+        </article>
+
+        <article class="card reaction-card catalyst">
+          <h3>More successful collisions</h3>
+          <p>
+            More particles now have enough energy to react.
+          </p>
+        </article>
+
+        <article class="card reaction-card catalyst">
+          <h3>Everyday examples</h3>
+          <p>
+            Enzymes, catalytic converters, and fuel-cell catalysts all accelerate important reactions.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. Balancing equations</h2>
+        <p>Balancing is atom bookkeeping.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>Unbalanced</h3>
+          <div class="equation">CH₄ + O₂ → CO₂ + H₂O</div>
+          <p>The substances are correct, but the atom counts are not equal.</p>
+        </article>
+
+        <article class="card">
+          <h3>Balanced</h3>
+          <div class="equation">CH₄ + 2O₂ → CO₂ + 2H₂O</div>
+          <p>Carbon, hydrogen, and oxygen are now conserved on both sides.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>9. Chemistry in action</h2>
+        <p>Reactions power ordinary life and advanced technology.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card"><h3>Combustion</h3><p>Engines and rockets convert chemical energy into heat, pressure, and motion.</p></article>
+        <article class="card"><h3>Rusting</h3><p>Iron reacts with oxygen and water to form iron oxides.</p></article>
+        <article class="card"><h3>Batteries</h3><p>Redox reactions move electrons through an external circuit.</p></article>
+        <article class="card"><h3>Cooking</h3><p>Heat drives chemical changes in proteins, sugars, and fats.</p></article>
+        <article class="card"><h3>Medicine</h3><p>Drugs alter chemical processes in cells and tissues.</p></article>
+        <article class="card"><h3>Photosynthesis</h3><p>Plants store light energy in chemical bonds.</p></article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>10. A learning path for Klins</h2>
+        <p>A practical sequence for reading and understanding reactions.</p>
+      </div>
+
+      <div class="path">
+        <article class="path-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>Identify reactants and products</h3>
+            <p>Read the equation from left to right and name the starting and ending substances.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>Count the atoms</h3>
+            <p>Check that each element is conserved.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>Classify the pattern</h3>
+            <p>Decide whether it is synthesis, decomposition, replacement, combustion, or redox.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>Track the energy</h3>
+            <p>Ask whether the reaction releases or absorbs energy.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>Predict the rate</h3>
+            <p>Consider temperature, concentration, surface area, pressure, mixing, and catalysts.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">6</div>
+          <div>
+            <h3>Connect it to a real system</h3>
+            <p>Relate the reaction to batteries, corrosion, combustion, food, medicine, or biological processes.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        Chemical reactions are where matter and energy meet.
+        Atoms collide, bonds change, energy flows, and new properties appear.
+        That simple pattern is behind flames, batteries, metabolism, rust, rockets, cooking, and life itself.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Phase 8 chemical reactions lesson
+  </footer>
+</body>
+</html>
