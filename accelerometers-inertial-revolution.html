@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A personal lesson for Klins on accelerometers, inertial sensing, Raspberry Pi projects, and electronics bench experiments.">
+
+  <title>Accelerometers and the Inertial Revolution | Klin's Learning Library</title>
+
+  <style>
+    :root {
+      --navy: #17233b;
+      --navy-light: #25385d;
+      --blue: #3d6fa8;
+      --blue-light: #e7f0f8;
+      --paper: #f6f3ec;
+      --white: #ffffff;
+      --ink: #1f2933;
+      --muted: #657180;
+      --border: #d9dee5;
+      --gold: #c98a32;
+      --gold-light: #f3e3c7;
+      --shadow: 0 10px 30px rgba(23, 35, 59, 0.10);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(61, 111, 168, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.9rem clamp(1rem, 4vw, 3rem);
+      color: var(--white);
+      background: rgba(23, 35, 59, 0.96);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(12, 20, 35, 0.18);
+      backdrop-filter: blur(10px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--blue), var(--navy-light));
+      font-size: 1.2rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 650;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .back-link:hover,
+    .back-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    main {
+      width: min(1120px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(300px, 0.85fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--blue);
+      font-size: 0.82rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.5rem, 7vw, 5.4rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 700px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(201, 138, 50, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.9), rgba(243,227,199,.55));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong {
+      color: var(--navy);
+    }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(23, 35, 59, 0.18);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section {
+      margin: 3rem 0;
+    }
+
+    .section-heading {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.55rem, 3vw, 2.2rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-grid,
+    .project-grid,
+    .concept-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.2rem;
+    }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.84);
+      box-shadow: 0 5px 18px rgba(23, 35, 59, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .number {
+      display: inline-grid;
+      place-items: center;
+      width: 2rem;
+      height: 2rem;
+      margin-bottom: 0.8rem;
+      border-radius: 999px;
+      color: var(--navy);
+      background: var(--gold-light);
+      font-weight: 800;
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(243, 227, 199, 0.62);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p {
+      margin: 0;
+    }
+
+    .bench-map {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+
+    .bench-map .card {
+      min-height: 100%;
+    }
+
+    .bench-map ul,
+    .project-card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .bench-map li,
+    .project-card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .project-card {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .project-tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--blue);
+      background: var(--blue-light);
+      font-size: 0.78rem;
+      font-weight: 750;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .code-note {
+      margin-top: 1.25rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.9rem;
+      overflow-x: auto;
+    }
+
+    .path {
+      display: grid;
+      gap: 0.8rem;
+      margin-top: 1rem;
+    }
+
+    .path-step {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.8);
+    }
+
+    .path-step .step-no {
+      display: grid;
+      place-items: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 12px;
+      color: var(--white);
+      background: var(--navy);
+      font-weight: 800;
+    }
+
+    .path-step h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.04rem;
+    }
+
+    .path-step p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .lesson-grid,
+      .project-grid,
+      .concept-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 660px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .back-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .lesson-grid,
+      .project-grid,
+      .concept-grid,
+      .bench-map {
+        grid-template-columns: 1fr;
+      }
+
+      .path-step {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="brand" aria-label="Klin's Learning Library">
+      <span class="brand-mark" aria-hidden="true">⌘</span>
+      <span class="brand-text">Klin's Learning Library</span>
+    </div>
+
+    <nav aria-label="Lesson navigation">
+      <a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
+        <span aria-hidden="true">←</span>
+        Back to Lesson Index
+      </a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div>
+        <p class="eyebrow">Electronics · Sensors · Raspberry Pi</p>
+        <h1>The Inertial Revolution</h1>
+        <p class="hero-copy">
+          A lesson for Klins on how acceleration, tilt, vibration, and motion become electrical data—
+          and how those measurements can become useful projects on the Raspberry Pi bench.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        an accelerometer is a tiny mechanical system inside a chip. A small internal mass moves when
+        the device accelerates. Electronics measure that movement and turn it into numbers that software
+        can record, compare, display, and act upon.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="image_001.png" alt="Poster showing the historical development of gyroscopes from mechanical devices to MEMS sensors.">
+      <figcaption>
+        Reference poster: the path from large mechanical gyroscopes to tiny MEMS inertial sensors.
+      </figcaption>
+    </figure>
+
+    <section>
+      <div class="section-heading">
+        <h2>1. From spinning machines to microscopic structures</h2>
+        <p>The poster shows a long process of shrinking the same physical ideas.</p>
+      </div>
+
+      <div class="lesson-grid">
+        <article class="card">
+          <span class="number">1</span>
+          <h3>Mechanical gyroscopes</h3>
+          <p>
+            Early systems used a visibly spinning rotor mounted in gimbals. The rotor resisted changes
+            in orientation because of angular momentum. They were accurate, but large, heavy, and mechanically complex.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="number">2</span>
+          <h3>Optical gyroscopes</h3>
+          <p>
+            Ring-laser and fiber-optic gyroscopes replaced moving rotors with light. Rotation changes the
+            travel time or phase of light moving around a closed path.
+          </p>
+        </article>
+
+        <article class="card">
+          <span class="number">3</span>
+          <h3>MEMS sensors</h3>
+          <p>
+            Modern inertial sensors use microscopic vibrating masses and springs etched into silicon.
+            They perform the same broad job in a package small enough for phones, drones, robots, and embedded systems.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>2. Accelerometer versus gyroscope</h2>
+        <p>These sensors are related, but they do not measure the same thing.</p>
+      </div>
+
+      <div class="concept-grid">
+        <article class="card">
+          <h3>Accelerometer</h3>
+          <p>
+            Measures acceleration along one or more axes. At rest, it also detects gravity, so it can estimate
+            which way is down and whether a board is tilted.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Gyroscope</h3>
+          <p>
+            Measures rotational speed around an axis. It tells you how quickly the device is turning, but drift
+            accumulates if software tries to calculate orientation from it for a long time.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>IMU</h3>
+          <p>
+            An inertial measurement unit usually combines a three-axis accelerometer and a three-axis gyroscope.
+            Some units also include a magnetometer for compass direction.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>A useful bench metaphor</h3>
+      <p>
+        Think of the accelerometer as a tiny weighted object suspended on springs inside the chip.
+        When the board moves, the chip moves first and the tiny mass lags behind. The sensor measures
+        that difference. The physical event becomes an electrical signal, then a digital value, then a line of code,
+        a graph, an alert, or a control decision.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. How this fits our Raspberry Pi bench</h2>
+        <p>The bench already contains most of the pieces needed for a useful inertial-sensing lab.</p>
+      </div>
+
+      <div class="bench-map">
+        <article class="card">
+          <h3>Hardware roles</h3>
+          <ul>
+            <li><strong>Raspberry Pi:</strong> reads the sensor, stores data, displays graphs, and runs rules.</li>
+            <li><strong>ESP32:</strong> can collect motion data remotely and send it by Wi-Fi or serial.</li>
+            <li><strong>Accelerometer or IMU breakout:</strong> senses tilt, vibration, shock, and movement.</li>
+            <li><strong>Breadboard and jumper wires:</strong> provide the temporary test platform.</li>
+            <li><strong>Relay board:</strong> allows motion data to trigger lights, a fan, or another load.</li>
+          </ul>
+        </article>
+
+        <article class="card">
+          <h3>Software roles</h3>
+          <ul>
+            <li>Python reads values through I²C or SPI.</li>
+            <li>A loop records x, y, and z acceleration.</li>
+            <li>Threshold logic decides whether movement is normal or unusual.</li>
+            <li>A CSV, JSON, or database preserves the history.</li>
+            <li>A Flask page or Tkinter window makes the invisible motion visible.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="code-note">
+sensor → I²C bus → Python values → filtering → decision → display / log / relay action
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>4. First projects for learning the component</h2>
+        <p>These projects isolate one idea at a time before combining the sensor with larger systems.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="card project-card">
+          <span class="project-tag">Beginner</span>
+          <h3>Live XYZ monitor</h3>
+          <p>Print the three acceleration axes once every fraction of a second.</p>
+          <ul>
+            <li>Learn sensor addressing and I²C.</li>
+            <li>Observe gravity on different axes.</li>
+            <li>See the difference between rest, tilt, and motion.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card">
+          <span class="project-tag">Beginner</span>
+          <h3>Digital spirit level</h3>
+          <p>Convert gravity readings into pitch and roll angles.</p>
+          <ul>
+            <li>Display “level,” “tilted left,” or “tilted forward.”</li>
+            <li>Add a visual bar or simple gauge.</li>
+            <li>Calibrate the zero position.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card">
+          <span class="project-tag">Beginner</span>
+          <h3>Tap and shock detector</h3>
+          <p>Detect a sudden spike in acceleration when the bench or enclosure is tapped.</p>
+          <ul>
+            <li>Learn thresholds.</li>
+            <li>Compare gentle vibration with sharp impact.</li>
+            <li>Trigger an LED or tone.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card">
+          <span class="project-tag">Intermediate</span>
+          <h3>Vibration logger</h3>
+          <p>Attach the sensor to a fan, motor, appliance, or moving surface and record vibration over time.</p>
+          <ul>
+            <li>Calculate average and peak vibration.</li>
+            <li>Graph changes over time.</li>
+            <li>Compare healthy and abnormal operating patterns.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card">
+          <span class="project-tag">Intermediate</span>
+          <h3>Motion event recorder</h3>
+          <p>Save a short burst of high-speed sensor data whenever movement begins.</p>
+          <ul>
+            <li>Use a rolling memory buffer.</li>
+            <li>Capture data before and after the event.</li>
+            <li>Store each event as JSON or CSV.</li>
+          </ul>
+        </article>
+
+        <article class="card project-card">
+          <span class="project-tag">Intermediate</span>
+          <h3>Orientation-controlled relays</h3>
+          <p>Use board position as an input to the relay board.</p>
+          <ul>
+            <li>Tilt left to turn on one channel.</li>
+            <li>Tilt right to turn on another.</li>
+            <li>Return upright to turn everything off.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. Larger projects that use accelerometers</h2>
+        <p>Once the component is understood, it can become one sensor inside a broader system.</p>
+      </div>
+
+      <div class="project-grid">
+        <article class="card">
+          <h3>Bench disturbance monitor</h3>
+          <p>
+            Record when the electronics bench is bumped, moved, or shaken. Combine the event with a timestamp,
+            camera image, or notification.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Bicycle motion logger</h3>
+          <p>
+            Mount an IMU on the bicycle to record road vibration, braking, sharp turns, stops, and rough sections of the route.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Tool-use analyzer</h3>
+          <p>
+            Attach a sensor to a hand tool or test fixture and classify patterns such as idle, carried, active, dropped, or vibrating.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Equipment condition monitor</h3>
+          <p>
+            Compare present vibration against a learned baseline. A change in vibration can indicate looseness, imbalance, or wear.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Gesture controller</h3>
+          <p>
+            Use hand motion or board orientation to control LEDs, menus, sounds, or commands without buttons.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Camera stabilization experiment</h3>
+          <p>
+            Use an IMU to measure unwanted motion and explore how a control system might command a servo to compensate.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>6. A practical learning sequence for Klins</h2>
+        <p>Each stage adds one new layer without hiding the physical behavior.</p>
+      </div>
+
+      <div class="path">
+        <article class="path-step">
+          <div class="step-no">1</div>
+          <div>
+            <h3>Read raw values</h3>
+            <p>Connect the sensor and print x, y, and z values. Move it by hand and observe the numbers.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">2</div>
+          <div>
+            <h3>Calibrate the resting state</h3>
+            <p>Measure offsets while the board is still and subtract them from later readings.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">3</div>
+          <div>
+            <h3>Graph the signal</h3>
+            <p>Plot one axis over time so vibration and movement become visible patterns rather than changing numbers.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">4</div>
+          <div>
+            <h3>Filter noise</h3>
+            <p>Use a moving average or low-pass filter to separate useful motion from tiny fluctuations.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">5</div>
+          <div>
+            <h3>Create an event rule</h3>
+            <p>Define what counts as a tilt, impact, sustained vibration, or movement event.</p>
+          </div>
+        </article>
+
+        <article class="path-step">
+          <div class="step-no">6</div>
+          <div>
+            <h3>Connect sensing to action</h3>
+            <p>Trigger a relay, save a record, update a web page, or send a notification.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson</h3>
+      <p>
+        The inertial revolution is not only that a six-kilogram instrument became a chip smaller than a fingernail.
+        The deeper change is that motion itself became ordinary data. Once motion is data, it can be stored, graphed,
+        compared, filtered, transmitted, and used as feedback. That is where the accelerometer joins the rest of our bench:
+        it becomes another way for the physical world to enter software.
+      </p>
+    </div>
+  </main>
+
+  <footer>
+    Klin's Learning Library · Electronics and inertial sensing lesson
+  </footer>
+</body>
+</html>
