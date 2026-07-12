@@ -1,1 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 1 in Klins' History of the Transistor course: relays, vacuum tubes, telephone exchanges, early computers, and the road to spaceflight electronics.">
 
+  <title>Before the Transistor | History of the Transistor</title>
+
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --blue-light: #e8f0f8;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --gold-light: #f2e2c3;
+      --amber: #b86922;
+      --green: #356a54;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 145px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(200, 139, 49, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a {
+      color: inherit;
+    }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 740px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(200, 139, 49, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(242,226,195,.6));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong {
+      color: var(--navy);
+    }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section {
+      margin: 3.2rem 0;
+    }
+
+    .section-heading {
+      margin-bottom: 1.2rem;
+    }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li {
+      margin-bottom: 0.45rem;
+    }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--amber);
+      background: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .relay-card {
+      border-top: 4px solid var(--green);
+    }
+
+    .tube-card {
+      border-top: 4px solid var(--amber);
+    }
+
+    .space-card {
+      border-top: 4px solid var(--blue);
+    }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(242, 226, 195, 0.65);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p {
+      margin: 0;
+    }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 850;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .grid-4,
+      .grid-3 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 680px) {
+      html {
+        scroll-padding-top: 190px;
+      }
+
+      .header-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .course-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item {
+        grid-template-columns: 1fr;
+      }
+
+      .lesson-nav {
+        flex-direction: column;
+      }
+
+      .lesson-nav a {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 01</span>
+      </div>
+
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#relays">Relays</a>
+      <a href="#tubes">Vacuum Tubes</a>
+      <a href="#telephone">Telephone Exchanges</a>
+      <a href="#computers">Early Computers</a>
+      <a href="#space">Road to Space</a>
+      <a href="#limitations">Why Change Was Needed</a>
+      <a href="#timeline">Timeline</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 1 · Before Semiconductors</p>
+        <h1>Before the Transistor</h1>
+        <p class="hero-copy">
+          A lesson for Klins on the machines that clicked, glowed, amplified, switched,
+          routed telephone calls, operated early computers, and prepared engineering for the transistor age.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        the transistor did not invent switching or amplification. Relays and vacuum tubes already performed those jobs.
+        The transistor changed how small, cool, reliable, efficient, and numerous those functions could become.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster01.png" alt="Poster about relays, vacuum tubes, telephone exchanges, early electronic computers, and the need for solid-state electronics.">
+      <figcaption>
+        Course poster 1: the relay and vacuum-tube world that existed before the transistor.
+      </figcaption>
+    </figure>
+
+    <section id="relays">
+      <div class="section-heading">
+        <h2>1. The age of relays</h2>
+        <p>An electrical signal operated a mechanical switch.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card relay-card">
+          <span class="tag">Coil</span>
+          <h3>Current creates magnetism</h3>
+          <p>
+            When current passed through a copper coil, it created a magnetic field.
+            That field attracted an iron armature.
+          </p>
+        </article>
+
+        <article class="card relay-card">
+          <span class="tag">Armature</span>
+          <h3>Magnetism creates motion</h3>
+          <p>
+            The armature physically moved, carrying one or more electrical contacts with it.
+          </p>
+        </article>
+
+        <article class="card relay-card">
+          <span class="tag">Contacts</span>
+          <h3>Motion changes the circuit</h3>
+          <p>
+            The contacts opened or closed another circuit.
+            A small control signal could therefore switch a separate load.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">signal → coil current → magnetic field → armature motion → contact change → switched circuit</div>
+    </section>
+
+    <div class="callout">
+      <h3>Direct connection to our bench</h3>
+      <p>
+        The relay modules and RB5 relay on our bench are descendants of this same mechanism.
+        A Raspberry Pi or transistor driver energizes a coil; the magnetic field moves contacts;
+        and those contacts control a separate circuit. The principle is old, but still extremely useful.
+      </p>
+    </div>
+
+    <section id="tubes">
+      <div class="section-heading">
+        <h2>2. The vacuum tube: electronic control without moving contacts</h2>
+        <p>Vacuum tubes moved switching and amplification from mechanics into electron flow.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card tube-card">
+          <h3>Heated cathode</h3>
+          <p>
+            Heating the cathode gave electrons enough energy to leave its surface inside an evacuated glass envelope.
+          </p>
+        </article>
+
+        <article class="card tube-card">
+          <h3>Control grid</h3>
+          <p>
+            A small voltage on a grid controlled a much larger electron flow between cathode and plate.
+          </p>
+        </article>
+
+        <article class="card tube-card">
+          <h3>Amplification and switching</h3>
+          <p>
+            That controlled flow made radio, long-distance telephony, radar, audio amplification,
+            and electronic computation possible.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>3. Common tube functions</h2>
+        <p>Different internal structures were optimized for different jobs.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card tube-card">
+          <h3>Diode</h3>
+          <p>Allowed current mainly in one direction and was used for rectification.</p>
+        </article>
+
+        <article class="card tube-card">
+          <h3>Triode</h3>
+          <p>Added a control grid for amplification and switching.</p>
+        </article>
+
+        <article class="card tube-card">
+          <h3>Tetrode and pentode</h3>
+          <p>Added grids to improve gain, stability, and high-frequency performance.</p>
+        </article>
+
+        <article class="card tube-card">
+          <h3>Power tube</h3>
+          <p>Handled larger current and power for transmitters, audio output, and industrial control.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="telephone">
+      <div class="section-heading">
+        <h2>4. Telephone exchanges: computation made from clicks</h2>
+        <p>Large relay systems automatically built temporary electrical paths between callers.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card relay-card">
+          <h3>Routing a call</h3>
+          <ul>
+            <li>The handset was lifted.</li>
+            <li>Current signaled the exchange.</li>
+            <li>Selectors and relays responded to the dialed number.</li>
+            <li>A physical path was assembled through the network.</li>
+            <li>Speech traveled along that path.</li>
+          </ul>
+        </article>
+
+        <article class="card relay-card">
+          <h3>A mechanical information system</h3>
+          <p>
+            The exchange detected states, stored temporary conditions, made routing decisions,
+            and controlled outputs. It was a large-scale information-processing machine built from coils,
+            contacts, wiring, and timing.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="computers">
+      <div class="section-heading">
+        <h2>5. Early electronic computers</h2>
+        <p>Vacuum tubes made logic much faster than relays, but at enormous physical cost.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card tube-card">
+          <h3>Fast electronic switching</h3>
+          <p>
+            Tubes had no mechanical armature to move, so they could switch far faster than relays.
+          </p>
+        </article>
+
+        <article class="card tube-card">
+          <h3>Room-sized systems</h3>
+          <p>
+            Thousands of tubes required racks, wiring, cooling, power supplies, and constant maintenance.
+          </p>
+        </article>
+
+        <article class="card tube-card">
+          <h3>ENIAC as a symbol</h3>
+          <p>
+            ENIAC demonstrated that large electronic systems could calculate at unprecedented speed,
+            but it also showed the limits of building computers from thousands of hot, failure-prone devices.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="space">
+      <div class="section-heading">
+        <h2>6. From glowing tubes to the Moon</h2>
+        <p>The space age began with technology inherited from the relay and vacuum-tube era—but spaceflight demanded something better.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card space-card">
+          <span class="tag">Tracking</span>
+          <h3>Radar made distant objects visible</h3>
+          <p>
+            Vacuum-tube transmitters and receivers enabled radar systems powerful enough to detect aircraft,
+            measure range, track high-speed targets, and develop the precision techniques later needed for rockets and spacecraft.
+          </p>
+        </article>
+
+        <article class="card space-card">
+          <span class="tag">Communication</span>
+          <h3>Radio connected vehicles to Earth</h3>
+          <p>
+            Long-range radio, telemetry, command links, and tracking networks grew from tube-based communication systems.
+            Early rocket and space programs depended on these technologies before solid-state equipment became dominant.
+          </p>
+        </article>
+
+        <article class="card space-card">
+          <span class="tag">Computation</span>
+          <h3>Ground computers solved the trajectory problem</h3>
+          <p>
+            Early electronic computers calculated ballistic paths, processed tracking data,
+            and helped engineers model vehicles whose motion was too complex for hand calculation alone.
+          </p>
+        </article>
+
+        <article class="card space-card">
+          <span class="tag">Guidance</span>
+          <h3>Relays and tubes taught engineers control</h3>
+          <p>
+            Long before the Moon landing, engineers were learning how electrical signals could represent position,
+            timing, error, and corrective action—the foundations of automatic guidance and control.
+          </p>
+        </article>
+
+        <article class="card space-card">
+          <span class="tag">Miniaturization</span>
+          <h3>Rockets punished weight and power</h3>
+          <p>
+            A room-sized computer could support a mission from the ground, but it could not ride inside a small spacecraft.
+            Every kilogram, watt, and failure point mattered.
+          </p>
+        </article>
+
+        <article class="card space-card">
+          <span class="tag">Apollo</span>
+          <h3>The Moon required solid-state logic</h3>
+          <p>
+            By the Apollo era, transistorized and integrated-circuit electronics made compact onboard guidance practical.
+            The Apollo Guidance Computer used thousands of integrated logic circuits rather than racks of vacuum tubes.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The space race as a pressure chamber for electronics</h3>
+      <p>
+        Space did not merely benefit from miniaturization—it demanded it.
+        Vacuum tubes could amplify and switch, but spacecraft needed devices that were smaller, cooler,
+        lighter, more shock-resistant, more reliable, and far less power-hungry.
+        The endeavor to reach orbit and the Moon turned the transistor and integrated circuit from promising inventions
+        into strategic necessities.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. A fun comparison: ENIAC, Apollo, and the ESP32</h2>
+        <p>Three stages in the shrinking of electronic control.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>ENIAC</h3>
+          <p>
+            A room-scale vacuum-tube computer that proved high-speed electronic calculation was possible.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Apollo Guidance Computer</h3>
+          <p>
+            A compact onboard computer built from integrated logic, designed for navigation and spacecraft control.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>ESP32 on our bench</h3>
+          <p>
+            A pocket-sized microcontroller containing processing, memory, timers, communications,
+            and millions of transistors—available for ordinary experiments.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">room-sized computation → spacecraft-sized guidance → palm-sized embedded control</div>
+    </section>
+
+    <section id="limitations">
+      <div class="section-heading">
+        <h2>8. Why the world needed something better</h2>
+        <p>Relays and tubes worked, but scaling them created severe problems.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Size</h3>
+          <p>Large systems occupied rooms and required extensive wiring.</p>
+        </article>
+
+        <article class="card">
+          <h3>Heat</h3>
+          <p>Tube filaments and power circuits generated substantial heat.</p>
+        </article>
+
+        <article class="card">
+          <h3>Power</h3>
+          <p>High voltage and continuous heater current consumed large amounts of energy.</p>
+        </article>
+
+        <article class="card">
+          <h3>Reliability</h3>
+          <p>Contacts wore, coils failed, filaments burned out, and tubes aged.</p>
+        </article>
+
+        <article class="card">
+          <h3>Speed</h3>
+          <p>Relays were limited by mechanical motion.</p>
+        </article>
+
+        <article class="card">
+          <h3>Maintenance</h3>
+          <p>Large systems required technicians, spares, testing, and constant repair.</p>
+        </article>
+
+        <article class="card">
+          <h3>Cost</h3>
+          <p>Complex systems were expensive to build, power, cool, and maintain.</p>
+        </article>
+
+        <article class="card">
+          <h3>Scaling</h3>
+          <p>Adding more functions meant adding more physical devices and more failure points.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-heading">
+        <h2>9. The path to the transistor</h2>
+        <p>The breakthrough arrived after generations of switching, amplification, and materials research.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1830s onward</div>
+          <div>
+            <h3>Telegraph relays</h3>
+            <p>Electromagnets repeated signals and operated remote circuits over long distances.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">Late 1800s–early 1900s</div>
+          <div>
+            <h3>Telephone switching networks</h3>
+            <p>Relays and electromechanical selectors automated increasingly large communication systems.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1900s–1940s</div>
+          <div>
+            <h3>Vacuum-tube electronics</h3>
+            <p>Electronic amplification and switching enabled broadcasting, telephony, radar, control, and computing.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1940s</div>
+          <div>
+            <h3>Large electronic computers</h3>
+            <p>Machines such as ENIAC showed both the power of electronic logic and the limits of vacuum-tube scale.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1947</div>
+          <div>
+            <h3>The Bell Labs breakthrough</h3>
+            <p>John Bardeen, Walter Brattain, and William Shockley became central figures in the invention and development of the transistor.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1960s</div>
+          <div>
+            <h3>Integrated circuits reach spacecraft</h3>
+            <p>Thousands of transistor-based logic elements could now fit into compact computers suitable for guidance and control.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The transistor was not a sudden replacement for ignorance.
+        It inherited a world already fluent in coils, contacts, electron flow, amplification, switching,
+        telecommunication, radar, automatic control, and computation.
+        Its revolution was to compress those established functions into a solid-state device small enough to scale.
+      </p>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        ← Course Index
+      </a>
+      <a href="#overview">
+        Back to Top ↑
+      </a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 01
+  </footer>
+</body>
+</html>
