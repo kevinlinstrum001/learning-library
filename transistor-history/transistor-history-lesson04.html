@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 4 in Klins' History of the Transistor course: how the first point-contact transistor worked, why it was difficult to build, and how Bell Labs turned a fragile experiment into proof of solid-state amplification.">
+
+  <title>How the First Transistor Worked | History of the Transistor</title>
+
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --blue-light: #e8f0f8;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --gold-light: #f2e2c3;
+      --amber: #b86922;
+      --green: #356a54;
+      --purple: #6d4a8d;
+      --red: #8e3e33;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 145px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(200, 139, 49, 0.14), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--gold);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 740px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(200, 139, 49, 0.28);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(242,226,195,.6));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3.2rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--amber);
+      background: var(--gold-light);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .device-card { border-top: 4px solid var(--green); }
+    .obstacle-card { border-top: 4px solid var(--red); }
+    .amplifier-card { border-top: 4px solid var(--blue); }
+    .bench-card { border-top: 4px solid var(--purple); }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--gold);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(242, 226, 195, 0.65);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 850;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      html { scroll-padding-top: 190px; }
+
+      .header-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .course-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item { grid-template-columns: 1fr; }
+
+      .lesson-nav { flex-direction: column; }
+
+      .lesson-nav a { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 04</span>
+      </div>
+
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#problem">The Problem</a>
+      <a href="#anatomy">Device Anatomy</a>
+      <a href="#amplification">Amplification</a>
+      <a href="#obstacles">Physical Obstacles</a>
+      <a href="#proof">Why It Mattered</a>
+      <a href="#bench">Your Bench</a>
+      <a href="#timeline">Path to 1947</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 4 · Turning a Tiny Idea into Reality</p>
+        <h1>How the First Transistor Worked</h1>
+        <p class="hero-copy">
+          A lesson for Klins on the physical construction of the first point-contact transistor,
+          how a tiny input controlled a larger output, and why making the first working component
+          was as much a mechanical and materials challenge as it was a theoretical one.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        the first transistor was simple in concept—three contacts and one crystal—but extremely difficult to make work.
+        Contact pressure, spacing, surface condition, crystal purity, and bias all had to align at once.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster04.png" alt="Poster explaining how the first point-contact transistor worked, how it amplified, the physical device, its limitations, and its connection to modern electronics.">
+      <figcaption>
+        Course poster 4: the physical construction, operating principle, fragility, and importance of the first transistor.
+      </figcaption>
+    </figure>
+
+    <section id="problem">
+      <div class="section-heading">
+        <h2>1. The problem they set out to solve</h2>
+        <p>Replace a hot, fragile vacuum tube with a compact solid-state amplifier.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Vacuum tubes were bulky</h3>
+          <p>
+            They required glass envelopes, heater power, internal spacing, and high operating voltages.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Solid state promised simplicity</h3>
+          <p>
+            A crystal device could potentially operate without filaments, warm-up time, or a vacuum.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>The real challenge was control</h3>
+          <p>
+            It was not enough for a solid to conduct. A small input had to control a larger current predictably.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="anatomy">
+      <div class="section-heading">
+        <h2>2. Anatomy of the first point-contact transistor</h2>
+        <p>The device depended on a tiny region of germanium and precisely placed contacts.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card device-card">
+          <span class="tag">Germanium crystal</span>
+          <h3>The active material</h3>
+          <p>
+            The semiconductor body carried the current and responded to changes in nearby charge-carrier concentration.
+          </p>
+        </article>
+
+        <article class="card device-card">
+          <span class="tag">Emitter point</span>
+          <h3>Injected carriers</h3>
+          <p>
+            One gold point introduced carriers into a very small region of the crystal.
+          </p>
+        </article>
+
+        <article class="card device-card">
+          <span class="tag">Collector point</span>
+          <h3>Gathered the output</h3>
+          <p>
+            The nearby second point collected a current influenced by what happened at the emitter.
+          </p>
+        </article>
+
+        <article class="card device-card">
+          <span class="tag">Base contact</span>
+          <h3>Controlled the path</h3>
+          <p>
+            The base connection established the reference and helped control current through the germanium.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="amplification">
+      <div class="section-heading">
+        <h2>3. How the device amplified</h2>
+        <p>A tiny change at the input altered a much larger current through the output path.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card amplifier-card">
+          <h3>Small base or emitter input</h3>
+          <p>
+            A small signal changed the carrier conditions near the point contacts.
+          </p>
+        </article>
+
+        <article class="card amplifier-card">
+          <h3>Conductivity changed locally</h3>
+          <p>
+            The germanium allowed more current to pass through the controlled region.
+          </p>
+        </article>
+
+        <article class="card amplifier-card">
+          <h3>Larger collector output</h3>
+          <p>
+            The collector current changed by a greater amount than the input signal alone could provide.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">tiny input → changed carrier flow in germanium → larger collector current</div>
+    </section>
+
+    <div class="callout">
+      <h3>The meaning of control</h3>
+      <p>
+        The input did not carry the whole load current.
+        It steered the conditions that allowed a larger current to flow.
+        This principle survives in modern transistors, even though the internal structure is far more refined.
+      </p>
+    </div>
+
+    <section id="obstacles">
+      <div class="section-heading">
+        <h2>4. Why the physical component was so hard to make work</h2>
+        <p>Theory suggested the effect, but the actual object was extremely temperamental.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card obstacle-card">
+          <h3>Contact spacing had to be tiny</h3>
+          <p>
+            The two gold points needed to be extremely close so carriers injected at one point could influence current at the other.
+            Too far apart, and the effect disappeared.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>Contact pressure had to be just right</h3>
+          <p>
+            Too little pressure produced poor electrical contact.
+            Too much could damage the crystal surface or change the junction behavior.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>The germanium surface was unstable</h3>
+          <p>
+            Oxides, contamination, moisture, scratches, and microscopic defects could alter the electrical behavior dramatically.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>The crystal itself was not uniform</h3>
+          <p>
+            Small variations in purity and impurity concentration meant one piece of germanium could behave differently from another.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>The contacts could drift</h3>
+          <p>
+            Mechanical vibration, spring tension, heat, and repeated handling could move the gold points enough to destroy amplification.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>The operating window was narrow</h3>
+          <p>
+            The device worked only at particular bias voltages and low currents.
+            Outside that range, it became noisy, unstable, or stopped amplifying.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>Signals were very small</h3>
+          <p>
+            The gain had to be distinguished from noise, leakage, contact resistance, instrument error, and accidental coupling.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>Repeatability was poor</h3>
+          <p>
+            A setup that worked once might fail after being touched or rebuilt.
+            The team had to prove the effect was real rather than a one-time accident.
+          </p>
+        </article>
+
+        <article class="card obstacle-card">
+          <h3>Everything interacted</h3>
+          <p>
+            Pressure changed contact resistance; contact geometry changed carrier flow;
+            surface chemistry changed junction behavior; heat changed stability.
+            The variables could not be adjusted independently.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The experiment was almost a balancing act</h3>
+      <p>
+        The component behaved less like a finished electronic part and more like a delicate laboratory arrangement.
+        It required the right crystal, the right surface, the right pressure, the right spacing,
+        the right bias, and instruments sensitive enough to confirm the result.
+      </p>
+    </div>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. How the team overcame the obstacles</h2>
+        <p>Progress came from combining physical insight with careful hands.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Spring-loaded contacts</h3>
+          <p>
+            A spring applied controlled pressure to the point contacts and helped keep them in place.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Extremely close gold points</h3>
+          <p>
+            The contacts were formed from a gold strip split into two sharp points so their spacing could be kept very small.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Careful surface preparation</h3>
+          <p>
+            The germanium surface was cleaned and treated because surface condition strongly affected carrier behavior.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Low-current operation</h3>
+          <p>
+            The team worked within a narrow electrical range where the fragile effect could be observed without damaging or overwhelming it.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Repeated measurement</h3>
+          <p>
+            The signal had to appear again and again, under controlled conditions, before the team could trust the result.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Hands-on adjustment</h3>
+          <p>
+            Walter Brattain’s experimental skill was central because the device required precise mechanical setup, not just correct equations.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="proof">
+      <div class="section-heading">
+        <h2>6. Delicate, unstable—but real</h2>
+        <p>The first component did not need to be commercially ready to change history.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>It amplified</h3>
+          <p>
+            The measured output increased in response to a small input signal.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>It worked without a vacuum</h3>
+          <p>
+            No glass envelope, heater, filament, or evacuated chamber was required.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>It proved scalability was possible</h3>
+          <p>
+            If one tiny solid device could amplify, better materials and fabrication methods could eventually make many reliable devices.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>7. Why this tiny device mattered</h2>
+        <p>The breakthrough changed the direction of electronics.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Low power</h3>
+          <p>Solid-state devices could operate without continuously heating a cathode.</p>
+        </article>
+
+        <article class="card">
+          <h3>Small size</h3>
+          <p>The active region was microscopic compared with a vacuum tube assembly.</p>
+        </article>
+
+        <article class="card">
+          <h3>Reliability potential</h3>
+          <p>Removing hot filaments and fragile glass promised longer life and greater ruggedness.</p>
+        </article>
+
+        <article class="card">
+          <h3>Fast startup</h3>
+          <p>No warm-up period was needed.</p>
+        </article>
+
+        <article class="card">
+          <h3>Manufacturing potential</h3>
+          <p>Later junction designs could be fabricated more consistently than point-contact devices.</p>
+        </article>
+
+        <article class="card">
+          <h3>The path to integration</h3>
+          <p>Once transistor action could be engineered within solids, multiple devices could eventually be built on one chip.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="bench">
+      <div class="section-heading">
+        <h2>8. Connecting the first device to your bench</h2>
+        <p>Your NPN experiments use a refined descendant of the same control principle.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card bench-card">
+          <h3>Base control</h3>
+          <p>
+            A small base current in your NPN transistor controls a larger collector-emitter current.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Stable junctions</h3>
+          <p>
+            Modern transistors contain engineered P-N junctions formed inside silicon rather than hand-pressed gold points.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Repeatable packages</h3>
+          <p>
+            A modern transistor can be removed, replaced, and expected to behave within a published range.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>GPIO switching</h3>
+          <p>
+            Your Raspberry Pi or Arduino provides the small control input that turns a load path on or off.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Relay and fan drivers</h3>
+          <p>
+            The transistor handles current that the controller pin should not supply directly.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Measurement remains essential</h3>
+          <p>
+            Base voltage, collector current, emitter reference, and load behavior still tell the story of whether the device is actually working.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">hand-built point contacts → engineered junctions → packaged transistors → integrated circuits → microcontrollers</div>
+    </section>
+
+    <section id="timeline">
+      <div class="section-heading">
+        <h2>9. The path that led to this device</h2>
+        <p>The 1947 breakthrough rested on more than a century of earlier discoveries.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1831</div>
+          <div>
+            <h3>Faraday and electromagnetic induction</h3>
+            <p>Electric and magnetic fields become central to practical electrical science.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1873</div>
+          <div>
+            <h3>Maxwell unifies electromagnetism</h3>
+            <p>Electrical and magnetic effects are described as one connected field system.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1904</div>
+          <div>
+            <h3>Fleming valve</h3>
+            <p>The vacuum diode demonstrates controlled electron flow.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1906</div>
+          <div>
+            <h3>De Forest triode</h3>
+            <p>A small grid signal controls a larger current and makes electronic amplification practical.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1920s–1930s</div>
+          <div>
+            <h3>Vacuum-tube electronics expand</h3>
+            <p>Radio, telephony, radar, and early computation establish the need for smaller amplifiers.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">December 16, 1947</div>
+          <div>
+            <h3>The first transistor works</h3>
+            <p>A fragile point-contact device demonstrates real solid-state amplification.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The first transistor was difficult because the physical device had to embody a very delicate effect.
+        The theory could be correct while the component still failed because of pressure, spacing, surface contamination,
+        crystal defects, poor contact, bias error, or measurement noise.
+        The breakthrough came when the physics and the craftsmanship finally agreed.
+      </p>
+    </div>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="transistor-history-lesson03.html">← Lesson 03</a>
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Course Index</a>
+      <a href="#overview">Back to Top ↑</a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 04
+  </footer>
+</body>
+</html>
