@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Lesson 8 in Klins' History of the Transistor course: the invention of the integrated circuit, Jack Kilby, Robert Noyce, planar processing, IC fabrication, logic gates, and the path from discrete transistors to modern chips.">
+
+  <title>The Integrated Circuit | History of the Transistor</title>
+
+  <style>
+    :root {
+      --navy: #111c30;
+      --navy-light: #203653;
+      --blue: #4777aa;
+      --paper: #f5f1e8;
+      --white: #ffffff;
+      --ink: #202833;
+      --muted: #66717d;
+      --border: #d7dde4;
+      --gold: #c88b31;
+      --green: #356a54;
+      --green-light: #e6f0ea;
+      --purple: #6d4a8d;
+      --red: #8e3e33;
+      --amber: #b86922;
+      --shadow: 0 10px 30px rgba(17, 28, 48, 0.11);
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      scroll-padding-top: 145px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at top right, rgba(53, 106, 84, 0.13), transparent 34rem),
+        linear-gradient(180deg, #fbfcfe 0%, var(--paper) 100%);
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      color: var(--white);
+      background: rgba(17, 28, 48, 0.97);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+      backdrop-filter: blur(10px);
+    }
+
+    .header-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 0.8rem clamp(1rem, 4vw, 3rem);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      min-width: 0;
+      font-weight: 750;
+      letter-spacing: 0.02em;
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 2.35rem;
+      height: 2.35rem;
+      flex: 0 0 auto;
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 10px;
+      background: linear-gradient(145deg, var(--gold), var(--navy-light));
+      font-size: 1.15rem;
+    }
+
+    .brand-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .course-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      flex: 0 0 auto;
+      padding: 0.55rem 0.85rem;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      border-radius: 999px;
+      color: var(--white);
+      text-decoration: none;
+      font-size: 0.92rem;
+      font-weight: 700;
+      transition: background 160ms ease, transform 160ms ease;
+    }
+
+    .course-link:hover,
+    .course-link:focus-visible {
+      background: rgba(255, 255, 255, 0.12);
+      transform: translateY(-1px);
+      outline: none;
+    }
+
+    .page-nav {
+      display: flex;
+      gap: 0.35rem;
+      padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.7rem;
+      overflow-x: auto;
+      border-top: 1px solid rgba(255,255,255,.08);
+      scrollbar-width: thin;
+    }
+
+    .page-nav a {
+      flex: 0 0 auto;
+      padding: 0.4rem 0.68rem;
+      border-radius: 999px;
+      color: rgba(255,255,255,.82);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 650;
+    }
+
+    .page-nav a:hover,
+    .page-nav a:focus-visible {
+      color: var(--white);
+      background: rgba(255,255,255,.1);
+      outline: none;
+    }
+
+    main {
+      width: min(1140px, calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(2.5rem, 7vw, 5.5rem) 0 4rem;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(290px, 0.8fr);
+      gap: clamp(2rem, 6vw, 4.5rem);
+      align-items: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .eyebrow {
+      margin: 0 0 0.75rem;
+      color: var(--green);
+      font-size: 0.82rem;
+      font-weight: 850;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      color: var(--navy);
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2.7rem, 7vw, 5.8rem);
+      line-height: 0.98;
+      letter-spacing: -0.045em;
+    }
+
+    .hero-copy {
+      max-width: 740px;
+      margin: 1.35rem 0 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.25rem);
+    }
+
+    .hero-card {
+      padding: 1.5rem;
+      border: 1px solid rgba(53, 106, 84, 0.26);
+      border-radius: var(--radius);
+      background: linear-gradient(180deg, rgba(255,255,255,.94), rgba(223,237,229,.68));
+      box-shadow: var(--shadow);
+    }
+
+    .hero-card strong { color: var(--navy); }
+
+    .poster {
+      margin: 2.5rem 0 3.5rem;
+      overflow: hidden;
+      border: 1px solid rgba(17, 28, 48, 0.2);
+      border-radius: var(--radius);
+      background: var(--navy);
+      box-shadow: var(--shadow);
+    }
+
+    .poster img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .poster figcaption {
+      padding: 0.85rem 1rem;
+      color: rgba(255,255,255,.82);
+      background: var(--navy);
+      font-size: 0.88rem;
+    }
+
+    section { margin: 3.2rem 0; }
+
+    .section-heading { margin-bottom: 1.2rem; }
+
+    .section-heading h2 {
+      margin: 0 0 0.35rem;
+      color: var(--navy);
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+    }
+
+    .section-heading p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .grid-5 {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .grid-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+
+    .card {
+      padding: 1.35rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      background: rgba(255,255,255,.86);
+      box-shadow: 0 5px 18px rgba(17, 28, 48, 0.06);
+    }
+
+    .card h3 {
+      margin: 0 0 0.55rem;
+      color: var(--navy);
+      font-size: 1.16rem;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .card ul {
+      margin: 0.75rem 0 0;
+      padding-left: 1.2rem;
+    }
+
+    .card li { margin-bottom: 0.45rem; }
+
+    .tag {
+      display: inline-block;
+      width: fit-content;
+      margin-bottom: 0.8rem;
+      padding: 0.25rem 0.55rem;
+      border-radius: 999px;
+      color: var(--green);
+      background: var(--green-light);
+      font-size: 0.78rem;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .integration-card { border-top: 4px solid var(--green); }
+    .pioneer-card { border-top: 4px solid var(--blue); }
+    .process-card { border-top: 4px solid var(--purple); }
+    .impact-card { border-top: 4px solid var(--amber); }
+    .bench-card { border-top: 4px solid var(--red); }
+
+    .callout {
+      padding: 1.4rem 1.5rem;
+      border-left: 5px solid var(--green);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      background: rgba(223, 237, 229, 0.72);
+    }
+
+    .callout h3 {
+      margin: 0 0 0.5rem;
+      color: var(--navy);
+    }
+
+    .callout p { margin: 0; }
+
+    .flow-box {
+      margin-top: 1.2rem;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #f8fafc;
+      font-family: Consolas, "Courier New", monospace;
+      font-size: 0.92rem;
+      overflow-x: auto;
+      text-align: center;
+    }
+
+    .timeline {
+      display: grid;
+      gap: 0.85rem;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 135px 1fr;
+      gap: 1rem;
+      align-items: start;
+      padding: 1rem 1.1rem;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: rgba(255,255,255,.84);
+    }
+
+    .timeline-date {
+      color: var(--gold);
+      font-weight: 850;
+    }
+
+    .timeline-item h3 {
+      margin: 0 0 0.25rem;
+      color: var(--navy);
+      font-size: 1.05rem;
+    }
+
+    .timeline-item p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .lesson-nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      color: var(--white);
+      background: var(--navy);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    footer {
+      padding: 1.5rem 1rem 2.5rem;
+      color: var(--muted);
+      text-align: center;
+      font-size: 0.88rem;
+    }
+
+    @media (max-width: 1050px) {
+      .grid-5 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 950px) {
+      .hero { grid-template-columns: 1fr; }
+      .grid-4, .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+
+    @media (max-width: 680px) {
+      html { scroll-padding-top: 190px; }
+
+      .header-top {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+
+      .course-link {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .grid-5 {
+        grid-template-columns: 1fr;
+      }
+
+      .timeline-item { grid-template-columns: 1fr; }
+
+      .lesson-nav { flex-direction: column; }
+
+      .lesson-nav a { justify-content: center; }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="brand" aria-label="History of the Transistor course">
+        <span class="brand-mark" aria-hidden="true">⚡</span>
+        <span class="brand-text">History of the Transistor · Lesson 08</span>
+      </div>
+
+      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">
+        <span aria-hidden="true">←</span>
+        Back to Course Index
+      </a>
+    </div>
+
+    <nav class="page-nav" aria-label="Page contents">
+      <a href="#overview">Overview</a>
+      <a href="#why-integrate">Why Integrate?</a>
+      <a href="#idea">One Piece of Silicon</a>
+      <a href="#pioneers">Kilby & Noyce</a>
+      <a href="#fabrication">How ICs Are Built</a>
+      <a href="#logic">Logic on a Chip</a>
+      <a href="#impact">Why It Matters</a>
+      <a href="#bench">Your Bench</a>
+      <a href="#timeline">Timeline</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="overview">
+      <div>
+        <p class="eyebrow">Poster 8 · When One Transistor Wasn't Enough</p>
+        <h1>The Integrated Circuit</h1>
+        <p class="hero-copy">
+          A lesson for Klins on the next great leap after the transistor:
+          moving from individually wired components to complete electronic circuits built on one piece of semiconductor.
+        </p>
+      </div>
+
+      <aside class="hero-card">
+        <strong>The central idea:</strong>
+        the integrated circuit did not merely shrink the transistor.
+        It changed the unit of invention from one component to an entire connected system.
+      </aside>
+    </section>
+
+    <figure class="poster">
+      <img src="transistor-history-poster08.png" alt="Poster explaining the invention of the integrated circuit, Jack Kilby, Robert Noyce, semiconductor fabrication, logic gates, and the path from discrete transistors to chips.">
+      <figcaption>
+        Course poster 8: the integrated circuit and the transition from separate components to complete circuits on one chip.
+      </figcaption>
+    </figure>
+
+    <section id="why-integrate">
+      <div class="section-heading">
+        <h2>1. Why integrate?</h2>
+        <p>Discrete transistor circuits solved one problem and created several new ones.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card">
+          <h3>Too many separate parts</h3>
+          <p>
+            Every transistor, resistor, and connection had to be installed individually.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Too many hand-wired connections</h3>
+          <p>
+            Each wire or solder joint created cost, bulk, assembly time, and another place for failure.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Miniaturization hit a wall</h3>
+          <p>
+            Even tiny transistors could not produce tiny systems if the surrounding wiring remained large.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Power and signal losses remained</h3>
+          <p>
+            Long interconnections added resistance, capacitance, noise, and delay.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Manufacturing was expensive</h3>
+          <p>
+            Skilled labor was required to assemble every circuit one connection at a time.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>Reliability suffered</h3>
+          <p>
+            More connections meant more loose wires, bad solder joints, corrosion, and mechanical failures.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>The new question</h3>
+      <p>
+        If transistors were made from semiconductor material, could the resistors, connections,
+        and multiple transistor functions be built into that same material instead of wired afterward?
+      </p>
+    </div>
+
+    <section id="idea">
+      <div class="section-heading">
+        <h2>2. Many components, one piece of silicon</h2>
+        <p>The solution was to build the circuit inside the material.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card integration-card">
+          <span class="tag">Discrete circuit</span>
+          <h3>Many parts, many connections</h3>
+          <p>
+            Individual transistors and resistors were mounted and connected by hand or printed wiring.
+          </p>
+        </article>
+
+        <article class="card integration-card">
+          <span class="tag">Hybrid circuit</span>
+          <h3>An intermediate step</h3>
+          <p>
+            Multiple small components were mounted together on one compact substrate.
+          </p>
+        </article>
+
+        <article class="card integration-card">
+          <span class="tag">Integrated circuit</span>
+          <h3>One manufactured structure</h3>
+          <p>
+            Transistors, resistors, and interconnections were formed together on one semiconductor chip.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">separate parts → compact modules → complete circuit fabricated as one structure</div>
+    </section>
+
+    <section id="pioneers">
+      <div class="section-heading">
+        <h2>3. Two paths, one revolution</h2>
+        <p>Jack Kilby and Robert Noyce reached the integrated-circuit idea from different directions.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card pioneer-card">
+          <span class="tag">Jack Kilby</span>
+          <h3>Texas Instruments, 1958</h3>
+          <p>
+            Kilby demonstrated that multiple circuit elements could be built from one piece of semiconductor.
+            His early device used germanium and fine wires to connect the elements.
+          </p>
+        </article>
+
+        <article class="card pioneer-card">
+          <span class="tag">Robert Noyce</span>
+          <h3>Fairchild Semiconductor, 1959</h3>
+          <p>
+            Noyce developed a manufacturable approach using the planar process, silicon dioxide insulation,
+            and metal interconnections formed directly on the chip.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <div class="callout">
+      <h3>Why Noyce's approach scaled</h3>
+      <p>
+        Kilby proved integration was possible. Noyce's planar approach showed how integrated circuits
+        could be manufactured repeatedly, interconnected on the surface, and expanded toward mass production.
+      </p>
+    </div>
+
+    <section id="fabrication">
+      <div class="section-heading">
+        <h2>4. How an integrated circuit is built</h2>
+        <p>A chip is created by repeating precise material-processing steps.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card process-card">
+          <span class="tag">1. Silicon</span>
+          <h3>Start with a wafer</h3>
+          <p>
+            A polished slice of high-purity silicon forms the base material.
+          </p>
+        </article>
+
+        <article class="card process-card">
+          <span class="tag">2. Oxide</span>
+          <h3>Grow an insulating layer</h3>
+          <p>
+            Silicon dioxide protects the surface and helps control where later processing occurs.
+          </p>
+        </article>
+
+        <article class="card process-card">
+          <span class="tag">3. Pattern</span>
+          <h3>Use photolithography</h3>
+          <p>
+            Light passing through a mask defines microscopic regions on the wafer.
+          </p>
+        </article>
+
+        <article class="card process-card">
+          <span class="tag">4. Dope</span>
+          <h3>Create N-type and P-type regions</h3>
+          <p>
+            Diffusion or ion implantation changes carrier behavior in selected areas.
+          </p>
+        </article>
+
+        <article class="card process-card">
+          <span class="tag">5. Etch</span>
+          <h3>Remove selected material</h3>
+          <p>
+            Repeated patterning and etching build the three-dimensional device structure.
+          </p>
+        </article>
+
+        <article class="card process-card">
+          <span class="tag">6. Metallize</span>
+          <h3>Add conductive paths</h3>
+          <p>
+            Thin metal layers connect transistors and other components into complete circuits.
+          </p>
+        </article>
+
+        <article class="card process-card">
+          <span class="tag">7. Passivate</span>
+          <h3>Protect the finished surface</h3>
+          <p>
+            Protective layers shield the circuit from contamination and damage.
+          </p>
+        </article>
+
+        <article class="card process-card">
+          <span class="tag">8. Test</span>
+          <h3>Verify every function</h3>
+          <p>
+            Finished dies are electrically tested before packaging and final use.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>5. What exists inside an IC</h2>
+        <p>An integrated circuit is a layered material system.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Silicon substrate</h3>
+          <p>The structural and electronic foundation of the chip.</p>
+        </article>
+
+        <article class="card">
+          <h3>N-type and P-type regions</h3>
+          <p>Engineered semiconductor areas that form transistor junctions.</p>
+        </article>
+
+        <article class="card">
+          <h3>Insulating oxide</h3>
+          <p>Separates structures and allows controlled field effects.</p>
+        </article>
+
+        <article class="card">
+          <h3>Metal interconnects</h3>
+          <p>Microscopic conductive paths that wire the devices together.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="logic">
+      <div class="section-heading">
+        <h2>6. Logic on a chip</h2>
+        <p>An IC can contain complete logical functions rather than just individual transistors.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>A NOR gate as a complete function</h3>
+          <p>
+            Multiple transistors and resistors can be arranged so the output is high only when all inputs are low.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>From schematic to layout</h3>
+          <p>
+            The circuit diagram describes the logic. The IC layout translates that logic into physical regions, contacts, and interconnects on silicon.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <section id="impact">
+      <div class="section-heading">
+        <h2>7. Why the integrated circuit mattered</h2>
+        <p>Integration changed the economics and scale of electronics.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card impact-card">
+          <h3>Smaller</h3>
+          <p>Entire circuits could fit into packages smaller than a single earlier component assembly.</p>
+        </article>
+
+        <article class="card impact-card">
+          <h3>Faster</h3>
+          <p>Shorter connections reduced delay and allowed higher operating speed.</p>
+        </article>
+
+        <article class="card impact-card">
+          <h3>More reliable</h3>
+          <p>Fewer external wires and solder joints meant fewer mechanical failures.</p>
+        </article>
+
+        <article class="card impact-card">
+          <h3>Lower power</h3>
+          <p>Small structures and short interconnects reduced wasted energy.</p>
+        </article>
+
+        <article class="card impact-card">
+          <h3>Lower cost at scale</h3>
+          <p>Many identical chips could be produced together on a single wafer.</p>
+        </article>
+
+        <article class="card impact-card">
+          <h3>More complex systems</h3>
+          <p>Integration opened the path to microprocessors, memory, sensors, communications chips, and complete systems-on-chip.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>8. The world created by integration</h2>
+        <p>Once circuits could live on chips, entire industries changed.</p>
+      </div>
+
+      <div class="grid-4">
+        <article class="card">
+          <h3>Computers</h3>
+          <p>More logic in less space made personal and embedded computing possible.</p>
+        </article>
+
+        <article class="card">
+          <h3>Communications</h3>
+          <p>Radios, modems, satellites, phones, and networks became smaller and more capable.</p>
+        </article>
+
+        <article class="card">
+          <h3>Space exploration</h3>
+          <p>Lightweight, low-power, high-reliability electronics became practical for spacecraft.</p>
+        </article>
+
+        <article class="card">
+          <h3>Medical devices</h3>
+          <p>Portable monitoring, imaging, sensing, and implanted electronics became possible.</p>
+        </article>
+
+        <article class="card">
+          <h3>Consumer electronics</h3>
+          <p>Radios, calculators, music players, cameras, and phones became affordable and compact.</p>
+        </article>
+
+        <article class="card">
+          <h3>Automotive systems</h3>
+          <p>Engine control, safety, sensing, and communications moved into vehicles.</p>
+        </article>
+
+        <article class="card">
+          <h3>Industry</h3>
+          <p>Automation, robotics, control systems, and instrumentation became more precise.</p>
+        </article>
+
+        <article class="card">
+          <h3>Everything beyond</h3>
+          <p>Modern infrastructure now depends on integrated circuits at nearly every level.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="bench">
+      <div class="section-heading">
+        <h2>9. Connecting the integrated circuit to your bench</h2>
+        <p>Your Raspberry Pi and ESP32 are direct descendants of the integration breakthrough.</p>
+      </div>
+
+      <div class="grid-3">
+        <article class="card bench-card">
+          <h3>Raspberry Pi processor</h3>
+          <p>
+            The CPU, memory controllers, interfaces, timers, and graphics logic are integrated into highly complex chips.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>ESP32 as a system-on-chip</h3>
+          <p>
+            Processing, Wi-Fi, Bluetooth, memory, timers, and GPIO control are combined into one compact package.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Sensor modules</h3>
+          <p>
+            A small sensor package may contain sensing structures, amplifiers, filters, converters, and digital logic on one or more chips.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Relay boards</h3>
+          <p>
+            Even a simple relay module often combines discrete relays with integrated driver or isolation components.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>Your breadboard shows the old problem</h3>
+          <p>
+            Jumper wires, loose contacts, and hand-built connections make visible why integration was so powerful.
+          </p>
+        </article>
+
+        <article class="card bench-card">
+          <h3>From modules to complete systems</h3>
+          <p>
+            Your projects combine many chips into one working system, just as IC design combines many devices into one working chip.
+          </p>
+        </article>
+      </div>
+
+      <div class="flow-box">transistor → logic gate → integrated circuit → microprocessor → system-on-chip → Raspberry Pi / ESP32</div>
+    </section>
+
+    <div class="callout">
+      <h3>The larger lesson for Klins</h3>
+      <p>
+        The integrated circuit changed the scale of imagination.
+        Engineers no longer had to ask what one transistor could do.
+        They could ask what thousands, millions, or billions of transistors could do together.
+      </p>
+    </div>
+
+    <section id="timeline">
+      <div class="section-heading">
+        <h2>10. A timeline of integration</h2>
+        <p>Each breakthrough built directly on the transistor revolution.</p>
+      </div>
+
+      <div class="timeline">
+        <article class="timeline-item">
+          <div class="timeline-date">1947</div>
+          <div>
+            <h3>The first transistor</h3>
+            <p>Solid-state amplification opens the door.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1950–1955</div>
+          <div>
+            <h3>Transistor circuits replace vacuum tubes</h3>
+            <p>Discrete transistor systems prove practical but expose the limits of hand assembly.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1958</div>
+          <div>
+            <h3>Kilby demonstrates the first integrated circuit</h3>
+            <p>Multiple circuit elements are built from one piece of semiconductor.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1959</div>
+          <div>
+            <h3>Noyce develops the planar approach</h3>
+            <p>Silicon processing and surface interconnection make integrated circuits manufacturable.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1960s</div>
+          <div>
+            <h3>Integrated circuits become smaller and more capable</h3>
+            <p>Logic families and improved fabrication expand the number of components per chip.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1970s</div>
+          <div>
+            <h3>The microprocessor arrives</h3>
+            <p>An entire central processor is placed on one integrated circuit.</p>
+          </div>
+        </article>
+
+        <article class="timeline-item">
+          <div class="timeline-date">1980s–today</div>
+          <div>
+            <h3>Billions of transistors per chip</h3>
+            <p>Integrated circuits power computers, phones, vehicles, medicine, industry, and space exploration.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-heading">
+        <h2>11. Looking forward</h2>
+        <p>Integration never stopped; it simply moved to new levels.</p>
+      </div>
+
+      <div class="grid-2">
+        <article class="card">
+          <h3>More than transistors</h3>
+          <p>
+            Modern chips integrate processors, memory, communication radios, sensors, power control, and security functions.
+          </p>
+        </article>
+
+        <article class="card">
+          <h3>The next frontier</h3>
+          <p>
+            Chiplets, three-dimensional stacking, advanced packaging, specialized accelerators, and new materials continue the same basic mission:
+            place more useful function into less space.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    <nav class="lesson-nav" aria-label="Course navigation">
+      <a href="transistor-history-lesson07.html">← Lesson 07</a>
+      <a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Course Index</a>
+      <a href="#overview">Back to Top ↑</a>
+    </nav>
+  </main>
+
+  <footer>
+    Klin's Learning Library · History of the Transistor · Lesson 08
+  </footer>
+</body>
+</html>
