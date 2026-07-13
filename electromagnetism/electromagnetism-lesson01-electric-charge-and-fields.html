@@ -1,1050 +1,1307 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Electromagnetism Lesson 1: Electric Charge and Fields, with interactive question-and-answer sections for Klins.">
-  <title>Electric Charge and Fields | Klin's Learning Library</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Electromagnetism Lesson 1: Electric Charge and Fields, with interactive question-and-answer sections for Klins."
+    />
+    <title>Electric Charge and Fields | Klin's Learning Library</title>
 
-  <style>
-    :root {
-      --navy: #13233a;
-      --navy-2: #214062;
-      --blue: #4e7aac;
-      --paper: #f4f0e7;
-      --white: #ffffff;
-      --ink: #1f2933;
-      --muted: #65717c;
-      --border: #d6dde5;
-      --gold: #c98a2f;
-      --green: #356a54;
-      --green-soft: #e7f1eb;
-      --amber-soft: #f8eedb;
-      --purple-soft: #efe9f7;
-      --shadow: 0 12px 32px rgba(19, 35, 58, 0.12);
-      --radius: 16px;
-      --radius-sm: 12px;
-    }
+    <style>
+      :root {
+        --navy: #13233a;
+        --navy-2: #214062;
+        --blue: #4e7aac;
+        --paper: #f4f0e7;
+        --white: #ffffff;
+        --ink: #1f2933;
+        --muted: #65717c;
+        --border: #d6dde5;
+        --gold: #c98a2f;
+        --green: #356a54;
+        --green-soft: #e7f1eb;
+        --amber-soft: #f8eedb;
+        --purple-soft: #efe9f7;
+        --shadow: 0 12px 32px rgba(19, 35, 58, 0.12);
+        --radius: 16px;
+        --radius-sm: 12px;
+      }
 
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; scroll-padding-top: 150px; }
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 150px;
+      }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
-      line-height: 1.68;
-      color: var(--ink);
-      background:
-        radial-gradient(circle at top right, rgba(78, 122, 172, 0.14), transparent 34rem),
-        linear-gradient(180deg, #fbfcfd 0%, var(--paper) 100%);
-    }
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.68;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(78, 122, 172, 0.14),
+            transparent 34rem
+          ),
+          linear-gradient(180deg, #fbfcfd 0%, var(--paper) 100%);
+      }
 
-    a { color: inherit; }
+      a {
+        color: inherit;
+      }
 
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      color: var(--white);
-      background: rgba(19, 35, 58, 0.97);
-      border-bottom: 1px solid rgba(255,255,255,.12);
-      box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
-      backdrop-filter: blur(10px);
-    }
-
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.85rem clamp(1rem, 4vw, 3rem);
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-      min-width: 0;
-      font-weight: 800;
-      letter-spacing: .02em;
-    }
-
-    .brand-mark {
-      display: grid;
-      place-items: center;
-      width: 2.35rem;
-      height: 2.35rem;
-      flex: 0 0 auto;
-      border-radius: 10px;
-      border: 1px solid rgba(255,255,255,.25);
-      background: linear-gradient(145deg, var(--gold), var(--navy-2));
-      font-size: 1.05rem;
-    }
-
-    .brand-text {
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    .course-link {
-      display: inline-flex;
-      align-items: center;
-      gap: .45rem;
-      padding: .56rem .9rem;
-      border-radius: 999px;
-      border: 1px solid rgba(255,255,255,.28);
-      color: var(--white);
-      text-decoration: none;
-      font-size: .92rem;
-      font-weight: 750;
-      transition: background 160ms ease, transform 160ms ease;
-    }
-
-    .course-link:hover,
-    .course-link:focus-visible {
-      background: rgba(255,255,255,.12);
-      transform: translateY(-1px);
-      outline: none;
-    }
-
-    .page-nav {
-      display: flex;
-      gap: .35rem;
-      padding: .55rem clamp(1rem, 4vw, 3rem) .75rem;
-      overflow-x: auto;
-      border-top: 1px solid rgba(255,255,255,.08);
-      scrollbar-width: thin;
-    }
-
-    .page-nav a {
-      flex: 0 0 auto;
-      padding: .42rem .7rem;
-      border-radius: 999px;
-      color: rgba(255,255,255,.82);
-      text-decoration: none;
-      font-size: .82rem;
-      font-weight: 650;
-    }
-
-    .page-nav a:hover,
-    .page-nav a:focus-visible {
-      color: var(--white);
-      background: rgba(255,255,255,.1);
-      outline: none;
-    }
-
-    main {
-      width: min(1160px, calc(100% - 2rem));
-      margin: 0 auto;
-      padding: clamp(2.4rem, 7vw, 5rem) 0 4rem;
-    }
-
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(300px, .8fr);
-      gap: clamp(2rem, 6vw, 4rem);
-      align-items: center;
-      margin-bottom: 2.8rem;
-    }
-
-    .eyebrow {
-      margin: 0 0 .75rem;
-      color: var(--blue);
-      text-transform: uppercase;
-      letter-spacing: .16em;
-      font-size: .82rem;
-      font-weight: 850;
-    }
-
-    h1 {
-      margin: 0;
-      color: var(--navy);
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(2.8rem, 7vw, 5.8rem);
-      line-height: .98;
-      letter-spacing: -.045em;
-    }
-
-    .hero-copy {
-      max-width: 760px;
-      margin: 1.35rem 0 0;
-      color: var(--muted);
-      font-size: clamp(1.04rem, 2vw, 1.22rem);
-    }
-
-    .hero-card {
-      padding: 1.5rem;
-      border: 1px solid rgba(78, 122, 172, 0.25);
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(231,239,248,.78));
-      box-shadow: var(--shadow);
-    }
-
-    .hero-card strong { color: var(--navy); }
-
-    section { margin: 3rem 0; }
-
-    .section-heading { margin-bottom: 1.1rem; }
-
-    .section-heading h2 {
-      margin: 0 0 .35rem;
-      color: var(--navy);
-      font-size: clamp(1.7rem, 3vw, 2.35rem);
-    }
-
-    .section-heading p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .grid-2, .grid-3 {
-      display: grid;
-      gap: 1.2rem;
-    }
-
-    .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-    .card {
-      padding: 1.35rem;
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      background: rgba(255,255,255,.9);
-      box-shadow: 0 5px 18px rgba(19, 35, 58, .06);
-    }
-
-    .card h3 {
-      margin: 0 0 .55rem;
-      color: var(--navy);
-      font-size: 1.14rem;
-    }
-
-    .card p {
-      margin: 0;
-      color: var(--muted);
-    }
-
-    .card ul {
-      margin: .75rem 0 0;
-      padding-left: 1.2rem;
-    }
-
-    .card li { margin-bottom: .45rem; }
-
-    .placeholder-image {
-      margin: 1rem 0 1.1rem;
-      border: 2px dashed #b8c3d1;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, rgba(231,239,248,.72), rgba(248,244,232,.88));
-      min-height: 240px;
-      display: grid;
-      place-items: center;
-      padding: 1.5rem;
-      text-align: center;
-      color: var(--navy-2);
-      font-weight: 700;
-    }
-
-    .placeholder-image span { max-width: 42ch; }
-
-    .placeholder-caption {
-      margin-top: -.2rem;
-      color: var(--muted);
-      font-size: .92rem;
-      font-style: italic;
-    }
-
-    .qa-card { border-top: 4px solid var(--blue); }
-
-    .answer {
-      margin-top: .9rem;
-      padding: 1rem 1.05rem;
-      border: 1px solid #d5e1ef;
-      border-radius: var(--radius-sm);
-      background: #f4f8fc;
-      color: var(--ink);
-      display: none;
-    }
-
-    .answer.show { display: block; }
-
-    .toggle-btn {
-      margin-top: .95rem;
-      display: inline-flex;
-      align-items: center;
-      gap: .5rem;
-      padding: .65rem 1rem;
-      border: none;
-      border-radius: 999px;
-      background: var(--navy);
-      color: var(--white);
-      font-weight: 750;
-      cursor: pointer;
-      box-shadow: 0 6px 18px rgba(19, 35, 58, .14);
-      transition: transform 160ms ease, background 160ms ease;
-    }
-
-    .toggle-btn:hover,
-    .toggle-btn:focus-visible {
-      background: var(--navy-2);
-      transform: translateY(-1px);
-      outline: none;
-    }
-
-    .inset-wrap {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 1.2rem;
-    }
-
-    .inset {
-      padding: 1.15rem 1.15rem 1.05rem;
-      border-radius: var(--radius);
-      border: 1px solid var(--border);
-      background: rgba(255,255,255,.84);
-    }
-
-    .inset h4 {
-      margin: 0 0 .45rem;
-      font-size: 1rem;
-      color: var(--navy);
-    }
-
-    .inset p {
-      margin: 0;
-      color: var(--muted);
-      font-size: .97rem;
-    }
-
-    .real-world {
-      border-left: 5px solid var(--green);
-      background: var(--green-soft);
-    }
-
-    .historical-note {
-      border-left: 5px solid var(--gold);
-      background: var(--amber-soft);
-    }
-
-    .monkey-robot {
-      border-left: 5px solid var(--blue);
-      background: #eef4fb;
-    }
-
-    .summary-box {
-      padding: 1.35rem 1.4rem;
-      border-left: 5px solid #8b6ab1;
-      border-radius: 0 var(--radius) var(--radius) 0;
-      background: var(--purple-soft);
-    }
-
-    .summary-box h3 {
-      margin: 0 0 .5rem;
-      color: var(--navy);
-    }
-
-    .summary-box ul {
-      margin: 0;
-      padding-left: 1.2rem;
-    }
-
-    .summary-box li { margin-bottom: .45rem; }
-
-    .lesson-nav {
-      display: flex;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-top: 3.5rem;
-      padding-top: 1.5rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .lesson-nav a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: .45rem;
-      padding: .72rem 1rem;
-      border-radius: 999px;
-      background: var(--navy);
-      color: var(--white);
-      text-decoration: none;
-      font-weight: 750;
-    }
-
-    footer {
-      padding: 1.6rem 1rem 2.5rem;
-      color: var(--muted);
-      text-align: center;
-      font-size: .88rem;
-    }
-
-    @media (max-width: 980px) {
-      .hero { grid-template-columns: 1fr; }
-      .grid-3 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-
-    @media (max-width: 720px) {
-      html { scroll-padding-top: 195px; }
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: var(--white);
+        background: rgba(19, 35, 58, 0.97);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+        backdrop-filter: blur(10px);
+      }
 
       .header-top {
-        flex-direction: column;
-        align-items: flex-start;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem clamp(1rem, 4vw, 3rem);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        flex: 0 0 auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: linear-gradient(145deg, var(--gold), var(--navy-2));
+        font-size: 1.05rem;
+      }
+
+      .brand-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
       }
 
       .course-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.56rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 750;
+        transition:
+          background 160ms ease,
+          transform 160ms ease;
+      }
+
+      .course-link:hover,
+      .course-link:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 0.35rem;
+        padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.75rem;
+        overflow-x: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        scrollbar-width: thin;
+      }
+
+      .page-nav a {
+        flex: 0 0 auto;
+        padding: 0.42rem 0.7rem;
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      .page-nav a:hover,
+      .page-nav a:focus-visible {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.1);
+        outline: none;
+      }
+
+      main {
+        width: min(1160px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(2.4rem, 7vw, 5rem) 0 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: clamp(2rem, 6vw, 4rem);
+        align-items: center;
+        margin-bottom: 2.8rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: var(--blue);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--navy);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2.8rem, 7vw, 5.8rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin: 1.35rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.04rem, 2vw, 1.22rem);
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+        border: 1px solid rgba(78, 122, 172, 0.25);
+        border-radius: var(--radius);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(231, 239, 248, 0.78)
+        );
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card strong {
+        color: var(--navy);
+      }
+
+      section {
+        margin: 3rem 0;
+      }
+
+      .section-heading {
+        margin-bottom: 1.1rem;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 0.35rem;
+        color: var(--navy);
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 1.35rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 5px 18px rgba(19, 35, 58, 0.06);
+      }
+
+      .card h3 {
+        margin: 0 0 0.55rem;
+        color: var(--navy);
+        font-size: 1.14rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.2rem;
+      }
+
+      .card li {
+        margin-bottom: 0.45rem;
+      }
+
+      .placeholder-image {
+        margin: 1rem 0 1.1rem;
+        border: 2px dashed #b8c3d1;
+        border-radius: var(--radius);
+        background: linear-gradient(
+          135deg,
+          rgba(231, 239, 248, 0.72),
+          rgba(248, 244, 232, 0.88)
+        );
+        min-height: 240px;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        text-align: center;
+        color: var(--navy-2);
+        font-weight: 700;
+      }
+
+      .placeholder-image span {
+        max-width: 42ch;
+      }
+
+      .placeholder-caption {
+        margin-top: -0.2rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .lesson-figure {
+        margin: 1rem 0 1.1rem;
+      }
+
+      .lesson-image {
         width: 100%;
+        aspect-ratio: 16 / 9;
+        display: block;
+        object-fit: cover;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        background: #e7edf3;
+      }
+
+      .lesson-figure figcaption {
+        margin-top: 0.65rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .qa-card {
+        border-top: 4px solid var(--blue);
+      }
+
+      .answer {
+        margin-top: 0.9rem;
+        padding: 1rem 1.05rem;
+        border: 1px solid #d5e1ef;
+        border-radius: var(--radius-sm);
+        background: #f4f8fc;
+        color: var(--ink);
+        display: none;
+      }
+
+      .answer.show {
+        display: block;
+      }
+
+      .toggle-btn {
+        margin-top: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        border: none;
+        border-radius: 999px;
+        background: var(--navy);
+        color: var(--white);
+        font-weight: 750;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(19, 35, 58, 0.14);
+        transition:
+          transform 160ms ease,
+          background 160ms ease;
+      }
+
+      .toggle-btn:hover,
+      .toggle-btn:focus-visible {
+        background: var(--navy-2);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .inset-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.2rem;
+      }
+
+      .inset {
+        padding: 1.15rem 1.15rem 1.05rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.84);
+      }
+
+      .inset h4 {
+        margin: 0 0 0.45rem;
+        font-size: 1rem;
+        color: var(--navy);
+      }
+
+      .inset p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+
+      .real-world {
+        border-left: 5px solid var(--green);
+        background: var(--green-soft);
+      }
+
+      .historical-note {
+        border-left: 5px solid var(--gold);
+        background: var(--amber-soft);
+      }
+
+      .monkey-robot {
+        border-left: 5px solid var(--blue);
+        background: #eef4fb;
+      }
+
+      .summary-box {
+        padding: 1.35rem 1.4rem;
+        border-left: 5px solid #8b6ab1;
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background: var(--purple-soft);
+      }
+
+      .summary-box h3 {
+        margin: 0 0 0.5rem;
+        color: var(--navy);
+      }
+
+      .summary-box ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .summary-box li {
+        margin-bottom: 0.45rem;
+      }
+
+      .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .lesson-nav a {
+        display: inline-flex;
+        align-items: center;
         justify-content: center;
+        gap: 0.45rem;
+        padding: 0.72rem 1rem;
+        border-radius: 999px;
+        background: var(--navy);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 750;
       }
 
-      .grid-2, .grid-3, .inset-wrap {
-        grid-template-columns: 1fr;
+      footer {
+        padding: 1.6rem 1rem 2.5rem;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.88rem;
       }
 
-      .lesson-nav { flex-direction: column; }
-    }
-  </style>
-</head>
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
 
-<body>
-  <header class="site-header">
-    <div class="header-top">
-      <div class="brand" aria-label="Electromagnetism course">
-        <span class="brand-mark" aria-hidden="true">⚡</span>
-        <span class="brand-text">Electromagnetism · Lesson 01</span>
+      @media (max-width: 720px) {
+        html {
+          scroll-padding-top: 195px;
+        }
+
+        .header-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .course-link {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .grid-2,
+        .grid-3,
+        .inset-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .lesson-nav {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-top">
+        <div class="brand" aria-label="Electromagnetism course">
+          <span class="brand-mark" aria-hidden="true">⚡</span>
+          <span class="brand-text">Electromagnetism · Lesson 01</span>
+        </div>
+
+        <a
+          class="course-link"
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+        >
+          <span aria-hidden="true">←</span>
+          Back to Electromagnetism
+        </a>
       </div>
 
-      <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">
-        <span aria-hidden="true">←</span>
-        Back to Electromagnetism
-      </a>
-    </div>
+      <nav class="page-nav" aria-label="Page contents">
+        <a href="#overview">Overview</a>
+        <a href="#charge">Charge</a>
+        <a href="#positive-negative">Positive & Negative</a>
+        <a href="#conductors">Conductors</a>
+        <a href="#charging">Charging Methods</a>
+        <a href="#fields">Fields</a>
+        <a href="#distance">Distance & Force</a>
+        <a href="#polarization">Polarization</a>
+        <a href="#circuits">Circuits & Capacitors</a>
+        <a href="#summary">Summary</a>
+      </nav>
+    </header>
 
-    <nav class="page-nav" aria-label="Page contents">
-      <a href="#overview">Overview</a>
-      <a href="#charge">Charge</a>
-      <a href="#positive-negative">Positive & Negative</a>
-      <a href="#conductors">Conductors</a>
-      <a href="#charging">Charging Methods</a>
-      <a href="#fields">Fields</a>
-      <a href="#distance">Distance & Force</a>
-      <a href="#polarization">Polarization</a>
-      <a href="#circuits">Circuits & Capacitors</a>
-      <a href="#summary">Summary</a>
-    </nav>
-  </header>
-
-  <main>
-    <section class="hero" id="overview">
-      <div>
-        <p class="eyebrow">Lesson 1 · Foundations</p>
-        <h1>Electric Charge and Fields</h1>
-        <p class="hero-copy">
-          This lesson introduces the invisible architecture behind electricity:
-          charge, attraction, repulsion, and the electric fields that reach through space.
-          Monkey and Robot will help guide the way.
-        </p>
-      </div>
-
-      <aside class="hero-card">
-        <strong>Central question:</strong>
-        How can one object influence another without touching it?
-        <br><br>
-        <strong>Key idea:</strong>
-        electric charge changes the space around it, and that changed space can exert force.
-      </aside>
-    </section>
-
-    <section>
-      <div class="placeholder-image">
-        <span>Image Placeholder: Monkey rubs a balloon on his fur while Robot watches with curiosity, and the balloon later sticks to a wall.</span>
-      </div>
-      <p class="placeholder-caption">
-        Suggested image caption: Monkey demonstrates static electricity while Robot observes that force can act without direct contact.
-      </p>
-    </section>
-
-    <section id="charge">
-      <div class="section-heading">
-        <h2>1. What is electric charge?</h2>
-        <p>Charge is one of the basic properties of matter.</p>
-      </div>
-
-      <div class="grid-2">
-        <article class="card">
-          <h3>The idea</h3>
-          <p>
-            Matter contains particles with electrical properties. In ordinary matter,
-            protons carry positive charge, electrons carry negative charge, and neutrons are neutral.
-          </p>
-        </article>
-
-        <article class="card monkey-robot">
-          <h3>Monkey & Robot</h3>
-          <p>
-            Monkey asks, “Did I create electricity by magic?” Robot replies,
-            “Not exactly. You mostly moved electrons from one place to another.”
-          </p>
-        </article>
-      </div>
-
-      <div class="grid-2" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>What does it mean for an object to be electrically neutral?</p>
-          <button class="toggle-btn" data-target="answer-neutral">Reveal Answer</button>
-          <div class="answer" id="answer-neutral">
-            <p>
-              An electrically neutral object has equal amounts of positive and negative charge overall.
-              It still contains charge—just balanced charge.
-            </p>
-          </div>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>When a common object becomes charged, what usually moves: protons or electrons?</p>
-          <button class="toggle-btn" data-target="answer-electrons">Reveal Answer</button>
-          <div class="answer" id="answer-electrons">
-            <p>
-              In ordinary situations, electrons usually move. Protons generally stay bound inside atomic nuclei.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <div class="inset-wrap">
-        <div class="inset real-world">
-          <h4>In the Real World</h4>
-          <p>
-            Static shocks after walking across carpet happen because charge builds up and then suddenly redistributes.
+    <main>
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">Lesson 1 · Foundations</p>
+          <h1>Electric Charge and Fields</h1>
+          <p class="hero-copy">
+            This lesson introduces the invisible architecture behind
+            electricity: charge, attraction, repulsion, and the electric fields
+            that reach through space. Monkey and Robot will help guide the way.
           </p>
         </div>
 
-        <div class="inset historical-note">
-          <h4>Historical Note</h4>
+        <aside class="hero-card">
+          <strong>Central question:</strong>
+          How can one object influence another without touching it?
+          <br /><br />
+          <strong>Key idea:</strong>
+          electric charge changes the space around it, and that changed space
+          can exert force.
+        </aside>
+      </section>
+
+      <section>
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson2_image04.png"
+            alt="Monkey rubs a balloon on his fur while Robot watches with curiosity, and the balloon later sticks to a wall."
+            loading="lazy"
+          />
+
+          <figcaption>
+            Suggested image caption: Monkey demonstrates static electricity
+            while Robot observes that force can act without direct contact.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="charge">
+        <div class="section-heading">
+          <h2>1. What is electric charge?</h2>
+          <p>Charge is one of the basic properties of matter.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>The idea</h3>
+            <p>
+              Matter contains particles with electrical properties. In ordinary
+              matter, protons carry positive charge, electrons carry negative
+              charge, and neutrons are neutral.
+            </p>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey asks, “Did I create electricity by magic?” Robot replies,
+              “Not exactly. You mostly moved electrons from one place to
+              another.”
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What does it mean for an object to be electrically neutral?</p>
+            <button class="toggle-btn" data-target="answer-neutral">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-neutral">
+              <p>
+                An electrically neutral object has equal amounts of positive and
+                negative charge overall. It still contains charge—just balanced
+                charge.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              When a common object becomes charged, what usually moves: protons
+              or electrons?
+            </p>
+            <button class="toggle-btn" data-target="answer-electrons">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-electrons">
+              <p>
+                In ordinary situations, electrons usually move. Protons
+                generally stay bound inside atomic nuclei.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Static shocks after walking across carpet happen because charge
+              builds up and then suddenly redistributes.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              Ancient observers noticed that rubbed amber could attract light
+              objects. That was one of humanity’s earliest encounters with
+              electrostatics.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="positive-negative">
+        <div class="section-heading">
+          <h2>2. Positive and negative charge</h2>
           <p>
-            Ancient observers noticed that rubbed amber could attract light objects. That was one of humanity’s earliest encounters with electrostatics.
+            There are two kinds of charge, and they interact in a simple but
+            powerful way.
           </p>
         </div>
-      </div>
-    </section>
 
-    <section id="positive-negative">
-      <div class="section-heading">
-        <h2>2. Positive and negative charge</h2>
-        <p>There are two kinds of charge, and they interact in a simple but powerful way.</p>
-      </div>
-
-      <div class="grid-3">
-        <article class="card">
-          <h3>Like charges</h3>
-          <p>Like charges repel. Two negatively charged balloons push away from each other.</p>
-        </article>
-
-        <article class="card">
-          <h3>Opposite charges</h3>
-          <p>Opposite charges attract. A positive charge pulls toward a negative one.</p>
-        </article>
-
-        <article class="card">
-          <h3>Why this matters</h3>
-          <p>Nearly every electrical effect builds on this simple rule of attraction and repulsion.</p>
-        </article>
-      </div>
-
-      <div class="placeholder-image">
-        <span>Image Placeholder: Two balloons, one pair pushing apart and another positive-negative pair pulling together, with Monkey pointing and Robot diagramming arrows.</span>
-      </div>
-      <p class="placeholder-caption">
-        Suggested image caption: Like charges repel, opposite charges attract.
-      </p>
-
-      <div class="grid-2" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>What is the simplest rule for the interaction of charges?</p>
-          <button class="toggle-btn" data-target="answer-rule">Reveal Answer</button>
-          <div class="answer" id="answer-rule">
+        <div class="grid-3">
+          <article class="card">
+            <h3>Like charges</h3>
             <p>
-              Like charges repel, and opposite charges attract.
+              Like charges repel. Two negatively charged balloons push away from
+              each other.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Opposite charges</h3>
+            <p>
+              Opposite charges attract. A positive charge pulls toward a
+              negative one.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Why this matters</h3>
+            <p>
+              Nearly every electrical effect builds on this simple rule of
+              attraction and repulsion.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson1_image02.png"
+            alt="Two balloons, one pair pushing apart and another positive-negative pair pulling together, with Monkey pointing and Robot diagramming arrows."
+            loading="lazy"
+          />
+          <figcaption>Like charges repel, opposite charges attract.</figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What is the simplest rule for the interaction of charges?</p>
+            <button class="toggle-btn" data-target="answer-rule">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-rule">
+              <p>Like charges repel, and opposite charges attract.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              Why is Franklin’s naming of positive and negative important, even
+              if the labels are arbitrary?
+            </p>
+            <button class="toggle-btn" data-target="answer-franklin">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-franklin">
+              <p>
+                The labels gave scientists a consistent language. Even if the
+                sign choice itself was historical rather than physical destiny,
+                the convention allowed the science to grow coherently.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="conductors">
+        <div class="section-heading">
+          <h2>3. Conductors and insulators</h2>
+          <p>Some materials allow charge to move more easily than others.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Conductors</h3>
+            <p>
+              In conductors, charge can move relatively freely. Examples include
+              copper, aluminum, and the human body.
+            </p>
+            <ul>
+              <li>Useful for wires and signal paths</li>
+              <li>Important in power distribution</li>
+              <li>Relevant to your bench wiring and twisted pair</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Insulators</h3>
+            <p>
+              In insulators, charge movement is much more restricted. Examples
+              include rubber, plastic, glass, and ceramic.
+            </p>
+            <ul>
+              <li>Useful for wire insulation</li>
+              <li>Help keep charge where it belongs</li>
+              <li>Make safe handling possible</li>
+            </ul>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              Why is copper good for wiring but plastic good for insulation?
+            </p>
+            <button class="toggle-btn" data-target="answer-copper-plastic">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-copper-plastic">
+              <p>
+                Copper allows charges to move relatively freely, making it a
+                good conductor. Plastic resists that movement, making it useful
+                for keeping current contained and controlled.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “So copper is the road?” Robot answers, “Exactly—and
+              plastic is the guardrail.”
+            </p>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Your bench depends on this distinction constantly: copper traces,
+              jumper wires, foil runs, and insulated leads all embody
+              conductor-versus-insulator logic.
             </p>
           </div>
-        </article>
 
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>Why is Franklin’s naming of positive and negative important, even if the labels are arbitrary?</p>
-          <button class="toggle-btn" data-target="answer-franklin">Reveal Answer</button>
-          <div class="answer" id="answer-franklin">
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
             <p>
-              The labels gave scientists a consistent language. Even if the sign choice itself was historical rather than physical destiny,
-              the convention allowed the science to grow coherently.
+              Long before microchips, practical electricity relied on the
+              ability to choose the right materials for carrying, blocking, or
+              controlling charge.
             </p>
           </div>
-        </article>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <section id="conductors">
-      <div class="section-heading">
-        <h2>3. Conductors and insulators</h2>
-        <p>Some materials allow charge to move more easily than others.</p>
-      </div>
+      <section id="charging">
+        <div class="section-heading">
+          <h2>4. Three ways objects become charged</h2>
+          <p>Charge can be separated and redistributed in multiple ways.</p>
+        </div>
 
-      <div class="grid-2">
-        <article class="card">
-          <h3>Conductors</h3>
-          <p>
-            In conductors, charge can move relatively freely. Examples include copper, aluminum, and the human body.
-          </p>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Friction</h3>
+            <p>
+              Rubbing materials together can transfer electrons from one
+              material to another.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Contact</h3>
+            <p>
+              A charged object touching another object can redistribute charge
+              between them.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Induction</h3>
+            <p>
+              A nearby charged object can rearrange charges in another object
+              without touching it.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson1_image03.png"
+            alt="Three-panel scene showing Monkey charging a
+            balloon by friction, Robot touching a conductor for contact, and a
+            nearby charged rod causing induction in a metal sphere."
+            loading="lazy"
+          />
+          <figcaption>
+            Friction, contact, and induction are three common charging
+            mechanisms.
+          </figcaption>
+        </figure>
+
+        <div class="grid-3" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What happens during charging by friction?</p>
+            <button class="toggle-btn" data-target="answer-friction">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-friction">
+              <p>
+                Electrons are transferred between materials. One object gains
+                electrons and becomes more negative; the other loses electrons
+                and becomes more positive.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What makes induction special?</p>
+            <button class="toggle-btn" data-target="answer-induction">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-induction">
+              <p>
+                Induction does not require direct contact. A nearby charge
+                causes charges in another object to rearrange.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Is charge created in these processes?</p>
+            <button class="toggle-btn" data-target="answer-conservation">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-conservation">
+              <p>
+                No. Charge is redistributed. The total charge of the whole
+                system is conserved.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="fields">
+        <div class="section-heading">
+          <h2>5. Electric fields</h2>
+          <p>A field describes how space around a charge is changed.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Definition</h3>
+            <p>
+              An electric field is a region in which a charge would experience
+              force. It is how physics describes influence across space.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Direction</h3>
+            <p>
+              Field direction is defined using a positive test charge: field
+              lines point away from positive charge and toward negative charge.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson1_image04.png"
+            alt="Robot projects glowing field lines around a
+            positive and a negative charge while Monkey reaches toward the
+            diagram in amazement"
+            loading="lazy"
+          />
+          <figcaption>
+            Electric field lines show direction and relative strength of the
+            field.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What do field lines represent?</p>
+            <button class="toggle-btn" data-target="answer-field-lines">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-field-lines">
+              <p>
+                Field lines are a visual tool. They indicate direction, and
+                their density suggests relative field strength. They are not
+                literal threads in space.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              Why do we imagine a positive test charge when defining field
+              direction?
+            </p>
+            <button class="toggle-btn" data-target="answer-test-charge">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-test-charge">
+              <p>
+                It gives us a consistent convention: the field points in the
+                direction a small positive charge would be pushed.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Fields are not just classroom abstractions. Batteries, capacitors,
+              sensors, and circuits all depend on electric fields to do useful
+              work.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              Michael Faraday was crucial in developing the field concept. He
+              helped shift physics away from merely saying “forces act” toward
+              visualizing structured influence in space.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="distance">
+        <div class="section-heading">
+          <h2>6. Distance and force</h2>
+          <p>Electric force gets weaker as distance increases.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>More charge → more force</h3>
+            <p>
+              If the interacting charges are larger, the force between them is
+              stronger.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>More distance → less force</h3>
+            <p>
+              The farther apart charges are, the weaker the interaction becomes.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Inverse-square behavior</h3>
+            <p>
+              Doubling the distance reduces the force to one quarter of what it
+              was.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card">
+            <h3>Conceptual equation</h3>
+            <p>Coulomb’s law is often written as:</p>
+            <p
+              style="font-weight: 800; color: var(--navy); margin-top: 0.65rem"
+            >
+              F = k(q₁q₂) / r²
+            </p>
+            <p style="margin-top: 0.75rem">
+              The important part right now is the meaning: more charge increases
+              force, and more distance reduces it sharply.
+            </p>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              If two charges are twice as far apart, what happens to the
+              electric force?
+            </p>
+            <button class="toggle-btn" data-target="answer-distance">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-distance">
+              <p>
+                It drops to one quarter of its original value, because the
+                dependence is on the square of the distance.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="polarization">
+        <div class="section-heading">
+          <h2>7. Polarization</h2>
+          <p>Neutral objects can still respond strongly to nearby charge.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>The idea</h3>
+            <p>
+              A charged object can shift the internal distribution of charge
+              inside a neutral object. One side becomes slightly more positive
+              and the other slightly more negative.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Why a balloon sticks to a wall</h3>
+            <p>
+              A charged balloon can polarize the wall. The nearer side becomes
+              effectively opposite in sign, producing a net attraction.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson1_image05.png"
+            alt="Monkey presses a charged balloon near a wall
+            while Robot shows tiny charges inside the wall shifting position to
+            illustrate polarization."
+            loading="lazy"
+          />
+          <figcaption>
+            Suggested image caption: A charged object can attract a neutral
+            object by inducing a charge separation.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why can a charged object attract a neutral object?</p>
+            <button class="toggle-btn" data-target="answer-polarization">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-polarization">
+              <p>
+                Because the neutral object can be polarized: its charges shift
+                slightly so that the near side becomes more oppositely charged
+                than the far side.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “So neutral doesn’t mean asleep?” Robot answers,
+              “Exactly. Neutral just means balanced overall, not incapable of
+              responding.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="circuits">
+        <div class="section-heading">
+          <h2>8. From fields to circuits and capacitors</h2>
+          <p>The field concept becomes practical in electronics.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Electric fields in circuits</h3>
+            <p>
+              A battery sets up an electric potential difference, which
+              establishes an electric field in a circuit. Charges in the
+              conductor respond to that field.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Capacitors</h3>
+            <p>
+              A capacitor stores energy in an electric field between conductive
+              plates separated by an insulator. This makes it a direct practical
+              application of the ideas in this lesson.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-3" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What does a battery really provide to a circuit?</p>
+            <button class="toggle-btn" data-target="answer-battery">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-battery">
+              <p>
+                It provides a potential difference that establishes an electric
+                field, which pushes charges through the circuit.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Where is energy stored in a capacitor?</p>
+            <button class="toggle-btn" data-target="answer-capacitor">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-capacitor">
+              <p>
+                The energy is stored in the electric field between the
+                capacitor’s plates.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why does this matter for your bench?</p>
+            <button class="toggle-btn" data-target="answer-bench">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-bench">
+              <p>
+                Because your Raspberry Pi, ESP32 boards, decoupling capacitors,
+                wires, connectors, and sensors all rely on controlled charge
+                motion and electric fields.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Capacitors show up in filtering, timing, smoothing, decoupling,
+              and energy buffering. Even a tiny board often contains many of
+              them.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              The field concept eventually fed into the larger synthesis of
+              electricity and magnetism, culminating in Maxwell’s equations.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="summary">
+        <div class="section-heading">
+          <h2>9. Lesson summary</h2>
+          <p>The most important ideas to take forward.</p>
+        </div>
+
+        <div class="summary-box">
+          <h3>Key takeaways</h3>
           <ul>
-            <li>Useful for wires and signal paths</li>
-            <li>Important in power distribution</li>
-            <li>Relevant to your bench wiring and twisted pair</li>
+            <li>Charge is a basic property of matter.</li>
+            <li>
+              Protons are positive, electrons are negative, and neutrons are
+              neutral.
+            </li>
+            <li>Like charges repel; opposite charges attract.</li>
+            <li>Electrons usually move during ordinary charging processes.</li>
+            <li>
+              Conductors allow charge movement more easily than insulators.
+            </li>
+            <li>Objects can be charged by friction, contact, and induction.</li>
+            <li>
+              Electric fields describe how charges influence surrounding space.
+            </li>
+            <li>Electric force decreases rapidly with distance.</li>
+            <li>Neutral objects can still be attracted by polarization.</li>
+            <li>
+              Circuits and capacitors are practical applications of electric
+              fields.
+            </li>
           </ul>
-        </article>
-
-        <article class="card">
-          <h3>Insulators</h3>
-          <p>
-            In insulators, charge movement is much more restricted. Examples include rubber, plastic, glass, and ceramic.
-          </p>
-          <ul>
-            <li>Useful for wire insulation</li>
-            <li>Help keep charge where it belongs</li>
-            <li>Make safe handling possible</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="grid-2" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>Why is copper good for wiring but plastic good for insulation?</p>
-          <button class="toggle-btn" data-target="answer-copper-plastic">Reveal Answer</button>
-          <div class="answer" id="answer-copper-plastic">
-            <p>
-              Copper allows charges to move relatively freely, making it a good conductor.
-              Plastic resists that movement, making it useful for keeping current contained and controlled.
-            </p>
-          </div>
-        </article>
-
-        <article class="card monkey-robot">
-          <h3>Monkey & Robot</h3>
-          <p>
-            Monkey says, “So copper is the road?” Robot answers, “Exactly—and plastic is the guardrail.”
-          </p>
-        </article>
-      </div>
-
-      <div class="inset-wrap">
-        <div class="inset real-world">
-          <h4>In the Real World</h4>
-          <p>
-            Your bench depends on this distinction constantly: copper traces, jumper wires, foil runs, and insulated leads all embody conductor-versus-insulator logic.
-          </p>
         </div>
 
-        <div class="inset historical-note">
-          <h4>Historical Note</h4>
-          <p>
-            Long before microchips, practical electricity relied on the ability to choose the right materials for carrying, blocking, or controlling charge.
-          </p>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>
+              What is the single best short definition of an electric field?
+            </p>
+            <button class="toggle-btn" data-target="answer-final-field">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-final-field">
+              <p>
+                An electric field is a region in which a charge would experience
+                force.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>
+              What is one everyday example that reveals electric fields in
+              action?
+            </p>
+            <button class="toggle-btn" data-target="answer-final-example">
+              Reveal Answer
+            </button>
+            <div class="answer" id="answer-final-example">
+              <p>
+                A balloon sticking to a wall, a static shock, dust clinging to a
+                surface, or lightning are all good examples.
+              </p>
+            </div>
+          </article>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section id="charging">
-      <div class="section-heading">
-        <h2>4. Three ways objects become charged</h2>
-        <p>Charge can be separated and redistributed in multiple ways.</p>
-      </div>
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+          >← Back to Electromagnetism</a
+        >
+        <a href="#overview">Back to Top ↑</a>
+      </nav>
+    </main>
 
-      <div class="grid-3">
-        <article class="card">
-          <h3>Friction</h3>
-          <p>Rubbing materials together can transfer electrons from one material to another.</p>
-        </article>
+    <footer>
+      Klin's Learning Library · Electromagnetism · Lesson 01 · Electric Charge
+      and Fields
+    </footer>
 
-        <article class="card">
-          <h3>Contact</h3>
-          <p>A charged object touching another object can redistribute charge between them.</p>
-        </article>
+    <script>
+      const buttons = document.querySelectorAll(".toggle-btn");
 
-        <article class="card">
-          <h3>Induction</h3>
-          <p>A nearby charged object can rearrange charges in another object without touching it.</p>
-        </article>
-      </div>
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+          const answer = document.getElementById(targetId);
+          if (!answer) return;
 
-      <div class="placeholder-image">
-        <span>Image Placeholder: Three-panel scene showing Monkey charging a balloon by friction, Robot touching a conductor for contact, and a nearby charged rod causing induction in a metal sphere.</span>
-      </div>
-      <p class="placeholder-caption">
-        Suggested image caption: Friction, contact, and induction are three common charging mechanisms.
-      </p>
-
-      <div class="grid-3" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>What happens during charging by friction?</p>
-          <button class="toggle-btn" data-target="answer-friction">Reveal Answer</button>
-          <div class="answer" id="answer-friction">
-            <p>
-              Electrons are transferred between materials. One object gains electrons and becomes more negative; the other loses electrons and becomes more positive.
-            </p>
-          </div>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>What makes induction special?</p>
-          <button class="toggle-btn" data-target="answer-induction">Reveal Answer</button>
-          <div class="answer" id="answer-induction">
-            <p>
-              Induction does not require direct contact. A nearby charge causes charges in another object to rearrange.
-            </p>
-          </div>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>Is charge created in these processes?</p>
-          <button class="toggle-btn" data-target="answer-conservation">Reveal Answer</button>
-          <div class="answer" id="answer-conservation">
-            <p>
-              No. Charge is redistributed. The total charge of the whole system is conserved.
-            </p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="fields">
-      <div class="section-heading">
-        <h2>5. Electric fields</h2>
-        <p>A field describes how space around a charge is changed.</p>
-      </div>
-
-      <div class="grid-2">
-        <article class="card">
-          <h3>Definition</h3>
-          <p>
-            An electric field is a region in which a charge would experience force.
-            It is how physics describes influence across space.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Direction</h3>
-          <p>
-            Field direction is defined using a positive test charge:
-            field lines point away from positive charge and toward negative charge.
-          </p>
-        </article>
-      </div>
-
-      <div class="placeholder-image">
-        <span>Image Placeholder: Robot projects glowing field lines around a positive and a negative charge while Monkey reaches toward the diagram in amazement.</span>
-      </div>
-      <p class="placeholder-caption">
-        Suggested image caption: Electric field lines show direction and relative strength of the field.
-      </p>
-
-      <div class="grid-2" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>What do field lines represent?</p>
-          <button class="toggle-btn" data-target="answer-field-lines">Reveal Answer</button>
-          <div class="answer" id="answer-field-lines">
-            <p>
-              Field lines are a visual tool. They indicate direction, and their density suggests relative field strength.
-              They are not literal threads in space.
-            </p>
-          </div>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>Why do we imagine a positive test charge when defining field direction?</p>
-          <button class="toggle-btn" data-target="answer-test-charge">Reveal Answer</button>
-          <div class="answer" id="answer-test-charge">
-            <p>
-              It gives us a consistent convention: the field points in the direction a small positive charge would be pushed.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <div class="inset-wrap">
-        <div class="inset real-world">
-          <h4>In the Real World</h4>
-          <p>
-            Fields are not just classroom abstractions. Batteries, capacitors, sensors, and circuits all depend on electric fields to do useful work.
-          </p>
-        </div>
-
-        <div class="inset historical-note">
-          <h4>Historical Note</h4>
-          <p>
-            Michael Faraday was crucial in developing the field concept. He helped shift physics away from merely saying “forces act” toward visualizing structured influence in space.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="distance">
-      <div class="section-heading">
-        <h2>6. Distance and force</h2>
-        <p>Electric force gets weaker as distance increases.</p>
-      </div>
-
-      <div class="grid-3">
-        <article class="card">
-          <h3>More charge → more force</h3>
-          <p>If the interacting charges are larger, the force between them is stronger.</p>
-        </article>
-
-        <article class="card">
-          <h3>More distance → less force</h3>
-          <p>The farther apart charges are, the weaker the interaction becomes.</p>
-        </article>
-
-        <article class="card">
-          <h3>Inverse-square behavior</h3>
-          <p>Doubling the distance reduces the force to one quarter of what it was.</p>
-        </article>
-      </div>
-
-      <div class="grid-2" style="margin-top:1.2rem;">
-        <article class="card">
-          <h3>Conceptual equation</h3>
-          <p>Coulomb’s law is often written as:</p>
-          <p style="font-weight:800; color:var(--navy); margin-top:.65rem;">F = k(q₁q₂) / r²</p>
-          <p style="margin-top:.75rem;">
-            The important part right now is the meaning:
-            more charge increases force, and more distance reduces it sharply.
-          </p>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>If two charges are twice as far apart, what happens to the electric force?</p>
-          <button class="toggle-btn" data-target="answer-distance">Reveal Answer</button>
-          <div class="answer" id="answer-distance">
-            <p>
-              It drops to one quarter of its original value, because the dependence is on the square of the distance.
-            </p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <section id="polarization">
-      <div class="section-heading">
-        <h2>7. Polarization</h2>
-        <p>Neutral objects can still respond strongly to nearby charge.</p>
-      </div>
-
-      <div class="grid-2">
-        <article class="card">
-          <h3>The idea</h3>
-          <p>
-            A charged object can shift the internal distribution of charge inside a neutral object.
-            One side becomes slightly more positive and the other slightly more negative.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Why a balloon sticks to a wall</h3>
-          <p>
-            A charged balloon can polarize the wall. The nearer side becomes effectively opposite in sign,
-            producing a net attraction.
-          </p>
-        </article>
-      </div>
-
-      <div class="placeholder-image">
-        <span>Image Placeholder: Monkey presses a charged balloon near a wall while Robot shows tiny charges inside the wall shifting position to illustrate polarization.</span>
-      </div>
-      <p class="placeholder-caption">
-        Suggested image caption: A charged object can attract a neutral object by inducing a charge separation.
-      </p>
-
-      <div class="grid-2" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>Why can a charged object attract a neutral object?</p>
-          <button class="toggle-btn" data-target="answer-polarization">Reveal Answer</button>
-          <div class="answer" id="answer-polarization">
-            <p>
-              Because the neutral object can be polarized: its charges shift slightly so that the near side becomes more oppositely charged than the far side.
-            </p>
-          </div>
-        </article>
-
-        <article class="card monkey-robot">
-          <h3>Monkey & Robot</h3>
-          <p>
-            Monkey says, “So neutral doesn’t mean asleep?” Robot answers,
-            “Exactly. Neutral just means balanced overall, not incapable of responding.”
-          </p>
-        </article>
-      </div>
-    </section>
-
-    <section id="circuits">
-      <div class="section-heading">
-        <h2>8. From fields to circuits and capacitors</h2>
-        <p>The field concept becomes practical in electronics.</p>
-      </div>
-
-      <div class="grid-2">
-        <article class="card">
-          <h3>Electric fields in circuits</h3>
-          <p>
-            A battery sets up an electric potential difference, which establishes an electric field in a circuit.
-            Charges in the conductor respond to that field.
-          </p>
-        </article>
-
-        <article class="card">
-          <h3>Capacitors</h3>
-          <p>
-            A capacitor stores energy in an electric field between conductive plates separated by an insulator.
-            This makes it a direct practical application of the ideas in this lesson.
-          </p>
-        </article>
-      </div>
-
-      <div class="grid-3" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>What does a battery really provide to a circuit?</p>
-          <button class="toggle-btn" data-target="answer-battery">Reveal Answer</button>
-          <div class="answer" id="answer-battery">
-            <p>
-              It provides a potential difference that establishes an electric field, which pushes charges through the circuit.
-            </p>
-          </div>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>Where is energy stored in a capacitor?</p>
-          <button class="toggle-btn" data-target="answer-capacitor">Reveal Answer</button>
-          <div class="answer" id="answer-capacitor">
-            <p>
-              The energy is stored in the electric field between the capacitor’s plates.
-            </p>
-          </div>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Question</h3>
-          <p>Why does this matter for your bench?</p>
-          <button class="toggle-btn" data-target="answer-bench">Reveal Answer</button>
-          <div class="answer" id="answer-bench">
-            <p>
-              Because your Raspberry Pi, ESP32 boards, decoupling capacitors, wires, connectors, and sensors all rely on controlled charge motion and electric fields.
-            </p>
-          </div>
-        </article>
-      </div>
-
-      <div class="inset-wrap">
-        <div class="inset real-world">
-          <h4>In the Real World</h4>
-          <p>
-            Capacitors show up in filtering, timing, smoothing, decoupling, and energy buffering. Even a tiny board often contains many of them.
-          </p>
-        </div>
-
-        <div class="inset historical-note">
-          <h4>Historical Note</h4>
-          <p>
-            The field concept eventually fed into the larger synthesis of electricity and magnetism, culminating in Maxwell’s equations.
-          </p>
-        </div>
-      </div>
-    </section>
-
-    <section id="summary">
-      <div class="section-heading">
-        <h2>9. Lesson summary</h2>
-        <p>The most important ideas to take forward.</p>
-      </div>
-
-      <div class="summary-box">
-        <h3>Key takeaways</h3>
-        <ul>
-          <li>Charge is a basic property of matter.</li>
-          <li>Protons are positive, electrons are negative, and neutrons are neutral.</li>
-          <li>Like charges repel; opposite charges attract.</li>
-          <li>Electrons usually move during ordinary charging processes.</li>
-          <li>Conductors allow charge movement more easily than insulators.</li>
-          <li>Objects can be charged by friction, contact, and induction.</li>
-          <li>Electric fields describe how charges influence surrounding space.</li>
-          <li>Electric force decreases rapidly with distance.</li>
-          <li>Neutral objects can still be attracted by polarization.</li>
-          <li>Circuits and capacitors are practical applications of electric fields.</li>
-        </ul>
-      </div>
-
-      <div class="grid-2" style="margin-top:1.2rem;">
-        <article class="card qa-card">
-          <h3>Final Check</h3>
-          <p>What is the single best short definition of an electric field?</p>
-          <button class="toggle-btn" data-target="answer-final-field">Reveal Answer</button>
-          <div class="answer" id="answer-final-field">
-            <p>
-              An electric field is a region in which a charge would experience force.
-            </p>
-          </div>
-        </article>
-
-        <article class="card qa-card">
-          <h3>Final Check</h3>
-          <p>What is one everyday example that reveals electric fields in action?</p>
-          <button class="toggle-btn" data-target="answer-final-example">Reveal Answer</button>
-          <div class="answer" id="answer-final-example">
-            <p>
-              A balloon sticking to a wall, a static shock, dust clinging to a surface, or lightning are all good examples.
-            </p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <nav class="lesson-nav" aria-label="Lesson navigation">
-      <a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">← Back to Electromagnetism</a>
-      <a href="#overview">Back to Top ↑</a>
-    </nav>
-  </main>
-
-  <footer>
-    Klin's Learning Library · Electromagnetism · Lesson 01 · Electric Charge and Fields
-  </footer>
-
-  <script>
-    const buttons = document.querySelectorAll('.toggle-btn');
-
-    buttons.forEach((button) => {
-      button.addEventListener('click', () => {
-        const targetId = button.getAttribute('data-target');
-        const answer = document.getElementById(targetId);
-        if (!answer) return;
-
-        const isOpen = answer.classList.contains('show');
-        answer.classList.toggle('show');
-        button.textContent = isOpen ? 'Reveal Answer' : 'Hide Answer';
+          const isOpen = answer.classList.contains("show");
+          answer.classList.toggle("show");
+          button.textContent = isOpen ? "Reveal Answer" : "Hide Answer";
+        });
       });
-    });
-  </script>
-</body>
+    </script>
+  </body>
 </html>
