@@ -1,0 +1,1242 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Electromagnetism Lesson 2: Voltage, Current, and Resistance, with interactive question-and-answer sections for Klins."
+    />
+    <title>Voltage, Current, and Resistance | Klin's Learning Library</title>
+    <style>
+      :root {
+        --navy: #13233a;
+        --navy-2: #214062;
+        --blue: #4e7aac;
+        --paper: #f4f0e7;
+        --white: #ffffff;
+        --ink: #1f2933;
+        --muted: #65717c;
+        --border: #d6dde5;
+        --gold: #c98a2f;
+        --green: #356a54;
+        --green-soft: #e7f1eb;
+        --amber-soft: #f8eedb;
+        --purple-soft: #efe9f7;
+        --shadow: 0 12px 32px rgba(19, 35, 58, 0.12);
+        --radius: 16px;
+        --radius-sm: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 150px;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.68;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at top right,
+            rgba(78, 122, 172, 0.14),
+            transparent 34rem
+          ),
+          linear-gradient(180deg, #fbfcfd 0%, var(--paper) 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: var(--white);
+        background: rgba(19, 35, 58, 0.97);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+        box-shadow: 0 4px 18px rgba(8, 15, 28, 0.2);
+        backdrop-filter: blur(10px);
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem clamp(1rem, 4vw, 3rem);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        flex: 0 0 auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: linear-gradient(145deg, var(--gold), var(--navy-2));
+        font-size: 1.05rem;
+      }
+
+      .brand-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .course-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.56rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 750;
+        transition:
+          background 160ms ease,
+          transform 160ms ease;
+      }
+
+      .course-link:hover,
+      .course-link:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 0.35rem;
+        padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.75rem;
+        overflow-x: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        scrollbar-width: thin;
+      }
+
+      .page-nav a {
+        flex: 0 0 auto;
+        padding: 0.42rem 0.7rem;
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      .page-nav a:hover,
+      .page-nav a:focus-visible {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.1);
+        outline: none;
+      }
+
+      main {
+        width: min(1160px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(2.4rem, 7vw, 5rem) 0 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: clamp(2rem, 6vw, 4rem);
+        align-items: center;
+        margin-bottom: 2.8rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: var(--blue);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--navy);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2.8rem, 7vw, 5.8rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin: 1.35rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.04rem, 2vw, 1.22rem);
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+        border: 1px solid rgba(78, 122, 172, 0.25);
+        border-radius: var(--radius);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.95),
+          rgba(231, 239, 248, 0.78)
+        );
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card strong {
+        color: var(--navy);
+      }
+
+      section {
+        margin: 3rem 0;
+      }
+
+      .section-heading {
+        margin-bottom: 1.1rem;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 0.35rem;
+        color: var(--navy);
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 1.35rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.9);
+        box-shadow: 0 5px 18px rgba(19, 35, 58, 0.06);
+      }
+
+      .card h3 {
+        margin: 0 0 0.55rem;
+        color: var(--navy);
+        font-size: 1.14rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.2rem;
+      }
+
+      .card li {
+        margin-bottom: 0.45rem;
+      }
+
+      .placeholder-image {
+        margin: 1rem 0 1.1rem;
+        border: 2px dashed #b8c3d1;
+        border-radius: var(--radius);
+        background: linear-gradient(
+          135deg,
+          rgba(231, 239, 248, 0.72),
+          rgba(248, 244, 232, 0.88)
+        );
+        min-height: 240px;
+        display: grid;
+        place-items: center;
+        padding: 1.5rem;
+        text-align: center;
+        color: var(--navy-2);
+        font-weight: 700;
+      }
+
+      .placeholder-image span {
+        max-width: 42ch;
+      }
+
+      .placeholder-caption {
+        margin-top: -0.2rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .lesson-figure {
+        margin: 1rem 0 1.1rem;
+      }
+
+      .lesson-image {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: block;
+        object-fit: cover;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        background: #e7edf3;
+      }
+
+      .lesson-figure figcaption {
+        margin-top: 0.65rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .qa-card {
+        border-top: 4px solid var(--blue);
+      }
+
+      .answer {
+        margin-top: 0.9rem;
+        padding: 1rem 1.05rem;
+        border: 1px solid #d5e1ef;
+        border-radius: var(--radius-sm);
+        background: #f4f8fc;
+        color: var(--ink);
+        display: none;
+      }
+
+      .answer.show {
+        display: block;
+      }
+
+      .toggle-btn {
+        margin-top: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        border: none;
+        border-radius: 999px;
+        background: var(--navy);
+        color: var(--white);
+        font-weight: 750;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(19, 35, 58, 0.14);
+        transition:
+          transform 160ms ease,
+          background 160ms ease;
+      }
+
+      .toggle-btn:hover,
+      .toggle-btn:focus-visible {
+        background: var(--navy-2);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .inset-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.2rem;
+      }
+
+      .inset {
+        padding: 1.15rem 1.15rem 1.05rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.84);
+      }
+
+      .inset h4 {
+        margin: 0 0 0.45rem;
+        font-size: 1rem;
+        color: var(--navy);
+      }
+
+      .inset p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+
+      .real-world {
+        border-left: 5px solid var(--green);
+        background: var(--green-soft);
+      }
+
+      .historical-note {
+        border-left: 5px solid var(--gold);
+        background: var(--amber-soft);
+      }
+
+      .monkey-robot {
+        border-left: 5px solid var(--blue);
+        background: #eef4fb;
+      }
+
+      .summary-box {
+        padding: 1.35rem 1.4rem;
+        border-left: 5px solid #8b6ab1;
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background: var(--purple-soft);
+      }
+
+      .summary-box h3 {
+        margin: 0 0 0.5rem;
+        color: var(--navy);
+      }
+
+      .summary-box ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .summary-box li {
+        margin-bottom: 0.45rem;
+      }
+
+      .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .lesson-nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.72rem 1rem;
+        border-radius: 999px;
+        background: var(--navy);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 750;
+      }
+
+      footer {
+        padding: 1.6rem 1rem 2.5rem;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+        .grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        html {
+          scroll-padding-top: 195px;
+        }
+
+        .header-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .course-link {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .grid-2,
+        .grid-3,
+        .inset-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .lesson-nav {
+          flex-direction: column;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-top">
+        <div class="brand" aria-label="Electromagnetism course">
+          <span class="brand-mark" aria-hidden="true">⚡</span>
+          <span class="brand-text">Electromagnetism · Lesson 02</span>
+        </div>
+        <a
+          class="course-link"
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+        >
+          <span aria-hidden="true">←</span> Back to Electromagnetism
+        </a>
+      </div>
+      <nav class="page-nav" aria-label="Page contents">
+        <a href="#overview">Overview</a>
+        <a href="#potential">Potential</a>
+        <a href="#voltage">Voltage</a>
+        <a href="#current">Current</a>
+        <a href="#resistance">Resistance</a>
+        <a href="#ohms-law">Ohm's Law</a>
+        <a href="#power">Power</a>
+        <a href="#measurement">Measurement</a>
+        <a href="#series-parallel">Series & Parallel</a>
+        <a href="#summary">Summary</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">Lesson 2 · Motion and Control</p>
+          <h1>Voltage, Current, and Resistance</h1>
+          <p class="hero-copy">
+            Lesson 1 described charge and the fields surrounding it. This lesson
+            follows the next step: what happens when electric potential pushes
+            charge through a path, and how components control that motion.
+          </p>
+        </div>
+        <aside class="hero-card">
+          <strong>Central question:</strong> What makes charge move through a
+          circuit, and what limits that movement? <br /><br />
+          <strong>Key idea:</strong> voltage provides the push, current
+          describes the flow, and resistance opposes the flow.
+        </aside>
+      </section>
+
+      <section>
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson2_image01.png"
+            alt="Monkey and Robot use a water tower, flowing pipe, valve, and waterwheel to demonstrate voltage, current, and resistance."
+            loading="lazy"
+          />
+
+          <figcaption>
+            A pressure-and-flow analogy introduces the three central quantities
+            of circuit behavior.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="potential">
+        <div class="section-heading">
+          <h2>1. Electric potential</h2>
+          <p>
+            Charge can possess stored electrical energy because of its position
+            in an electric field.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Potential energy</h3>
+            <p>
+              A charge placed in an electric field can have electric potential
+              energy, much as a raised object has gravitational potential
+              energy.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Potential</h3>
+            <p>
+              Electric potential describes potential energy per unit of charge.
+              It tells us how much electrical energy is available at a location
+              for each coulomb of charge.
+            </p>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>How is electric potential similar to height?</p>
+            <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+            <div class="answer" id="a1">
+              <p>
+                Both describe stored energy associated with position. A
+                difference in height can make an object fall; a difference in
+                electric potential can make charge move.
+              </p>
+            </div>
+          </article>
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey asks, “So charge can sit at the top of an electrical hill?”
+              Robot replies, “Yes. Voltage tells us how far downhill it can go.”
+            </p>
+          </article>
+        </div>
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              A charged capacitor, a battery, and even a static-charged balloon
+              can store electrical potential energy.
+            </p>
+          </div>
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              The unit of electric potential, the volt, honors Alessandro Volta,
+              whose early battery made sustained electrical experiments
+              possible.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="voltage">
+        <div class="section-heading">
+          <h2>2. Voltage: a difference in potential</h2>
+          <p>
+            Voltage is not an amount stored at one isolated point; it is a
+            difference between two points.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Definition</h3>
+            <p>
+              Voltage is electric potential difference: the change in electrical
+              energy per unit charge between two locations.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Unit</h3>
+            <p>
+              Voltage is measured in volts. One volt equals one joule of energy
+              per coulomb of charge.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Source</h3>
+            <p>
+              A battery uses chemical processes to maintain a difference in
+              potential between its terminals.
+            </p>
+          </article>
+        </div>
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson2_image02.png"
+            alt="Robot explains voltage using a nine-volt battery and a glowing electrical hill while Monkey connects a lamp."
+            loading="lazy"
+          />
+
+          <figcaption>
+            A battery maintains a potential difference that can drive charge
+            through a complete circuit.
+          </figcaption>
+        </figure>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Can voltage exist even when no current is flowing?</p>
+            <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+            <div class="answer" id="a2">
+              <p>
+                Yes. An open battery still has a voltage across its terminals
+                even though the broken path prevents sustained current.
+              </p>
+            </div>
+          </article>
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why must voltage always be measured between two points?</p>
+            <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+            <div class="answer" id="a3">
+              <p>
+                Because voltage is a difference in electric potential. A meter
+                compares one location with another.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="current">
+        <div class="section-heading">
+          <h2>3. Current: the rate of charge flow</h2>
+          <p>
+            Current tells us how quickly charge passes through part of a
+            circuit.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Definition</h3>
+            <p>
+              Electric current is the amount of charge passing a point per unit
+              of time. It is measured in amperes, or amps.
+            </p>
+          </article>
+          <article class="card">
+            <h3>One ampere</h3>
+            <p>
+              One ampere means one coulomb of charge passes a point each second.
+            </p>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card">
+            <h3>Conventional current</h3>
+            <p>
+              By convention, current direction is drawn from positive toward
+              negative through the external circuit.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Electron motion</h3>
+            <p>
+              In metal wires, electrons actually drift in the opposite
+              direction. The convention was established before electrons were
+              understood.
+            </p>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Does current get “used up” as it passes through a resistor?</p>
+            <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+            <div class="answer" id="a4">
+              <p>
+                No. Charge is conserved. In a simple series circuit, the same
+                current passes through each component, although electrical
+                energy is transferred.
+              </p>
+            </div>
+          </article>
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “The lamp eats the current.” Robot answers, “The lamp
+              uses energy, not charge. The charge keeps circulating.”
+            </p>
+          </article>
+        </div>
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              A microcontroller input may use tiny currents, while a motor,
+              heater, or relay coil may require much more. Matching the source
+              and load matters.
+            </p>
+          </div>
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              The ampere is named for André-Marie Ampère, whose work helped
+              establish the relationship between electricity and magnetism.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="resistance">
+        <div class="section-heading">
+          <h2>4. Resistance: opposition to current</h2>
+          <p>
+            Resistance describes how strongly a material or component opposes
+            charge flow.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Unit</h3>
+            <p>Resistance is measured in ohms, represented by the symbol Ω.</p>
+          </article>
+          <article class="card">
+            <h3>Material</h3>
+            <p>
+              Material choice matters. Copper has low resistance; rubber and
+              glass have extremely high resistance.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Geometry</h3>
+            <p>
+              Longer, thinner conductors generally have more resistance than
+              shorter, thicker conductors of the same material.
+            </p>
+          </article>
+        </div>
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson2_image03.png"
+            alt="Monkey attempts to push a crowd of glowing charges through three paths: a wide copper road, a narrow resistor tunnel, and a blocked rubber wall, while Robot labels their resistance."
+            loading="lazy"
+          />
+
+          <figcaption>
+            A battery maintains a potential difference that can drive charge
+            through a complete circuit.
+          </figcaption>
+        </figure>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why do resistors often become warm?</p>
+            <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+            <div class="answer" id="a5">
+              <p>
+                Moving charges collide with atoms in the material, transferring
+                electrical energy into thermal energy.
+              </p>
+            </div>
+          </article>
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              What happens to resistance in a metal wire if the wire becomes
+              longer?
+            </p>
+            <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+            <div class="answer" id="a6">
+              <p>
+                Its resistance increases because charges encounter a longer path
+                through the material.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="ohms-law">
+        <div class="section-heading">
+          <h2>5. Ohm's law</h2>
+          <p>
+            Voltage, current, and resistance are linked by one of the most
+            useful relationships in electronics.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>The equation</h3>
+            <p style="font-weight: 800; color: var(--navy); font-size: 1.35rem">
+              V = I × R
+            </p>
+            <p style="margin-top: 0.65rem">
+              Voltage equals current multiplied by resistance.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Three useful forms</h3>
+            <p style="font-weight: 800; color: var(--navy)">
+              V = IR &nbsp;&nbsp; I = V/R &nbsp;&nbsp; R = V/I
+            </p>
+            <p style="margin-top: 0.65rem">
+              Choose the form that isolates the unknown quantity.
+            </p>
+          </article>
+        </div>
+        <div class="grid-3" style="margin-top: 1.2rem">
+          <article class="card">
+            <h3>Example 1</h3>
+            <p>
+              A 12 V source across a 6 Ω resistor produces 2 A because 12 ÷ 6 =
+              2.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Example 2</h3>
+            <p>
+              A 5 V source driving 0.01 A requires 500 Ω because 5 ÷ 0.01 = 500.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Example 3</h3>
+            <p>
+              A 100 Ω resistor carrying 0.02 A has 2 V across it because 0.02 ×
+              100 = 2.
+            </p>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              A 9 V battery is connected across a 3 Ω resistor. What current
+              flows?
+            </p>
+            <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+            <div class="answer" id="a7"><p>I = V/R = 9/3 = 3 A.</p></div>
+          </article>
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              If voltage stays constant and resistance doubles, what happens to
+              current?
+            </p>
+            <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+            <div class="answer" id="a8">
+              <p>
+                Current is cut in half because current is inversely proportional
+                to resistance when voltage is fixed.
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Ohm's law helps choose LED resistors, estimate relay-coil current,
+              check voltage drops, and decide whether a power supply is
+              adequate.
+            </p>
+          </div>
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              Georg Ohm published the relationship in the 1820s. It was
+              initially resisted by some contemporaries but became foundational
+              to electrical engineering.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="power">
+        <div class="section-heading">
+          <h2>6. Electrical power</h2>
+          <p>
+            Power describes how quickly electrical energy is transferred or
+            converted.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Basic equation</h3>
+            <p style="font-weight: 800; color: var(--navy)">P = V × I</p>
+            <p>Power equals voltage multiplied by current.</p>
+          </article>
+          <article class="card">
+            <h3>Unit</h3>
+            <p>
+              Power is measured in watts. One watt equals one joule of energy
+              transferred per second.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Resistor forms</h3>
+            <p>
+              Using Ohm's law, resistor power can also be calculated as P = I²R
+              or P = V²/R.
+            </p>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              A device uses 12 V and draws 2 A. How much power does it consume?
+            </p>
+            <button class="toggle-btn" data-target="a9">Reveal Answer</button>
+            <div class="answer" id="a9"><p>P = VI = 12 × 2 = 24 W.</p></div>
+          </article>
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why must a resistor's wattage rating be considered?</p>
+            <button class="toggle-btn" data-target="a10">Reveal Answer</button>
+            <div class="answer" id="a10">
+              <p>
+                If the resistor dissipates more power than it is rated for, it
+                can overheat, drift in value, fail, or damage nearby parts.
+              </p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="measurement">
+        <div class="section-heading">
+          <h2>7. Measuring voltage, current, and resistance</h2>
+          <p>
+            A multimeter behaves differently depending on what is being
+            measured.
+          </p>
+        </div>
+        <div class="grid-3">
+          <article class="card">
+            <h3>Voltage</h3>
+            <p>
+              Measure voltage in parallel, placing the probes across two points
+              while the circuit is energized.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Current</h3>
+            <p>
+              Measure current in series by opening the path and inserting the
+              meter so current passes through it.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Resistance</h3>
+            <p>
+              Measure resistance with power removed, ideally isolating the
+              component from other circuit paths.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson2_image04.png"
+            alt="Robot demonstrates three multimeter
+            setups—across a battery for voltage, inserted into a circuit for
+            current, and across an isolated resistor with power off—while Monkey
+            carefully follows safety labels."
+            loading="lazy"
+          />
+
+          <figcaption>
+            Voltage is measured across a component,
+          current through a path, and resistance with the circuit de-energized. (image for aesthetic purposes only: leads may be misleading.)
+          </figcaption>  
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              What can happen if a meter set to current is placed directly
+              across a battery?
+            </p>
+            <button class="toggle-btn" data-target="a11">Reveal Answer</button>
+            <div class="answer" id="a11">
+              <p>
+                The meter presents a very low-resistance path, producing a large
+                current that may blow the meter fuse, damage equipment, or
+                create a hazard.
+              </p>
+            </div>
+          </article>
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey asks, “Why can't I test amps the same way I test volts?”
+              Robot answers, “Because the ammeter becomes part of the road, not
+              an observer standing beside it.”
+            </p>
+          </article>
+        </div>
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>Bench Practice</h4>
+            <p>
+              Before measuring, verify the selector position, lead jacks,
+              expected range, circuit power state, and whether the measurement
+              belongs in series or parallel.
+            </p>
+          </div>
+          <div class="inset historical-note">
+            <h4>Diagnostic Habit</h4>
+            <p>
+              Voltage measurements are often the least disruptive first step.
+              They reveal whether power is present without opening the circuit.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="series-parallel">
+        <div class="section-heading">
+          <h2>8. Series and parallel paths</h2>
+          <p>
+            Circuit arrangement determines how voltage and current are
+            distributed.
+          </p>
+        </div>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Series</h3>
+            <p>
+              Components share one path. The same current passes through each
+              component, while voltage drops divide among them. Resistances add
+              directly.
+            </p>
+            <p style="font-weight: 800; color: var(--navy); margin-top: 0.7rem">
+              Rₜ = R₁ + R₂ + ...
+            </p>
+          </article>
+          <article class="card">
+            <h3>Parallel</h3>
+            <p>
+              Components share the same two connection points. Each branch has
+              the same voltage, while current divides among branches.
+            </p>
+            <p style="font-weight: 800; color: var(--navy); margin-top: 0.7rem">
+              1/Rₜ = 1/R₁ + 1/R₂ + ...
+            </p>
+          </article>
+        </div>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              Two 100 Ω resistors are connected in series. What is the total
+              resistance?
+            </p>
+            <button class="toggle-btn" data-target="a12">Reveal Answer</button>
+            <div class="answer" id="a12">
+              <p>200 Ω, because series resistances add.</p>
+            </div>
+          </article>
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              Two identical 100 Ω resistors are connected in parallel. What is
+              the total resistance?
+            </p>
+            <button class="toggle-btn" data-target="a13">Reveal Answer</button>
+            <div class="answer" id="a13">
+              <p>
+                50 Ω. Two equal resistors in parallel have half the resistance
+                of either resistor alone.
+              </p>
+            </div>
+          </article>
+        </div>
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Household outlets are wired in parallel so each load receives the
+              full supply voltage and can operate independently.
+            </p>
+          </div>
+          <div class="inset historical-note">
+            <h4>System Insight</h4>
+            <p>
+              Adding a parallel branch lowers total resistance and increases
+              total source current. This is why power-source and conductor
+              ratings matter.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="summary">
+        <div class="section-heading">
+          <h2>9. Lesson summary</h2>
+          <p>The central relationships to carry into later circuit lessons.</p>
+        </div>
+        <div class="summary-box">
+          <h3>Key takeaways</h3>
+          <ul>
+            <li>
+              Electric potential describes electrical energy per unit charge.
+            </li>
+            <li>
+              Voltage is the difference in electric potential between two
+              points.
+            </li>
+            <li>Current is the rate at which charge passes a point.</li>
+            <li>
+              Resistance opposes current and depends on material and geometry.
+            </li>
+            <li>Ohm's law links voltage, current, and resistance: V = IR.</li>
+            <li>Electrical power is the rate of energy transfer: P = VI.</li>
+            <li>
+              Voltage is measured in parallel; current is measured in series.
+            </li>
+            <li>Resistance should be measured with power removed.</li>
+            <li>
+              Series circuits share current; parallel branches share voltage.
+            </li>
+            <li>
+              Charge is not consumed, but electrical energy is transferred and
+              converted.
+            </li>
+          </ul>
+        </div>
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>
+              Complete the sentence: voltage is the push, current is the _____,
+              and resistance is the opposition.
+            </p>
+            <button class="toggle-btn" data-target="a14">Reveal Answer</button>
+            <div class="answer" id="a14"><p>Flow.</p></div>
+          </article>
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>
+              What two equations from this lesson will be used constantly in
+              electronics?
+            </p>
+            <button class="toggle-btn" data-target="a15">Reveal Answer</button>
+            <div class="answer" id="a15">
+              <p>Ohm's law, V = IR, and the power equation, P = VI.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="electromagnetism-lesson01-electric-charge-and-fields.html"
+          >← Lesson 01</a
+        >
+        <a
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+          >Course Home</a
+        >
+        <a href="#overview">Back to Top ↑</a>
+      </nav>
+    </main>
+
+    <footer>
+      Klin's Learning Library · Electromagnetism · Lesson 02 · Voltage, Current,
+      and Resistance
+    </footer>
+    <script>
+      const buttons = document.querySelectorAll(".toggle-btn");
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+          const answer = document.getElementById(targetId);
+          if (!answer) return;
+          const isOpen = answer.classList.contains("show");
+          answer.classList.toggle("show");
+          button.textContent = isOpen ? "Reveal Answer" : "Hide Answer";
+        });
+      });
+    </script>
+  </body>
+</html>
