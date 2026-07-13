@@ -1,0 +1,1466 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Electromagnetism Lesson 3: Magnetism and Magnetic Fields, with interactive questions, underwater-city imagery, and Monkey and Robot."
+    />
+    <title>Magnetism and Magnetic Fields | Klin's Learning Library</title>
+
+    <style>
+      :root {
+        --abyss: #070811;
+        --deep-purple: #21103f;
+        --purple: #6c48a8;
+        --violet: #9f7aea;
+        --blue: #4f8fcf;
+        --cyan: #65d7e8;
+        --coral: #f28d8d;
+        --gold: #d8a748;
+        --paper: #f4f0e7;
+        --white: #ffffff;
+        --ink: #1f2933;
+        --muted: #65717c;
+        --border: #d6dde5;
+        --green: #356a54;
+        --green-soft: #e7f1eb;
+        --amber-soft: #f8eedb;
+        --purple-soft: #efe9f7;
+        --shadow: 0 12px 32px rgba(7, 8, 17, 0.18);
+        --radius: 16px;
+        --radius-sm: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 150px;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.68;
+        color: var(--ink);
+        background:
+          radial-gradient(
+            circle at 15% 0%,
+            rgba(159, 122, 234, 0.16),
+            transparent 30rem
+          ),
+          radial-gradient(
+            circle at 90% 20%,
+            rgba(101, 215, 232, 0.12),
+            transparent 26rem
+          ),
+          linear-gradient(180deg, #fbfcfd 0%, var(--paper) 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: var(--white);
+        background: linear-gradient(
+          90deg,
+          rgba(7, 8, 17, 0.98),
+          rgba(33, 16, 63, 0.97)
+        );
+        border-bottom: 1px solid rgba(159, 122, 234, 0.35);
+        box-shadow: 0 4px 18px rgba(7, 8, 17, 0.34);
+        backdrop-filter: blur(10px);
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem clamp(1rem, 4vw, 3rem);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        flex: 0 0 auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: linear-gradient(145deg, var(--violet), var(--abyss));
+        box-shadow: 0 0 18px rgba(101, 215, 232, 0.25);
+        font-size: 1.05rem;
+      }
+
+      .brand-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .course-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.56rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 750;
+        transition:
+          background 160ms ease,
+          transform 160ms ease;
+      }
+
+      .course-link:hover,
+      .course-link:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 0.35rem;
+        padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.75rem;
+        overflow-x: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        scrollbar-width: thin;
+      }
+
+      .page-nav a {
+        flex: 0 0 auto;
+        padding: 0.42rem 0.7rem;
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      .page-nav a:hover,
+      .page-nav a:focus-visible {
+        color: var(--white);
+        background: rgba(159, 122, 234, 0.18);
+        outline: none;
+      }
+
+      main {
+        width: min(1160px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(2.4rem, 7vw, 5rem) 0 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: clamp(2rem, 6vw, 4rem);
+        align-items: center;
+        margin-bottom: 2.8rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: var(--purple);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--abyss);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2.8rem, 7vw, 5.8rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin: 1.35rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.04rem, 2vw, 1.22rem);
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+        border: 1px solid rgba(108, 72, 168, 0.28);
+        border-radius: var(--radius);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.96),
+          rgba(239, 233, 247, 0.88)
+        );
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card strong {
+        color: var(--deep-purple);
+      }
+
+      section {
+        margin: 3rem 0;
+      }
+
+      .section-heading {
+        margin-bottom: 1.1rem;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 0.35rem;
+        color: var(--deep-purple);
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 1.35rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.91);
+        box-shadow: 0 5px 18px rgba(7, 8, 17, 0.07);
+      }
+
+      .card h3 {
+        margin: 0 0 0.55rem;
+        color: var(--deep-purple);
+        font-size: 1.14rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.2rem;
+      }
+
+      .card li {
+        margin-bottom: 0.45rem;
+      }
+
+      .placeholder-image {
+        position: relative;
+        overflow: hidden;
+        margin: 1rem 0 1.1rem;
+        border: 2px dashed rgba(108, 72, 168, 0.55);
+        border-radius: var(--radius);
+        min-height: 300px;
+        display: grid;
+        place-items: center;
+        padding: clamp(1.4rem, 4vw, 2.3rem);
+        text-align: left;
+        color: #f7f4ff;
+        background:
+          radial-gradient(
+            circle at 15% 20%,
+            rgba(101, 215, 232, 0.22),
+            transparent 22rem
+          ),
+          radial-gradient(
+            circle at 85% 80%,
+            rgba(242, 141, 141, 0.16),
+            transparent 20rem
+          ),
+          linear-gradient(135deg, #070811 0%, #21103f 52%, #05060d 100%);
+        box-shadow: var(--shadow);
+      }
+
+      .placeholder-image::before,
+      .placeholder-image::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .placeholder-image::before {
+        width: 72px;
+        height: 72px;
+        top: 18px;
+        right: 8%;
+        box-shadow:
+          -150px 65px 0 -24px rgba(255, 255, 255, 0.08),
+          -260px 15px 0 -29px rgba(255, 255, 255, 0.1),
+          70px 120px 0 -34px rgba(255, 255, 255, 0.1);
+      }
+
+      .placeholder-image::after {
+        width: 160px;
+        height: 160px;
+        left: -80px;
+        bottom: -85px;
+        background: rgba(159, 122, 234, 0.18);
+      }
+
+      .prompt-card {
+        position: relative;
+        z-index: 1;
+        width: min(830px, 100%);
+        padding: 1.25rem 1.35rem;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 14px;
+        background: rgba(7, 8, 17, 0.72);
+        backdrop-filter: blur(6px);
+      }
+
+      .prompt-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.65rem;
+        color: var(--cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .prompt-card p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.9);
+        font-weight: 650;
+      }
+
+      .placeholder-caption {
+        margin-top: -0.2rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      /* Finished lesson illustrations */
+      .lesson-figure {
+        width: 100%;
+        margin: 1.25rem 0 1.1rem;
+      }
+
+      .lesson-image {
+        display: block;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        object-position: center;
+        border: 1px solid rgba(108, 72, 168, 0.28);
+        border-radius: var(--radius);
+        background: var(--abyss);
+        box-shadow: var(--shadow);
+      }
+
+      .lesson-figure figcaption {
+        margin-top: 0.65rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .qa-card {
+        border-top: 4px solid var(--purple);
+      }
+
+      .answer {
+        margin-top: 0.9rem;
+        padding: 1rem 1.05rem;
+        border: 1px solid #ded5ef;
+        border-radius: var(--radius-sm);
+        background: #f7f4fc;
+        color: var(--ink);
+        display: none;
+      }
+
+      .answer.show {
+        display: block;
+      }
+
+      .toggle-btn {
+        margin-top: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        border: none;
+        border-radius: 999px;
+        background: var(--deep-purple);
+        color: var(--white);
+        font-weight: 750;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(33, 16, 63, 0.22);
+        transition:
+          transform 160ms ease,
+          background 160ms ease;
+      }
+
+      .toggle-btn:hover,
+      .toggle-btn:focus-visible {
+        background: var(--purple);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .inset-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.2rem;
+      }
+
+      .inset {
+        padding: 1.15rem 1.15rem 1.05rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.84);
+      }
+
+      .inset h4 {
+        margin: 0 0 0.45rem;
+        font-size: 1rem;
+        color: var(--deep-purple);
+      }
+
+      .inset p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+
+      .real-world {
+        border-left: 5px solid var(--green);
+        background: var(--green-soft);
+      }
+
+      .historical-note {
+        border-left: 5px solid var(--gold);
+        background: var(--amber-soft);
+      }
+
+      .monkey-robot {
+        border-left: 5px solid var(--purple);
+        background: #f2edfa;
+      }
+
+      .undersea-note {
+        border-left: 5px solid var(--cyan);
+        background: #eaf9fb;
+      }
+
+      .summary-box {
+        padding: 1.35rem 1.4rem;
+        border-left: 5px solid var(--purple);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background: var(--purple-soft);
+      }
+
+      .summary-box h3 {
+        margin: 0 0 0.5rem;
+        color: var(--deep-purple);
+      }
+
+      .summary-box ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .summary-box li {
+        margin-bottom: 0.45rem;
+      }
+
+      .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .lesson-nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.72rem 1rem;
+        border-radius: 999px;
+        background: var(--deep-purple);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 750;
+      }
+
+      footer {
+        padding: 1.6rem 1rem 2.5rem;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        html {
+          scroll-padding-top: 195px;
+        }
+
+        .header-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .course-link {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .grid-2,
+        .grid-3,
+        .inset-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .lesson-nav {
+          flex-direction: column;
+        }
+
+        .placeholder-image {
+          min-height: 340px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-top">
+        <div class="brand" aria-label="Electromagnetism course">
+          <span class="brand-mark" aria-hidden="true">🧲</span>
+          <span class="brand-text">Electromagnetism · Lesson 03</span>
+        </div>
+
+        <a
+          class="course-link"
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+        >
+          <span aria-hidden="true">←</span>
+          Back to Electromagnetism
+        </a>
+      </div>
+
+      <nav class="page-nav" aria-label="Page contents">
+        <a href="#overview">Overview</a>
+        <a href="#poles">Poles</a>
+        <a href="#fields">Fields</a>
+        <a href="#materials">Materials</a>
+        <a href="#domains">Domains</a>
+        <a href="#current-field">Current & Fields</a>
+        <a href="#electromagnets">Electromagnets</a>
+        <a href="#force">Magnetic Force</a>
+        <a href="#motors">Motors</a>
+        <a href="#summary">Summary</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">Lesson 3 · Fields in Motion</p>
+          <h1>Magnetism and Magnetic Fields</h1>
+          <p class="hero-copy">
+            Monkey and Robot descend into a glowing underwater city where
+            currents spiral through towers, schools of fish move like field
+            lines, and saddled seahorses carry instruments between laboratories.
+            Here, the invisible structure of magnetism becomes visible.
+          </p>
+        </div>
+
+        <aside class="hero-card">
+          <strong>Central question:</strong>
+          How can magnets and moving charges exert force without touching?
+          <br /><br />
+          <strong>Key idea:</strong>
+          magnets and electric currents create magnetic fields, and those fields
+          can push on magnets, moving charges, and current-carrying conductors.
+        </aside>
+      </section>
+
+      <section>
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson3_image01.png"
+            alt="Wide landscape educational illustration, whimsical painterly 3D
+              science-adventure style. Monkey and a compact brass-and-blue Robot
+              arrive at an immense underwater city built from black stone, violet
+              glass, coral arches, and glowing purple conduits. Colorful schools of
+              fish stream through the city like magnetic field lines. Saddled
+              seahorses wait at a transit platform, and small piranhas shaped like
+              curly braces { } carry glowing data symbols between towers. Rainbow
+              purples, cyan highlights, deep black water, bioluminescent lighting,
+              strong visual storytelling, no border, no watermark, 16:9 landscape."
+            loading="lazy"
+          />
+
+          <figcaption>
+            The underwater city turns invisible magnetic structure into a
+            visible world of paths, currents, and motion.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="poles">
+        <div class="section-heading">
+          <h2>1. Magnetic poles</h2>
+          <p>Every ordinary magnet has two interacting ends called poles.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>North pole</h3>
+            <p>
+              One end of a magnet is labeled north. When freely suspended, it
+              tends to point roughly toward Earth's geographic north.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>South pole</h3>
+            <p>
+              The opposite end is labeled south. North and south are always
+              found together in ordinary magnets.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Interaction rule</h3>
+            <p>
+              Like poles repel, while opposite poles attract—similar to electric
+              charge, but with an important difference: isolated magnetic poles
+              have not been observed in ordinary materials.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What happens when two north poles are brought together?</p>
+            <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+            <div class="answer" id="a1">
+              <p>They repel each other.</p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey asks, “Can I cut away the south pole?” Robot replies,
+              “Cutting the magnet gives you two smaller magnets—each with both
+              poles.”
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson3_image02.png"
+            alt="Monkey and Robot demonstrate attraction and repulsion between magnetic poles in an underwater city."
+            loading="lazy"
+          />
+
+          <figcaption>
+            Like magnetic poles repel, while opposite poles attract.
+          </figcaption>
+        </figure>
+
+        <!-- <div class="placeholder-image">
+          <div class="prompt-card">
+            <span class="prompt-label">Suggested image prompt</span>
+            <p>
+              Monkey and Robot stand in a black-and-purple underwater plaza beside
+              two enormous horseshoe magnets. One pair of matching poles pushes apart,
+              sending bubbles and colorful fish outward; one north-south pair pulls
+              together, drawing schools of fish inward. Saddled seahorses brace against
+              the force, while curly-brace data piranha { } watch from behind coral
+              columns. Clear arrows, simple N and S symbols, rainbow-purple lighting,
+              cinematic underwater city, 16:9 landscape.
+            </p>
+          </div>
+        </div>
+        <p class="placeholder-caption">
+          Like magnetic poles repel, while opposite poles attract.
+        </p> -->
+      </section>
+
+      <section id="fields">
+        <div class="section-heading">
+          <h2>2. Magnetic fields</h2>
+          <p>
+            A magnetic field describes how magnetism is distributed through
+            space.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Field direction</h3>
+            <p>
+              Outside a bar magnet, magnetic field lines are drawn from the
+              north pole toward the south pole.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Field strength</h3>
+            <p>
+              Closely packed field lines represent a stronger field. The field
+              is usually strongest near a magnet's poles.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson3_image03.png"
+            alt="Robot projects luminous magnetic field lines around a floating bar
+              magnet in the central dome of an underwater city. The lines arc
+              from N to S as streams of tiny rainbow fish follow the curves.
+              Monkey reaches toward the display in amazement. Black
+              architecture, violet windows, glowing purple and cyan water,
+              saddled seahorses circling the dome, and curly-brace data piranha
+              { } swimming along the field lines. Educational, detailed,
+              uncluttered, no title, 16:9 landscape."
+            loading="lazy"
+          />
+
+          <figcaption>
+            Field lines are a visual model for magnetic direction and relative
+          strength.
+          </figcaption>
+        </figure>
+
+        <!-- <div class="placeholder-image">
+          <div class="prompt-card">
+            <span class="prompt-label">Suggested image prompt</span>
+            <p>
+              Robot projects luminous magnetic field lines around a floating bar
+              magnet in the central dome of an underwater city. The lines arc
+              from N to S as streams of tiny rainbow fish follow the curves.
+              Monkey reaches toward the display in amazement. Black
+              architecture, violet windows, glowing purple and cyan water,
+              saddled seahorses circling the dome, and curly-brace data piranha
+              { } swimming along the field lines. Educational, detailed,
+              uncluttered, no title, 16:9 landscape.
+            </p>
+          </div>
+        </div>
+        <p class="placeholder-caption">
+          Field lines are a visual model for magnetic direction and relative
+          strength.
+        </p> -->
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Are magnetic field lines physical strings in space?</p>
+            <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+            <div class="answer" id="a2">
+              <p>
+                No. They are a visual model used to show direction and relative
+                field strength.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Where is the field around a bar magnet usually strongest?</p>
+            <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+            <div class="answer" id="a3">
+              <p>Near its north and south poles.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Compasses, magnetic door switches, speakers, electric motors, and
+              many position sensors all depend on magnetic fields.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              Michael Faraday used field lines to reason about magnetic
+              influence before the field concept was expressed in modern
+              mathematical form.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="materials">
+        <div class="section-heading">
+          <h2>3. Magnetic materials</h2>
+          <p>Materials respond to magnetic fields in different ways.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Ferromagnetic</h3>
+            <p>
+              Iron, nickel, cobalt, and some alloys can respond strongly and may
+              retain magnetization.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Paramagnetic</h3>
+            <p>
+              Some materials are weakly attracted to an external magnetic field,
+              but the effect disappears when the field is removed.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Diamagnetic</h3>
+            <p>
+              All materials show some diamagnetism. In diamagnetic response, the
+              induced effect opposes the applied field.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              Why does a magnet strongly attract an iron nail but not most
+              plastic?
+            </p>
+            <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+            <div class="answer" id="a4">
+              <p>
+                Iron is ferromagnetic and can develop strongly aligned magnetic
+                regions. Most plastics do not respond strongly to ordinary
+                magnetic fields.
+              </p>
+            </div>
+          </article>
+
+          <article class="card undersea-note">
+            <h3>Underwater City Analogy</h3>
+            <p>
+              Some materials behave like a school of fish that quickly turns in
+              formation. Others barely adjust their direction at all.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="domains">
+        <div class="section-heading">
+          <h2>4. Magnetic domains</h2>
+          <p>
+            Ferromagnetic materials contain many tiny regions that can align.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Unmagnetized material</h3>
+            <p>
+              Domains point in many directions, so their magnetic effects mostly
+              cancel when viewed across the whole object.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Magnetized material</h3>
+            <p>
+              Many domains become aligned, producing a stronger net magnetic
+              field.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson3_image04.png"
+            alt=" Split-scene educational illustration inside an underwater research
+              hall. On the left, hundreds of tiny colorful fish face random
+              directions inside a transparent iron block, representing unaligned
+              magnetic domains. On the right, the fish align into neat purple
+              and cyan schools, creating a strong glowing field around the
+              block. Monkey directs the fish with flags while Robot records the
+              alignment. Saddled seahorses carry instruments; curly-brace data
+              piranha { } move readings into a black glass console. 16:9
+              landscape."
+            loading="lazy"
+          />
+
+          <figcaption>
+            Magnetization can be understood as the increasing alignment of
+          magnetic domains.
+          </figcaption>
+        </figure>
+
+        <!-- <div class="placeholder-image">
+          <div class="prompt-card">
+            <span class="prompt-label">Suggested image prompt</span>
+            <p>
+              Split-scene educational illustration inside an underwater research
+              hall. On the left, hundreds of tiny colorful fish face random
+              directions inside a transparent iron block, representing unaligned
+              magnetic domains. On the right, the fish align into neat purple
+              and cyan schools, creating a strong glowing field around the
+              block. Monkey directs the fish with flags while Robot records the
+              alignment. Saddled seahorses carry instruments; curly-brace data
+              piranha { } move readings into a black glass console. 16:9
+              landscape.
+            </p>
+          </div>
+        </div>
+        <p class="placeholder-caption">
+          Magnetization can be understood as the increasing alignment of
+          magnetic domains.
+        </p> -->
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why may heating or striking a magnet weaken it?</p>
+            <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+            <div class="answer" id="a5">
+              <p>
+                Heat or mechanical disturbance can disrupt domain alignment,
+                reducing the material's net magnetization.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “The fish did not disappear—they lost formation.”
+              Robot answers, “Exactly. The material remains, but the alignment
+              changes.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="current-field">
+        <div class="section-heading">
+          <h2>5. Electric current creates a magnetic field</h2>
+          <p>Moving electric charge produces magnetism.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Straight wire</h3>
+            <p>
+              Current in a straight conductor creates circular magnetic field
+              lines around the wire.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Direction</h3>
+            <p>
+              The right-hand rule relates conventional current direction to the
+              direction of the surrounding magnetic field.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Stronger current</h3>
+            <p>
+              Increasing current strengthens the magnetic field around the
+              conductor.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson3_image05.png"
+            alt=" Robot holds a vertical glowing conductor in an underwater city
+              plaza while circular rings of tiny purple, blue, and gold fish
+              spiral around it to show the magnetic field made by current.
+              Monkey demonstrates the right-hand rule with an oversized
+              mechanical glove. Saddled seahorses tow measuring probes through
+              the rings, and curly-brace data piranha { } carry current readings
+              to black crystalline towers. Deep black background, rainbow
+              purples, clean educational composition, 16:9."
+            loading="lazy"
+          />
+
+          <figcaption>
+            Current in a straight conductor produces a circular magnetic field.
+          </figcaption>
+        </figure>
+
+        <!-- <div class="placeholder-image">
+          <div class="prompt-card">
+            <span class="prompt-label">Suggested image prompt</span>
+            <p>
+              Robot holds a vertical glowing conductor in an underwater city
+              plaza while circular rings of tiny purple, blue, and gold fish
+              spiral around it to show the magnetic field made by current.
+              Monkey demonstrates the right-hand rule with an oversized
+              mechanical glove. Saddled seahorses tow measuring probes through
+              the rings, and curly-brace data piranha { } carry current readings
+              to black crystalline towers. Deep black background, rainbow
+              purples, clean educational composition, 16:9.
+            </p>
+          </div>
+        </div>
+        <p class="placeholder-caption">
+          Current in a straight conductor produces a circular magnetic field.
+        </p> -->
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What happens to the magnetic field if current increases?</p>
+            <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+            <div class="answer" id="a6">
+              <p>The magnetic field becomes stronger.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>
+              What shape does the magnetic field have around a straight wire?
+            </p>
+            <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+            <div class="answer" id="a7">
+              <p>It forms concentric circles around the conductor.</p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              In 1820, Hans Christian Ørsted observed a compass needle move near
+              a current-carrying wire, revealing a direct connection between
+              electricity and magnetism.
+            </p>
+          </div>
+
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Every energized wire produces a magnetic field, although ordinary
+              circuit currents often create fields too weak to notice without an
+              instrument.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="electromagnets">
+        <div class="section-heading">
+          <h2>6. Electromagnets and coils</h2>
+          <p>Coiling a wire concentrates and strengthens its magnetic field.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Solenoid</h3>
+            <p>
+              A coil of wire carrying current creates a field similar to that of
+              a bar magnet, with identifiable north and south ends.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Iron core</h3>
+            <p>
+              Placing iron inside the coil can greatly strengthen the field
+              because the core's domains align.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Control</h3>
+            <p>
+              An electromagnet can be switched, strengthened, weakened, or
+              reversed by controlling the current.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson3_image06.png"
+            alt="Monkey and Robot assemble a giant solenoid in an underwater
+              machine district. Purple current flows through a copper coil
+              wrapped around an iron core, lifting a chain of black metal cargo
+              blocks. Schools of colorful fish bend around the coil like field
+              lines. Saddled seahorses deliver wire spools, while curly-brace
+              data piranha { } transmit switch, current, and polarity data
+              through glowing tubes. Rainbow purples, black towers, cyan
+              bioluminescence, painterly 3D cartoon, 16:9."
+            loading="lazy"
+          />
+
+          <figcaption>
+            A current-carrying coil becomes a controllable magnet.
+          </figcaption>
+        </figure>
+
+        <!-- <div class="placeholder-image">
+          <div class="prompt-card">
+            <span class="prompt-label">Suggested image prompt</span>
+            <p>
+              Monkey and Robot assemble a giant solenoid in an underwater
+              machine district. Purple current flows through a copper coil
+              wrapped around an iron core, lifting a chain of black metal cargo
+              blocks. Schools of colorful fish bend around the coil like field
+              lines. Saddled seahorses deliver wire spools, while curly-brace
+              data piranha { } transmit switch, current, and polarity data
+              through glowing tubes. Rainbow purples, black towers, cyan
+              bioluminescence, painterly 3D cartoon, 16:9.
+            </p>
+          </div>
+        </div>
+        <p class="placeholder-caption">
+          A current-carrying coil becomes a controllable magnet.
+        </p> -->
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Name two ways to strengthen an electromagnet.</p>
+            <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+            <div class="answer" id="a8">
+              <p>
+                Increase the current, add more turns to the coil, or use a
+                suitable ferromagnetic core.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey asks, “So this magnet has a control input?” Robot replies,
+              “Yes. Current is the command that creates the field.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="force">
+        <div class="section-heading">
+          <h2>7. Magnetic force on moving charge and current</h2>
+          <p>A magnetic field can redirect moving charge.</p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Moving charge</h3>
+            <p>
+              A charged particle moving through a magnetic field can experience
+              a force perpendicular to both its motion and the field.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Current-carrying wire</h3>
+            <p>
+              Because current consists of moving charge, a conductor carrying
+              current can be pushed by an external magnetic field.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Can a stationary charge experience ordinary magnetic force?</p>
+            <button class="toggle-btn" data-target="a9">Reveal Answer</button>
+            <div class="answer" id="a9">
+              <p>
+                Not from the magnetic part of the force alone. Magnetic force
+                depends on the charge's motion relative to the field.
+              </p>
+            </div>
+          </article>
+
+          <article class="card undersea-note">
+            <h3>Underwater City Analogy</h3>
+            <p>
+              A moving curly-brace piranha crossing a current can be swept
+              sideways. A motionless one remains where it is.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="motors">
+        <div class="section-heading">
+          <h2>8. From magnetic force to motors</h2>
+          <p>A motor converts electrical energy into mechanical motion.</p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Current</h3>
+            <p>
+              Current passes through a coil or conductor placed inside a
+              magnetic field.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Force and torque</h3>
+            <p>
+              Magnetic forces act on different sides of the coil, producing a
+              turning effect called torque.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Continuous rotation</h3>
+            <p>
+              Motor design repeatedly changes or redirects current so the
+              turning force continues.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson3_image07.png"
+            alt="Inside the underwater city's turbine hall, Robot demonstrates a
+              large simple electric motor with a rotating coil between
+              purple-and-black magnetic poles. Monkey rides a saddled seahorse
+              beside the turning shaft, waving excitedly. Colorful schools of
+              fish trace the field direction. Curly-brace data piranha { }
+              stream through transparent data pipes below the floor, reporting
+              current and rotation. Rainbow purples, black metal, cyan glow,
+              dynamic educational composition, 16:9 landscape."
+            loading="lazy"
+          />
+
+          <figcaption>
+            Magnetic force on a current-carrying coil can produce continuous
+          rotation.
+          </figcaption>
+        </figure>
+
+        <!-- <div class="placeholder-image">
+          <div class="prompt-card">
+            <span class="prompt-label">Suggested image prompt</span>
+            <p>
+              Inside the underwater city's turbine hall, Robot demonstrates a
+              large simple electric motor with a rotating coil between
+              purple-and-black magnetic poles. Monkey rides a saddled seahorse
+              beside the turning shaft, waving excitedly. Colorful schools of
+              fish trace the field direction. Curly-brace data piranha { }
+              stream through transparent data pipes below the floor, reporting
+              current and rotation. Rainbow purples, black metal, cyan glow,
+              dynamic educational composition, 16:9 landscape.
+            </p>
+          </div>
+        </div>
+        <p class="placeholder-caption">
+          Magnetic force on a current-carrying coil can produce continuous
+          rotation.
+        </p> -->
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What energy conversion takes place in an electric motor?</p>
+            <button class="toggle-btn" data-target="a10">Reveal Answer</button>
+            <div class="answer" id="a10">
+              <p>Electrical energy is converted into mechanical motion.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What produces torque in a simple motor?</p>
+            <button class="toggle-btn" data-target="a11">Reveal Answer</button>
+            <div class="answer" id="a11">
+              <p>
+                Magnetic forces acting on different parts of the
+                current-carrying coil create a turning effect.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Fans, pumps, hard drives, power tools, washing machines,
+              elevators, and electric vehicles all rely on motors.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>What Comes Next</h4>
+            <p>
+              Lesson 4 can reverse the story: instead of current creating
+              magnetism, changing magnetism can create voltage. That is
+              electromagnetic induction.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="summary">
+        <div class="section-heading">
+          <h2>9. Lesson summary</h2>
+          <p>The essential ideas connecting magnets, current, and motion.</p>
+        </div>
+
+        <div class="summary-box">
+          <h3>Key takeaways</h3>
+          <ul>
+            <li>Every ordinary magnet has north and south poles.</li>
+            <li>Like magnetic poles repel; opposite poles attract.</li>
+            <li>
+              Magnetic fields describe direction and relative strength through
+              space.
+            </li>
+            <li>Magnetic field lines form closed loops.</li>
+            <li>Ferromagnetic materials contain domains that can align.</li>
+            <li>Moving electric charge creates a magnetic field.</li>
+            <li>
+              A straight current-carrying wire creates circular field lines.
+            </li>
+            <li>
+              A coil concentrates magnetic field and can form an electromagnet.
+            </li>
+            <li>
+              Magnetic fields can push moving charges and current-carrying
+              conductors.
+            </li>
+            <li>Electric motors use magnetic force to create rotation.</li>
+          </ul>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>What is the central link between electricity and magnetism?</p>
+            <button class="toggle-btn" data-target="a12">Reveal Answer</button>
+            <div class="answer" id="a12">
+              <p>Moving electric charge creates magnetic fields.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>What practical device uses magnetic force to create motion?</p>
+            <button class="toggle-btn" data-target="a13">Reveal Answer</button>
+            <div class="answer" id="a13">
+              <p>An electric motor.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="electromagnetism-lesson02-voltage-current-and-resistance.html"
+          >← Lesson 02</a
+        >
+        <a
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+          >Course Home</a
+        >
+        <a href="#overview">Back to Top ↑</a>
+      </nav>
+    </main>
+
+    <footer>
+      Klin's Learning Library · Electromagnetism · Lesson 03 · Magnetism and
+      Magnetic Fields
+    </footer>
+
+    <script>
+      const buttons = document.querySelectorAll(".toggle-btn");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+          const answer = document.getElementById(targetId);
+
+          if (!answer) return;
+
+          const isOpen = answer.classList.contains("show");
+          answer.classList.toggle("show");
+          button.textContent = isOpen ? "Reveal Answer" : "Hide Answer";
+        });
+      });
+    </script>
+  </body>
+</html>
