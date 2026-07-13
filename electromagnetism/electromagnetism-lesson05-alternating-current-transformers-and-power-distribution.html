@@ -1,0 +1,1160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Electromagnetism Lesson 5: Alternating Current, Transformers, and Power Distribution, with interactive questions, autumn farm theme, and pre-wired image slots."
+    />
+    <title>Alternating Current, Transformers, and Power Distribution | Klin's Learning Library</title>
+
+    <style>
+      :root {
+        --night: #17202a;
+        --barn: #8f2f2f;
+        --barn-dark: #692020;
+        --wheat: #d6a248;
+        --pumpkin: #d9782d;
+        --leaf: #b95f28;
+        --forest: #4e6f46;
+        --sky: #6ca9d9;
+        --water: #4a90c2;
+        --paper: #f7f1e6;
+        --white: #ffffff;
+        --ink: #24303a;
+        --muted: #65717c;
+        --border: #d9dfdf;
+        --green-soft: #ebf2ea;
+        --amber-soft: #fbf1dd;
+        --blue-soft: #eaf5fb;
+        --orange-soft: #fbefe7;
+        --shadow: 0 12px 32px rgba(23, 32, 42, 0.18);
+        --radius: 16px;
+        --radius-sm: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 150px;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.68;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 0%, rgba(214, 162, 72, 0.14), transparent 28rem),
+          radial-gradient(circle at 90% 10%, rgba(108, 169, 217, 0.12), transparent 24rem),
+          linear-gradient(180deg, #fdfcfa 0%, var(--paper) 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: var(--white);
+        background: linear-gradient(90deg, rgba(23, 32, 42, 0.98), rgba(143, 47, 47, 0.97));
+        border-bottom: 1px solid rgba(214, 162, 72, 0.26);
+        box-shadow: 0 4px 18px rgba(23, 32, 42, 0.28);
+        backdrop-filter: blur(10px);
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem clamp(1rem, 4vw, 3rem);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        flex: 0 0 auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: linear-gradient(145deg, var(--pumpkin), var(--water));
+        box-shadow: 0 0 18px rgba(214, 162, 72, 0.18);
+        font-size: 1.05rem;
+      }
+
+      .brand-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .course-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.56rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 750;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .course-link:hover,
+      .course-link:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 0.35rem;
+        padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.75rem;
+        overflow-x: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        scrollbar-width: thin;
+      }
+
+      .page-nav a {
+        flex: 0 0 auto;
+        padding: 0.42rem 0.7rem;
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      .page-nav a:hover,
+      .page-nav a:focus-visible {
+        color: var(--white);
+        background: rgba(214, 162, 72, 0.18);
+        outline: none;
+      }
+
+      main {
+        width: min(1160px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(2.4rem, 7vw, 5rem) 0 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: clamp(2rem, 6vw, 4rem);
+        align-items: center;
+        margin-bottom: 2.8rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: var(--leaf);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--night);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2.5rem, 6.6vw, 5.4rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin: 1.35rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.04rem, 2vw, 1.18rem);
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+        border: 1px solid rgba(214, 162, 72, 0.28);
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(251, 241, 221, 0.92));
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card strong {
+        color: var(--barn-dark);
+      }
+
+      section {
+        margin: 3rem 0;
+      }
+
+      .section-heading {
+        margin-bottom: 1.1rem;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 0.35rem;
+        color: var(--barn-dark);
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 1.35rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.93);
+        box-shadow: 0 5px 18px rgba(23, 32, 42, 0.06);
+      }
+
+      .card h3 {
+        margin: 0 0 0.55rem;
+        color: var(--barn-dark);
+        font-size: 1.14rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.2rem;
+      }
+
+      .card li {
+        margin-bottom: 0.45rem;
+      }
+
+      .qa-card {
+        border-top: 4px solid var(--pumpkin);
+      }
+
+      .answer {
+        margin-top: 0.9rem;
+        padding: 1rem 1.05rem;
+        border: 1px solid #eadcc8;
+        border-radius: var(--radius-sm);
+        background: #fff8f0;
+        color: var(--ink);
+        display: none;
+      }
+
+      .answer.show {
+        display: block;
+      }
+
+      .toggle-btn {
+        margin-top: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        border: none;
+        border-radius: 999px;
+        background: var(--barn);
+        color: var(--white);
+        font-weight: 750;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(143, 47, 47, 0.2);
+        transition: transform 160ms ease, background 160ms ease;
+      }
+
+      .toggle-btn:hover,
+      .toggle-btn:focus-visible {
+        background: var(--barn-dark);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .inset-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.2rem;
+      }
+
+      .inset {
+        padding: 1.15rem 1.15rem 1.05rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      .inset h4 {
+        margin: 0 0 0.45rem;
+        font-size: 1rem;
+        color: var(--barn-dark);
+      }
+
+      .inset p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+
+      .real-world {
+        border-left: 5px solid var(--forest);
+        background: var(--green-soft);
+      }
+
+      .historical-note {
+        border-left: 5px solid var(--wheat);
+        background: var(--amber-soft);
+      }
+
+      .monkey-robot {
+        border-left: 5px solid var(--water);
+        background: var(--blue-soft);
+      }
+
+      .farm-note {
+        border-left: 5px solid var(--pumpkin);
+        background: var(--orange-soft);
+      }
+
+      .summary-box {
+        padding: 1.35rem 1.4rem;
+        border-left: 5px solid var(--barn);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background: var(--amber-soft);
+      }
+
+      .summary-box h3 {
+        margin: 0 0 0.5rem;
+        color: var(--barn-dark);
+      }
+
+      .summary-box ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .summary-box li {
+        margin-bottom: 0.45rem;
+      }
+
+      .lesson-figure {
+        width: 100%;
+        margin: 1.15rem 0 1.1rem;
+      }
+
+      .lesson-image {
+        display: none;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        object-position: center;
+        border: 1px solid rgba(214, 162, 72, 0.28);
+        border-radius: var(--radius);
+        background: var(--night);
+        box-shadow: var(--shadow);
+      }
+
+      .image-slot.image-loaded .lesson-image {
+        display: block;
+      }
+
+      .image-slot.image-loaded .image-prompt {
+        display: none;
+      }
+
+      .image-prompt {
+        position: relative;
+        overflow: hidden;
+        min-height: 300px;
+        display: grid;
+        place-items: center;
+        padding: clamp(1.5rem, 4vw, 2.3rem);
+        border: 2px dashed rgba(214, 162, 72, 0.55);
+        border-radius: var(--radius);
+        color: #f8fafb;
+        background:
+          radial-gradient(circle at 20% 18%, rgba(108, 169, 217, 0.14), transparent 20rem),
+          radial-gradient(circle at 80% 82%, rgba(217, 120, 45, 0.12), transparent 18rem),
+          linear-gradient(135deg, #17202a 0%, #8f2f2f 48%, #4e6f46 100%);
+        box-shadow: var(--shadow);
+      }
+
+      .image-prompt::before,
+      .image-prompt::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .image-prompt::before {
+        width: 74px;
+        height: 74px;
+        top: 18px;
+        right: 8%;
+        box-shadow:
+          -160px 60px 0 -24px rgba(255, 255, 255, 0.08),
+          -255px 15px 0 -29px rgba(255, 255, 255, 0.09),
+          70px 120px 0 -34px rgba(255, 255, 255, 0.08);
+      }
+
+      .image-prompt::after {
+        width: 180px;
+        height: 180px;
+        left: -92px;
+        bottom: -95px;
+        background: rgba(214, 162, 72, 0.18);
+      }
+
+      .prompt-card {
+        position: relative;
+        z-index: 1;
+        width: min(840px, 100%);
+        padding: 1.25rem 1.35rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 14px;
+        background: rgba(23, 32, 42, 0.76);
+        backdrop-filter: blur(6px);
+      }
+
+      .prompt-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.65rem;
+        color: #ffd98a;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .prompt-card p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 650;
+      }
+
+      .lesson-figure figcaption {
+        margin-top: 0.65rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .lesson-nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.72rem 1rem;
+        border-radius: 999px;
+        background: var(--barn);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 750;
+      }
+
+      footer {
+        padding: 1.6rem 1rem 2.5rem;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        html {
+          scroll-padding-top: 195px;
+        }
+
+        .header-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .course-link {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .grid-2,
+        .grid-3,
+        .inset-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .lesson-nav {
+          flex-direction: column;
+        }
+
+        .image-prompt {
+          min-height: 340px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-top">
+        <div class="brand" aria-label="Electromagnetism course">
+          <span class="brand-mark" aria-hidden="true">⚡</span>
+          <span class="brand-text">Electromagnetism · Lesson 05</span>
+        </div>
+
+        <a
+          class="course-link"
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+        >
+          <span aria-hidden="true">←</span>
+          Back to Electromagnetism
+        </a>
+      </div>
+
+      <nav class="page-nav" aria-label="Page contents">
+        <a href="#overview">Overview</a>
+        <a href="#ac">AC Basics</a>
+        <a href="#waveform">Waveform</a>
+        <a href="#generator">Generator</a>
+        <a href="#transformers">Transformers</a>
+        <a href="#distribution">Distribution</a>
+        <a href="#farm-loads">Farm Loads</a>
+        <a href="#summary">Summary</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">Lesson 5 · Power on the Move</p>
+          <h1>Alternating Current, Transformers, and Power Distribution</h1>
+          <p class="hero-copy">
+            Monkey and Robot travel to the falls beside a picture-perfect farm:
+            a bright red barn, rolling hills of golden wheat, pumpkin patches,
+            a watermill, and autumn trees blazing in orange and gold. Their job
+            is to set up a generator, understand alternating current, and carry
+            power safely from the falls to the farm.
+          </p>
+        </div>
+
+        <aside class="hero-card">
+          <strong>Central question:</strong>
+          Why is alternating current so useful for generating, transforming, and
+          delivering electrical power?
+          <br /><br />
+          <strong>Key idea:</strong>
+          alternating current changes direction over time, which makes it ideal for
+          transformers and long-distance power distribution.
+        </aside>
+      </section>
+
+      <section>
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson5_image01.png"
+            alt="Monkey and Robot arrive at a waterfall beside a bright red barn and autumn farm to set up a generator."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Wide landscape educational illustration, whimsical painterly 3D
+                science-adventure style. Monkey and a compact brass-and-blue Robot
+                stand at a waterfall beside a quaint perfect farm with a big red
+                barn, a watermill, rolling hills of golden wheat, pumpkin patches,
+                split-rail fences, and bright autumn leaves in orange, gold, and red.
+                They are preparing a generator installation near the falls. Warm,
+                inviting, storybook engineering atmosphere, no border, no watermark,
+                16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Lesson 5 begins at the falls, where moving water will become electrical power.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="ac">
+        <div class="section-heading">
+          <h2>1. What is alternating current?</h2>
+          <p>
+            Alternating current, or AC, is current that reverses direction in a repeating pattern.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Direction changes</h3>
+            <p>
+              In AC, the current does not move in only one direction. It swings back
+              and forth over time.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Common form</h3>
+            <p>
+              Many AC systems are represented by a smooth sine wave because the voltage
+              and current rise, fall, reverse, and repeat.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Different from DC</h3>
+            <p>
+              Direct current, or DC, flows in a single direction and does not naturally
+              reverse the way AC does.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What is the defining behavior of alternating current?</p>
+            <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+            <div class="answer" id="a1">
+              <p>It changes direction in a repeating pattern over time.</p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “So AC is like the water at the wheel surging first one way,
+              then the other in a pattern?” Robot replies, “That is a good analogy for
+              the back-and-forth nature of AC.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="waveform">
+        <div class="section-heading">
+          <h2>2. AC waveform, frequency, and amplitude</h2>
+          <p>
+            AC is often described by how high it rises, how low it falls, and how fast it repeats.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Amplitude</h3>
+            <p>
+              Amplitude tells us how large the voltage or current swing is.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Frequency</h3>
+            <p>
+              Frequency tells us how many complete cycles occur each second. It is
+              measured in hertz (Hz).
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Cycle</h3>
+            <p>
+              One full cycle includes a positive half and a negative half before the
+              pattern repeats.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson5_image02.png"
+            alt="Robot explains an AC sine wave to Monkey beside the autumn farm generator setup."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Educational wide landscape illustration near the farm workshop beside
+                the falls. Robot projects a glowing sine wave in the air while Monkey
+                points at labeled features: crest, trough, one full cycle, and frequency.
+                The red barn, wheat hills, pumpkin patches, and autumn trees remain visible
+                in the background. Include a small waterwheel and generator nearby for context.
+                Painterly 3D style, clear teaching visuals, no title, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            AC is commonly shown as a repeating wave with amplitude and frequency.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What does frequency measure in an AC system?</p>
+            <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+            <div class="answer" id="a2">
+              <p>How many complete cycles happen each second.</p>
+            </div>
+          </article>
+
+          <article class="card farm-note">
+            <h3>Farm Analogy</h3>
+            <p>
+              If the wheel turns faster, the generator cycles faster. That helps us
+              picture why mechanical speed relates to AC frequency.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="generator">
+        <div class="section-heading">
+          <h2>3. Making AC with a generator</h2>
+          <p>
+            A generator can produce alternating voltage when a coil or magnetic field rotates.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Mechanical input</h3>
+            <p>
+              Falling water at the falls turns the wheel or turbine, which provides
+              the mechanical motion.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Changing flux</h3>
+            <p>
+              As the coil rotates through the magnetic field, the flux changes continuously.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Alternating output</h3>
+            <p>
+              Because the coil orientation keeps changing, the induced voltage reverses
+              and naturally becomes AC.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson5_image03.png"
+            alt="Monkey and Robot connect a generator to a watermill at the falls beside the autumn farm."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Wide landscape educational illustration at the waterfall and watermill.
+                Monkey tightens the coupling between a waterwheel and a generator while
+                Robot points to the rotating coil and magnets inside a cutaway view.
+                Show arrows for wheel rotation, changing magnetic flux, and alternating
+                output going to a nearby meter. Big red barn, pumpkin patches, wheat fields,
+                and bright autumn leaves complete the scene. Painterly 3D science-adventure
+                style, detailed but uncluttered, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Mechanical motion at the falls becomes alternating electrical output.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why does a simple rotating generator naturally produce AC?</p>
+            <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+            <div class="answer" id="a3">
+              <p>
+                Because the changing orientation of the rotating coil causes the induced
+                voltage to reverse in a repeating cycle.
+              </p>
+            </div>
+          </article>
+
+          <article class="card historical-note">
+            <h3>Historical Note</h3>
+            <p>
+              The “war of currents” in the late 1800s included debate over AC and DC,
+              but AC proved especially useful for large-scale distribution because it
+              works so well with transformers.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="transformers">
+        <div class="section-heading">
+          <h2>4. Why transformers matter</h2>
+          <p>
+            AC can be stepped up or stepped down efficiently with transformers.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Step-up</h3>
+            <p>
+              A step-up transformer raises voltage. For the same power, higher voltage
+              usually means lower current.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Step-down</h3>
+            <p>
+              A step-down transformer lowers voltage to levels more suitable for homes,
+              tools, lights, and equipment.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Less line loss</h3>
+            <p>
+              Lower current in the power lines reduces energy loss from wire resistance.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson5_image04.png"
+            alt="Robot shows Monkey how power is stepped up and down between the farm generator and the red barn."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Split-scene educational illustration across the autumn farm. On one side,
+                Monkey and Robot send AC from the falls through a step-up transformer.
+                In the middle, power lines cross rolling golden hills. On the far side,
+                a step-down transformer delivers usable voltage to the big red barn,
+                farmhouse, and workshop lights. Clear arrows show energy flow. Include
+                wheat, pumpkins, bright fall leaves, and a clean diagrammatic style within
+                a whimsical painterly 3D scene, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Transformers make AC especially useful for efficient power delivery.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why is higher transmission voltage useful for power lines?</p>
+            <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+            <div class="answer" id="a4">
+              <p>
+                For the same power, higher voltage usually means lower current, and
+                lower current reduces line losses.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “So we send power out tall and bring it back down gentle.”
+              Robot replies, “Exactly. Step up for travel, step down for use.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="distribution">
+        <div class="section-heading">
+          <h2>5. Power distribution</h2>
+          <p>
+            After generation and transformation, power must be routed safely to loads.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Source</h3>
+            <p>
+              The source here is the generator at the falls.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Transmission and distribution</h3>
+            <p>
+              Power is carried over lines, then delivered to smaller branches that
+              feed individual buildings and equipment.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Protection</h3>
+            <p>
+              Switches, breakers, and fuses help isolate faults and protect the system.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card real-world">
+            <h3>In the Real World</h3>
+            <p>
+              Utility systems use generation, substations, transmission lines,
+              distribution transformers, and service entrances to get power from
+              a source to the customer safely.
+            </p>
+          </article>
+
+          <article class="card farm-note">
+            <h3>Farm System View</h3>
+            <p>
+              On the farm, the loads might include barn lights, a workshop, water pumps,
+              storage equipment, or house outlets.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="farm-loads">
+        <div class="section-heading">
+          <h2>6. Loads at the farm</h2>
+          <p>
+            Electrical systems exist to serve loads—the devices that use the power.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Lighting load</h3>
+            <p>
+              Barn lamps and house lights convert electrical energy into light.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Motor loads</h3>
+            <p>
+              Pumps, fans, and tools may use electric motors.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Heating load</h3>
+            <p>
+              Some equipment uses electrical energy mainly as heat.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson5_image05.png"
+            alt="Monkey and Robot test AC power across the autumn farm as the barn lights and equipment come on."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Dramatic but warm educational illustration at twilight on the autumn farm.
+                Monkey and Robot test the completed AC system as barn lights glow, the
+                farmhouse windows light up, and a pump or small workshop motor runs.
+                The waterfall, watermill, red barn, wheat hills, pumpkin patches, and
+                bright fall leaves remain visible. Use clear arrows or small indicators
+                to show power reaching different loads. Painterly 3D storybook style,
+                triumphant mood, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Power distribution ends in useful work: lights, motors, and other loads.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What is a load in an electrical system?</p>
+            <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+            <div class="answer" id="a5">
+              <p>A load is a device or system that uses electrical energy.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Name one reason AC became important in large power systems.</p>
+            <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+            <div class="answer" id="a6">
+              <p>
+                Because AC can be transformed efficiently to different voltages for
+                transmission and distribution.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset historical-note">
+            <h4>Systems Insight</h4>
+            <p>
+              Generation, transformation, transmission, protection, and loads are not
+              separate stories. They are all parts of one electrical system.
+            </p>
+          </div>
+
+          <div class="inset real-world">
+            <h4>Bench Practice</h4>
+            <p>
+              When you troubleshoot a power problem, trace the path: source, voltage level,
+              conductors, protection, switches, and finally the load.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="summary">
+        <div class="section-heading">
+          <h2>7. Lesson summary</h2>
+          <p>The key ideas from the farm and falls power system.</p>
+        </div>
+
+        <div class="summary-box">
+          <h3>Key takeaways</h3>
+          <ul>
+            <li>Alternating current changes direction in a repeating cycle.</li>
+            <li>AC is commonly represented as a waveform such as a sine wave.</li>
+            <li>Frequency measures how many cycles occur each second.</li>
+            <li>Generators can naturally produce AC through rotation and changing flux.</li>
+            <li>Transformers can step AC voltage up or down efficiently.</li>
+            <li>Higher transmission voltage helps reduce line losses.</li>
+            <li>Power distribution carries energy from source to loads.</li>
+            <li>Loads may be lights, motors, heating devices, or other equipment.</li>
+            <li>Protection devices help keep electrical systems safe.</li>
+            <li>Thinking in systems helps you understand and troubleshoot power flow.</li>
+          </ul>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>What kind of current is especially suited to transformers?</p>
+            <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+            <div class="answer" id="a7">
+              <p>Alternating current.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>What is the overall title of this lesson?</p>
+            <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+            <div class="answer" id="a8">
+              <p>Alternating Current, Transformers, and Power Distribution.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="electromagnetism-lesson04-electromagnetic-induction-and-generators.html">← Lesson 04</a>
+        <a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">Course Home</a>
+        <a href="#overview">Back to Top ↑</a>
+      </nav>
+    </main>
+
+    <footer>
+      Klin's Learning Library · Electromagnetism · Lesson 05 · Alternating Current, Transformers, and Power Distribution
+    </footer>
+
+    <script>
+      const buttons = document.querySelectorAll(".toggle-btn");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+          const answer = document.getElementById(targetId);
+          if (!answer) return;
+          const isOpen = answer.classList.contains("show");
+          answer.classList.toggle("show");
+          button.textContent = isOpen ? "Reveal Answer" : "Hide Answer";
+        });
+      });
+
+      document.querySelectorAll(".lesson-image").forEach((img) => {
+        if (img.complete && img.naturalWidth > 0) {
+          img.closest(".image-slot")?.classList.add("image-loaded");
+        }
+      });
+    </script>
+  </body>
+</html>
