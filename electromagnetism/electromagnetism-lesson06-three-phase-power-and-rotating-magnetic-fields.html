@@ -1,0 +1,1289 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Electromagnetism Lesson 6: Three-Phase Power and Rotating Magnetic Fields, with interactive questions, harvest-season farm theme, and pre-wired image slots."
+    />
+    <title>Three-Phase Power and Rotating Magnetic Fields | Klin's Learning Library</title>
+
+    <style>
+      :root {
+        --storm: #1f2937;
+        --storm-2: #334155;
+        --barn: #8d2d2d;
+        --barn-dark: #642020;
+        --wheat: #d7a64b;
+        --pumpkin: #d9772b;
+        --leaf: #a84e24;
+        --forest: #47664a;
+        --sky: #6798c9;
+        --phase-a: #d55353;
+        --phase-b: #4f87d9;
+        --phase-c: #d8a840;
+        --paper: #f6efe4;
+        --white: #ffffff;
+        --ink: #24303a;
+        --muted: #65717c;
+        --border: #d8dfdf;
+        --green-soft: #eaf2e8;
+        --amber-soft: #fbf0dc;
+        --blue-soft: #eaf3fb;
+        --orange-soft: #faeee5;
+        --shadow: 0 12px 32px rgba(31, 41, 55, 0.18);
+        --radius: 16px;
+        --radius-sm: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 150px;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.68;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 0%, rgba(215, 166, 75, 0.14), transparent 28rem),
+          radial-gradient(circle at 92% 8%, rgba(103, 152, 201, 0.14), transparent 24rem),
+          linear-gradient(180deg, #fdfcfa 0%, var(--paper) 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: var(--white);
+        background: linear-gradient(90deg, rgba(31, 41, 55, 0.98), rgba(100, 32, 32, 0.97));
+        border-bottom: 1px solid rgba(215, 166, 75, 0.26);
+        box-shadow: 0 4px 18px rgba(31, 41, 55, 0.28);
+        backdrop-filter: blur(10px);
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem clamp(1rem, 4vw, 3rem);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        flex: 0 0 auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: conic-gradient(var(--phase-a), var(--phase-b), var(--phase-c), var(--phase-a));
+        box-shadow: 0 0 18px rgba(215, 166, 75, 0.2);
+        font-size: 1.05rem;
+      }
+
+      .brand-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .course-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.56rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 750;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .course-link:hover,
+      .course-link:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 0.35rem;
+        padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.75rem;
+        overflow-x: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        scrollbar-width: thin;
+      }
+
+      .page-nav a {
+        flex: 0 0 auto;
+        padding: 0.42rem 0.7rem;
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      .page-nav a:hover,
+      .page-nav a:focus-visible {
+        color: var(--white);
+        background: rgba(215, 166, 75, 0.18);
+        outline: none;
+      }
+
+      main {
+        width: min(1160px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(2.4rem, 7vw, 5rem) 0 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: clamp(2rem, 6vw, 4rem);
+        align-items: center;
+        margin-bottom: 2.8rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: var(--leaf);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--storm);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2.6rem, 6.7vw, 5.5rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin: 1.35rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.04rem, 2vw, 1.18rem);
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+        border: 1px solid rgba(215, 166, 75, 0.28);
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.97), rgba(251, 240, 220, 0.92));
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card strong {
+        color: var(--barn-dark);
+      }
+
+      section {
+        margin: 3rem 0;
+      }
+
+      .section-heading {
+        margin-bottom: 1.1rem;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 0.35rem;
+        color: var(--barn-dark);
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 1.35rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.93);
+        box-shadow: 0 5px 18px rgba(31, 41, 55, 0.06);
+      }
+
+      .card h3 {
+        margin: 0 0 0.55rem;
+        color: var(--barn-dark);
+        font-size: 1.14rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.2rem;
+      }
+
+      .card li {
+        margin-bottom: 0.45rem;
+      }
+
+      .phase-a {
+        border-top: 4px solid var(--phase-a);
+      }
+
+      .phase-b {
+        border-top: 4px solid var(--phase-b);
+      }
+
+      .phase-c {
+        border-top: 4px solid var(--phase-c);
+      }
+
+      .qa-card {
+        border-top: 4px solid var(--pumpkin);
+      }
+
+      .answer {
+        margin-top: 0.9rem;
+        padding: 1rem 1.05rem;
+        border: 1px solid #eadcc8;
+        border-radius: var(--radius-sm);
+        background: #fff8f0;
+        color: var(--ink);
+        display: none;
+      }
+
+      .answer.show {
+        display: block;
+      }
+
+      .toggle-btn {
+        margin-top: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        border: none;
+        border-radius: 999px;
+        background: var(--barn);
+        color: var(--white);
+        font-weight: 750;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(141, 45, 45, 0.2);
+        transition: transform 160ms ease, background 160ms ease;
+      }
+
+      .toggle-btn:hover,
+      .toggle-btn:focus-visible {
+        background: var(--barn-dark);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .inset-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.2rem;
+      }
+
+      .inset {
+        padding: 1.15rem 1.15rem 1.05rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.85);
+      }
+
+      .inset h4 {
+        margin: 0 0 0.45rem;
+        font-size: 1rem;
+        color: var(--barn-dark);
+      }
+
+      .inset p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+
+      .real-world {
+        border-left: 5px solid var(--forest);
+        background: var(--green-soft);
+      }
+
+      .historical-note {
+        border-left: 5px solid var(--wheat);
+        background: var(--amber-soft);
+      }
+
+      .monkey-robot {
+        border-left: 5px solid var(--sky);
+        background: var(--blue-soft);
+      }
+
+      .farm-note {
+        border-left: 5px solid var(--pumpkin);
+        background: var(--orange-soft);
+      }
+
+      .summary-box {
+        padding: 1.35rem 1.4rem;
+        border-left: 5px solid var(--barn);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background: var(--amber-soft);
+      }
+
+      .summary-box h3 {
+        margin: 0 0 0.5rem;
+        color: var(--barn-dark);
+      }
+
+      .summary-box ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .summary-box li {
+        margin-bottom: 0.45rem;
+      }
+
+      .lesson-figure {
+        width: 100%;
+        margin: 1.15rem 0 1.1rem;
+      }
+
+      .lesson-image {
+        display: none;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        object-position: center;
+        border: 1px solid rgba(215, 166, 75, 0.28);
+        border-radius: var(--radius);
+        background: var(--storm);
+        box-shadow: var(--shadow);
+      }
+
+      .image-slot.image-loaded .lesson-image {
+        display: block;
+      }
+
+      .image-slot.image-loaded .image-prompt {
+        display: none;
+      }
+
+      .image-prompt {
+        position: relative;
+        overflow: hidden;
+        min-height: 300px;
+        display: grid;
+        place-items: center;
+        padding: clamp(1.5rem, 4vw, 2.3rem);
+        border: 2px dashed rgba(215, 166, 75, 0.55);
+        border-radius: var(--radius);
+        color: #f8fafb;
+        background:
+          radial-gradient(circle at 20% 18%, rgba(103, 152, 201, 0.14), transparent 20rem),
+          radial-gradient(circle at 80% 82%, rgba(217, 119, 43, 0.12), transparent 18rem),
+          linear-gradient(135deg, #1f2937 0%, #8d2d2d 48%, #47664a 100%);
+        box-shadow: var(--shadow);
+      }
+
+      .prompt-card {
+        position: relative;
+        z-index: 1;
+        width: min(840px, 100%);
+        padding: 1.25rem 1.35rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 14px;
+        background: rgba(31, 41, 55, 0.78);
+        backdrop-filter: blur(6px);
+      }
+
+      .prompt-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.65rem;
+        color: #ffd98a;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .prompt-card p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 650;
+      }
+
+      .lesson-figure figcaption {
+        margin-top: 0.65rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .lesson-nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.72rem 1rem;
+        border-radius: 999px;
+        background: var(--barn);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 750;
+      }
+
+      footer {
+        padding: 1.6rem 1rem 2.5rem;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        html {
+          scroll-padding-top: 195px;
+        }
+
+        .header-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .course-link {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .grid-2,
+        .grid-3,
+        .inset-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .lesson-nav {
+          flex-direction: column;
+        }
+
+        .image-prompt {
+          min-height: 340px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-top">
+        <div class="brand" aria-label="Electromagnetism course">
+          <span class="brand-mark" aria-hidden="true">3Φ</span>
+          <span class="brand-text">Electromagnetism · Lesson 06</span>
+        </div>
+
+        <a
+          class="course-link"
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+        >
+          <span aria-hidden="true">←</span>
+          Back to Electromagnetism
+        </a>
+      </div>
+
+      <nav class="page-nav" aria-label="Page contents">
+        <a href="#overview">Overview</a>
+        <a href="#three-phase">Three Phase</a>
+        <a href="#waveforms">Waveforms</a>
+        <a href="#rotating-field">Rotating Field</a>
+        <a href="#motor">Induction Motor</a>
+        <a href="#slip">Slip</a>
+        <a href="#direction">Direction</a>
+        <a href="#connections">Star & Delta</a>
+        <a href="#protection">Protection</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#summary">Summary</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">Lesson 6 · Smooth Power for Harvest</p>
+          <h1>Three-Phase Power and Rotating Magnetic Fields</h1>
+          <p class="hero-copy">
+            Harvest season is at its peak. The grain elevator, irrigation pump,
+            barn ventilation fans, conveyor, and workshop compressor all need to
+            run before an autumn storm reaches the farm. Monkey and Robot must
+            expand the power system and bring the farm's large motors online.
+          </p>
+        </div>
+
+        <aside class="hero-card">
+          <strong>Central question:</strong>
+          How can three alternating currents work together to create smooth,
+          powerful rotation?
+          <br /><br />
+          <strong>Key idea:</strong>
+          three-phase power uses three AC waveforms separated in time. Together
+          they create a rotating magnetic field that drives motors efficiently.
+        </aside>
+      </section>
+
+      <section>
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson6_image01.png"
+            alt="Monkey and Robot prepare three-phase farm machinery before an autumn storm."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Wide landscape educational illustration, whimsical painterly 3D
+                science-adventure style. Monkey and a compact brass-and-blue Robot
+                stand beside a large grain elevator and red barn on the same perfect
+                autumn farm. Rolling golden wheat fields, pumpkin patches, bright
+                orange and red leaves, the waterfall and watermill in the distance,
+                and dark storm clouds approaching. Large three-phase motors power a
+                grain conveyor, irrigation pump, barn fans, and workshop compressor.
+                Warm harvest colors with dramatic storm light, no border, no watermark,
+                16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            The harvest depends on several large motors starting smoothly and reliably.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="three-phase">
+        <div class="section-heading">
+          <h2>1. From single-phase to three-phase</h2>
+          <p>
+            Three-phase power combines three AC waveforms instead of relying on only one.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card phase-a">
+            <h3>Phase A</h3>
+            <p>
+              Phase A rises, falls, and reverses like any AC waveform.
+            </p>
+          </article>
+
+          <article class="card phase-b">
+            <h3>Phase B</h3>
+            <p>
+              Phase B follows the same pattern, but begins later in the cycle.
+            </p>
+          </article>
+
+          <article class="card phase-c">
+            <h3>Phase C</h3>
+            <p>
+              Phase C is delayed again, completing the three-part sequence.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>How many coordinated AC waveforms are used in a three-phase system?</p>
+            <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+            <div class="answer" id="a1">
+              <p>Three.</p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey asks, “Why three pushes instead of one?” Robot replies,
+              “Because three timed pushes keep the machine turning more smoothly.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="waveforms">
+        <div class="section-heading">
+          <h2>2. Three waveforms separated by 120 degrees</h2>
+          <p>
+            The three phases have the same frequency, but their peaks occur at different times.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Same frequency</h3>
+            <p>
+              All three phases repeat at the same rate.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>120-degree spacing</h3>
+            <p>
+              The phases are evenly separated across one complete 360-degree cycle.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>More even power</h3>
+            <p>
+              When one phase is falling, another is rising. The combined system delivers
+              energy more evenly than a single-phase source.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson6_image02.png"
+            alt="Robot projects three phase-shifted sine waves while Monkey marks their peaks with colored flags."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Educational wide landscape illustration beside the autumn wheat field.
+                Robot projects three glowing sine waves in red, blue, and gold, each
+                separated by 120 degrees. Monkey uses three matching flags to mark the
+                different peaks. The red barn, grain elevator, pumpkin patches, and
+                approaching storm remain visible in the background. Clear labels for
+                Phase A, Phase B, Phase C, and 120-degree separation. Painterly 3D style,
+                detailed but uncluttered, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Three equal-frequency waveforms are separated evenly through the cycle.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What is the phase separation in a balanced three-phase system?</p>
+            <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+            <div class="answer" id="a2">
+              <p>120 electrical degrees.</p>
+            </div>
+          </article>
+
+          <article class="card farm-note">
+            <h3>Farm Analogy</h3>
+            <p>
+              Imagine three workers pushing a heavy grain cart in sequence. Each one
+              takes over before the previous push fades, so the cart keeps moving smoothly.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="rotating-field">
+        <div class="section-heading">
+          <h2>3. The rotating magnetic field</h2>
+          <p>
+            Three stator windings energized in sequence create a magnetic field that appears to rotate.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Three windings</h3>
+            <p>
+              The stator contains three winding groups placed around the motor.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Timed magnetic strength</h3>
+            <p>
+              Each winding's magnetic field grows and shrinks according to its phase current.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Combined rotation</h3>
+            <p>
+              The three changing fields combine into one magnetic field that rotates around the stator.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson6_image03.png"
+            alt="Monkey and Robot demonstrate a rotating magnetic field inside a cutaway three-phase motor."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Wide educational cutaway illustration of a large three-phase motor in
+                the farm machinery shed. Three stator coil groups glow red, blue, and
+                gold around a circular rotor. Arrows show the combined magnetic field
+                rotating smoothly around the motor. Robot points to the stator while
+                Monkey follows the moving field with a weather vane-like pointer.
+                Autumn farm machinery, grain conveyor, barn, and storm clouds visible
+                beyond the open shed. Painterly 3D storybook engineering style, 16:9.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            The stator stays still, but its combined magnetic field rotates.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Does the stator physically spin to create the rotating field?</p>
+            <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+            <div class="answer" id="a3">
+              <p>No. The stator stays still while the combined magnetic field rotates.</p>
+            </div>
+          </article>
+
+          <article class="card real-world">
+            <h3>In the Real World</h3>
+            <p>
+              Rotating magnetic fields are fundamental to many industrial pumps,
+              fans, conveyors, compressors, and machine drives.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="motor">
+        <div class="section-heading">
+          <h2>4. The induction motor</h2>
+          <p>
+            A three-phase induction motor uses the rotating field to produce torque.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Stator</h3>
+            <p>
+              The stationary outer section contains the three-phase windings.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Rotor</h3>
+            <p>
+              The rotor is the inner rotating part. Currents are induced in it by the
+              rotating magnetic field.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Shaft and load</h3>
+            <p>
+              The shaft carries mechanical torque from the rotor to the pump, fan,
+              conveyor, or other load.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What creates current in the rotor of an induction motor?</p>
+            <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+            <div class="answer" id="a4">
+              <p>
+                The changing magnetic relationship between the rotating stator field
+                and the rotor induces current in the rotor.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “The rotor is being chased by the field.” Robot answers,
+              “Yes. The field leads, and the rotor follows.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="slip">
+        <div class="section-heading">
+          <h2>5. Slip</h2>
+          <p>
+            The rotor must turn slightly slower than the rotating magnetic field.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Why the difference matters</h3>
+            <p>
+              If the rotor exactly matched the rotating field, there would be no
+              changing magnetic relationship and no continuing induced rotor current.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Slip creates torque</h3>
+            <p>
+              The small speed difference allows induction to continue, producing rotor
+              current and magnetic force.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why does an induction motor need slip?</p>
+            <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+            <div class="answer" id="a5">
+              <p>
+                Slip keeps the magnetic relationship changing so rotor current and
+                torque can continue to be induced.
+              </p>
+            </div>
+          </article>
+
+          <article class="card farm-note">
+            <h3>Farm Analogy</h3>
+            <p>
+              The rotor is like Monkey chasing a moving wagon. If he matches it exactly,
+              there is no continuing pull between them.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="direction">
+        <div class="section-heading">
+          <h2>6. Reversing motor direction</h2>
+          <p>
+            Swapping any two phases reverses the direction of the rotating magnetic field.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Phase sequence</h3>
+            <p>
+              The order in which the three phases reach their peaks determines the
+              direction of the rotating field.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Swap two phases</h3>
+            <p>
+              Interchanging any two phase conductors reverses phase sequence and therefore
+              reverses motor rotation.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson6_image04.png"
+            alt="Robot safely demonstrates reversing a motor by swapping two phases on a de-energized training panel."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Split-scene educational illustration inside the red barn electrical room.
+                On the left, Robot shows a de-energized three-phase training panel with
+                Phase A, B, and C connected in one order, and the motor arrow turns clockwise.
+                On the right, two phases are swapped and the arrow turns counterclockwise.
+                Monkey holds a lockout tag and safety checklist. Bright autumn farm visible
+                through the barn doors. Clear wiring colors, power-off symbols, painterly
+                3D teaching style, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Swapping any two phases reverses the phase sequence and motor direction.
+          </figcaption>
+        </figure>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>Safety First</h4>
+            <p>
+              Phase changes must be made only with power isolated and verified off.
+              Motor circuits can involve dangerous voltage and current.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>Diagnostic Habit</h4>
+            <p>
+              Always verify rotation before coupling a motor to equipment that could
+              be damaged by running backward.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="connections">
+        <div class="section-heading">
+          <h2>7. Star and delta connections</h2>
+          <p>
+            Three-phase windings are commonly arranged in star, also called wye, or delta.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Star or wye</h3>
+            <p>
+              One end of each winding connects to a common point. This arrangement can
+              provide line-to-neutral and line-to-line voltage relationships.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Delta</h3>
+            <p>
+              The three windings connect end-to-end in a closed triangle. Delta is
+              common in many motor and industrial applications.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Which connection has a common center point?</p>
+            <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+            <div class="answer" id="a6">
+              <p>Star, or wye.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Which connection forms a closed triangle?</p>
+            <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+            <div class="answer" id="a7">
+              <p>Delta.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="protection">
+        <div class="section-heading">
+          <h2>8. Motor starting and protection</h2>
+          <p>
+            A practical motor circuit includes switching, protection, and controls.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Disconnect and protection</h3>
+            <p>
+              A disconnect isolates the circuit. Fuses or breakers protect against
+              excessive fault current.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Contactor</h3>
+            <p>
+              A contactor is an electrically controlled switch used to connect or
+              disconnect power to the motor.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Overload relay</h3>
+            <p>
+              An overload relay protects the motor from sustained excessive current
+              that could cause overheating.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card">
+            <h3>Control devices</h3>
+            <p>
+              Start buttons, stop buttons, emergency stops, interlocks, and sensors
+              control when the motor may run.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Nameplate information</h3>
+            <p>
+              The motor nameplate lists important ratings such as voltage, current,
+              frequency, phase, speed, and power.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="troubleshooting">
+        <div class="section-heading">
+          <h2>9. Troubleshooting the harvest equipment</h2>
+          <p>
+            The grain elevator motor will not start, and the storm is getting closer.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Electrical checks</h3>
+            <ul>
+              <li>Is three-phase power present?</li>
+              <li>Are all three phases available?</li>
+              <li>Is the disconnect closed?</li>
+              <li>Has a fuse or breaker opened?</li>
+              <li>Is the contactor energizing?</li>
+              <li>Has the overload relay tripped?</li>
+              <li>Is voltage balanced across the phases?</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Mechanical checks</h3>
+            <ul>
+              <li>Is the shaft free to turn?</li>
+              <li>Is the conveyor jammed?</li>
+              <li>Is the load too heavy?</li>
+              <li>Is the coupling damaged?</li>
+              <li>Is the rotation direction correct?</li>
+            </ul>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson6_image05.png"
+            alt="Monkey and Robot troubleshoot a failed grain elevator motor as an autumn storm approaches."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Dramatic educational illustration at the grain elevator before an
+                autumn storm. Monkey checks a three-phase motor control panel while
+                Robot measures the three incoming phase voltages. One phase indicator
+                is dark, the overload relay is tripped, and the conveyor is stopped.
+                Show clear diagnostic arrows from source to disconnect, fuses, contactor,
+                overload, motor, and mechanical load. Red barn, golden wheat, pumpkins,
+                bright leaves blowing in the wind, painterly 3D science-adventure style,
+                16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Troubleshooting follows the path from source, through controls, to motor and load.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What is single-phasing?</p>
+            <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+            <div class="answer" id="a8">
+              <p>
+                Single-phasing is the loss of one phase in a three-phase system. A
+                motor may fail to start, run poorly, overheat, or draw excessive current.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “One phase is missing, so the three-part push is broken.”
+              Robot replies, “Exactly. The motor no longer receives a balanced rotating field.”
+            </p>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Three-phase motors are common in pumps, conveyors, compressors, fans,
+              elevators, and industrial machinery.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>Systems Insight</h4>
+            <p>
+              Good troubleshooting separates electrical faults from mechanical faults
+              instead of treating the motor as the only possible problem.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="summary">
+        <div class="section-heading">
+          <h2>10. Lesson summary</h2>
+          <p>The core ideas behind smooth three-phase motor power.</p>
+        </div>
+
+        <div class="summary-box">
+          <h3>Key takeaways</h3>
+          <ul>
+            <li>Three-phase power uses three AC waveforms.</li>
+            <li>The phases are separated by 120 electrical degrees.</li>
+            <li>The combined phase currents create a rotating magnetic field.</li>
+            <li>The stator stays still while the magnetic field rotates.</li>
+            <li>The rotor follows the rotating field and produces torque.</li>
+            <li>Induction motors require slip to maintain induced rotor current.</li>
+            <li>Swapping any two phases reverses motor direction.</li>
+            <li>Star and delta are common three-phase winding arrangements.</li>
+            <li>Motor circuits include protection, switching, controls, and the load.</li>
+            <li>Single-phasing can cause poor operation, overheating, or motor damage.</li>
+          </ul>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>What creates the rotating magnetic field in a three-phase motor?</p>
+            <button class="toggle-btn" data-target="a9">Reveal Answer</button>
+            <div class="answer" id="a9">
+              <p>
+                Three phase-shifted currents flowing through stator windings placed
+                around the motor.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>What simple wiring change reverses a three-phase motor?</p>
+            <button class="toggle-btn" data-target="a10">Reveal Answer</button>
+            <div class="answer" id="a10">
+              <p>Swap any two phase conductors, with power safely isolated.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="electromagnetism-lesson05-alternating-current-transformers-and-power-distribution.html">← Lesson 05</a>
+        <a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">Course Home</a>
+        <a href="#overview">Back to Top ↑</a>
+      </nav>
+    </main>
+
+    <footer>
+      Klin's Learning Library · Electromagnetism · Lesson 06 · Three-Phase Power and Rotating Magnetic Fields
+    </footer>
+
+    <script>
+      const buttons = document.querySelectorAll(".toggle-btn");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+          const answer = document.getElementById(targetId);
+          if (!answer) return;
+          const isOpen = answer.classList.contains("show");
+          answer.classList.toggle("show");
+          button.textContent = isOpen ? "Reveal Answer" : "Hide Answer";
+        });
+      });
+
+      document.querySelectorAll(".lesson-image").forEach((img) => {
+        if (img.complete && img.naturalWidth > 0) {
+          img.closest(".image-slot")?.classList.add("image-loaded");
+        }
+      });
+    </script>
+  </body>
+</html>
