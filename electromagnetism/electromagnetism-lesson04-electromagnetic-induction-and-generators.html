@@ -1,0 +1,1223 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Electromagnetism Lesson 4: Electromagnetic Induction and Generators, with interactive questions, troubleshooting theme, and pre-wired image slots."
+    />
+    <title>Electromagnetic Induction and Generators | Klin's Learning Library</title>
+
+    <style>
+      :root {
+        --night: #09111a;
+        --jungle: #12352a;
+        --jungle-2: #1d5a44;
+        --leaf: #2f8a63;
+        --gold: #d6a349;
+        --amber: #f0c36a;
+        --sky: #5fc2ff;
+        --paper: #f4f0e7;
+        --white: #ffffff;
+        --ink: #1f2933;
+        --muted: #65717c;
+        --border: #d6dde5;
+        --green-soft: #e7f1eb;
+        --amber-soft: #f8eedb;
+        --blue-soft: #ecf6fd;
+        --purple-soft: #efe9f7;
+        --shadow: 0 12px 32px rgba(9, 17, 26, 0.18);
+        --radius: 16px;
+        --radius-sm: 12px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 150px;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: Inter, "Segoe UI", Roboto, Arial, sans-serif;
+        line-height: 1.68;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 10% 0%, rgba(47, 138, 99, 0.16), transparent 30rem),
+          radial-gradient(circle at 90% 10%, rgba(95, 194, 255, 0.14), transparent 24rem),
+          linear-gradient(180deg, #fbfcfd 0%, var(--paper) 100%);
+      }
+
+      a {
+        color: inherit;
+      }
+
+      .site-header {
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        color: var(--white);
+        background: linear-gradient(90deg, rgba(9, 17, 26, 0.98), rgba(18, 53, 42, 0.97));
+        border-bottom: 1px solid rgba(214, 163, 73, 0.26);
+        box-shadow: 0 4px 18px rgba(9, 17, 26, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .header-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.85rem clamp(1rem, 4vw, 3rem);
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        min-width: 0;
+        font-weight: 800;
+        letter-spacing: 0.02em;
+      }
+
+      .brand-mark {
+        display: grid;
+        place-items: center;
+        width: 2.35rem;
+        height: 2.35rem;
+        flex: 0 0 auto;
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: linear-gradient(145deg, var(--gold), var(--jungle));
+        box-shadow: 0 0 18px rgba(95, 194, 255, 0.18);
+        font-size: 1.05rem;
+      }
+
+      .brand-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .course-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.45rem;
+        padding: 0.56rem 0.9rem;
+        border-radius: 999px;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        color: var(--white);
+        text-decoration: none;
+        font-size: 0.92rem;
+        font-weight: 750;
+        transition: background 160ms ease, transform 160ms ease;
+      }
+
+      .course-link:hover,
+      .course-link:focus-visible {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .page-nav {
+        display: flex;
+        gap: 0.35rem;
+        padding: 0.55rem clamp(1rem, 4vw, 3rem) 0.75rem;
+        overflow-x: auto;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        scrollbar-width: thin;
+      }
+
+      .page-nav a {
+        flex: 0 0 auto;
+        padding: 0.42rem 0.7rem;
+        border-radius: 999px;
+        color: rgba(255, 255, 255, 0.82);
+        text-decoration: none;
+        font-size: 0.82rem;
+        font-weight: 650;
+      }
+
+      .page-nav a:hover,
+      .page-nav a:focus-visible {
+        color: var(--white);
+        background: rgba(214, 163, 73, 0.18);
+        outline: none;
+      }
+
+      main {
+        width: min(1160px, calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(2.4rem, 7vw, 5rem) 0 4rem;
+      }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1.2fr) minmax(300px, 0.8fr);
+        gap: clamp(2rem, 6vw, 4rem);
+        align-items: center;
+        margin-bottom: 2.8rem;
+      }
+
+      .eyebrow {
+        margin: 0 0 0.75rem;
+        color: var(--leaf);
+        text-transform: uppercase;
+        letter-spacing: 0.16em;
+        font-size: 0.82rem;
+        font-weight: 850;
+      }
+
+      h1 {
+        margin: 0;
+        color: var(--night);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(2.8rem, 7vw, 5.8rem);
+        line-height: 0.98;
+        letter-spacing: -0.045em;
+      }
+
+      .hero-copy {
+        max-width: 760px;
+        margin: 1.35rem 0 0;
+        color: var(--muted);
+        font-size: clamp(1.04rem, 2vw, 1.22rem);
+      }
+
+      .hero-card {
+        padding: 1.5rem;
+        border: 1px solid rgba(214, 163, 73, 0.28);
+        border-radius: var(--radius);
+        background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), rgba(248, 238, 219, 0.9));
+        box-shadow: var(--shadow);
+      }
+
+      .hero-card strong {
+        color: var(--jungle);
+      }
+
+      section {
+        margin: 3rem 0;
+      }
+
+      .section-heading {
+        margin-bottom: 1.1rem;
+      }
+
+      .section-heading h2 {
+        margin: 0 0 0.35rem;
+        color: var(--jungle);
+        font-size: clamp(1.7rem, 3vw, 2.35rem);
+      }
+
+      .section-heading p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .grid-2,
+      .grid-3 {
+        display: grid;
+        gap: 1.2rem;
+      }
+
+      .grid-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .grid-3 {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .card {
+        padding: 1.35rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        background: rgba(255, 255, 255, 0.92);
+        box-shadow: 0 5px 18px rgba(9, 17, 26, 0.07);
+      }
+
+      .card h3 {
+        margin: 0 0 0.55rem;
+        color: var(--jungle);
+        font-size: 1.14rem;
+      }
+
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .card ul {
+        margin: 0.75rem 0 0;
+        padding-left: 1.2rem;
+      }
+
+      .card li {
+        margin-bottom: 0.45rem;
+      }
+
+      .qa-card {
+        border-top: 4px solid var(--leaf);
+      }
+
+      .answer {
+        margin-top: 0.9rem;
+        padding: 1rem 1.05rem;
+        border: 1px solid #d5e7dd;
+        border-radius: var(--radius-sm);
+        background: #f4fbf7;
+        color: var(--ink);
+        display: none;
+      }
+
+      .answer.show {
+        display: block;
+      }
+
+      .toggle-btn {
+        margin-top: 0.95rem;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.65rem 1rem;
+        border: none;
+        border-radius: 999px;
+        background: var(--jungle);
+        color: var(--white);
+        font-weight: 750;
+        cursor: pointer;
+        box-shadow: 0 6px 18px rgba(18, 53, 42, 0.2);
+        transition: transform 160ms ease, background 160ms ease;
+      }
+
+      .toggle-btn:hover,
+      .toggle-btn:focus-visible {
+        background: var(--jungle-2);
+        transform: translateY(-1px);
+        outline: none;
+      }
+
+      .inset-wrap {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.2rem;
+      }
+
+      .inset {
+        padding: 1.15rem 1.15rem 1.05rem;
+        border-radius: var(--radius);
+        border: 1px solid var(--border);
+        background: rgba(255, 255, 255, 0.84);
+      }
+
+      .inset h4 {
+        margin: 0 0 0.45rem;
+        font-size: 1rem;
+        color: var(--jungle);
+      }
+
+      .inset p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 0.97rem;
+      }
+
+      .real-world {
+        border-left: 5px solid var(--leaf);
+        background: var(--green-soft);
+      }
+
+      .historical-note {
+        border-left: 5px solid var(--gold);
+        background: var(--amber-soft);
+      }
+
+      .monkey-robot {
+        border-left: 5px solid var(--sky);
+        background: var(--blue-soft);
+      }
+
+      .diagnostic-note {
+        border-left: 5px solid #6f5bd8;
+        background: var(--purple-soft);
+      }
+
+      .summary-box {
+        padding: 1.35rem 1.4rem;
+        border-left: 5px solid var(--gold);
+        border-radius: 0 var(--radius) var(--radius) 0;
+        background: var(--amber-soft);
+      }
+
+      .summary-box h3 {
+        margin: 0 0 0.5rem;
+        color: var(--jungle);
+      }
+
+      .summary-box ul {
+        margin: 0;
+        padding-left: 1.2rem;
+      }
+
+      .summary-box li {
+        margin-bottom: 0.45rem;
+      }
+
+      /* Image-slot workflow: final <img> is already in place. Prompt disappears when image exists. */
+      .lesson-figure {
+        width: 100%;
+        margin: 1.15rem 0 1.1rem;
+      }
+
+      .lesson-image {
+        display: none;
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        object-position: center;
+        border: 1px solid rgba(214, 163, 73, 0.28);
+        border-radius: var(--radius);
+        background: var(--night);
+        box-shadow: var(--shadow);
+      }
+
+      .image-slot.image-loaded .lesson-image {
+        display: block;
+      }
+
+      .image-slot.image-loaded .image-prompt {
+        display: none;
+      }
+
+      .image-prompt {
+        position: relative;
+        overflow: hidden;
+        min-height: 300px;
+        display: grid;
+        place-items: center;
+        padding: clamp(1.5rem, 4vw, 2.3rem);
+        border: 2px dashed rgba(214, 163, 73, 0.55);
+        border-radius: var(--radius);
+        color: #f7f8f9;
+        background:
+          radial-gradient(circle at 20% 18%, rgba(95, 194, 255, 0.16), transparent 20rem),
+          radial-gradient(circle at 80% 82%, rgba(214, 163, 73, 0.14), transparent 18rem),
+          linear-gradient(135deg, #09111a 0%, #12352a 54%, #0a1511 100%);
+        box-shadow: var(--shadow);
+      }
+
+      .image-prompt::before,
+      .image-prompt::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .image-prompt::before {
+        width: 74px;
+        height: 74px;
+        top: 18px;
+        right: 8%;
+        box-shadow:
+          -160px 60px 0 -24px rgba(255, 255, 255, 0.08),
+          -255px 15px 0 -29px rgba(255, 255, 255, 0.09),
+          70px 120px 0 -34px rgba(255, 255, 255, 0.08);
+      }
+
+      .image-prompt::after {
+        width: 180px;
+        height: 180px;
+        left: -92px;
+        bottom: -95px;
+        background: rgba(47, 138, 99, 0.18);
+      }
+
+      .prompt-card {
+        position: relative;
+        z-index: 1;
+        width: min(840px, 100%);
+        padding: 1.25rem 1.35rem;
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 14px;
+        background: rgba(9, 17, 26, 0.74);
+        backdrop-filter: blur(6px);
+      }
+
+      .prompt-label {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-bottom: 0.65rem;
+        color: var(--amber);
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        font-size: 0.78rem;
+        font-weight: 850;
+      }
+
+      .prompt-card p {
+        margin: 0;
+        color: rgba(255, 255, 255, 0.92);
+        font-weight: 650;
+      }
+
+      .lesson-figure figcaption {
+        margin-top: 0.65rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+        font-style: italic;
+      }
+
+      .lesson-nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+        margin-top: 3.5rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
+      }
+
+      .lesson-nav a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.45rem;
+        padding: 0.72rem 1rem;
+        border-radius: 999px;
+        background: var(--jungle);
+        color: var(--white);
+        text-decoration: none;
+        font-weight: 750;
+      }
+
+      footer {
+        padding: 1.6rem 1rem 2.5rem;
+        color: var(--muted);
+        text-align: center;
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 980px) {
+        .hero {
+          grid-template-columns: 1fr;
+        }
+
+        .grid-3 {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      @media (max-width: 720px) {
+        html {
+          scroll-padding-top: 195px;
+        }
+
+        .header-top {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        .course-link {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .grid-2,
+        .grid-3,
+        .inset-wrap {
+          grid-template-columns: 1fr;
+        }
+
+        .lesson-nav {
+          flex-direction: column;
+        }
+
+        .image-prompt {
+          min-height: 340px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="site-header">
+      <div class="header-top">
+        <div class="brand" aria-label="Electromagnetism course">
+          <span class="brand-mark" aria-hidden="true">🛡️</span>
+          <span class="brand-text">Electromagnetism · Lesson 04</span>
+        </div>
+
+        <a
+          class="course-link"
+          href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+        >
+          <span aria-hidden="true">←</span>
+          Back to Electromagnetism
+        </a>
+      </div>
+
+      <nav class="page-nav" aria-label="Page contents">
+        <a href="#overview">Overview</a>
+        <a href="#flux">Flux</a>
+        <a href="#induction">Induction</a>
+        <a href="#faraday">Faraday</a>
+        <a href="#lenz">Lenz</a>
+        <a href="#generators">Generators</a>
+        <a href="#transformers">Transformers</a>
+        <a href="#troubleshooting">Troubleshooting</a>
+        <a href="#summary">Summary</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" id="overview">
+        <div>
+          <p class="eyebrow">Lesson 4 · Changing Fields</p>
+          <h1>Electromagnetic Induction and Generators</h1>
+          <p class="hero-copy">
+            A meteor shower is approaching the jungle habitat, and the great energy
+            shield above the canopy is flickering. Monkey and Robot must climb to the
+            deep jungle pyramid, trace the magnetic circuits inside the shield generator,
+            and restore power before the first meteors arrive.
+          </p>
+        </div>
+
+        <aside class="hero-card">
+          <strong>Central question:</strong>
+          How can changing magnetism create voltage and useful electrical power?
+          <br /><br />
+          <strong>Key idea:</strong>
+          a changing magnetic field, or a changing magnetic flux through a loop,
+          can induce voltage. That principle makes generators, transformers, and
+          many sensors possible.
+        </aside>
+      </section>
+
+      <section>
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="images/em_lesson4_image01.png"
+            alt="Monkey and Robot race toward a jungle pyramid shield generator above the canopy before a meteor shower."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Monkey and Robot arrive at the Swell Pyramid.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            The mission for Lesson 4: restore the energy shield before the meteor shower arrives.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section id="flux">
+        <div class="section-heading">
+          <h2>1. Magnetic flux</h2>
+          <p>
+            Magnetic flux is a way of describing how much magnetic field passes through
+            an area such as a wire loop.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Field through an area</h3>
+            <p>
+              If many field lines pass through a loop, the magnetic flux is large.
+              If few pass through, the flux is smaller.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Orientation matters</h3>
+            <p>
+              A loop catches the most flux when it faces the field directly. If it
+              is turned sideways, less flux passes through it.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Area matters too</h3>
+            <p>
+              A larger loop can intercept more magnetic field than a smaller one
+              in the same field.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>If a loop is turned so fewer field lines pass through it, what happens to the flux?</p>
+            <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+            <div class="answer" id="a1">
+              <p>The magnetic flux decreases.</p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “So flux is like how much field fits through the hoop?”
+              Robot replies, “Exactly. It tells us how much magnetic influence threads the loop.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="induction">
+        <div class="section-heading">
+          <h2>2. Electromagnetic induction</h2>
+          <p>
+            A changing magnetic flux through a conductor can create an induced voltage.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>What changes flux?</h3>
+            <p>
+              Moving a magnet, moving a coil, changing the field strength, or changing
+              the loop's angle can all change magnetic flux.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>What appears?</h3>
+            <p>
+              When flux changes, a voltage is induced. If the circuit is complete,
+              that voltage can drive a current.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson4_image02.png"
+            alt="Monkey and Robot observe a magnet moving through a coil near the jungle pyramid shield generator."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Educational wide landscape illustration inside the upper chamber of
+                the jungle pyramid. Robot moves a glowing bar magnet through a copper
+                coil connected to a shield-control meter, while Monkey watches the
+                meter jump. Through open stone windows at the top of the pyramid, the
+                jungle canopy is visible below and the shield dome flickers above.
+                Show field lines, arrows of motion, and induced current indicators.
+                Painterly 3D adventure style, detailed but uncluttered, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Changing magnetic flux through a coil induces voltage.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Does a steady magnet sitting still near a coil induce a continuous voltage?</p>
+            <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+            <div class="answer" id="a2">
+              <p>
+                No. A steady situation does not keep changing the flux. Induction
+                requires change.
+              </p>
+            </div>
+          </article>
+
+          <article class="card diagnostic-note">
+            <h3>Shield Diagnostic Insight</h3>
+            <p>
+              If the shield generator is not producing enough voltage, one possible
+              cause is that the magnetic system is no longer changing strongly enough.
+            </p>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset historical-note">
+            <h4>Historical Note</h4>
+            <p>
+              Michael Faraday showed that changing magnetism can create electricity.
+              This discovery became one of the foundations of modern power systems.
+            </p>
+          </div>
+
+          <div class="inset real-world">
+            <h4>In the Real World</h4>
+            <p>
+              Induction is used in generators, transformers, guitar pickups,
+              induction cooktops, wireless charging, and many sensing systems.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="faraday">
+        <div class="section-heading">
+          <h2>3. Faraday's law</h2>
+          <p>
+            Faraday's law tells us that the induced voltage depends on how quickly
+            magnetic flux changes.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Faster change</h3>
+            <p>
+              The faster the flux changes, the larger the induced voltage.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>More turns</h3>
+            <p>
+              A coil with more turns experiences more total linked flux change and
+              can produce a larger induced voltage.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Stronger field swing</h3>
+            <p>
+              A greater change in field strength generally means a greater induced
+              voltage.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>How can Monkey increase the induced voltage without changing the meter?</p>
+            <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+            <div class="answer" id="a3">
+              <p>
+                Move the magnet faster, use a stronger change in field, or use a coil
+                with more turns.
+              </p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “A lazy change makes a lazy voltage.” Robot replies,
+              “Yes. Bigger, faster flux changes create a stronger response.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="lenz">
+        <div class="section-heading">
+          <h2>4. Lenz's law</h2>
+          <p>
+            The induced current acts in a direction that opposes the change that produced it.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Opposition to change</h3>
+            <p>
+              Induction does not simply “help” the change. The system responds in a
+              way that resists the change in flux.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Why it matters</h3>
+            <p>
+              Lenz's law protects energy conservation and helps explain why generators
+              require mechanical effort.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson4_image03.png"
+            alt="Monkey and Robot study an induced current that opposes a changing magnetic field inside the pyramid."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Split-scene educational illustration inside the pyramid shield chamber.
+                In one half, Robot pushes a magnet toward a loop; in the other half,
+                glowing arrows show the induced current creating a field that opposes
+                the incoming change. Monkey compares the two sides while looking up at
+                the shield controls. Jungle canopy visible through the upper opening,
+                carved stone machinery, luminous green and blue energy, clean educational
+                arrows, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Lenz's law: the induced current opposes the change in magnetic flux.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why does turning a generator feel harder when it is under electrical load?</p>
+            <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+            <div class="answer" id="a4">
+              <p>
+                Because the induced current creates an opposing effect. More electrical
+                output means more opposition, so more mechanical work is needed.
+              </p>
+            </div>
+          </article>
+
+          <article class="card diagnostic-note">
+            <h3>Shield Diagnostic Insight</h3>
+            <p>
+              If the shield field becomes unstable, checking the direction of induced
+              current and coil wiring can reveal whether the system is opposing the
+              right change or the wrong one.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="generators">
+        <div class="section-heading">
+          <h2>5. Generators</h2>
+          <p>
+            A generator converts mechanical motion into electrical energy by induction.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Core idea</h3>
+            <p>
+              A coil rotates in a magnetic field, or a magnet rotates near a coil,
+              causing the magnetic flux to change continuously.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>AC output</h3>
+            <p>
+              Many simple generators naturally produce alternating current because
+              the direction of the induced voltage reverses during rotation.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Energy source</h3>
+            <p>
+              Wind, water, steam, engines, and hand cranks can provide the motion
+              needed to drive a generator.
+            </p>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson4_image04.png"
+            alt="Monkey and Robot troubleshoot a rotating shield generator at the top of the jungle pyramid."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Wide landscape illustration of Monkey and Robot troubleshooting a
+                rotating generator at the very top of a jungle pyramid. The open
+                canopy is visible all around. A rotating coil and magnetic assembly
+                feed a glowing shield emitter above. Robot points to the rotating
+                mechanism while Monkey checks a meter panel. Meteors streak across
+                the sky beyond the shield. Painterly 3D science-adventure style,
+                cinematic urgency, no title, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            A generator uses changing magnetic flux to create electrical output.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>What energy conversion takes place in a generator?</p>
+            <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+            <div class="answer" id="a5">
+              <p>Mechanical energy is converted into electrical energy.</p>
+            </div>
+          </article>
+
+          <article class="card monkey-robot">
+            <h3>Monkey & Robot</h3>
+            <p>
+              Monkey says, “The machine spins, and the shield wakes up.”
+              Robot answers, “Because rotation changes flux, and flux change induces voltage.”
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="transformers">
+        <div class="section-heading">
+          <h2>6. Transformers</h2>
+          <p>
+            Transformers use changing current in one coil to induce voltage in another.
+          </p>
+        </div>
+
+        <div class="grid-3">
+          <article class="card">
+            <h3>Primary coil</h3>
+            <p>
+              Alternating current in the primary coil creates a changing magnetic field.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Secondary coil</h3>
+            <p>
+              That changing field passes through the core and induces voltage in the
+              secondary coil.
+            </p>
+          </article>
+
+          <article class="card">
+            <h3>Turns ratio</h3>
+            <p>
+              More turns on the secondary than the primary gives a step-up transformer.
+              Fewer turns gives a step-down transformer.
+            </p>
+          </article>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>Why do transformers require changing current rather than steady DC?</p>
+            <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+            <div class="answer" id="a6">
+              <p>
+                Because the transfer depends on a changing magnetic field. A steady
+                DC current does not keep changing the flux in the secondary coil.
+              </p>
+            </div>
+          </article>
+
+          <article class="card diagnostic-note">
+            <h3>Shield Diagnostic Insight</h3>
+            <p>
+              If the pyramid's shield emitter needs a higher voltage than the generator
+              directly produces, a transformer may be part of the power path.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section id="troubleshooting">
+        <div class="section-heading">
+          <h2>7. Troubleshooting the energy shield</h2>
+          <p>
+            Monkey and Robot inspect the shield system like technicians: tracing
+            source, change, transfer, load, and output.
+          </p>
+        </div>
+
+        <div class="grid-2">
+          <article class="card">
+            <h3>Diagnostic checklist</h3>
+            <ul>
+              <li>Is the generator actually rotating?</li>
+              <li>Is the magnetic field strong enough?</li>
+              <li>Are the coils continuous and connected?</li>
+              <li>Are the meters showing induced voltage?</li>
+              <li>Is the transformer passing energy correctly?</li>
+              <li>Is the shield emitter receiving the required voltage?</li>
+            </ul>
+          </article>
+
+          <article class="card">
+            <h3>Common failure ideas</h3>
+            <ul>
+              <li>A weak or damaged magnetic assembly reduces flux change.</li>
+              <li>A broken coil or open wire prevents current flow.</li>
+              <li>A jammed rotor reduces speed and lowers output voltage.</li>
+              <li>A transformer fault prevents proper voltage transfer.</li>
+              <li>An overloaded shield emitter drags the system down.</li>
+            </ul>
+          </article>
+        </div>
+
+        <figure class="lesson-figure image-slot">
+          <img
+            class="lesson-image"
+            src="./images/em_lesson4_image05.png"
+            alt="Monkey and Robot restore the jungle energy shield as the meteor shower arrives."
+            onload="this.closest('.image-slot').classList.add('image-loaded')"
+          />
+          <div class="image-prompt">
+            <div class="prompt-card">
+              <span class="prompt-label">Suggested image prompt</span>
+              <p>
+                Dramatic educational illustration at the pyramid summit. Monkey and
+                Robot complete repairs as the shield generator comes back online.
+                Bright energy arcs flow through coils and into a transparent protective
+                dome over the jungle habitat. Meteors strike the shield harmlessly in
+                the sky. The canopy is clearly visible below the top platform. Show
+                meters recovering, the shield glowing steadily, and a triumphant
+                science-adventure mood. Painterly 3D style, no watermark, 16:9 landscape.
+              </p>
+            </div>
+          </div>
+          <figcaption>
+            Troubleshooting means tracing the system from magnetic change to final output.
+          </figcaption>
+        </figure>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>If the rotor slows down, what likely happens to generator output?</p>
+            <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+            <div class="answer" id="a7">
+              <p>
+                The flux changes more slowly, so the induced voltage usually decreases.
+              </p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Question</h3>
+            <p>If the coil is open, can the shield receive normal current?</p>
+            <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+            <div class="answer" id="a8">
+              <p>
+                No. An open circuit interrupts the path, so normal current cannot flow.
+              </p>
+            </div>
+          </article>
+        </div>
+
+        <div class="inset-wrap">
+          <div class="inset real-world">
+            <h4>Bench Practice</h4>
+            <p>
+              Troubleshooting usually begins with simple observations: look for motion,
+              check continuity, verify voltage, and follow the energy path step by step.
+            </p>
+          </div>
+
+          <div class="inset historical-note">
+            <h4>Systems Insight</h4>
+            <p>
+              Good troubleshooting is not guessing. It is a sequence of checks that
+              narrows the problem by evidence.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="summary">
+        <div class="section-heading">
+          <h2>8. Lesson summary</h2>
+          <p>The main ideas to carry forward into later lessons.</p>
+        </div>
+
+        <div class="summary-box">
+          <h3>Key takeaways</h3>
+          <ul>
+            <li>Magnetic flux describes how much magnetic field passes through an area.</li>
+            <li>Electromagnetic induction occurs when magnetic flux changes.</li>
+            <li>A changing flux can induce voltage in a conductor or coil.</li>
+            <li>Faster or larger flux changes produce larger induced voltage.</li>
+            <li>More turns in a coil can increase induced voltage.</li>
+            <li>Lenz's law says induced current opposes the change that produced it.</li>
+            <li>Generators convert mechanical energy into electrical energy by induction.</li>
+            <li>Transformers use changing current to transfer energy between coils.</li>
+            <li>Troubleshooting works best when the system is traced step by step.</li>
+            <li>Changing magnetism is one of the central bridges between motion and electricity.</li>
+          </ul>
+        </div>
+
+        <div class="grid-2" style="margin-top: 1.2rem">
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>Complete the sentence: changing magnetic flux induces ______.</p>
+            <button class="toggle-btn" data-target="a9">Reveal Answer</button>
+            <div class="answer" id="a9">
+              <p>Voltage.</p>
+            </div>
+          </article>
+
+          <article class="card qa-card">
+            <h3>Final Check</h3>
+            <p>What two big devices in this lesson depend on electromagnetic induction?</p>
+            <button class="toggle-btn" data-target="a10">Reveal Answer</button>
+            <div class="answer" id="a10">
+              <p>Generators and transformers.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <nav class="lesson-nav" aria-label="Lesson navigation">
+        <a href="electromagnetism-lesson03-magnetism-and-magnetic-fields.html">← Lesson 03</a>
+        <a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">Course Home</a>
+        <a href="#overview">Back to Top ↑</a>
+      </nav>
+    </main>
+
+    <footer>
+      Klin's Learning Library · Electromagnetism · Lesson 04 · Electromagnetic Induction and Generators
+    </footer>
+
+    <script>
+      const buttons = document.querySelectorAll(".toggle-btn");
+
+      buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+          const targetId = button.getAttribute("data-target");
+          const answer = document.getElementById(targetId);
+          if (!answer) return;
+          const isOpen = answer.classList.contains("show");
+          answer.classList.toggle("show");
+          button.textContent = isOpen ? "Reveal Answer" : "Hide Answer";
+        });
+      });
+
+      document.querySelectorAll(".lesson-image").forEach((img) => {
+        if (img.complete && img.naturalWidth > 0) {
+          img.closest(".image-slot")?.classList.add("image-loaded");
+        }
+      });
+    </script>
+  </body>
+</html>
