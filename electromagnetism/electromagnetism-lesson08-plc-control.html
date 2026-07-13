@@ -1,0 +1,1443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Electromagnetism Lesson 8: From Relay Logic to PLC Control at the Automated Water Plant." />
+<title>From Relay Logic to PLC Control at the Automated Water Plant | Klin's Learning Library</title>
+
+<style>
+:root{
+  --steel:#263442;
+  --steel2:#3d5265;
+  --green:#2f7d57;
+  --green2:#235c41;
+  --amber:#d89b3c;
+  --orange:#e86f37;
+  --blue:#4aa3df;
+  --violet:#7b61a8;
+  --paper:#f2f3ef;
+  --white:#fff;
+  --ink:#26313a;
+  --muted:#68737c;
+  --border:#d4dcdf;
+  --softg:#e8f2ec;
+  --softa:#fbf0dc;
+  --softb:#eaf4fb;
+  --softo:#faece5;
+  --softp:#f0ebf7;
+  --shadow:0 12px 32px rgba(38,52,66,.18);
+  --radius:16px;
+  --rsm:12px;
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:150px;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 12% 0%,rgba(47,125,87,.14),transparent 28rem),
+    radial-gradient(circle at 90% 8%,rgba(74,163,223,.12),transparent 24rem),
+    linear-gradient(180deg,#fbfcfb 0%,var(--paper) 100%);
+}
+
+a{color:inherit}
+
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  color:var(--white);
+  background:linear-gradient(90deg,rgba(38,52,66,.98),rgba(35,92,65,.97));
+  border-bottom:1px solid rgba(216,155,60,.28);
+  box-shadow:0 4px 18px rgba(38,52,66,.28);
+  backdrop-filter:blur(10px);
+}
+
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  padding:.85rem clamp(1rem,4vw,3rem);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  min-width:0;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+
+.brand-mark{
+  display:grid;
+  place-items:center;
+  width:2.35rem;
+  height:2.35rem;
+  flex:0 0 auto;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.25);
+  background:linear-gradient(145deg,var(--blue),var(--steel));
+  box-shadow:0 0 18px rgba(74,163,223,.2);
+  font-size:1.05rem;
+}
+
+.brand-text{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.course-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.56rem .9rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.28);
+  color:var(--white);
+  text-decoration:none;
+  font-size:.92rem;
+  font-weight:750;
+}
+
+.page-nav{
+  display:flex;
+  gap:.35rem;
+  padding:.55rem clamp(1rem,4vw,3rem) .75rem;
+  overflow-x:auto;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.page-nav a{
+  flex:0 0 auto;
+  padding:.42rem .7rem;
+  border-radius:999px;
+  color:rgba(255,255,255,.82);
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:650;
+}
+
+.page-nav a:hover{
+  color:#fff;
+  background:rgba(216,155,60,.18);
+}
+
+main{
+  width:min(1160px,calc(100% - 2rem));
+  margin:0 auto;
+  padding:clamp(2.4rem,7vw,5rem) 0 4rem;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+  gap:clamp(2rem,6vw,4rem);
+  align-items:center;
+  margin-bottom:2.8rem;
+}
+
+.eyebrow{
+  margin:0 0 .75rem;
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.82rem;
+  font-weight:850;
+}
+
+h1{
+  margin:0;
+  color:var(--steel);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2.6rem,6.7vw,5.2rem);
+  line-height:.98;
+  letter-spacing:-.045em;
+}
+
+.hero-copy{
+  max-width:760px;
+  margin:1.35rem 0 0;
+  color:var(--muted);
+  font-size:clamp(1.04rem,2vw,1.18rem);
+}
+
+.hero-card{
+  padding:1.5rem;
+  border:1px solid rgba(47,125,87,.28);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(232,242,236,.92));
+  box-shadow:var(--shadow);
+}
+
+.hero-card strong{color:var(--green2)}
+
+section{margin:3rem 0}
+
+.section-heading{margin-bottom:1.1rem}
+
+.section-heading h2{
+  margin:0 0 .35rem;
+  color:var(--green2);
+  font-size:clamp(1.7rem,3vw,2.35rem);
+}
+
+.section-heading p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid-2,.grid-3,.grid-4{
+  display:grid;
+  gap:1.2rem;
+}
+
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.card{
+  padding:1.35rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.93);
+  box-shadow:0 5px 18px rgba(38,52,66,.06);
+}
+
+.card h3{
+  margin:0 0 .55rem;
+  color:var(--green2);
+  font-size:1.14rem;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+}
+
+.card ul,.card ol{
+  margin:.75rem 0 0;
+  padding-left:1.2rem;
+}
+
+.card li{margin-bottom:.45rem}
+
+.qa-card{border-top:4px solid var(--orange)}
+
+.answer{
+  margin-top:.9rem;
+  padding:1rem 1.05rem;
+  border:1px solid #eadbcf;
+  border-radius:var(--rsm);
+  background:#fff8f3;
+  color:var(--ink);
+  display:none;
+}
+
+.answer.show{display:block}
+
+.toggle-btn{
+  margin-top:.95rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.65rem 1rem;
+  border:0;
+  border-radius:999px;
+  background:var(--green);
+  color:#fff;
+  font-weight:750;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(47,125,87,.2);
+}
+
+.toggle-btn:hover{background:var(--green2)}
+
+.inset-wrap{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+  margin-top:1.2rem;
+}
+
+.inset{
+  padding:1.15rem;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.85);
+}
+
+.inset h4{
+  margin:0 0 .45rem;
+  color:var(--green2);
+}
+
+.inset p{
+  margin:0;
+  color:var(--muted);
+}
+
+.real-world{border-left:5px solid var(--green);background:var(--softg)}
+.historical-note{border-left:5px solid var(--amber);background:var(--softa)}
+.monkey-robot{border-left:5px solid var(--blue);background:var(--softb)}
+.safety-note{border-left:5px solid var(--orange);background:var(--softo)}
+.logic-note{border-left:5px solid var(--violet);background:var(--softp)}
+
+.summary-box{
+  padding:1.35rem 1.4rem;
+  border-left:5px solid var(--green);
+  border-radius:0 var(--radius) var(--radius) 0;
+  background:var(--softg);
+}
+
+.summary-box h3{
+  margin:0 0 .5rem;
+  color:var(--green2);
+}
+
+.summary-box ul{
+  margin:0;
+  padding-left:1.2rem;
+}
+
+.summary-box li{margin-bottom:.45rem}
+
+.lesson-figure{
+  width:100%;
+  margin:1.15rem 0 1.1rem;
+}
+
+.lesson-image{
+  display:none;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  object-position:center;
+  border:1px solid rgba(47,125,87,.28);
+  border-radius:var(--radius);
+  background:var(--steel);
+  box-shadow:var(--shadow);
+}
+
+.image-slot.image-loaded .lesson-image{display:block}
+.image-slot.image-loaded .image-prompt{display:none}
+
+.image-prompt{
+  min-height:300px;
+  display:grid;
+  place-items:center;
+  padding:clamp(1.5rem,4vw,2.3rem);
+  border:2px dashed rgba(47,125,87,.55);
+  border-radius:var(--radius);
+  color:#f8fafb;
+  background:
+    radial-gradient(circle at 20% 18%,rgba(74,163,223,.14),transparent 20rem),
+    radial-gradient(circle at 80% 82%,rgba(232,111,55,.12),transparent 18rem),
+    linear-gradient(135deg,#263442 0%,#235c41 52%,#1f2f39 100%);
+  box-shadow:var(--shadow);
+}
+
+.prompt-card{
+  width:min(840px,100%);
+  padding:1.25rem 1.35rem;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  background:rgba(38,52,66,.8);
+  backdrop-filter:blur(6px);
+}
+
+.prompt-label{
+  display:inline-flex;
+  margin-bottom:.65rem;
+  color:#b7f0d2;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:.78rem;
+  font-weight:850;
+}
+
+.prompt-card p{
+  margin:0;
+  color:rgba(255,255,255,.92);
+  font-weight:650;
+}
+
+.lesson-figure figcaption{
+  margin-top:.65rem;
+  color:var(--muted);
+  font-size:.92rem;
+  font-style:italic;
+}
+
+.logic-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:1rem;
+  background:#fff;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 5px 18px rgba(38,52,66,.06);
+}
+
+.logic-table th,
+.logic-table td{
+  padding:.8rem .9rem;
+  border:1px solid var(--border);
+  text-align:left;
+  vertical-align:top;
+}
+
+.logic-table th{
+  color:#fff;
+  background:var(--steel2);
+}
+
+.logic-table td{color:var(--muted)}
+
+.flow-strip{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:.75rem;
+  margin-top:1rem;
+}
+
+.flow-step{
+  padding:1rem;
+  border:1px solid var(--border);
+  border-radius:var(--rsm);
+  background:#fff;
+  text-align:center;
+  font-weight:750;
+  color:var(--green2);
+}
+
+.lesson-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  margin-top:3.5rem;
+  padding-top:1.5rem;
+  border-top:1px solid var(--border);
+}
+
+.lesson-nav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.72rem 1rem;
+  border-radius:999px;
+  background:var(--green);
+  color:#fff;
+  text-decoration:none;
+  font-weight:750;
+}
+
+footer{
+  padding:1.6rem 1rem 2.5rem;
+  color:var(--muted);
+  text-align:center;
+  font-size:.88rem;
+}
+
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow-strip{grid-template-columns:1fr}
+}
+
+@media(max-width:720px){
+  html{scroll-padding-top:195px}
+  .header-top{flex-direction:column;align-items:flex-start}
+  .course-link{width:100%;justify-content:center}
+  .grid-2,.grid-3,.grid-4,.inset-wrap{grid-template-columns:1fr}
+  .lesson-nav{flex-direction:column}
+  .image-prompt{min-height:340px}
+  .logic-table{font-size:.9rem}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <span class="brand-mark">PLC</span>
+      <span class="brand-text">Electromagnetism · Lesson 08</span>
+    </div>
+    <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">← Back to Electromagnetism</a>
+  </div>
+
+  <nav class="page-nav">
+    <a href="#overview">Overview</a>
+    <a href="#transition">Relay to PLC</a>
+    <a href="#hardware">Hardware</a>
+    <a href="#inputs">Inputs</a>
+    <a href="#outputs">Outputs</a>
+    <a href="#tags">Tags</a>
+    <a href="#scan">Scan Cycle</a>
+    <a href="#instructions">Instructions</a>
+    <a href="#tank">Tank Control</a>
+    <a href="#timers">Timers</a>
+    <a href="#leadlag">Lead-Lag</a>
+    <a href="#modes">Modes</a>
+    <a href="#memory">Memory</a>
+    <a href="#alarms">Alarms</a>
+    <a href="#safety">Safety</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+    <a href="#summary">Summary</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="overview">
+  <div>
+    <p class="eyebrow">Lesson 8 · Programmable Machine Control</p>
+    <h1>From Relay Logic to PLC Control at the Automated Water Plant</h1>
+    <p class="hero-copy">
+      The recycling center taught Monkey and Robot how relays, contactors, sensors, timers, and interlocks coordinate large machinery.
+      At the automated water plant, the same control ideas have moved into a programmable logic controller. A transfer pump refuses to
+      start automatically, one tank has nearly overflowed, and two identical pumps have accumulated very different operating hours.
+    </p>
+  </div>
+
+  <aside class="hero-card">
+    <strong>Central question:</strong> How does a PLC observe physical conditions, make logical decisions, and command real machinery?
+    <br><br>
+    <strong>Key idea:</strong> A PLC repeatedly reads inputs, solves its program, updates outputs, performs internal checks, and begins again.
+  </aside>
+</section>
+
+<section>
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson8_image01.png"
+         alt="Monkey and Robot enter an automated water-treatment plant."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide landscape educational illustration, whimsical painterly 3D science-adventure style. Monkey and a compact brass-and-blue Robot
+          enter a modern automated water-treatment plant with large tanks, transfer pumps, motorized valves, pressure gauges, level sensors,
+          overhead pipework, a PLC control cabinet, and an operator screen showing a high-level alarm. One pump is stopped while another appears
+          heavily used. Clean industrial environment, dramatic lighting, clear process flow, no border, no watermark, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The plant is physical equipment, electrical control hardware, and stored logic operating as one system.</figcaption>
+  </figure>
+</section>
+
+<section id="transition">
+  <div class="section-heading">
+    <h2>1. From relay logic to programmable logic</h2>
+    <p>The control ideas from Lesson 7 remain, but many decisions now occur inside a controller.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <h3>Hardwired relay control</h3>
+      <p>Physical contacts, relay coils, timers, and auxiliary contacts create the operating sequence.</p>
+      <ul>
+        <li>Changing the sequence may require rewiring.</li>
+        <li>Each added function usually requires more hardware.</li>
+        <li>The wiring itself contains much of the logic.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>PLC control</h3>
+      <p>Input devices are wired to a controller, which evaluates a stored program and commands output devices.</p>
+      <ul>
+        <li>Changing the sequence may require a program change.</li>
+        <li>Timers, counters, memory, and comparisons can be added in software.</li>
+        <li>Field wiring and program logic must agree.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset logic-note">
+      <h4>Important continuity</h4>
+      <p>A PLC does not erase the electrical principles from earlier lessons. It organizes and expands them.</p>
+    </div>
+
+    <div class="inset monkey-robot">
+      <h4>Monkey & Robot</h4>
+      <p>Monkey says, “The wires became a program.” Robot replies, “Some of the decision-making did. The motors, sensors, and power circuits are still real.”</p>
+    </div>
+  </div>
+</section>
+
+<section id="hardware">
+  <div class="section-heading">
+    <h2>2. The PLC as part of a larger control system</h2>
+    <p>The PLC is the controller, but it depends on many other components.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card">
+      <h3>Power supply</h3>
+      <p>Provides the low-voltage power required by the processor and modules.</p>
+    </article>
+
+    <article class="card">
+      <h3>Processor</h3>
+      <p>Stores and executes the control program.</p>
+    </article>
+
+    <article class="card">
+      <h3>Input modules</h3>
+      <p>Receive electrical evidence from field devices.</p>
+    </article>
+
+    <article class="card">
+      <h3>Output modules</h3>
+      <p>Command relays, contactors, lamps, valves, and other devices.</p>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson8_image02.png"
+         alt="Cutaway view of a PLC cabinet and field wiring."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational cutaway illustration of a PLC control cabinet at a water plant. Show the PLC power supply, processor, digital input card,
+          analog input card, output card, terminal blocks, interposing relay, motor contactor, overload relay, pump motor, float switches, pressure
+          transmitter, solenoid valve, and operator screen. Robot traces signal flow from field sensor to PLC input, through logic, to output relay
+          and motor starter while Monkey observes. Clean labels and arrows, painterly industrial teaching style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The PLC participates in the control path; it does not directly replace the power equipment.</figcaption>
+  </figure>
+</section>
+
+<section id="inputs">
+  <div class="section-heading">
+    <h2>3. Inputs: how the physical world enters the program</h2>
+    <p>Inputs convert field conditions into electrical and logical evidence.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Discrete inputs</h3>
+      <p>Represent two general states: on or off, open or closed, true or false.</p>
+      <ul>
+        <li>Float switch</li>
+        <li>Pressure switch</li>
+        <li>Emergency-stop contact</li>
+        <li>Overload contact</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Analog inputs</h3>
+      <p>Represent a changing measured value over a range.</p>
+      <ul>
+        <li>Tank level</li>
+        <li>Pressure</li>
+        <li>Flow rate</li>
+        <li>Temperature</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Input evidence</h3>
+      <p>The PLC sees voltage, current, or data—not the physical process directly.</p>
+    </article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Does an active PLC input prove that the tank is actually full?</p>
+      <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+      <div class="answer" id="a1">
+        <p>No. It proves that the controller is receiving the input state associated with “full.” The sensor, wiring, address, and interpretation must still be correct.</p>
+      </div>
+    </article>
+
+    <article class="card real-world">
+      <h3>Source evidence</h3>
+      <p>A field input is a source record from the physical process. The program interprets that source and derives operating decisions.</p>
+    </article>
+  </div>
+</section>
+
+<section id="outputs">
+  <div class="section-heading">
+    <h2>4. Outputs: how the PLC affects machinery</h2>
+    <p>Outputs convert program decisions into electrical commands.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Motor commands</h3>
+      <p>A PLC output may energize an interposing relay or motor-starter coil.</p>
+    </article>
+
+    <article class="card">
+      <h3>Valve commands</h3>
+      <p>A solenoid output can shift a valve or command a motorized actuator.</p>
+    </article>
+
+    <article class="card">
+      <h3>Status and alarms</h3>
+      <p>Outputs may operate lamps, horns, beacons, or communication signals.</p>
+    </article>
+  </div>
+
+  <div class="flow-strip">
+    <div class="flow-step">PLC output</div>
+    <div class="flow-step">Interposing relay</div>
+    <div class="flow-step">Contactor coil</div>
+    <div class="flow-step">Power contacts</div>
+    <div class="flow-step">Pump motor</div>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset safety-note">
+      <h4>Power limitation</h4>
+      <p>A PLC output normally does not carry the operating current of a large motor.</p>
+    </div>
+
+    <div class="inset logic-note">
+      <h4>Command is not proof</h4>
+      <p>An energized output means the PLC issued a command. It does not prove that the final device moved.</p>
+    </div>
+  </div>
+</section>
+
+<section id="tags">
+  <div class="section-heading">
+    <h2>5. Addresses, tags, and names</h2>
+    <p>The program must identify each physical and internal signal.</p>
+  </div>
+
+  <table class="logic-table">
+    <thead>
+      <tr>
+        <th>Field device or condition</th>
+        <th>Example address</th>
+        <th>Descriptive tag</th>
+        <th>Meaning</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Low-level float</td>
+        <td>I:0/0</td>
+        <td>Tank_Low</td>
+        <td>Tank needs filling.</td>
+      </tr>
+      <tr>
+        <td>High-level float</td>
+        <td>I:0/1</td>
+        <td>Tank_High</td>
+        <td>Normal fill stop point reached.</td>
+      </tr>
+      <tr>
+        <td>Pump overload contact</td>
+        <td>I:0/2</td>
+        <td>Pump1_OL_OK</td>
+        <td>Motor protection circuit is healthy.</td>
+      </tr>
+      <tr>
+        <td>Pump contactor command</td>
+        <td>O:0/0</td>
+        <td>Pump1_Run</td>
+        <td>PLC is requesting Pump 1 operation.</td>
+      </tr>
+      <tr>
+        <td>Internal failure memory</td>
+        <td>B3:0/0</td>
+        <td>Pump1_Failed</td>
+        <td>Program has recorded a pump fault.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What happens if the float is wired to I:0/3 but the program expects I:0/1?</p>
+      <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+      <div class="answer" id="a2">
+        <p>The physical switch may work, but the program will be looking at the wrong input and may behave as though the signal never changed.</p>
+      </div>
+    </article>
+
+    <article class="card historical-note">
+      <h3>Documentation matters</h3>
+      <p>Drawings, wire labels, input lists, output lists, and program tags must describe the same system.</p>
+    </article>
+  </div>
+</section>
+
+<section id="scan">
+  <div class="section-heading">
+    <h2>6. The PLC scan cycle</h2>
+    <p>The processor repeats a rapid sequence of observation, decision, and action.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card">
+      <h3>1. Read inputs</h3>
+      <p>The PLC records the current state of its input points.</p>
+    </article>
+
+    <article class="card">
+      <h3>2. Solve logic</h3>
+      <p>The program is evaluated in its defined order.</p>
+    </article>
+
+    <article class="card">
+      <h3>3. Update outputs</h3>
+      <p>Output states are changed according to the solved program.</p>
+    </article>
+
+    <article class="card">
+      <h3>4. Housekeeping</h3>
+      <p>The controller performs diagnostics, communications, and internal tasks.</p>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson8_image03.png"
+         alt="Robot follows the PLC scan cycle while Monkey operates a float switch."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational illustration inside the automated water plant control room. Show a large glowing circular PLC scan-cycle diagram:
+          Read Inputs, Solve Logic, Update Outputs, Diagnostics and Communications, Repeat. Robot follows a bright signal around the cycle while
+          Monkey raises and lowers a tank float switch. Nearby screens show input image, ladder logic, and output image. Clean arrows, readable labels,
+          painterly 3D engineering-adventure style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The controller repeatedly turns physical evidence into programmed decisions and output commands.</figcaption>
+  </figure>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>If an input changes during program execution, when might ordinary logic recognize it?</p>
+      <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+      <div class="answer" id="a3">
+        <p>Often during the next input-read portion of the scan, depending on controller design and instruction behavior.</p>
+      </div>
+    </article>
+
+    <article class="card logic-note">
+      <h3>Time matters</h3>
+      <p>Even fast controllers operate in sequence. Scan time becomes important when signals change rapidly or events require precise timing.</p>
+    </article>
+  </div>
+</section>
+
+<section id="instructions">
+  <div class="section-heading">
+    <h2>7. PLC ladder instructions</h2>
+    <p>PLC ladder logic resembles relay diagrams, but its symbols test and change stored states.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Examine-if-closed</h3>
+      <p>True when the referenced bit is on.</p>
+    </article>
+
+    <article class="card">
+      <h3>Examine-if-open</h3>
+      <p>True when the referenced bit is off.</p>
+    </article>
+
+    <article class="card">
+      <h3>Output energize</h3>
+      <p>Controls an output or memory bit according to rung continuity.</p>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset safety-note">
+      <h4>Do not confuse symbol with hardware</h4>
+      <p>A PLC instruction does not always describe whether the physical field device is mechanically normally open or normally closed.</p>
+    </div>
+
+    <div class="inset real-world">
+      <h4>What the instruction does</h4>
+      <p>It tests the current logical value stored at a particular address or tag.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Why can a PLC “contact” exist even when no physical contact exists?</p>
+      <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+      <div class="answer" id="a4">
+        <p>Because the instruction may reference an internal memory bit, timer status, comparison result, output state, or communicated value.</p>
+      </div>
+    </article>
+
+    <article class="card monkey-robot">
+      <h3>Monkey & Robot</h3>
+      <p>Monkey says, “I see a contact.” Robot replies, “You see an instruction asking a question about stored data.”</p>
+    </article>
+  </div>
+</section>
+
+<section id="tank">
+  <div class="section-heading">
+    <h2>8. Automatic tank-filling sequence</h2>
+    <p>A simple fill cycle combines permissives, start conditions, stop conditions, and feedback.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Start conditions</h3>
+      <ul>
+        <li>Tank is below low level</li>
+        <li>Automatic mode selected</li>
+        <li>Emergency-stop chain healthy</li>
+        <li>Overload healthy</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Run conditions</h3>
+      <ul>
+        <li>Pump request remains active</li>
+        <li>High level not reached</li>
+        <li>No trip condition appears</li>
+        <li>Flow is proven</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Stop conditions</h3>
+      <ul>
+        <li>High-level switch activates</li>
+        <li>Operator selects Off</li>
+        <li>Overload trips</li>
+        <li>Flow fails</li>
+      </ul>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson8_image04.png"
+         alt="PLC ladder logic controls an automatic tank-filling sequence."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational illustration showing an automatic tank-control ladder program beside the physical water system. Include low-level start
+          condition, high-level stop condition, automatic-mode permissive, emergency-stop and overload healthy contacts, pump run output, holding logic,
+          and a flow-proving timer. Monkey watches the tank fill while Robot traces the highlighted rung from left to right. Clean symbols and arrows,
+          painterly 3D industrial science-adventure style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The pump is permitted to run only while every required condition remains satisfied.</figcaption>
+  </figure>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Why should the pump not rely only on the low-level switch?</p>
+      <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+      <div class="answer" id="a5">
+        <p>The pump also needs a normal stopping point, safety permissives, equipment protection, and proof that the commanded flow actually occurs.</p>
+      </div>
+    </article>
+
+    <article class="card logic-note">
+      <h3>Process sequence</h3>
+      <p>The low-level switch requests action. The high-level switch ends the normal cycle. Other conditions determine whether operation is permitted.</p>
+    </article>
+  </div>
+</section>
+
+<section id="timers">
+  <div class="section-heading">
+    <h2>9. Timers inside a PLC</h2>
+    <p>Software timers coordinate delays, proof windows, warnings, and fault responses.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card">
+      <h3>Preset</h3>
+      <p>The target time value.</p>
+    </article>
+
+    <article class="card">
+      <h3>Accumulated value</h3>
+      <p>The time already measured.</p>
+    </article>
+
+    <article class="card">
+      <h3>Timing status</h3>
+      <p>Indicates that the timer is actively counting.</p>
+    </article>
+
+    <article class="card">
+      <h3>Done status</h3>
+      <p>Indicates that the preset has been reached.</p>
+    </article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card">
+      <h3>Flow-proving example</h3>
+      <ol>
+        <li>PLC commands Pump 1.</li>
+        <li>A five-second timer begins.</li>
+        <li>Flow switch must activate before the timer finishes.</li>
+        <li>If flow is proven, operation continues.</li>
+        <li>If flow is not proven, the pump stops and a fault is recorded.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <h3>Retentive timing</h3>
+      <p>A retentive timer may preserve accumulated operating time so maintenance can track how long a pump has run.</p>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset safety-note">
+      <h4>Limited retries</h4>
+      <p>A failed pump should not restart endlessly. The logic can limit attempts and require operator attention.</p>
+    </div>
+
+    <div class="inset real-world">
+      <h4>Command and proof</h4>
+      <p>The run output is a command. The flow switch is evidence that the commanded process actually began.</p>
+    </div>
+  </div>
+</section>
+
+<section id="leadlag">
+  <div class="section-heading">
+    <h2>10. Lead-lag pump control</h2>
+    <p>Two pumps can provide redundancy, increased capacity, and balanced wear.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Lead pump</h3>
+      <p>Starts first during normal demand.</p>
+    </article>
+
+    <article class="card">
+      <h3>Lag pump</h3>
+      <p>Starts if demand remains high or the lead pump fails.</p>
+    </article>
+
+    <article class="card">
+      <h3>Alternation</h3>
+      <p>The PLC periodically changes which pump is assigned as lead.</p>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson8_image05.png"
+         alt="Two pumps operate in a lead-lag arrangement."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational water-plant illustration showing two parallel transfer pumps in a lead-lag arrangement. Pump 1 is marked Lead, Pump 2 is marked
+          Lag, with runtime counters, start counters, flow switches, check valves, and an automatic alternation indicator. Show a normal-demand path using
+          one pump and a high-demand path using both pumps. Monkey compares the unequal runtime totals while Robot changes the lead assignment in the PLC.
+          Painterly 3D industrial teaching style, clean labels, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>Alternation distributes operating hours while lag control provides additional capacity and backup.</figcaption>
+  </figure>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Why might two identical pumps show very different runtime totals?</p>
+      <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+      <div class="answer" id="a6">
+        <p>The lead assignment may never alternate, one pump may be unavailable, the runtime logic may be incorrect, or the counters may not be tied to proven operation.</p>
+      </div>
+    </article>
+
+    <article class="card historical-note">
+      <h3>Maintenance value</h3>
+      <p>Balanced runtime can reduce uneven wear and helps maintenance teams compare equipment performance more fairly.</p>
+    </article>
+  </div>
+</section>
+
+<section id="modes">
+  <div class="section-heading">
+    <h2>11. Hand, Off, and Automatic modes</h2>
+    <p>Operating modes determine where a run request comes from.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Hand</h3>
+      <p>The operator directly requests operation, subject to required protective conditions.</p>
+    </article>
+
+    <article class="card">
+      <h3>Off</h3>
+      <p>The equipment is prevented from running.</p>
+    </article>
+
+    <article class="card">
+      <h3>Automatic</h3>
+      <p>The PLC starts and stops the equipment according to process conditions.</p>
+    </article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Should Hand mode bypass the motor overload or emergency stop?</p>
+      <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+      <div class="answer" id="a7">
+        <p>No. Manual control changes the source of the run request; it should not defeat essential protection.</p>
+      </div>
+    </article>
+
+    <article class="card safety-note">
+      <h3>Manual is not unprotected</h3>
+      <p>Hand mode is for direct operation, not for ignoring hazardous or damaging conditions.</p>
+    </article>
+  </div>
+</section>
+
+<section id="memory">
+  <div class="section-heading">
+    <h2>12. Internal memory and system state</h2>
+    <p>Not every PLC value comes directly from a physical input.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Cycle state</h3>
+      <p>Records whether an automatic cycle is inactive, filling, proving flow, complete, or faulted.</p>
+    </article>
+
+    <article class="card">
+      <h3>Fault memory</h3>
+      <p>Records that an abnormal event occurred even after the original condition disappears.</p>
+    </article>
+
+    <article class="card">
+      <h3>Selection memory</h3>
+      <p>Stores which pump is currently assigned as lead.</p>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset real-world">
+      <h4>Source and derived state</h4>
+      <p>Tank_High may come from a field switch. Pump1_Failed may be a derived conclusion based on several pieces of evidence.</p>
+    </div>
+
+    <div class="inset logic-note">
+      <h4>Memory builds sequence</h4>
+      <p>Internal bits allow the controller to remember what has happened and determine what should happen next.</p>
+    </div>
+  </div>
+</section>
+
+<section id="alarms">
+  <div class="section-heading">
+    <h2>13. Alarms, trips, and acknowledgment</h2>
+    <p>Different abnormal conditions require different responses.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card">
+      <h3>Warning</h3>
+      <p>Attention is needed, but operation may continue.</p>
+    </article>
+
+    <article class="card">
+      <h3>Trip</h3>
+      <p>Permission to operate is removed.</p>
+    </article>
+
+    <article class="card">
+      <h3>Latched alarm</h3>
+      <p>The event remains recorded until acknowledged or reset.</p>
+    </article>
+
+    <article class="card">
+      <h3>Current condition</h3>
+      <p>Shows whether the abnormal condition is still physically present.</p>
+    </article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card">
+      <h3>Example alarm levels</h3>
+      <ul>
+        <li>High level: operator warning</li>
+        <li>High-high level: pump shutdown and latched alarm</li>
+        <li>No flow after start: pump trip</li>
+        <li>Repeated pump failure: automatic lockout</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Acknowledgment versus reset</h3>
+      <p>Acknowledgment confirms that an operator has seen the alarm. Reset attempts to clear a stored fault after the cause has been corrected.</p>
+    </article>
+  </div>
+</section>
+
+<section id="safety">
+  <div class="section-heading">
+    <h2>14. Ordinary PLC logic and safety functions</h2>
+    <p>Routine control logic should not be confused with safety-rated protection.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Ordinary control</h3>
+      <p>Coordinates process operation, sequencing, alarms, and production decisions.</p>
+    </article>
+
+    <article class="card">
+      <h3>Safety control</h3>
+      <p>May require safety relays, redundant channels, monitored contacts, or a safety-rated PLC.</p>
+    </article>
+
+    <article class="card">
+      <h3>Deliberate restart</h3>
+      <p>After a critical safety fault, the system should not restart unexpectedly.</p>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset safety-note">
+      <h4>Essential rule</h4>
+      <p>Software convenience must never replace required electrical and mechanical safeguards.</p>
+    </div>
+
+    <div class="inset historical-note">
+      <h4>Lesson 7 connection</h4>
+      <p>Normally closed safety chains, monitored devices, overloads, and deliberate reset remain important in PLC-controlled systems.</p>
+    </div>
+  </div>
+</section>
+
+<section id="troubleshooting">
+  <div class="section-heading">
+    <h2>15. Troubleshooting the pump that will not start</h2>
+    <p>The tank is low, Automatic mode is selected, and the program appears to request Pump 1.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <h3>Trace the input and logic path</h3>
+      <ol>
+        <li>Observe the actual tank condition.</li>
+        <li>Check the low-level device.</li>
+        <li>Check voltage at the PLC input.</li>
+        <li>Check the input indicator.</li>
+        <li>Check the input tag in the program.</li>
+        <li>Trace every permissive on the rung.</li>
+        <li>Confirm the output instruction becomes true.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <h3>Trace the physical output path</h3>
+      <ol>
+        <li>Check the PLC output indicator.</li>
+        <li>Check voltage at the output terminal.</li>
+        <li>Check the interposing relay.</li>
+        <li>Check the contactor coil circuit.</li>
+        <li>Check the overload and contactor.</li>
+        <li>Check motor power.</li>
+        <li>Check the pump and mechanical load.</li>
+      </ol>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson8_image06.png"
+         alt="Robot discovers a loose wire between a PLC relay and pump contactor."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Dramatic educational illustration in the water-plant control cabinet. The PLC Pump 1 output indicator is glowing, the interposing relay is energized,
+          but the motor contactor remains open. Robot discovers a loose control wire between the relay terminal and contactor coil while Monkey follows a glowing
+          diagnostic path from low-level float, PLC input, ladder rung, output module, relay, contactor, overload, and pump motor. The machine remains safely stopped.
+          Painterly 3D industrial science-adventure style, clear arrows and labels, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The PLC made the correct decision, but the command did not reach the final control device.</figcaption>
+  </figure>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What is the final pump fault?</p>
+      <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+      <div class="answer" id="a8">
+        <p>A loose wire between the interposing relay and the contactor coil prevents the PLC command from reaching the motor starter.</p>
+      </div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Second fault</h3>
+      <p>Why did the tank nearly overfill?</p>
+      <button class="toggle-btn" data-target="a9">Reveal Answer</button>
+      <div class="answer" id="a9">
+        <p>The high-level float was wired to a different PLC input than the program expected, so the physical device changed but the intended program tag did not.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset monkey-robot">
+      <h4>Monkey & Robot</h4>
+      <p>Monkey says, “The output light was on, so I thought the pump was running.” Robot replies, “A command is evidence of intention, not evidence of motion.”</p>
+    </div>
+
+    <div class="inset real-world">
+      <h4>Core diagnostic habit</h4>
+      <p>Trace the complete chain: physical condition, field device, input wiring, stored value, program decision, output wiring, final control device, and actual motion.</p>
+    </div>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="section-heading">
+    <h2>16. Lesson summary</h2>
+    <p>The central ideas behind programmable industrial control.</p>
+  </div>
+
+  <div class="summary-box">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li>PLCs read input signals and command outputs.</li>
+      <li>The PLC operates as part of a larger electrical and mechanical system.</li>
+      <li>Relay ladder logic and PLC ladder logic share important ideas.</li>
+      <li>PLC instructions test stored logical states, not necessarily physical contacts.</li>
+      <li>The processor repeatedly reads inputs, solves logic, updates outputs, and performs internal tasks.</li>
+      <li>Discrete inputs represent two-state conditions; analog inputs represent changing measured values.</li>
+      <li>Outputs usually command relays, contactors, valves, lamps, and alarms.</li>
+      <li>Tags and addresses must match the actual field wiring.</li>
+      <li>Timers create delays, proof windows, and fault responses.</li>
+      <li>Internal memory records cycle state, selections, and faults.</li>
+      <li>Lead-lag control provides redundancy and balances equipment wear.</li>
+      <li>Manual mode should not bypass essential protection.</li>
+      <li>Acknowledgment and reset are different actions.</li>
+      <li>Routine PLC logic is not automatically safety-rated logic.</li>
+      <li>An output command does not prove that physical machinery operated.</li>
+      <li>Troubleshooting must follow the complete path from field condition to actual machine response.</li>
+    </ul>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Final Check</h3>
+      <p>What are the three main operating steps of a PLC scan?</p>
+      <button class="toggle-btn" data-target="a10">Reveal Answer</button>
+      <div class="answer" id="a10">
+        <p>Read inputs, solve the program, and update outputs, followed by controller housekeeping and repetition.</p>
+      </div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Final Check</h3>
+      <p>What is the main troubleshooting lesson?</p>
+      <button class="toggle-btn" data-target="a11">Reveal Answer</button>
+      <div class="answer" id="a11">
+        <p>Verify each stage of the evidence-and-command chain instead of assuming that a PLC indication proves physical operation.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<nav class="lesson-nav">
+  <a href="electromagnetism-lesson07-motor-controls-and-ladder-logic-at-the-recycling-center.html">← Lesson 07</a>
+  <a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">Course Home</a>
+  <a href="#overview">Back to Top ↑</a>
+</nav>
+
+</main>
+
+<footer>
+  Klin's Learning Library · Electromagnetism · Lesson 08 · From Relay Logic to PLC Control at the Automated Water Plant
+</footer>
+
+<script>
+document.querySelectorAll('.toggle-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const answer = document.getElementById(button.dataset.target);
+    if (!answer) return;
+
+    const open = answer.classList.contains('show');
+    answer.classList.toggle('show');
+    button.textContent = open ? 'Reveal Answer' : 'Hide Answer';
+  });
+});
+
+document.querySelectorAll('.lesson-image').forEach(img => {
+  if (img.complete && img.naturalWidth > 0) {
+    img.closest('.image-slot')?.classList.add('image-loaded');
+  }
+});
+</script>
+
+</body>
+</html>

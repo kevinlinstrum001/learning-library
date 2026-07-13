@@ -1,0 +1,1386 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Electromagnetism Lesson 9: Analog Signals, PID Control, and Variable-Speed Drives at the Polar Research Complex." />
+<title>Analog Signals, PID Control, and Variable-Speed Drives at the Polar Research Complex | Klin's Learning Library</title>
+
+<style>
+:root{
+  --steel:#263442;
+  --steel2:#3d5265;
+  --green:#2f7d57;
+  --green2:#235c41;
+  --amber:#d89b3c;
+  --orange:#e86f37;
+  --blue:#4aa3df;
+  --ice:#8dd7f7;
+  --violet:#7b61a8;
+  --paper:#f2f3ef;
+  --white:#fff;
+  --ink:#26313a;
+  --muted:#68737c;
+  --border:#d4dcdf;
+  --softg:#e8f2ec;
+  --softa:#fbf0dc;
+  --softb:#eaf4fb;
+  --softo:#faece5;
+  --softp:#f0ebf7;
+  --softi:#e9f7fc;
+  --shadow:0 12px 32px rgba(38,52,66,.18);
+  --radius:16px;
+  --rsm:12px;
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:150px;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 0%,rgba(141,215,247,.19),transparent 28rem),
+    radial-gradient(circle at 90% 8%,rgba(74,163,223,.14),transparent 24rem),
+    linear-gradient(180deg,#fbfdff 0%,#edf3f5 100%);
+}
+
+a{color:inherit}
+
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  color:var(--white);
+  background:linear-gradient(90deg,rgba(38,52,66,.98),rgba(48,93,117,.97));
+  border-bottom:1px solid rgba(141,215,247,.35);
+  box-shadow:0 4px 18px rgba(38,52,66,.28);
+  backdrop-filter:blur(10px);
+}
+
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  padding:.85rem clamp(1rem,4vw,3rem);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  min-width:0;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+
+.brand-mark{
+  display:grid;
+  place-items:center;
+  width:2.35rem;
+  height:2.35rem;
+  flex:0 0 auto;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.25);
+  background:linear-gradient(145deg,var(--ice),var(--steel));
+  box-shadow:0 0 18px rgba(141,215,247,.28);
+  font-size:.9rem;
+}
+
+.brand-text{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.course-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.56rem .9rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.28);
+  color:var(--white);
+  text-decoration:none;
+  font-size:.92rem;
+  font-weight:750;
+}
+
+.page-nav{
+  display:flex;
+  gap:.35rem;
+  padding:.55rem clamp(1rem,4vw,3rem) .75rem;
+  overflow-x:auto;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.page-nav a{
+  flex:0 0 auto;
+  padding:.42rem .7rem;
+  border-radius:999px;
+  color:rgba(255,255,255,.82);
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:650;
+}
+
+.page-nav a:hover{
+  color:#fff;
+  background:rgba(141,215,247,.18);
+}
+
+main{
+  width:min(1160px,calc(100% - 2rem));
+  margin:0 auto;
+  padding:clamp(2.4rem,7vw,5rem) 0 4rem;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+  gap:clamp(2rem,6vw,4rem);
+  align-items:center;
+  margin-bottom:2.8rem;
+}
+
+.eyebrow{
+  margin:0 0 .75rem;
+  color:#347ea4;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.82rem;
+  font-weight:850;
+}
+
+h1{
+  margin:0;
+  color:var(--steel);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2.5rem,6.5vw,5rem);
+  line-height:.98;
+  letter-spacing:-.045em;
+}
+
+.hero-copy{
+  max-width:760px;
+  margin:1.35rem 0 0;
+  color:var(--muted);
+  font-size:clamp(1.04rem,2vw,1.18rem);
+}
+
+.hero-card{
+  padding:1.5rem;
+  border:1px solid rgba(74,163,223,.28);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(233,247,252,.94));
+  box-shadow:var(--shadow);
+}
+
+.hero-card strong{color:#2d6d8f}
+
+section{margin:3rem 0}
+
+.section-heading{margin-bottom:1.1rem}
+
+.section-heading h2{
+  margin:0 0 .35rem;
+  color:#2d6d8f;
+  font-size:clamp(1.7rem,3vw,2.35rem);
+}
+
+.section-heading p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid-2,.grid-3,.grid-4{
+  display:grid;
+  gap:1.2rem;
+}
+
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.card{
+  padding:1.35rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.94);
+  box-shadow:0 5px 18px rgba(38,52,66,.06);
+}
+
+.card h3{
+  margin:0 0 .55rem;
+  color:#2d6d8f;
+  font-size:1.14rem;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+}
+
+.card ul,.card ol{
+  margin:.75rem 0 0;
+  padding-left:1.2rem;
+}
+
+.card li{margin-bottom:.45rem}
+
+.qa-card{border-top:4px solid var(--orange)}
+
+.answer{
+  margin-top:.9rem;
+  padding:1rem 1.05rem;
+  border:1px solid #eadbcf;
+  border-radius:var(--rsm);
+  background:#fff8f3;
+  color:var(--ink);
+  display:none;
+}
+
+.answer.show{display:block}
+
+.toggle-btn{
+  margin-top:.95rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.65rem 1rem;
+  border:0;
+  border-radius:999px;
+  background:#347ea4;
+  color:#fff;
+  font-weight:750;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(52,126,164,.2);
+}
+
+.toggle-btn:hover{background:#2d6d8f}
+
+.inset-wrap{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+  margin-top:1.2rem;
+}
+
+.inset{
+  padding:1.15rem;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.86);
+}
+
+.inset h4{
+  margin:0 0 .45rem;
+  color:#2d6d8f;
+}
+
+.inset p{
+  margin:0;
+  color:var(--muted);
+}
+
+.real-world{border-left:5px solid var(--green);background:var(--softg)}
+.historical-note{border-left:5px solid var(--amber);background:var(--softa)}
+.monkey-robot{border-left:5px solid var(--blue);background:var(--softb)}
+.safety-note{border-left:5px solid var(--orange);background:var(--softo)}
+.logic-note{border-left:5px solid var(--violet);background:var(--softp)}
+.ice-note{border-left:5px solid var(--ice);background:var(--softi)}
+
+.summary-box{
+  padding:1.35rem 1.4rem;
+  border-left:5px solid #347ea4;
+  border-radius:0 var(--radius) var(--radius) 0;
+  background:var(--softi);
+}
+
+.summary-box h3{
+  margin:0 0 .5rem;
+  color:#2d6d8f;
+}
+
+.summary-box ul{
+  margin:0;
+  padding-left:1.2rem;
+}
+
+.summary-box li{margin-bottom:.45rem}
+
+.lesson-figure{
+  width:100%;
+  margin:1.15rem 0 1.1rem;
+}
+
+.lesson-image{
+  display:none;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  object-position:center;
+  border:1px solid rgba(74,163,223,.28);
+  border-radius:var(--radius);
+  background:var(--steel);
+  box-shadow:var(--shadow);
+}
+
+.image-slot.image-loaded .lesson-image{display:block}
+.image-slot.image-loaded .image-prompt{display:none}
+
+.image-prompt{
+  min-height:300px;
+  display:grid;
+  place-items:center;
+  padding:clamp(1.5rem,4vw,2.3rem);
+  border:2px dashed rgba(74,163,223,.55);
+  border-radius:var(--radius);
+  color:#f8fafb;
+  background:
+    radial-gradient(circle at 20% 18%,rgba(141,215,247,.18),transparent 20rem),
+    radial-gradient(circle at 80% 82%,rgba(123,97,168,.12),transparent 18rem),
+    linear-gradient(135deg,#263442 0%,#2f5f7b 52%,#1f2f39 100%);
+  box-shadow:var(--shadow);
+}
+
+.prompt-card{
+  width:min(840px,100%);
+  padding:1.25rem 1.35rem;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  background:rgba(38,52,66,.82);
+  backdrop-filter:blur(6px);
+}
+
+.prompt-label{
+  display:inline-flex;
+  margin-bottom:.65rem;
+  color:#c6efff;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:.78rem;
+  font-weight:850;
+}
+
+.prompt-card p{
+  margin:0;
+  color:rgba(255,255,255,.92);
+  font-weight:650;
+}
+
+.lesson-figure figcaption{
+  margin-top:.65rem;
+  color:var(--muted);
+  font-size:.92rem;
+  font-style:italic;
+}
+
+.logic-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:1rem;
+  background:#fff;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 5px 18px rgba(38,52,66,.06);
+}
+
+.logic-table th,
+.logic-table td{
+  padding:.8rem .9rem;
+  border:1px solid var(--border);
+  text-align:left;
+  vertical-align:top;
+}
+
+.logic-table th{
+  color:#fff;
+  background:var(--steel2);
+}
+
+.logic-table td{color:var(--muted)}
+
+.formula{
+  margin-top:1rem;
+  padding:1.1rem 1.2rem;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:#fff;
+  font-family:Consolas,"Courier New",monospace;
+  color:var(--steel);
+  overflow-x:auto;
+}
+
+.flow-strip{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:.75rem;
+  margin-top:1rem;
+}
+
+.flow-step{
+  padding:1rem;
+  border:1px solid var(--border);
+  border-radius:var(--rsm);
+  background:#fff;
+  text-align:center;
+  font-weight:750;
+  color:#2d6d8f;
+}
+
+.lesson-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  margin-top:3.5rem;
+  padding-top:1.5rem;
+  border-top:1px solid var(--border);
+}
+
+.lesson-nav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.72rem 1rem;
+  border-radius:999px;
+  background:#347ea4;
+  color:#fff;
+  text-decoration:none;
+  font-weight:750;
+}
+
+footer{
+  padding:1.6rem 1rem 2.5rem;
+  color:var(--muted);
+  text-align:center;
+  font-size:.88rem;
+}
+
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow-strip{grid-template-columns:1fr}
+}
+
+@media(max-width:720px){
+  html{scroll-padding-top:195px}
+  .header-top{flex-direction:column;align-items:flex-start}
+  .course-link{width:100%;justify-content:center}
+  .grid-2,.grid-3,.grid-4,.inset-wrap{grid-template-columns:1fr}
+  .lesson-nav{flex-direction:column}
+  .image-prompt{min-height:340px}
+  .logic-table{font-size:.9rem}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <span class="brand-mark">PID</span>
+      <span class="brand-text">Electromagnetism · Lesson 09</span>
+    </div>
+    <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">← Back to Electromagnetism</a>
+  </div>
+
+  <nav class="page-nav">
+    <a href="#overview">Overview</a>
+    <a href="#analog">Analog</a>
+    <a href="#system">System</a>
+    <a href="#sensors">Sensors</a>
+    <a href="#loop">4–20 mA</a>
+    <a href="#conversion">Conversion</a>
+    <a href="#scaling">Scaling</a>
+    <a href="#controlterms">PV & Setpoint</a>
+    <a href="#closedloop">Closed Loop</a>
+    <a href="#onoff">On-Off</a>
+    <a href="#pid">PID</a>
+    <a href="#vfd">VFD</a>
+    <a href="#speed">Motor Speed</a>
+    <a href="#trends">Trends</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+    <a href="#summary">Summary</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="overview">
+  <div>
+    <p class="eyebrow">Lesson 9 · Continuous Process Control</p>
+    <h1>Analog Signals, PID Control, and Variable-Speed Drives at the Polar Research Complex</h1>
+    <p class="hero-copy">
+      A blizzard has buried the remote research complex beneath snow. Inside, the greenhouse is cooling, one laboratory is overheating,
+      and a circulation pump repeatedly accelerates and slows down. Monkey and Robot must follow the complete control loop—from sensor
+      signal to PLC calculation, VFD command, pump speed, heat flow, and measured result—to discover why the system cannot settle.
+    </p>
+  </div>
+
+  <aside class="hero-card">
+    <strong>Central question:</strong> How can a control system regulate a continuously changing process instead of merely switching equipment on and off?
+    <br><br>
+    <strong>Key idea:</strong> Analog control measures how much, compares the measurement with a desired value, and continuously adjusts the system to reduce the difference.
+  </aside>
+</section>
+
+<section>
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson9_image01.png"
+         alt="Monkey and Robot approach a snow-covered polar research complex."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide landscape educational illustration, whimsical painterly 3D science-adventure style. Monkey and a compact brass-and-blue Robot approach
+          a vast polar research laboratory complex during a blizzard. Every roof, walkway, vehicle, railing, exterior pipe, and service road is completely
+          covered in snow. Huge windows reveal glowing laboratories, a greenhouse, circulation pumps, heat exchangers, PLC control rooms, and overhead piping
+          inside. Blue-white storm light outside contrasts with warm amber interior light. Dramatic, clean, cinematic, no border, no watermark, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The research complex depends on continuous measurement and control to survive the storm.</figcaption>
+  </figure>
+</section>
+
+<section id="analog">
+  <div class="section-heading">
+    <h2>1. From discrete states to continuous measurements</h2>
+    <p>Some conditions cannot be described adequately as only true or false.</p>
+  </div>
+
+  <table class="logic-table">
+    <thead>
+      <tr>
+        <th>Discrete question</th>
+        <th>Analog question</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Is the tank high?</td><td>What is the exact tank level?</td></tr>
+      <tr><td>Is the room hot?</td><td>What is the room temperature?</td></tr>
+      <tr><td>Is the pump running?</td><td>How fast is the pump running?</td></tr>
+      <tr><td>Is there flow?</td><td>What is the flow rate?</td></tr>
+    </tbody>
+  </table>
+
+  <div class="inset-wrap">
+    <div class="inset logic-note">
+      <h4>Discrete control</h4>
+      <p>Asks whether a condition is present.</p>
+    </div>
+
+    <div class="inset ice-note">
+      <h4>Analog control</h4>
+      <p>Measures the amount, magnitude, or rate of a changing condition.</p>
+    </div>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Why is a thermostat switch less informative than a temperature transmitter?</p>
+      <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+      <div class="answer" id="a1">
+        <p>The switch reports only whether a threshold has been crossed. A transmitter reports the measured temperature across a range.</p>
+      </div>
+    </article>
+
+    <article class="card monkey-robot">
+      <h3>Monkey & Robot</h3>
+      <p>Monkey says, “The switch tells us whether the room is hot.” Robot replies, “The transmitter tells us exactly how hot—and whether the temperature is changing.”</p>
+    </article>
+  </div>
+</section>
+
+<section id="system">
+  <div class="section-heading">
+    <h2>2. The controlled system at the polar laboratory</h2>
+    <p>The heating system combines process equipment, instruments, logic, and feedback.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card"><h3>Heat source</h3><p>A heated-water storage tank supplies thermal energy.</p></article>
+    <article class="card"><h3>Circulation</h3><p>A VFD-controlled pump moves heated fluid through the complex.</p></article>
+    <article class="card"><h3>Heat transfer</h3><p>Heat exchangers and control valves transfer energy into rooms and greenhouse zones.</p></article>
+    <article class="card"><h3>Feedback</h3><p>Temperature, pressure, and flow transmitters report the actual result.</p></article>
+  </div>
+
+  <div class="flow-strip">
+    <div class="flow-step">Measure</div>
+    <div class="flow-step">Compare</div>
+    <div class="flow-step">Calculate</div>
+    <div class="flow-step">Adjust</div>
+    <div class="flow-step">Measure again</div>
+  </div>
+</section>
+
+<section id="sensors">
+  <div class="section-heading">
+    <h2>3. Sensors and transmitters</h2>
+    <p>The sensing element interacts with the process; the transmitter creates a usable signal.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <h3>Sensor element</h3>
+      <p>Responds physically to the measured condition.</p>
+      <ul>
+        <li>Resistance temperature detector</li>
+        <li>Thermocouple</li>
+        <li>Pressure diaphragm</li>
+        <li>Ultrasonic level element</li>
+        <li>Flow-sensing element</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Transmitter</h3>
+      <p>Converts the sensor response into a standardized signal.</p>
+      <ul>
+        <li>4–20 mA</li>
+        <li>0–10 V</li>
+        <li>Industrial digital data</li>
+      </ul>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson9_image02.png"
+         alt="Analog measurement chain from greenhouse sensor to operator display."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational cutaway illustration inside the snow-covered polar research complex. Show a greenhouse temperature sensor, transmitter,
+          4–20 mA loop wiring, PLC analog input card, raw digital count, scaled engineering value, and operator display reading temperature. Robot traces
+          the measurement chain from physical temperature to displayed value while Monkey observes behind a huge frost-covered window. Clear arrows,
+          clean labels, painterly 3D industrial science-adventure style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>A displayed temperature is the result of several linked transformations.</figcaption>
+  </figure>
+</section>
+
+<section id="loop">
+  <div class="section-heading">
+    <h2>4. The 4–20 mA current loop</h2>
+    <p>A changing current represents a changing measurement.</p>
+  </div>
+
+  <table class="logic-table">
+    <thead>
+      <tr>
+        <th>Loop current</th>
+        <th>Example temperature</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>4 mA</td><td>0°F</td></tr>
+      <tr><td>8 mA</td><td>25°F</td></tr>
+      <tr><td>12 mA</td><td>50°F</td></tr>
+      <tr><td>16 mA</td><td>75°F</td></tr>
+      <tr><td>20 mA</td><td>100°F</td></tr>
+    </tbody>
+  </table>
+
+  <div class="inset-wrap">
+    <div class="inset real-world">
+      <h4>Live zero</h4>
+      <p>The 4 mA minimum represents a valid low-end measurement while still proving that the loop is energized.</p>
+    </div>
+
+    <div class="inset safety-note">
+      <h4>Broken-loop evidence</h4>
+      <p>A reading near 0 mA may indicate lost power, an open wire, or a failed transmitter rather than a valid process value.</p>
+    </div>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson9_image03.png"
+         alt="A 4 to 20 milliamp current loop diagram."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational electrical diagram in the polar research laboratory. Show a 24-volt power supply, two-wire temperature transmitter,
+          PLC analog input, current meter, loop wiring polarity, and a complete series current path. Include a comparison between a healthy 4–20 mA
+          signal and a broken-wire 0 mA condition. Robot points to the live-zero concept while Monkey holds a meter. Frosted windows and snow outside,
+          clean symbols and labels, painterly 3D teaching style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The same current flows through every series element in the loop.</figcaption>
+  </figure>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Why is 4 mA more useful than 0 mA as the minimum valid measurement?</p>
+      <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+      <div class="answer" id="a2">
+        <p>Because zero current can be reserved as evidence of a failed or open loop instead of being confused with a valid minimum process value.</p>
+      </div>
+    </article>
+
+    <article class="card historical-note">
+      <h3>Electrical path</h3>
+      <p>The loop must remain complete, correctly polarized, and within the available supply voltage and resistance limits.</p>
+    </article>
+  </div>
+</section>
+
+<section id="conversion">
+  <div class="section-heading">
+    <h2>5. Analog input conversion</h2>
+    <p>The controller does not initially receive “72°F.”</p>
+  </div>
+
+  <div class="flow-strip">
+    <div class="flow-step">Physical temperature</div>
+    <div class="flow-step">Sensor response</div>
+    <div class="flow-step">Transmitter current</div>
+    <div class="flow-step">Raw digital count</div>
+    <div class="flow-step">Scaled temperature</div>
+  </div>
+
+  <div class="formula">
+Temperature: 72°F
+Transmitter output: 15.52 mA
+Analog module value: raw count
+PLC scaling result: 72.0°F
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset logic-note">
+      <h4>Derived value</h4>
+      <p>The displayed engineering value depends on the transmitter range, wiring, analog module, and scaling configuration.</p>
+    </div>
+
+    <div class="inset real-world">
+      <h4>Diagnostic consequence</h4>
+      <p>A believable number can still be wrong if one stage of the conversion chain is configured incorrectly.</p>
+    </div>
+  </div>
+</section>
+
+<section id="scaling">
+  <div class="section-heading">
+    <h2>6. Scaling raw data into engineering units</h2>
+    <p>Scaling converts an electrical or digital range into a useful physical range.</p>
+  </div>
+
+  <div class="formula">
+Scaled value =
+(Input − Input minimum)
+÷ (Input maximum − Input minimum)
+× (Engineering maximum − Engineering minimum)
++ Engineering minimum
+  </div>
+
+  <div class="grid-3" style="margin-top:1.2rem">
+    <article class="card"><h3>Temperature</h3><p>Convert raw input into degrees Fahrenheit or Celsius.</p></article>
+    <article class="card"><h3>Pressure</h3><p>Convert raw input into pounds per square inch or another pressure unit.</p></article>
+    <article class="card"><h3>Flow and level</h3><p>Convert raw input into gallons per minute or percent level.</p></article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What happens if a 0–100°F transmitter is scaled in the PLC as though it were 0–200°F?</p>
+      <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+      <div class="answer" id="a3">
+        <p>The controller will calculate and display an incorrect temperature even though the transmitter and wiring may be functioning correctly.</p>
+      </div>
+    </article>
+
+    <article class="card safety-note">
+      <h3>Configuration is part of the signal path</h3>
+      <p>Correct hardware can still produce incorrect information when software scaling does not match the instrument range.</p>
+    </article>
+  </div>
+</section>
+
+<section id="controlterms">
+  <div class="section-heading">
+    <h2>7. Process variable, setpoint, error, and output</h2>
+    <p>Closed-loop control begins by comparing what is happening with what is desired.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card"><h3>Process variable</h3><p>The measured condition, such as greenhouse temperature.</p></article>
+    <article class="card"><h3>Setpoint</h3><p>The desired value, such as 68°F.</p></article>
+    <article class="card"><h3>Error</h3><p>The difference between setpoint and process variable.</p></article>
+    <article class="card"><h3>Control output</h3><p>The command sent to the valve, heater, fan, or pump drive.</p></article>
+  </div>
+
+  <div class="formula">
+Setpoint = 68°F
+Process variable = 58°F
+Error = 68°F − 58°F = 10°F
+  </div>
+</section>
+
+<section id="closedloop">
+  <div class="section-heading">
+    <h2>8. Open-loop and closed-loop control</h2>
+    <p>Feedback determines whether the command produced the intended result.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <h3>Open-loop control</h3>
+      <p>The controller issues a command without measuring the process result.</p>
+      <ul>
+        <li>Run the heater for ten minutes.</li>
+        <li>Open the valve to 50%.</li>
+        <li>Run the pump at fixed speed.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Closed-loop control</h3>
+      <p>The controller measures the result and continually adjusts its command.</p>
+      <ul>
+        <li>Maintain 68°F.</li>
+        <li>Hold pressure at 45 psi.</li>
+        <li>Maintain flow at 120 gallons per minute.</li>
+      </ul>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset logic-note">
+      <h4>Intention</h4>
+      <p>The command expresses what the controller wants the equipment to do.</p>
+    </div>
+
+    <div class="inset real-world">
+      <h4>Evidence</h4>
+      <p>Feedback shows what the process actually did.</p>
+    </div>
+  </div>
+</section>
+
+<section id="onoff">
+  <div class="section-heading">
+    <h2>9. Why simple on-off control can oscillate</h2>
+    <p>A process continues responding after the command changes.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card"><h3>Overshoot</h3><p>The process rises above the desired value.</p></article>
+    <article class="card"><h3>Undershoot</h3><p>The process falls below the desired value.</p></article>
+    <article class="card"><h3>Process lag</h3><p>The measured result responds after a delay.</p></article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card">
+      <h3>On-off cycle</h3>
+      <ol>
+        <li>Temperature falls below the lower threshold.</li>
+        <li>Heat turns fully on.</li>
+        <li>Stored heat continues raising temperature.</li>
+        <li>Heat turns off at the upper threshold.</li>
+        <li>Temperature overshoots.</li>
+        <li>The cycle repeats.</li>
+      </ol>
+    </article>
+
+    <article class="card monkey-robot">
+      <h3>Monkey & Robot</h3>
+      <p>Monkey says, “The system keeps correcting too late.” Robot replies, “That is why continuous control must consider both error and process behavior.”</p>
+    </article>
+  </div>
+</section>
+
+<section id="pid">
+  <div class="section-heading">
+    <h2>10. Proportional, integral, and derivative control</h2>
+    <p>PID combines present error, accumulated error, and rate of change.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Proportional</h3>
+      <p>Responds to the size of the present error.</p>
+      <ul>
+        <li>Large error: strong correction</li>
+        <li>Small error: gentle correction</li>
+        <li>Possible remaining offset</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Integral</h3>
+      <p>Responds to error that continues over time.</p>
+      <ul>
+        <li>Removes persistent offset</li>
+        <li>Builds correction gradually</li>
+        <li>Can cause windup and overshoot</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Derivative</h3>
+      <p>Responds to how quickly the process is changing.</p>
+      <ul>
+        <li>Anticipates movement</li>
+        <li>Adds damping</li>
+        <li>Can react strongly to noise</li>
+      </ul>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson9_image04.png"
+         alt="Circular PID control loop for the polar greenhouse."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational illustration inside the polar research complex showing a circular PID control loop. Include setpoint, error calculation,
+          proportional-integral-derivative controller, variable-frequency drive, circulation pump, heat exchanger, greenhouse temperature, and feedback
+          transmitter. Robot follows the signal around the loop while Monkey watches the greenhouse behind enormous snow-covered windows. Use clear arrows,
+          readable labels, glowing feedback path, painterly 3D engineering-adventure style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>PID control repeatedly measures, compares, corrects, and measures again.</figcaption>
+  </figure>
+
+  <div class="inset-wrap">
+    <div class="inset real-world">
+      <h4>Memory phrase</h4>
+      <p>Proportional, integral, and derivative represent present, past, and direction.</p>
+    </div>
+
+    <div class="inset safety-note">
+      <h4>Tuning warning</h4>
+      <p>A controller should not be tuned to compensate for a faulty or noisy measurement.</p>
+    </div>
+  </div>
+</section>
+
+<section id="vfd">
+  <div class="section-heading">
+    <h2>11. Variable-frequency drives</h2>
+    <p>A VFD adjusts AC motor speed by controlling output frequency and voltage.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card"><h3>Rectifier</h3><p>Converts incoming AC into DC.</p></article>
+    <article class="card"><h3>DC bus</h3><p>Stores and smooths electrical energy.</p></article>
+    <article class="card"><h3>Inverter</h3><p>Creates controlled variable-frequency AC.</p></article>
+    <article class="card"><h3>Motor output</h3><p>Drives the circulation-pump motor at commanded speed.</p></article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson9_image05.png"
+         alt="Cutaway variable-frequency drive and induction motor."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational cutaway illustration of a variable-frequency drive and induction motor inside the polar research complex. Show rectifier,
+          DC bus capacitors, inverter section, changing output frequency, three-phase motor windings, rotating magnetic field, rotor, and variable-speed
+          circulation pump. Robot points from the VFD power stages to motor rotation while Monkey compares 15 Hz, 30 Hz, 45 Hz, and 60 Hz speed examples.
+          Frosted windows, deep snow outside, clean labels, painterly 3D industrial teaching style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The VFD turns a control command into adjustable motor speed.</figcaption>
+  </figure>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card">
+      <h3>PLC commands</h3>
+      <ul>
+        <li>Run and stop</li>
+        <li>Speed reference</li>
+        <li>Direction</li>
+        <li>Reset</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>VFD feedback</h3>
+      <ul>
+        <li>Ready</li>
+        <li>Running</li>
+        <li>Actual frequency</li>
+        <li>Motor current</li>
+        <li>Fault status</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section id="speed">
+  <div class="section-heading">
+    <h2>12. Frequency and motor speed</h2>
+    <p>The rotating magnetic field changes speed when electrical frequency changes.</p>
+  </div>
+
+  <div class="formula">
+Synchronous speed = (120 × frequency) ÷ number of poles
+Ns = 120f ÷ P
+  </div>
+
+  <table class="logic-table">
+    <thead>
+      <tr>
+        <th>Frequency</th>
+        <th>Approximate synchronous speed for a four-pole motor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>60 Hz</td><td>1800 rpm</td></tr>
+      <tr><td>45 Hz</td><td>1350 rpm</td></tr>
+      <tr><td>30 Hz</td><td>900 rpm</td></tr>
+      <tr><td>15 Hz</td><td>450 rpm</td></tr>
+    </tbody>
+  </table>
+
+  <div class="inset-wrap">
+    <div class="inset historical-note">
+      <h4>Course connection</h4>
+      <p>This applies the rotating magnetic field and induction-motor principles introduced earlier in the course.</p>
+    </div>
+
+    <div class="inset logic-note">
+      <h4>Slip</h4>
+      <p>An induction-motor rotor normally turns slightly slower than the synchronous rotating field.</p>
+    </div>
+  </div>
+</section>
+
+<section id="trends">
+  <div class="section-heading">
+    <h2>13. Trends reveal behavior over time</h2>
+    <p>A single value is one observation; a trend is a process narrative.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card"><h3>Temperature trend</h3><p>Shows overshoot, undershoot, drift, and disturbances.</p></article>
+    <article class="card"><h3>PID output trend</h3><p>Shows how aggressively the controller is correcting.</p></article>
+    <article class="card"><h3>Pump-speed trend</h3><p>Shows whether the VFD follows the command smoothly.</p></article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson9_image06.png"
+         alt="Monkey and Robot study PID trend graphs."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational control-room illustration in the snow-buried polar research complex. Monkey and Robot study a large trend screen showing
+          setpoint, process variable, PID output, pump speed, outdoor temperature, overshoot, oscillation, and stable control. Include before-and-after
+          trend sections with noisy unstable control on one side and smooth stable response on the other. Huge windows are completely rimmed with snow,
+          painterly 3D engineering-adventure style, clear labels, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>Time-based data reveals patterns that a single snapshot cannot show.</figcaption>
+  </figure>
+</section>
+
+<section id="troubleshooting">
+  <div class="section-heading">
+    <h2>14. Troubleshooting the unstable greenhouse loop</h2>
+    <p>The greenhouse is cooling while the circulation pump repeatedly accelerates and decelerates.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <h3>Trace the measurement path</h3>
+      <ol>
+        <li>Observe actual greenhouse temperature.</li>
+        <li>Check the sensor and transmitter.</li>
+        <li>Measure loop current.</li>
+        <li>Check analog input value.</li>
+        <li>Verify scaling.</li>
+        <li>Inspect signal stability.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <h3>Trace the control path</h3>
+      <ol>
+        <li>Check setpoint and error.</li>
+        <li>Observe PID output.</li>
+        <li>Check analog speed reference.</li>
+        <li>Verify VFD response.</li>
+        <li>Confirm motor speed and flow.</li>
+        <li>Observe temperature response.</li>
+      </ol>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson9_image07.png"
+         alt="Robot discovers a loose analog shield connection causing unstable PID control."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Dramatic educational troubleshooting illustration inside the snow-covered polar research complex. The circulation pump and VFD are repeatedly
+          speeding up and slowing down while the greenhouse temperature trend jumps erratically. Robot discovers a loose analog cable shield or grounding
+          connection at the PLC analog input terminal. Monkey follows a glowing diagnostic path from greenhouse sensor to transmitter, 4–20 mA loop,
+          analog input, PID controller, VFD, motor, pump flow, heat exchanger, and greenhouse temperature. Show that the VFD is correctly following a bad
+          command caused by noisy measurement evidence. Clear arrows and labels, painterly 3D industrial science-adventure style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The controller is reacting correctly to evidence that is electrically corrupted.</figcaption>
+  </figure>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card">
+      <h3>Observed evidence</h3>
+      <ul>
+        <li>Greenhouse temperature: 58°F</li>
+        <li>Setpoint: 68°F</li>
+        <li>Transmitter output: stable</li>
+        <li>PLC analog value: rapidly jumping</li>
+        <li>PID output: rising and falling</li>
+        <li>VFD: following the unstable command</li>
+        <li>Pump and motor: mechanically healthy</li>
+      </ul>
+    </article>
+
+    <article class="card safety-note">
+      <h3>Final fault</h3>
+      <p>A loose signal shield or grounding connection introduces electrical noise into the analog measurement. The PID loop reacts to temperature changes that are not physically occurring.</p>
+    </article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Should the PID loop be retuned immediately?</p>
+      <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+      <div class="answer" id="a4">
+        <p>No. The measurement fault should be corrected first. Tuning a controller around bad evidence hides the real problem and can create new instability.</p>
+      </div>
+    </article>
+
+    <article class="card monkey-robot">
+      <h3>Monkey & Robot</h3>
+      <p>Monkey says, “The drive keeps changing speed.” Robot replies, “Because the controller believes the temperature keeps changing. First repair the evidence.”</p>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset real-world">
+      <h4>Resolution</h4>
+      <p>Repair shielding and grounding, verify wiring, confirm stable analog values, review filtering, observe the trend, and only then consider PID tuning.</p>
+    </div>
+
+    <div class="inset logic-note">
+      <h4>Core diagnostic habit</h4>
+      <p>Trace measurement, interpretation, decision, command, equipment response, and process result as separate stages.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-heading">
+    <h2>15. Secondary fault: incorrect scaling</h2>
+    <p>A comfortable laboratory appears on the operator screen as dangerously hot.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <h3>Evidence</h3>
+      <ul>
+        <li>Independent thermometer: 70°F</li>
+        <li>Transmitter current: correct</li>
+        <li>Analog input current: correct</li>
+        <li>Raw PLC value: correct</li>
+        <li>Displayed value: 112°F</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Fault</h3>
+      <p>The PLC scaling range does not match the configured transmitter range.</p>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset historical-note">
+      <h4>Four different layers</h4>
+      <p>Physical measurement, electrical signal, raw controller data, and displayed engineering value are related but not identical.</p>
+    </div>
+
+    <div class="inset safety-note">
+      <h4>Do not trust one layer alone</h4>
+      <p>Compare evidence from multiple points before deciding which component has failed.</p>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="section-heading">
+    <h2>16. Interactive review</h2>
+    <p>Use each answer to check the control chain.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What is the process variable in the greenhouse loop?</p>
+      <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+      <div class="answer" id="a5"><p>The measured greenhouse temperature.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What does integral action respond to?</p>
+      <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+      <div class="answer" id="a6"><p>Error that persists and accumulates over time.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What does derivative action respond to?</p>
+      <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+      <div class="answer" id="a7"><p>The rate and direction of process change.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What does a glowing VFD run indicator prove?</p>
+      <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+      <div class="answer" id="a8"><p>It proves the drive is in a run state, but additional feedback is needed to prove motor speed, flow, and process response.</p></div>
+    </article>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="section-heading">
+    <h2>17. Lesson summary</h2>
+    <p>The central ideas behind analog measurement and continuous process control.</p>
+  </div>
+
+  <div class="summary-box">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li>Analog signals represent continuously changing measurements.</li>
+      <li>Sensors detect physical conditions; transmitters create standardized signals.</li>
+      <li>A 4–20 mA loop uses a live zero that helps reveal circuit failure.</li>
+      <li>PLC analog modules convert electrical signals into digital values.</li>
+      <li>Scaling turns raw values into engineering units.</li>
+      <li>The process variable is the measured condition.</li>
+      <li>The setpoint is the desired condition.</li>
+      <li>Error is the difference between process variable and setpoint.</li>
+      <li>Closed-loop control uses feedback to evaluate the result of a command.</li>
+      <li>Proportional action responds to present error.</li>
+      <li>Integral action responds to accumulated error.</li>
+      <li>Derivative action responds to the rate of change.</li>
+      <li>A PID controller continuously adjusts a process.</li>
+      <li>A VFD varies AC motor speed by controlling frequency and voltage.</li>
+      <li>The PID determines the required correction; the VFD carries out the speed command.</li>
+      <li>Trends reveal process behavior over time.</li>
+      <li>An unstable output may be caused by unstable evidence rather than faulty machinery.</li>
+      <li>Sensor wiring, shielding, scaling, and feedback must be verified before tuning a control loop.</li>
+      <li>A command, displayed value, and physical result are different forms of evidence.</li>
+    </ul>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Final Check</h3>
+      <p>What is the main advantage of a closed-loop controller?</p>
+      <button class="toggle-btn" data-target="a9">Reveal Answer</button>
+      <div class="answer" id="a9">
+        <p>It measures the actual process result and adjusts the command according to the difference between desired and measured conditions.</p>
+      </div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Final Check</h3>
+      <p>What is the main troubleshooting lesson?</p>
+      <button class="toggle-btn" data-target="a10">Reveal Answer</button>
+      <div class="answer" id="a10">
+        <p>Verify the measurement evidence before blaming or tuning the controller, drive, motor, or process equipment.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<nav class="lesson-nav">
+  <a href="electromagnetism-lesson08-from-relay-logic-to-plc-control-at-the-automated-water-plant.html">← Lesson 08</a>
+  <a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">Course Home</a>
+  <a href="#overview">Back to Top ↑</a>
+</nav>
+
+</main>
+
+<footer>
+  Klin's Learning Library · Electromagnetism · Lesson 09 · Analog Signals, PID Control, and Variable-Speed Drives at the Polar Research Complex
+</footer>
+
+<script>
+document.querySelectorAll('.toggle-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const answer = document.getElementById(button.dataset.target);
+    if (!answer) return;
+
+    const open = answer.classList.contains('show');
+    answer.classList.toggle('show');
+    button.textContent = open ? 'Reveal Answer' : 'Hide Answer';
+  });
+});
+
+document.querySelectorAll('.lesson-image').forEach(img => {
+  if (img.complete && img.naturalWidth > 0) {
+    img.closest('.image-slot')?.classList.add('image-loaded');
+  }
+});
+</script>
+
+</body>
+</html>
