@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Work Update 07/13/2026</title>
+
+  <style>
+    :root {
+      --green-950: #15352f;
+      --green-900: #1d443c;
+      --green-700: #356f61;
+      --green-100: #e8f2ef;
+      --gold: #d8b66b;
+      --blue-100: #edf4fb;
+      --blue-700: #2d5f87;
+      --purple-100: #f3e8fd;
+      --purple-700: #6a1b9a;
+      --gray-950: #1f2725;
+      --gray-800: #36413e;
+      --gray-600: #68736f;
+      --gray-300: #d7dfdc;
+      --gray-100: #f5f7f6;
+      --white: #ffffff;
+      --shadow: 0 8px 24px rgba(21, 53, 47, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--gray-950);
+      background: var(--gray-100);
+      line-height: 1.65;
+    }
+
+    .hero {
+      background:
+        linear-gradient(rgba(21, 53, 47, 0.92), rgba(53, 111, 97, 0.92)),
+        linear-gradient(135deg, var(--green-950), var(--green-700));
+      color: var(--white);
+      padding: 48px 24px 40px;
+      border-bottom: 5px solid var(--gold);
+    }
+
+    .hero-inner {
+      width: min(1120px, 100%);
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.13em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #d9ebe6;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.25rem, 6vw, 4rem);
+      line-height: 1.04;
+      max-width: 900px;
+    }
+
+    .hero p {
+      max-width: 880px;
+      margin: 18px 0 0;
+      color: #eef7f4;
+      font-size: 1.08rem;
+    }
+
+    .page {
+      width: min(1120px, calc(100% - 32px));
+      margin: 28px auto 60px;
+      display: grid;
+      grid-template-columns: 250px minmax(0, 1fr);
+      gap: 28px;
+      align-items: start;
+    }
+
+    nav {
+      position: sticky;
+      top: 18px;
+      background: var(--white);
+      border: 1px solid var(--gray-300);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    nav h2 {
+      margin: 0 0 12px;
+      font-size: 1rem;
+      color: var(--green-950);
+    }
+
+    nav a {
+      display: block;
+      padding: 7px 9px;
+      margin: 2px 0;
+      border-radius: 8px;
+      color: var(--gray-800);
+      text-decoration: none;
+      font-size: 0.93rem;
+    }
+
+    nav a:hover {
+      background: var(--green-100);
+      color: var(--green-950);
+    }
+
+    main {
+      min-width: 0;
+    }
+
+    section {
+      background: var(--white);
+      border: 1px solid var(--gray-300);
+      border-radius: 18px;
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin-top: 0;
+      color: var(--green-950);
+      line-height: 1.2;
+    }
+
+    h3 {
+      color: var(--green-900);
+      margin-top: 24px;
+      margin-bottom: 8px;
+    }
+
+    p {
+      margin: 10px 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 22px;
+    }
+
+    li {
+      margin: 7px 0;
+    }
+
+    .lead {
+      font-size: 1.08rem;
+    }
+
+    .flow {
+      background: var(--green-100);
+      border-left: 5px solid var(--green-700);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 18px 0;
+      color: var(--green-950);
+      font-family: "Courier New", Courier, monospace;
+      font-weight: 700;
+      white-space: pre-line;
+    }
+
+    .milestone {
+      background: var(--blue-100);
+      border-left: 5px solid var(--blue-700);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+
+    .decision {
+      background: var(--purple-100);
+      border-left: 5px solid var(--purple-700);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin: 18px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .card {
+      border: 1px solid var(--gray-300);
+      border-radius: 14px;
+      padding: 18px;
+      background: #fbfcfb;
+    }
+
+    .card h3 {
+      margin-top: 0;
+    }
+
+    .tag {
+      display: inline-block;
+      padding: 4px 8px;
+      margin: 0 6px 6px 0;
+      border-radius: 999px;
+      background: var(--green-100);
+      color: var(--green-950);
+      font-size: 0.82rem;
+      font-weight: 700;
+    }
+
+    code {
+      background: #eef1f0;
+      border: 1px solid #d7ddda;
+      border-radius: 5px;
+      padding: 2px 6px;
+      font-size: 0.92em;
+    }
+
+    pre {
+      overflow-x: auto;
+      background: #17231f;
+      color: #eef8f5;
+      border-radius: 12px;
+      padding: 18px;
+      line-height: 1.5;
+      font-size: 0.92rem;
+    }
+
+    .checklist {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .checklist li {
+      position: relative;
+      padding-left: 28px;
+    }
+
+    .checklist li::before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      color: var(--green-700);
+      font-weight: 800;
+    }
+
+    footer {
+      text-align: center;
+      color: var(--gray-600);
+      padding: 0 20px 42px;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        grid-template-columns: 1fr;
+      }
+
+      nav {
+        position: static;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      nav {
+        display: none;
+      }
+
+      .page {
+        width: 100%;
+        display: block;
+        margin: 0;
+      }
+
+      section {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .hero {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Meadows Housekeeping Documentation</p>
+      <h1>Work Update 07/13/2026</h1>
+      <p>
+        A major development day for the Meadows Housekeeping communication system:
+        the form, intake viewer, persistent acknowledgment, queue routing, work controls,
+        recommendations tracking, completed-work history, and email safeguards were brought
+        together into a functioning operational workflow.
+      </p>
+    </div>
+  </header>
+
+  <div class="page">
+    <nav aria-label="Document navigation">
+      <h2>Contents</h2>
+      <a href="#overview">Overview</a>
+      <a href="#form">Form and data cleanup</a>
+      <a href="#queues">Queue structure</a>
+      <a href="#intake">Intake viewer</a>
+      <a href="#ack">Acknowledgment</a>
+      <a href="#work">Work Queue</a>
+      <a href="#recommendations">Recommendations</a>
+      <a href="#completed">Completed Work</a>
+      <a href="#email">Email safeguards</a>
+      <a href="#sites">Google Sites integration</a>
+      <a href="#architecture">Architecture decision</a>
+      <a href="#next">Next steps</a>
+    </nav>
+
+    <main>
+      <section id="overview">
+        <h2>Overview</h2>
+
+        <p class="lead">
+          The project moved from a readable intake log to a working multi-stage communication
+          and task-management system.
+        </p>
+
+        <div class="flow">Supervisor submits the Housekeeping Form
+→ source record and normalized JSON are created
+→ notification email is sent
+→ intake card appears
+→ submission is acknowledged once
+→ item is sorted into Work Queue or Recommendations Queue
+→ status and notes are updated
+→ completed work leaves the active queue
+→ completed history remains available
+→ completion email is sent once</div>
+
+        <div class="milestone">
+          The system now preserves both the original submission and the evolving working record.
+          Source data remains unchanged while queue status, timestamps, notes, and email state
+          accumulate separately.
+        </div>
+      </section>
+
+      <section id="form">
+        <h2>Google Form and source-data preparation</h2>
+
+        <ul class="checklist">
+          <li>Historical test entries were cleared from the working sheets.</li>
+          <li>A fresh test issue was submitted through the simplified Housekeeping Form.</li>
+          <li>The form-submit trigger produced the expected notification email.</li>
+          <li>Normalized JSON was stored successfully.</li>
+          <li>The form’s first question was simplified to identify the action type immediately.</li>
+          <li>The updated question wording <strong>What needs done?</strong> was added to the normalization patterns.</li>
+          <li>New submissions now map the selected task into the normalized issue field correctly.</li>
+        </ul>
+
+        <div class="decision">
+          Existing submissions retain the normalized JSON created at their original submission
+          time. New normalization rules apply to new records unless a separate migration is run.
+        </div>
+      </section>
+
+      <section id="queues">
+        <h2>Queue sheet structure</h2>
+
+        <p>Two persistent working-record sheets were prepared:</p>
+
+        <div class="grid">
+          <div class="card">
+            <h3>Work_Queue</h3>
+            <span class="tag">Source ID</span>
+            <span class="tag">Status</span>
+            <span class="tag">Sorted At</span>
+            <span class="tag">Started At</span>
+            <span class="tag">Completed At</span>
+            <span class="tag">Updated At</span>
+            <span class="tag">Notes JSON</span>
+            <span class="tag">Completion Email Sent</span>
+          </div>
+
+          <div class="card">
+            <h3>Recommendations_Queue</h3>
+            <span class="tag">Source ID</span>
+            <span class="tag">Status</span>
+            <span class="tag">Sorted At</span>
+            <span class="tag">Updated At</span>
+            <span class="tag">Notes JSON</span>
+          </div>
+        </div>
+
+        <p>
+          Sheet names were centralized in the project’s <code>CONFIG</code> object. A test
+          function verified that Apps Script could find each queue by its exact name.
+        </p>
+      </section>
+
+      <section id="intake">
+        <h2>Intake viewer and sorting controls</h2>
+
+        <ul class="checklist">
+          <li>Each intake card received a <strong>Send to Work Queue</strong> button.</li>
+          <li>Each intake card received a <strong>Send to Recommendations Queue</strong> button.</li>
+          <li>The buttons pass the correct submission ID.</li>
+          <li>Queue-writing functions create one persistent row in the selected queue.</li>
+          <li>Duplicate sorting is blocked.</li>
+          <li>The same Source ID cannot be placed in both queues accidentally.</li>
+          <li><code>LockService</code> protects against competing browser tabs.</li>
+          <li>Sorted cards display a persistent queue label after refresh.</li>
+          <li>Sorting buttons disappear once the item has been handled.</li>
+        </ul>
+
+        <div class="flow">Unsorted card
+→ sorting buttons visible
+→ user selects destination
+→ working record created
+→ viewer reloads
+→ “Sorted to Work Queue” or “Sorted to Recommendations Queue” remains visible</div>
+      </section>
+
+      <section id="ack">
+        <h2>Persistent acknowledgment</h2>
+
+        <p>
+          Acknowledgment was changed from a temporary browser-state effect into a persistent,
+          one-time system event.
+        </p>
+
+        <ul class="checklist">
+          <li>The system checks <code>Acknowledgement_Log</code> before sending.</li>
+          <li>The first click sends one acknowledgment email.</li>
+          <li>The acknowledgment event is logged.</li>
+          <li>The button changes to <strong>Acknowledged</strong>.</li>
+          <li>The state remains after refresh.</li>
+          <li>The button remains disabled on acknowledged records.</li>
+          <li>Duplicate acknowledgment emails are blocked at the backend.</li>
+        </ul>
+
+        <div class="milestone">
+          The intended communication pattern is now one acknowledgment email when work is accepted
+          and one completion email when the work is finished.
+        </div>
+      </section>
+
+      <section id="work">
+        <h2>Active Work Queue viewer</h2>
+
+        <p>
+          A new Work Queue viewer was built and connected to <code>?view=work</code>.
+          It joins each working record to the original normalized source record by Source ID.
+        </p>
+
+        <ul class="checklist">
+          <li>Pending and In Progress work appears as readable cards.</li>
+          <li>Original request details are retrieved from the source record.</li>
+          <li>Submitted and sorted timestamps are displayed.</li>
+          <li>Unit, room or area, description, request, and issue details are shown.</li>
+          <li>Notes JSON is parsed and displayed.</li>
+          <li>Missing source records produce a warning card instead of breaking the viewer.</li>
+          <li>An empty active queue displays <strong>No active tasks.</strong></li>
+        </ul>
+
+        <h3>Work actions added</h3>
+
+        <ul class="checklist">
+          <li><strong>Start Work</strong> changes Pending to In Progress.</li>
+          <li>Started At is written only once.</li>
+          <li><strong>Add Note</strong> appends timestamped JSON notes.</li>
+          <li>Earlier notes remain intact.</li>
+          <li><strong>Complete</strong> writes Completed At and Updated At.</li>
+          <li>Pending tasks can be completed directly.</li>
+          <li>Completed tasks disappear from the active queue without being deleted.</li>
+        </ul>
+      </section>
+
+      <section id="recommendations">
+        <h2>Recommendations Queue viewer</h2>
+
+        <p>
+          A separate Recommendations Queue viewer was created for requests and ideas that require
+          review rather than immediate work execution.
+        </p>
+
+        <ul class="checklist">
+          <li>Unreviewed and Reviewed recommendations appear as cards.</li>
+          <li>Original request, suggestion, observation, unit, and room information are joined from the source record.</li>
+          <li><strong>Mark Reviewed</strong> changes the status persistently.</li>
+          <li><strong>Add Note</strong> stores timestamped JSON notes.</li>
+          <li><strong>Archive</strong> removes the item from the active recommendations view.</li>
+          <li>Recommendations do not trigger work-completion emails.</li>
+        </ul>
+
+        <div class="milestone">
+          Useful operational notes were already added, including the Meadows Housekeeping site URL,
+          demonstrating that the queue can serve as an evolving reference record.
+        </div>
+      </section>
+
+      <section id="completed">
+        <h2>Completed Work viewer</h2>
+
+        <p>
+          A Completed Work history view was added and connected to <code>?view=completed</code>.
+        </p>
+
+        <ul class="checklist">
+          <li>Completed records appear once.</li>
+          <li>Active records are excluded.</li>
+          <li>Original request details remain available.</li>
+          <li>Sorted, Started, and Completed timestamps are displayed.</li>
+          <li>Duration is calculated when timestamps are available.</li>
+          <li>Notes remain readable.</li>
+          <li>Completion email state is visible.</li>
+          <li>Completed rows remain in <code>Work_Queue</code> as durable history.</li>
+        </ul>
+
+        <div class="flow">Active Work Queue
+→ Complete
+→ status becomes Completed
+→ active viewer filters the record out
+→ Completed Work viewer displays the preserved record</div>
+      </section>
+
+      <section id="email">
+        <h2>Completion email safeguards</h2>
+
+        <p>
+          The completion workflow was extended so email delivery occurs as part of the successful
+          Complete action rather than requiring another acknowledgment.
+        </p>
+
+        <ul class="checklist">
+          <li>The completion function checks the current status.</li>
+          <li>The task is saved as Completed before email delivery is attempted.</li>
+          <li>The original requester email is used when available.</li>
+          <li>A configured fallback recipient remains available.</li>
+          <li>The message includes Source ID, completion time, request summary, and final note.</li>
+          <li><code>Completion Email Sent</code> is set to TRUE after a successful send.</li>
+          <li>Repeated completion attempts do not send duplicate email.</li>
+          <li>A failed send leaves the email flag false for later retry.</li>
+        </ul>
+      </section>
+
+      <section id="sites">
+        <h2>Google Sites integration and navigation testing</h2>
+
+        <p>
+          The latest Apps Script deployment was embedded into the Meadows Housekeeping Google Site.
+          The team verified that the updated viewer appeared after replacing the embedded URL.
+        </p>
+
+        <ul class="checklist">
+          <li>The supervisor-facing site can display the intake viewer.</li>
+          <li>The active Work Queue, Recommendations Queue, and Completed Work views can be opened directly in a browser.</li>
+          <li>Navigation links between separate views were tested.</li>
+          <li>The browser version navigates correctly.</li>
+          <li>Repeated iframe navigation inside Google Sites was identified as unreliable.</li>
+        </ul>
+
+        <div class="decision">
+          Because repeated Apps Script page changes can cause the embedded tool to disappear,
+          the system will be converted to a single-page viewer that changes content internally
+          without changing the iframe URL.
+        </div>
+      </section>
+
+      <section id="architecture">
+        <h2>Architecture decision: single-page dashboard</h2>
+
+        <p>
+          A conversion plan was created for replacing the separate HTML views with one
+          <code>Dashboard.html</code> file.
+        </p>
+
+        <div class="flow">One embedded Apps Script page
+→ internal Intake button
+→ internal Work Queue button
+→ internal Recommendations button
+→ internal Completed Work button
+→ shared content area redraws
+→ iframe remains loaded</div>
+
+        <p>The existing backend functions will remain in place:</p>
+
+        <pre>getSubmissionCards()
+getWorkQueueCards()
+getRecommendationsQueueCards()
+getCompletedWorkCards()
+
+acknowledgeSubmission()
+sendToWorkQueue()
+sendToRecommendationsQueue()
+updateWorkItemStatus()
+addWorkItemNote()
+updateRecommendationItemStatus()
+addRecommendationItemNote()</pre>
+
+        <p>
+          This preserves the functioning data layer while consolidating only the front-end
+          presentation and navigation.
+        </p>
+      </section>
+
+      <section id="next">
+        <h2>Next steps</h2>
+
+        <ol>
+          <li>Create <code>Dashboard.html</code> with shared header, navigation, and content area.</li>
+          <li>Move the Intake renderer and controls into the dashboard.</li>
+          <li>Move the Work Queue renderer and controls.</li>
+          <li>Move the Recommendations renderer and controls.</li>
+          <li>Move the Completed Work renderer.</li>
+          <li>Replace URL navigation with internal JavaScript view switching.</li>
+          <li>Test repeated navigation inside the Google Sites embed.</li>
+          <li>Run a complete real-world lifecycle from submission through completion.</li>
+          <li>Keep the current HTML files as legacy backups until the dashboard is stable.</li>
+        </ol>
+
+        <div class="milestone">
+          By the end of the day, the project had crossed from a collection of forms and logs into
+          a functioning communication system with intake, confirmation, routing, execution,
+          notes, completion history, and duplicate-message protection.
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    Meadows Housekeeping — Work Update 07/13/2026
+  </footer>
+</body>
+</html>
