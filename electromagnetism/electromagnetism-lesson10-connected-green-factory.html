@@ -1,0 +1,1233 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="Electromagnetism Lesson 10: Industrial Networks, HMI, and the Connected Green Factory in KlinsTech's impossibly quaint town." />
+<title>Industrial Networks, HMI, and the Connected Green Factory | Klin's Learning Library</title>
+
+<style>
+:root{
+  --steel:#263442;
+  --steel2:#3d5265;
+  --green:#2f7d57;
+  --green2:#235c41;
+  --amber:#d89b3c;
+  --orange:#e86f37;
+  --blue:#4aa3df;
+  --sky:#95d9f5;
+  --violet:#7b61a8;
+  --paper:#f2f3ef;
+  --white:#fff;
+  --ink:#26313a;
+  --muted:#68737c;
+  --border:#d4dcdf;
+  --softg:#e8f2ec;
+  --softa:#fbf0dc;
+  --softb:#eaf4fb;
+  --softo:#faece5;
+  --softp:#f0ebf7;
+  --softi:#e9f7fc;
+  --shadow:0 12px 32px rgba(38,52,66,.18);
+  --radius:16px;
+  --rsm:12px;
+}
+
+*{box-sizing:border-box}
+
+html{
+  scroll-behavior:smooth;
+  scroll-padding-top:150px;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Inter,"Segoe UI",Roboto,Arial,sans-serif;
+  line-height:1.68;
+  color:var(--ink);
+  background:
+    radial-gradient(circle at 10% 0%,rgba(149,217,245,.2),transparent 28rem),
+    radial-gradient(circle at 90% 8%,rgba(47,125,87,.14),transparent 24rem),
+    linear-gradient(180deg,#fbfdff 0%,#edf4ef 100%);
+}
+
+a{color:inherit}
+
+.site-header{
+  position:sticky;
+  top:0;
+  z-index:1000;
+  color:var(--white);
+  background:linear-gradient(90deg,rgba(35,92,65,.98),rgba(45,109,143,.97));
+  border-bottom:1px solid rgba(149,217,245,.35);
+  box-shadow:0 4px 18px rgba(38,52,66,.28);
+  backdrop-filter:blur(10px);
+}
+
+.header-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  padding:.85rem clamp(1rem,4vw,3rem);
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  min-width:0;
+  font-weight:800;
+  letter-spacing:.02em;
+}
+
+.brand-mark{
+  display:grid;
+  place-items:center;
+  width:2.35rem;
+  height:2.35rem;
+  flex:0 0 auto;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,.25);
+  background:linear-gradient(145deg,var(--sky),var(--green2));
+  box-shadow:0 0 18px rgba(149,217,245,.28);
+  font-size:.78rem;
+}
+
+.brand-text{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.course-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.56rem .9rem;
+  border-radius:999px;
+  border:1px solid rgba(255,255,255,.28);
+  color:var(--white);
+  text-decoration:none;
+  font-size:.92rem;
+  font-weight:750;
+}
+
+.page-nav{
+  display:flex;
+  gap:.35rem;
+  padding:.55rem clamp(1rem,4vw,3rem) .75rem;
+  overflow-x:auto;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.page-nav a{
+  flex:0 0 auto;
+  padding:.42rem .7rem;
+  border-radius:999px;
+  color:rgba(255,255,255,.84);
+  text-decoration:none;
+  font-size:.82rem;
+  font-weight:650;
+}
+
+.page-nav a:hover{
+  color:#fff;
+  background:rgba(149,217,245,.18);
+}
+
+main{
+  width:min(1160px,calc(100% - 2rem));
+  margin:0 auto;
+  padding:clamp(2.4rem,7vw,5rem) 0 4rem;
+}
+
+.hero{
+  display:grid;
+  grid-template-columns:minmax(0,1.2fr) minmax(300px,.8fr);
+  gap:clamp(2rem,6vw,4rem);
+  align-items:center;
+  margin-bottom:2.8rem;
+}
+
+.eyebrow{
+  margin:0 0 .75rem;
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.82rem;
+  font-weight:850;
+}
+
+h1{
+  margin:0;
+  color:var(--steel);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:clamp(2.5rem,6.2vw,4.8rem);
+  line-height:.98;
+  letter-spacing:-.045em;
+}
+
+.hero-copy{
+  max-width:760px;
+  margin:1.35rem 0 0;
+  color:var(--muted);
+  font-size:clamp(1.04rem,2vw,1.18rem);
+}
+
+.hero-card{
+  padding:1.5rem;
+  border:1px solid rgba(47,125,87,.28);
+  border-radius:var(--radius);
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(232,242,236,.95));
+  box-shadow:var(--shadow);
+}
+
+.hero-card strong{color:var(--green2)}
+
+section{margin:3rem 0}
+
+.section-heading{margin-bottom:1.1rem}
+
+.section-heading h2{
+  margin:0 0 .35rem;
+  color:var(--green2);
+  font-size:clamp(1.7rem,3vw,2.35rem);
+}
+
+.section-heading p{
+  margin:0;
+  color:var(--muted);
+}
+
+.grid-2,.grid-3,.grid-4{
+  display:grid;
+  gap:1.2rem;
+}
+
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+
+.card{
+  padding:1.35rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:rgba(255,255,255,.94);
+  box-shadow:0 5px 18px rgba(38,52,66,.06);
+}
+
+.card h3{
+  margin:0 0 .55rem;
+  color:var(--green2);
+  font-size:1.14rem;
+}
+
+.card p{
+  margin:0;
+  color:var(--muted);
+}
+
+.card ul,.card ol{
+  margin:.75rem 0 0;
+  padding-left:1.2rem;
+}
+
+.card li{margin-bottom:.45rem}
+
+.qa-card{border-top:4px solid var(--orange)}
+
+.answer{
+  margin-top:.9rem;
+  padding:1rem 1.05rem;
+  border:1px solid #eadbcf;
+  border-radius:var(--rsm);
+  background:#fff8f3;
+  color:var(--ink);
+  display:none;
+}
+
+.answer.show{display:block}
+
+.toggle-btn{
+  margin-top:.95rem;
+  display:inline-flex;
+  align-items:center;
+  gap:.5rem;
+  padding:.65rem 1rem;
+  border:0;
+  border-radius:999px;
+  background:var(--green);
+  color:#fff;
+  font-weight:750;
+  cursor:pointer;
+  box-shadow:0 6px 18px rgba(47,125,87,.2);
+}
+
+.toggle-btn:hover{background:var(--green2)}
+
+.inset-wrap{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1rem;
+  margin-top:1.2rem;
+}
+
+.inset{
+  padding:1.15rem;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:rgba(255,255,255,.86);
+}
+
+.inset h4{
+  margin:0 0 .45rem;
+  color:var(--green2);
+}
+
+.inset p{
+  margin:0;
+  color:var(--muted);
+}
+
+.real-world{border-left:5px solid var(--green);background:var(--softg)}
+.historical-note{border-left:5px solid var(--amber);background:var(--softa)}
+.monkey-robot{border-left:5px solid var(--blue);background:var(--softb)}
+.safety-note{border-left:5px solid var(--orange);background:var(--softo)}
+.logic-note{border-left:5px solid var(--violet);background:var(--softp)}
+.sky-note{border-left:5px solid var(--sky);background:var(--softi)}
+
+.summary-box{
+  padding:1.35rem 1.4rem;
+  border-left:5px solid var(--green);
+  border-radius:0 var(--radius) var(--radius) 0;
+  background:var(--softg);
+}
+
+.summary-box h3{
+  margin:0 0 .5rem;
+  color:var(--green2);
+}
+
+.summary-box ul{
+  margin:0;
+  padding-left:1.2rem;
+}
+
+.summary-box li{margin-bottom:.45rem}
+
+.lesson-figure{
+  width:100%;
+  margin:1.15rem 0 1.1rem;
+}
+
+.lesson-image{
+  display:none;
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  object-fit:cover;
+  object-position:center;
+  border:1px solid rgba(47,125,87,.28);
+  border-radius:var(--radius);
+  background:var(--steel);
+  box-shadow:var(--shadow);
+}
+
+.image-slot.image-loaded .lesson-image{display:block}
+.image-slot.image-loaded .image-prompt{display:none}
+
+.image-prompt{
+  min-height:300px;
+  display:grid;
+  place-items:center;
+  padding:clamp(1.5rem,4vw,2.3rem);
+  border:2px dashed rgba(47,125,87,.55);
+  border-radius:var(--radius);
+  color:#f8fafb;
+  background:
+    radial-gradient(circle at 18% 16%,rgba(149,217,245,.2),transparent 20rem),
+    radial-gradient(circle at 82% 84%,rgba(47,125,87,.2),transparent 18rem),
+    linear-gradient(135deg,#263442 0%,#2f7d57 52%,#21465a 100%);
+  box-shadow:var(--shadow);
+}
+
+.prompt-card{
+  width:min(840px,100%);
+  padding:1.25rem 1.35rem;
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:14px;
+  background:rgba(38,52,66,.82);
+  backdrop-filter:blur(6px);
+}
+
+.prompt-label{
+  display:inline-flex;
+  margin-bottom:.65rem;
+  color:#ccf6dd;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+  font-size:.78rem;
+  font-weight:850;
+}
+
+.prompt-card p{
+  margin:0;
+  color:rgba(255,255,255,.92);
+  font-weight:650;
+}
+
+.lesson-figure figcaption{
+  margin-top:.65rem;
+  color:var(--muted);
+  font-size:.92rem;
+  font-style:italic;
+}
+
+.logic-table{
+  width:100%;
+  border-collapse:collapse;
+  margin-top:1rem;
+  background:#fff;
+  border-radius:var(--radius);
+  overflow:hidden;
+  box-shadow:0 5px 18px rgba(38,52,66,.06);
+}
+
+.logic-table th,
+.logic-table td{
+  padding:.8rem .9rem;
+  border:1px solid var(--border);
+  text-align:left;
+  vertical-align:top;
+}
+
+.logic-table th{
+  color:#fff;
+  background:var(--green2);
+}
+
+.logic-table td{color:var(--muted)}
+
+.formula{
+  margin-top:1rem;
+  padding:1.1rem 1.2rem;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+  background:#fff;
+  font-family:Consolas,"Courier New",monospace;
+  color:var(--steel);
+  overflow-x:auto;
+}
+
+.flow-strip{
+  display:grid;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:.75rem;
+  margin-top:1rem;
+}
+
+.flow-step{
+  padding:1rem;
+  border:1px solid var(--border);
+  border-radius:var(--rsm);
+  background:#fff;
+  text-align:center;
+  font-weight:750;
+  color:var(--green2);
+}
+
+.lesson-nav{
+  display:flex;
+  justify-content:space-between;
+  gap:1rem;
+  margin-top:3.5rem;
+  padding-top:1.5rem;
+  border-top:1px solid var(--border);
+}
+
+.lesson-nav a{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:.72rem 1rem;
+  border-radius:999px;
+  background:var(--green);
+  color:#fff;
+  text-decoration:none;
+  font-weight:750;
+}
+
+footer{
+  padding:1.6rem 1rem 2.5rem;
+  color:var(--muted);
+  text-align:center;
+  font-size:.88rem;
+}
+
+@media(max-width:980px){
+  .hero{grid-template-columns:1fr}
+  .grid-4{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .grid-3{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .flow-strip{grid-template-columns:1fr}
+}
+
+@media(max-width:720px){
+  html{scroll-padding-top:195px}
+  .header-top{flex-direction:column;align-items:flex-start}
+  .course-link{width:100%;justify-content:center}
+  .grid-2,.grid-3,.grid-4,.inset-wrap{grid-template-columns:1fr}
+  .lesson-nav{flex-direction:column}
+  .image-prompt{min-height:340px}
+  .logic-table{font-size:.9rem}
+}
+</style>
+</head>
+
+<body>
+
+<header class="site-header">
+  <div class="header-top">
+    <div class="brand">
+      <span class="brand-mark">NET</span>
+      <span class="brand-text">Electromagnetism · Lesson 10</span>
+    </div>
+    <a class="course-link" href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">← Back to Electromagnetism</a>
+  </div>
+
+  <nav class="page-nav">
+    <a href="#overview">Overview</a>
+    <a href="#factory">Factory</a>
+    <a href="#connected">Connected Control</a>
+    <a href="#data">Industrial Data</a>
+    <a href="#network">Network</a>
+    <a href="#topology">Topology</a>
+    <a href="#protocols">Protocols</a>
+    <a href="#hmi">HMI</a>
+    <a href="#scada">SCADA</a>
+    <a href="#alarms">Alarms</a>
+    <a href="#environment">Environmental Data</a>
+    <a href="#fault">Fault</a>
+    <a href="#troubleshooting">Troubleshooting</a>
+    <a href="#summary">Summary</a>
+  </nav>
+</header>
+
+<main>
+
+<section class="hero" id="overview">
+  <div>
+    <p class="eyebrow">Lesson 10 · Connected Industrial Control</p>
+    <h1>Industrial Networks, HMI, and the Connected Green Factory</h1>
+    <p class="hero-copy">
+      Monkey and Robot return to the KlinsTech factory floor in the heart of their impossibly quaint town. Sunlight pours through tall windows,
+      rooftop gardens surround clean solar panels, and quiet electric delivery carts move along flower-lined streets outside. The factory is bright,
+      orderly, and designed to conserve energy, water, and materials. Yet this morning, one production line has stopped even though every machine
+      appears mechanically healthy. To find the fault, Monkey and Robot must follow not only the product—but also the information that tells the factory
+      what to do.
+    </p>
+  </div>
+
+  <aside class="hero-card">
+    <strong>Central question:</strong> How do many independent machines exchange enough trustworthy information to behave as one coordinated factory?
+    <br><br>
+    <strong>Key idea:</strong> A connected control system links physical equipment with digital addresses, data values, commands, feedback, alarms, and historical records.
+  </aside>
+</section>
+
+<section>
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson10_image01.png"
+         alt="Monkey and Robot arrive at the bright green KlinsTech factory in an impossibly quaint town."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide cinematic educational illustration of the KlinsTech green factory in an impossibly quaint small town. Bright sunny morning, clean blue sky,
+          flower boxes, cobblestone streets, bicycles, tiny electric delivery vehicles, neat brick cottages, trees, rooftop gardens, solar panels, rainwater
+          tanks, wind turbines in the distance, and a spotless modern factory with huge windows. Inside, conveyors, robotic stations, motors, pumps, control
+          panels, and glowing operator screens are visible. Monkey and a compact brass-and-blue Robot approach the entrance carrying diagnostic tools.
+          Cheerful painterly 3D science-adventure style, clean and bright, 16:9 landscape, no watermark.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The KlinsTech factory is designed to produce useful things without hiding the environmental cost of production.</figcaption>
+  </figure>
+</section>
+
+<section id="factory">
+  <div class="section-heading">
+    <h2>1. The green factory as a complete system</h2>
+    <p>The factory must coordinate production, safety, energy, water, materials, and waste.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card"><h3>Production</h3><p>Conveyors, assembly stations, robots, pumps, fans, and packaging equipment move and transform materials.</p></article>
+    <article class="card"><h3>Energy</h3><p>Solar generation, battery storage, efficient motors, VFDs, lighting controls, and power meters reduce consumption.</p></article>
+    <article class="card"><h3>Water</h3><p>Rainwater collection, process-water monitoring, filtration, and reuse systems reduce waste.</p></article>
+    <article class="card"><h3>Materials</h3><p>Production counts, scrap measurements, recycling stations, and inventory data reveal where resources go.</p></article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset real-world">
+      <h4>Environmental responsibility requires measurement</h4>
+      <p>The factory cannot reduce waste, energy use, or emissions unless it can observe and compare them over time.</p>
+    </div>
+
+    <div class="inset monkey-robot">
+      <h4>Monkey & Robot</h4>
+      <p>Monkey watches the physical factory. Robot watches its digital reflection. Neither view is complete by itself.</p>
+    </div>
+  </div>
+</section>
+
+<section id="connected">
+  <div class="section-heading">
+    <h2>2. From an automated machine to a connected factory</h2>
+    <p>A single PLC can control one machine, but a factory contains many controllers and many kinds of equipment.</p>
+  </div>
+
+  <div class="flow-strip">
+    <div class="flow-step">Sensor</div>
+    <div class="flow-step">Local controller</div>
+    <div class="flow-step">Industrial network</div>
+    <div class="flow-step">Operator system</div>
+    <div class="flow-step">Historical record</div>
+  </div>
+
+  <div class="grid-3" style="margin-top:1.2rem">
+    <article class="card"><h3>Local control</h3><p>Each machine performs fast, immediate control close to the equipment.</p></article>
+    <article class="card"><h3>Coordination</h3><p>Machines exchange ready, running, complete, faulted, and material-available states.</p></article>
+    <article class="card"><h3>Supervision</h3><p>Operators view the larger process, acknowledge alarms, adjust permitted settings, and review trends.</p></article>
+  </div>
+
+  <article class="card qa-card" style="margin-top:1.2rem">
+    <h3>Question</h3>
+    <p>Why not place every sensor, motor, and valve under one enormous central PLC?</p>
+    <button class="toggle-btn" data-target="a1">Reveal Answer</button>
+    <div class="answer" id="a1">
+      <p>Distributed control reduces wiring, keeps local machines more independent, limits the effect of one failure, and allows each controller to handle the equipment nearest to it.</p>
+    </div>
+  </article>
+</section>
+
+<section id="data">
+  <div class="section-heading">
+    <h2>3. Industrial data represents the physical world</h2>
+    <p>Controllers exchange compact values rather than full human sentences.</p>
+  </div>
+
+  <table class="logic-table">
+    <thead>
+      <tr>
+        <th>Physical condition</th>
+        <th>Digital representation</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Motor running</td><td>Boolean bit</td><td>0 = stopped, 1 = running</td></tr>
+      <tr><td>Tank level</td><td>Integer or real number</td><td>72.4%</td></tr>
+      <tr><td>Production count</td><td>Counter value</td><td>18,426 units</td></tr>
+      <tr><td>Machine state</td><td>Enumerated code</td><td>0 idle, 1 starting, 2 running, 3 faulted</td></tr>
+      <tr><td>Alarm time</td><td>Timestamp</td><td>10:42:18.327</td></tr>
+      <tr><td>Energy use</td><td>Accumulated measurement</td><td>346.8 kWh</td></tr>
+    </tbody>
+  </table>
+
+  <div class="inset-wrap">
+    <div class="inset logic-note">
+      <h4>Tag</h4>
+      <p>A tag is a named data point such as Conveyor_3_Running, Tank_Level, or Solar_Output_kW.</p>
+    </div>
+
+    <div class="inset sky-note">
+      <h4>Register or memory address</h4>
+      <p>A controller stores each value in a defined memory location so other approved devices can read or write it.</p>
+    </div>
+  </div>
+</section>
+
+<section id="network">
+  <div class="section-heading">
+    <h2>4. The industrial network</h2>
+    <p>The network carries measurements, commands, status values, alarms, and configuration data.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card"><h3>PLC</h3><p>Controls machine logic and exposes selected data to other devices.</p></article>
+    <article class="card"><h3>VFD</h3><p>Receives run and speed commands and reports frequency, current, and faults.</p></article>
+    <article class="card"><h3>Remote I/O</h3><p>Collects field signals near distant equipment and sends them digitally to a controller.</p></article>
+    <article class="card"><h3>Industrial switch</h3><p>Forwards network traffic between connected devices.</p></article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson10_image02.png"
+         alt="Connected industrial devices across the KlinsTech factory floor."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational cutaway of the bright KlinsTech green factory floor. Show several production cells connected by a glowing industrial Ethernet
+          network: PLC cabinets, VFDs, remote I/O racks, barcode readers, energy meters, safety controllers, industrial switches, HMI stations, a central
+          control room, and environmental monitoring panels. Monkey follows physical products on conveyors while Robot follows luminous data packets through
+          network cables. Sunlight streams through huge windows; rooftop solar, trees, and the quaint town are visible outside. Clear labels, painterly 3D
+          engineering-adventure style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The connected factory has both a material path and an information path.</figcaption>
+  </figure>
+
+  <div class="inset-wrap">
+    <div class="inset safety-note">
+      <h4>Industrial traffic is operational</h4>
+      <p>A delayed webpage is inconvenient. A delayed machine command or missing safety status may stop production or create risk.</p>
+    </div>
+
+    <div class="inset real-world">
+      <h4>Deterministic behavior</h4>
+      <p>Industrial systems are designed so important messages arrive predictably and often within strict time limits.</p>
+    </div>
+  </div>
+</section>
+
+<section id="topology">
+  <div class="section-heading">
+    <h2>5. Network topology</h2>
+    <p>Topology describes how devices and communication paths are arranged.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Star</h3>
+      <p>Each device connects to a central switch.</p>
+      <ul>
+        <li>Easy to understand</li>
+        <li>Easy to isolate faults</li>
+        <li>Central switch becomes important</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Line or daisy chain</h3>
+      <p>Devices connect one after another.</p>
+      <ul>
+        <li>Less cable</li>
+        <li>Convenient along a machine line</li>
+        <li>One broken link may isolate downstream devices</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Ring</h3>
+      <p>A second path can preserve communication after one cable failure.</p>
+      <ul>
+        <li>Improved resilience</li>
+        <li>Requires compatible equipment</li>
+        <li>Fault recovery must be verified</li>
+      </ul>
+    </article>
+  </div>
+
+  <article class="card qa-card" style="margin-top:1.2rem">
+    <h3>Question</h3>
+    <p>Why might the environmentally conscious factory still install redundant network paths?</p>
+    <button class="toggle-btn" data-target="a2">Reveal Answer</button>
+    <div class="answer" id="a2">
+      <p>Because a brief network failure can waste energy, materials, labor, and partially completed products. Reliability can itself reduce environmental waste.</p>
+    </div>
+  </article>
+</section>
+
+<section id="protocols">
+  <div class="section-heading">
+    <h2>6. Protocols: the rules of the conversation</h2>
+    <p>Devices must agree on message structure, addressing, timing, and meaning.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card"><h3>Addressing</h3><p>Identifies the intended device and data location.</p></article>
+    <article class="card"><h3>Message format</h3><p>Defines how commands, values, status information, and errors are arranged.</p></article>
+    <article class="card"><h3>Timing</h3><p>Defines when devices speak, how often data updates, and how long to wait for a response.</p></article>
+  </div>
+
+  <table class="logic-table">
+    <thead>
+      <tr>
+        <th>Protocol family</th>
+        <th>Typical purpose</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Modbus</td><td>Simple reading and writing of coils and registers over serial links or Ethernet.</td></tr>
+      <tr><td>EtherNet/IP</td><td>Industrial control and device data using standard Ethernet infrastructure.</td></tr>
+      <tr><td>PROFINET</td><td>Real-time industrial automation communication over Ethernet.</td></tr>
+      <tr><td>OPC UA</td><td>Structured, secure exchange of industrial information between systems.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="inset-wrap">
+    <div class="inset historical-note">
+      <h4>Same wire, different conversation</h4>
+      <p>Two devices may both use Ethernet cables but still fail to communicate if they do not share a compatible industrial protocol and configuration.</p>
+    </div>
+
+    <div class="inset logic-note">
+      <h4>Meaning matters</h4>
+      <p>Receiving the number 72 is not enough. The system must know whether it means degrees, percent, pressure, speed, or a fault code.</p>
+    </div>
+  </div>
+</section>
+
+<section id="hmi">
+  <div class="section-heading">
+    <h2>7. Human-machine interfaces</h2>
+    <p>An HMI turns controller data into an organized view that operators can interpret.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card"><h3>Status</h3><p>Shows which machines are ready, running, stopped, or faulted.</p></article>
+    <article class="card"><h3>Commands</h3><p>Allows authorized users to start, stop, reset, or change permitted setpoints.</p></article>
+    <article class="card"><h3>Alarms</h3><p>Highlights abnormal conditions that require attention.</p></article>
+    <article class="card"><h3>Trends</h3><p>Shows how production and environmental variables change over time.</p></article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson10_image03.png"
+         alt="Monkey and Robot examine a clear HMI overview of the green factory."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Wide educational control-room scene in the clean sunny KlinsTech factory. Monkey and Robot stand before a large HMI overview showing the entire
+          production line, machine states, conveyor flow, solar generation, battery state, water reuse, compressed-air demand, energy consumption, scrap rate,
+          alarms, and trend graphs. The HMI is clean, readable, and restrained rather than flashy. Bright factory windows reveal the impossibly quaint town,
+          gardens, bicycles, and blue sky. Painterly 3D industrial science-adventure style, clear labels, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>A useful HMI helps the operator understand the process rather than merely decorating the screen.</figcaption>
+  </figure>
+
+  <div class="inset-wrap">
+    <div class="inset safety-note">
+      <h4>Color must carry consistent meaning</h4>
+      <p>Too many bright colors make important alarms harder to notice. Normal conditions should appear calm; abnormal conditions should stand out.</p>
+    </div>
+
+    <div class="inset monkey-robot">
+      <h4>Monkey & Robot</h4>
+      <p>Monkey asks, “Is green always running?” Robot replies, “Only if the whole system uses that convention consistently.”</p>
+    </div>
+  </div>
+</section>
+
+<section id="scada">
+  <div class="section-heading">
+    <h2>8. Supervisory control and data acquisition</h2>
+    <p>SCADA gathers information from many controllers and presents a wider view of the facility.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card"><h3>Supervisory control</h3><p>Allows authorized high-level commands and setpoint changes without replacing fast local PLC control.</p></article>
+    <article class="card"><h3>Data acquisition</h3><p>Collects measurements, machine states, counts, alarms, and environmental performance.</p></article>
+    <article class="card"><h3>Historian</h3><p>Stores time-based records so operators and engineers can compare present behavior with the past.</p></article>
+  </div>
+
+  <div class="formula">
+Physical event → Sensor or machine status → PLC tag → Network message
+→ HMI or SCADA display → Alarm or trend → Historical record
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset real-world">
+      <h4>Factory-wide context</h4>
+      <p>A local conveyor fault may be caused by a downstream machine, an upstream material shortage, or a utility problem elsewhere in the plant.</p>
+    </div>
+
+    <div class="inset sky-note">
+      <h4>Supervision is not direct control of everything</h4>
+      <p>Fast interlocks and safety actions normally remain in local controllers designed to respond immediately.</p>
+    </div>
+  </div>
+</section>
+
+<section id="alarms">
+  <div class="section-heading">
+    <h2>9. Events, warnings, alarms, and trips</h2>
+    <p>Not every unusual condition deserves the same urgency.</p>
+  </div>
+
+  <table class="logic-table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Meaning</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Event</td><td>A recorded change that may not require action.</td><td>Operator changed speed setpoint from 45 to 50 Hz.</td></tr>
+      <tr><td>Advisory</td><td>Useful information about developing conditions.</td><td>Battery storage below 30%.</td></tr>
+      <tr><td>Warning</td><td>Condition approaching an operating limit.</td><td>Compressed-air demand unusually high.</td></tr>
+      <tr><td>Alarm</td><td>Abnormal condition requiring operator attention.</td><td>Cooling-water flow below minimum.</td></tr>
+      <tr><td>Trip</td><td>Protective action that stops equipment or a process.</td><td>Motor overload or safety gate opened.</td></tr>
+    </tbody>
+  </table>
+
+  <div class="inset-wrap">
+    <div class="inset safety-note">
+      <h4>Alarm flooding</h4>
+      <p>If one failure creates hundreds of alarms, operators may struggle to identify the first and most important event.</p>
+    </div>
+
+    <div class="inset logic-note">
+      <h4>First-out evidence</h4>
+      <p>The earliest meaningful alarm often identifies the initiating fault; later alarms may be consequences.</p>
+    </div>
+  </div>
+</section>
+
+<section id="environment">
+  <div class="section-heading">
+    <h2>10. Environmental performance as process data</h2>
+    <p>The green factory treats resource use as something that can be measured, controlled, and improved.</p>
+  </div>
+
+  <div class="grid-4">
+    <article class="card"><h3>Energy intensity</h3><p>Energy consumed per finished unit.</p></article>
+    <article class="card"><h3>Water intensity</h3><p>Fresh water consumed per batch or production hour.</p></article>
+    <article class="card"><h3>Scrap rate</h3><p>Material rejected or discarded compared with total material used.</p></article>
+    <article class="card"><h3>Carbon estimate</h3><p>Estimated emissions based on energy source and consumption.</p></article>
+  </div>
+
+  <div class="formula">
+Environmental efficiency =
+Useful production
+÷ Energy, water, material, and waste burden
+  </div>
+
+  <article class="card qa-card" style="margin-top:1.2rem">
+    <h3>Question</h3>
+    <p>Why should environmental measurements be connected to production data rather than displayed separately?</p>
+    <button class="toggle-btn" data-target="a3">Reveal Answer</button>
+    <div class="answer" id="a3">
+      <p>Because total consumption alone does not show efficiency. Production context reveals how much energy, water, and material were required for each useful result.</p>
+    </div>
+  </article>
+</section>
+
+<section id="fault">
+  <div class="section-heading">
+    <h2>11. The stopped packaging line</h2>
+    <p>The machines appear healthy, but finished products no longer reach the shipping conveyor.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card">
+      <h3>What Monkey observes</h3>
+      <ul>
+        <li>The upstream assembly machine is running.</li>
+        <li>The packaging conveyor motor is mechanically free.</li>
+        <li>The VFD has power and shows no internal fault.</li>
+        <li>No safety gate is open.</li>
+        <li>Finished products are accumulating before the packaging cell.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>What Robot observes</h3>
+      <ul>
+        <li>The packaging PLC is online locally.</li>
+        <li>The HMI shows the cell as unavailable.</li>
+        <li>The upstream PLC is waiting for Packaging_Ready.</li>
+        <li>The industrial switch reports one inactive port.</li>
+        <li>The packaging cell has stopped updating network data.</li>
+      </ul>
+    </article>
+  </div>
+
+  <figure class="lesson-figure image-slot">
+    <img class="lesson-image"
+         src="./images/em_lesson10_image04.png"
+         alt="The packaging line is stopped while Monkey and Robot compare physical and network evidence."
+         onload="this.closest('.image-slot').classList.add('image-loaded')">
+
+    <div class="image-prompt">
+      <div class="prompt-card">
+        <span class="prompt-label">Suggested image prompt</span>
+        <p>
+          Dramatic but bright educational factory-floor illustration inside the clean KlinsTech green factory. Finished products accumulate before a stopped
+          packaging cell while the upstream assembly equipment remains healthy. Monkey checks the motor, conveyor, safety gate, and VFD. Robot studies a network
+          switch with one dark port and follows a broken glowing data path between the packaging PLC and the rest of the factory. Sunlight fills the room,
+          plants and environmental dashboards are visible, and the quaint town appears through huge windows. Clear diagnostic arrows and labels, painterly 3D
+          industrial science-adventure style, 16:9 landscape.
+        </p>
+      </div>
+    </div>
+
+    <figcaption>The equipment is healthy, but the factory has lost trustworthy communication with the packaging cell.</figcaption>
+  </figure>
+</section>
+
+<section id="troubleshooting">
+  <div class="section-heading">
+    <h2>12. Troubleshooting the communication fault</h2>
+    <p>Monkey and Robot separate the physical process, local control, and network layers.</p>
+  </div>
+
+  <div class="grid-3">
+    <article class="card">
+      <h3>Layer 1: Physical equipment</h3>
+      <ol>
+        <li>Verify power.</li>
+        <li>Inspect cables and connectors.</li>
+        <li>Check link indicators.</li>
+        <li>Confirm the machine is mechanically safe.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <h3>Layer 2: Local control</h3>
+      <ol>
+        <li>Confirm the PLC is running.</li>
+        <li>Check local inputs and outputs.</li>
+        <li>Verify permissives and interlocks.</li>
+        <li>Observe local machine state.</li>
+      </ol>
+    </article>
+
+    <article class="card">
+      <h3>Layer 3: Communication</h3>
+      <ol>
+        <li>Verify network link.</li>
+        <li>Check device address.</li>
+        <li>Confirm protocol configuration.</li>
+        <li>Compare expected and actual data updates.</li>
+      </ol>
+    </article>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card">
+      <h3>Fault found</h3>
+      <p>A network cable was damaged where it passed through a poorly secured cable tray near the packaging cell. The local PLC continued running, but its ready,
+      status, and production data no longer reached the rest of the factory.</p>
+    </article>
+
+    <article class="card safety-note">
+      <h3>Why the line stopped safely</h3>
+      <p>The upstream controller was programmed to stop sending products whenever the downstream ready signal became stale or unavailable. Loss of communication
+      did not mean “continue.” It meant “state unknown—stop safely.”</p>
+    </article>
+  </div>
+
+  <div class="inset-wrap">
+    <div class="inset real-world">
+      <h4>Environmental consequence</h4>
+      <p>Stopping the line prevented damaged packaging, spilled materials, rejected products, and unnecessary energy use.</p>
+    </div>
+
+    <div class="inset logic-note">
+      <h4>Core diagnostic habit</h4>
+      <p>Ask whether the problem is in the process, machine, controller, communication path, display, or historical record.</p>
+    </div>
+  </div>
+
+  <article class="card qa-card" style="margin-top:1.2rem">
+    <h3>Question</h3>
+    <p>Why did the packaging PLC appear healthy locally while the HMI showed it unavailable?</p>
+    <button class="toggle-btn" data-target="a4">Reveal Answer</button>
+    <div class="answer" id="a4">
+      <p>The controller and machine were operating locally, but the communication path carrying their status to the HMI and other PLCs had failed.</p>
+    </div>
+  </article>
+</section>
+
+<section>
+  <div class="section-heading">
+    <h2>13. Repair and verification</h2>
+    <p>A repair is not complete until communication and process behavior are proven.</p>
+  </div>
+
+  <div class="flow-strip">
+    <div class="flow-step">Replace damaged cable</div>
+    <div class="flow-step">Verify link lights</div>
+    <div class="flow-step">Confirm data updates</div>
+    <div class="flow-step">Test interlocks</div>
+    <div class="flow-step">Observe production</div>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card">
+      <h3>Technical verification</h3>
+      <ul>
+        <li>Packaging PLC appears online.</li>
+        <li>Ready and running tags update normally.</li>
+        <li>HMI values are current rather than stale.</li>
+        <li>Alarm clears only after the healthy state is confirmed.</li>
+        <li>Upstream and downstream handshakes complete correctly.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <h3>Process verification</h3>
+      <ul>
+        <li>Products enter the packaging cell at the correct rate.</li>
+        <li>No accumulation or gaps appear.</li>
+        <li>Packaging quality remains acceptable.</li>
+        <li>Energy and material trends return to normal.</li>
+        <li>The repair does not create a new intermittent fault.</li>
+      </ul>
+    </article>
+  </div>
+</section>
+
+<section>
+  <div class="section-heading">
+    <h2>14. Interactive review</h2>
+    <p>Use each answer to test your understanding of the connected factory.</p>
+  </div>
+
+  <div class="grid-2">
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What is a tag?</p>
+      <button class="toggle-btn" data-target="a5">Reveal Answer</button>
+      <div class="answer" id="a5"><p>A named data point representing a command, measurement, state, alarm, count, or other value in a control system.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What does an industrial switch do?</p>
+      <button class="toggle-btn" data-target="a6">Reveal Answer</button>
+      <div class="answer" id="a6"><p>It forwards network traffic between connected industrial devices and often provides diagnostic information about each connection.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What is the difference between an HMI and a PLC?</p>
+      <button class="toggle-btn" data-target="a7">Reveal Answer</button>
+      <div class="answer" id="a7"><p>The PLC performs machine control logic. The HMI presents selected PLC data and permitted controls to a human operator.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Why is a timestamp important?</p>
+      <button class="toggle-btn" data-target="a8">Reveal Answer</button>
+      <div class="answer" id="a8"><p>It shows when an event occurred, helping technicians reconstruct the sequence of causes and consequences.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>Why should stale data be treated differently from a valid zero?</p>
+      <button class="toggle-btn" data-target="a9">Reveal Answer</button>
+      <div class="answer" id="a9"><p>A valid zero is a current measurement. Stale data may be an old value that no longer describes the process at all.</p></div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Question</h3>
+      <p>What made the packaging line fail safely?</p>
+      <button class="toggle-btn" data-target="a10">Reveal Answer</button>
+      <div class="answer" id="a10"><p>The upstream controller required a current downstream-ready signal and stopped when that signal became unavailable.</p></div>
+    </article>
+  </div>
+</section>
+
+<section id="summary">
+  <div class="section-heading">
+    <h2>15. Lesson summary</h2>
+    <p>The central ideas behind industrial communication and supervisory control.</p>
+  </div>
+
+  <div class="summary-box">
+    <h3>Key takeaways</h3>
+    <ul>
+      <li>A connected factory combines many local controllers into a coordinated production system.</li>
+      <li>Industrial data represents physical measurements, commands, machine states, counts, alarms, and timestamps.</li>
+      <li>Tags give meaningful names to controller data.</li>
+      <li>Industrial networks carry operational information between PLCs, drives, remote I/O, HMIs, and supervisory systems.</li>
+      <li>Topology describes the physical and logical arrangement of communication paths.</li>
+      <li>Protocols define addressing, message structure, timing, and meaning.</li>
+      <li>An HMI presents machine and process information to an operator.</li>
+      <li>SCADA supervises broader systems and collects data from multiple controllers.</li>
+      <li>A historian preserves time-based evidence for troubleshooting and improvement.</li>
+      <li>Events, advisories, warnings, alarms, and trips represent different levels of importance.</li>
+      <li>The earliest meaningful alarm may reveal the initiating fault.</li>
+      <li>Environmental performance becomes useful when energy, water, materials, and waste are compared with production.</li>
+      <li>A machine may be healthy locally while unavailable to the wider factory because communication has failed.</li>
+      <li>Unknown or stale data should never be treated automatically as a safe condition.</li>
+      <li>Good interlocks stop production safely when required information is unavailable.</li>
+      <li>Troubleshooting should separate the process, machine, controller, network, display, and historical-record layers.</li>
+      <li>A repair must be verified through both technical data and physical process behavior.</li>
+    </ul>
+  </div>
+
+  <div class="grid-2" style="margin-top:1.2rem">
+    <article class="card qa-card">
+      <h3>Final Check</h3>
+      <p>What turns a collection of automated machines into a connected factory?</p>
+      <button class="toggle-btn" data-target="a11">Reveal Answer</button>
+      <div class="answer" id="a11">
+        <p>Shared communication, coordinated machine states, supervisory visibility, reliable feedback, and rules for responding when information is missing or abnormal.</p>
+      </div>
+    </article>
+
+    <article class="card qa-card">
+      <h3>Final Check</h3>
+      <p>What is the main troubleshooting lesson?</p>
+      <button class="toggle-btn" data-target="a12">Reveal Answer</button>
+      <div class="answer" id="a12">
+        <p>Follow both the physical path and the information path, and determine exactly where current trustworthy evidence stops.</p>
+      </div>
+    </article>
+  </div>
+</section>
+
+<nav class="lesson-nav">
+  <a href="electromagnetism-lesson09-polar-complex.html">← Lesson 09</a>
+  <a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">Course Home</a>
+  <a href="#overview">Back to Top ↑</a>
+</nav>
+
+</main>
+
+<footer>
+  Klin's Learning Library · Electromagnetism · Lesson 10 · Industrial Networks, HMI, and the Connected Green Factory
+</footer>
+
+<script>
+document.querySelectorAll('.toggle-btn').forEach(button => {
+  button.addEventListener('click', () => {
+    const answer = document.getElementById(button.dataset.target);
+    if (!answer) return;
+
+    const open = answer.classList.contains('show');
+    answer.classList.toggle('show');
+    button.textContent = open ? 'Reveal Answer' : 'Hide Answer';
+  });
+});
+
+document.querySelectorAll('.lesson-image').forEach(img => {
+  if (img.complete && img.naturalWidth > 0) {
+    img.closest('.image-slot')?.classList.add('image-loaded');
+  }
+});
+</script>
+
+</body>
+</html>

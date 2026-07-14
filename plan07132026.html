@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Single-Page Viewer Conversion Plan</title>
+  <style>
+    :root{--g9:#183a34;--g7:#2f6559;--g1:#eaf3f0;--gold:#d8b66b;--b1:#eef5fb;--b7:#2d5f87;--p1:#f3e8fd;--p7:#6a1b9a;--x:#1d2523;--m:#64716d;--line:#d8dfdc;--bg:#f5f7f6;--white:#fff;--shadow:0 8px 24px rgba(24,58,52,.08)}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--x);background:var(--bg);line-height:1.6}
+    .site-header{background:linear-gradient(135deg,var(--g9),var(--g7));color:#fff;padding:42px 24px 34px;border-bottom:5px solid var(--gold)}
+    .header-inner{width:min(1120px,100%);margin:auto}.eyebrow{margin:0 0 8px;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;font-weight:700;color:#d9ebe6}
+    h1{margin:0;max-width:900px;font-size:clamp(2rem,5vw,3.7rem);line-height:1.05}.subtitle{max-width:900px;margin:18px 0 0;font-size:1.08rem;color:#edf7f4}
+    .page-grid{width:min(1120px,calc(100% - 32px));margin:28px auto 56px;display:grid;grid-template-columns:260px minmax(0,1fr);gap:28px;align-items:start}
+    nav{position:sticky;top:18px;background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:20px}nav h2{margin:0 0 12px;font-size:1rem;color:var(--g9)}
+    nav a{display:block;padding:7px 9px;margin:2px 0;color:#36413e;text-decoration:none;border-radius:8px;font-size:.94rem}nav a:hover{background:var(--g1);color:var(--g9)}
+    main{min-width:0}section{background:#fff;border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:28px;margin-bottom:24px}
+    h2{margin-top:0;color:var(--g9);line-height:1.2}h3{color:#214b43;margin-top:26px;margin-bottom:10px}p{margin:10px 0}ul,ol{padding-left:22px}li{margin:7px 0}
+    .flow{background:var(--g1);border-left:5px solid var(--g7);border-radius:12px;padding:18px 20px;margin:18px 0;font-family:"Courier New",Courier,monospace;white-space:pre-line;color:var(--g9);font-weight:700}
+    .note-box{background:var(--b1);border-left:5px solid var(--b7);border-radius:12px;padding:18px 20px;margin:18px 0}.warning-box{background:var(--p1);border-left:5px solid var(--p7);border-radius:12px;padding:18px 20px;margin:18px 0}
+    code{background:#eef1f0;border:1px solid #d7ddda;border-radius:5px;padding:2px 6px;font-size:.92em}pre{overflow-x:auto;background:#17231f;color:#eef8f5;border-radius:12px;padding:18px;line-height:1.5;font-size:.92rem}
+    .checklist{list-style:none;padding-left:0}.checklist li{position:relative;padding-left:28px}.checklist li::before{content:"□";position:absolute;left:0;top:-1px;color:var(--g7);font-size:1.25rem;font-weight:700}
+    .stage-number{display:inline-flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:50%;background:var(--g9);color:#fff;font-weight:700;margin-right:10px;vertical-align:middle}.stage-title{display:inline;vertical-align:middle}
+    .rule{font-size:1.08rem;font-weight:700;color:var(--g9);background:var(--g1);padding:16px 18px;border-radius:12px;margin-top:18px}footer{text-align:center;color:var(--m);padding:0 20px 40px;font-size:.9rem}
+    @media(max-width:860px){.page-grid{grid-template-columns:1fr}nav{position:static}}@media print{body{background:#fff}.site-header{-webkit-print-color-adjust:exact;print-color-adjust:exact}nav{display:none}.page-grid{width:100%;display:block;margin:0}section{box-shadow:none;break-inside:avoid}}
+  </style>
+</head>
+<body>
+<header class="site-header"><div class="header-inner"><p class="eyebrow">Meadows Housekeeping Documentation</p><h1>Single-Page Viewer Conversion Plan</h1><p class="subtitle">A staged plan for replacing separate Apps Script views with one embedded dashboard that switches content internally and remains stable inside Google Sites.</p></div></header>
+<div class="page-grid">
+<nav aria-label="Document navigation"><h2>Contents</h2><a href="#goal">Goal</a><a href="#backend">Keep the backend</a><a href="#dashboard">Dashboard structure</a><a href="#routing">Internal routing</a><a href="#renderers">View renderers</a><a href="#behavior">Preserved behavior</a><a href="#css">Shared CSS</a><a href="#state">Active view state</a><a href="#migration">Migration stages</a><a href="#testing">Final testing</a><a href="#cleanup">Cleanup</a></nav>
+<main>
+<section id="goal"><h2>Goal</h2><p>Replace the four separate HTML pages with one embedded application that never changes the iframe URL.</p><div class="flow">Current structure:
+Cards.html
+WorkQueue.html
+RecommendationsQueue.html
+CompletedWork.html
+
+Target structure:
+Dashboard.html
+→ Intake
+→ Work Queue
+→ Recommendations
+→ Completed Work</div><p>Navigation will switch visible content with JavaScript rather than loading another page. The Google Sites embed will remain loaded and stable.</p></section>
+<section id="backend"><h2>Keep the existing backend</h2><p>The current Apps Script data functions can remain:</p><pre>getSubmissionCards()
+getWorkQueueCards()
+getRecommendationsQueueCards()
+getCompletedWorkCards()</pre><p>The existing action functions can also remain:</p><pre>acknowledgeSubmission()
+sendToWorkQueue()
+sendToRecommendationsQueue()
+updateWorkItemStatus()
+addWorkItemNote()
+updateRecommendationItemStatus()
+addRecommendationItemNote()</pre><div class="note-box">No spreadsheet structure needs to change. The conversion is primarily a front-end reorganization.</div></section>
+<section id="dashboard"><h2>Create one dashboard file</h2><p>Create a new Apps Script HTML file named:</p><pre>Dashboard.html</pre><p>Its basic structure will be:</p><pre>&lt;header&gt;&lt;/header&gt;
+&lt;nav class="view-nav"&gt;&lt;/nav&gt;
+&lt;main id="app-view"&gt;&lt;/main&gt;</pre><p>The <code>app-view</code> element becomes the shared display area for every section.</p><h3>Simplify doGet()</h3><pre>function doGet() {
+  return HtmlService
+    .createHtmlOutputFromFile("Dashboard")
+    .setTitle("Meadows Housekeeping")
+    .setXFrameOptionsMode(
+      HtmlService.XFrameOptionsMode.ALLOWALL
+    );
+}</pre><p>The application will no longer depend on:</p><pre>?view=work
+?view=recommendations
+?view=completed</pre></section>
+<section id="routing"><h2>Build internal navigation</h2><pre>&lt;nav class="view-nav"&gt;
+  &lt;button data-view="intake"&gt;Intake&lt;/button&gt;
+  &lt;button data-view="work"&gt;Work Queue&lt;/button&gt;
+  &lt;button data-view="recommendations"&gt;Recommendations&lt;/button&gt;
+  &lt;button data-view="completed"&gt;Completed Work&lt;/button&gt;
+&lt;/nav&gt;</pre><p>Each button calls:</p><pre>showView("intake");
+showView("work");
+showView("recommendations");
+showView("completed");</pre><h3>Central view controller</h3><pre>function showView(viewName) {
+  setActiveNavigation(viewName);
+  showLoadingMessage();
+
+  switch (viewName) {
+    case "intake":
+      loadIntakeView();
+      break;
+    case "work":
+      loadWorkQueueView();
+      break;
+    case "recommendations":
+      loadRecommendationsView();
+      break;
+    case "completed":
+      loadCompletedView();
+      break;
+  }
+}</pre><div class="rule">No links, redirects, targets, or iframe URL changes will be involved.</div></section>
+<section id="renderers"><h2>Convert each page into a render function</h2><h3>Intake</h3><pre>function loadIntakeView() {
+  google.script.run
+    .withSuccessHandler(renderIntakeCards)
+    .withFailureHandler(showError)
+    .getSubmissionCards();
+}</pre><h3>Work Queue</h3><pre>function loadWorkQueueView() {
+  google.script.run
+    .withSuccessHandler(renderWorkQueue)
+    .withFailureHandler(showError)
+    .getWorkQueueCards();
+}</pre><h3>Recommendations</h3><pre>function loadRecommendationsView() {
+  google.script.run
+    .withSuccessHandler(renderRecommendationsQueue)
+    .withFailureHandler(showError)
+    .getRecommendationsQueueCards();
+}</pre><h3>Completed Work</h3><pre>function loadCompletedView() {
+  google.script.run
+    .withSuccessHandler(renderCompletedWork)
+    .withFailureHandler(showError)
+    .getCompletedWorkCards();
+}</pre><p>Every renderer writes into the same container:</p><pre>const container =
+  document.getElementById("app-view");</pre></section>
+<section id="behavior"><h2>Preserve existing behavior</h2><h3>Intake cards</h3><ul><li>Acknowledge.</li><li>Send to Work Queue.</li><li>Send to Recommendations Queue.</li><li>Persistent acknowledgment state.</li><li>Persistent sorting state.</li></ul><h3>Work Queue cards</h3><ul><li>Start Work.</li><li>Add Note.</li><li>Complete.</li></ul><h3>Recommendations cards</h3><ul><li>Mark Reviewed.</li><li>Add Note.</li><li>Archive.</li></ul><h3>Completed Work cards</h3><ul><li>Read-only work history.</li><li>Timestamps.</li><li>Duration.</li><li>Notes.</li><li>Completion email state.</li></ul></section>
+<section id="css"><h2>Consolidate the CSS</h2><p>The current pages repeat styles for:</p><pre>body
+header
+cards
+status labels
+metadata
+notes
+buttons
+empty messages
+mobile layout</pre><p>Merge these into one stylesheet inside <code>Dashboard.html</code>.</p><p>Use shared classes where possible:</p><pre>.card
+.card-header
+.status
+.meta
+.summary
+.actions
+.notes
+.empty</pre><p>Retain view-specific classes where useful:</p><pre>.intake-card
+.work-card
+.recommendation-card
+.completed-card</pre></section>
+<section id="state"><h2>Track the active view</h2><pre>let currentView = "intake";</pre><p>Whenever a note or status action finishes, reload the active view:</p><pre>function refreshCurrentView() {
+  showView(currentView);
+}</pre><p>Highlight the selected navigation button:</p><pre>function setActiveNavigation(viewName) {
+  currentView = viewName;
+
+  document
+    .querySelectorAll(".view-nav button")
+    .forEach(button => {
+      button.classList.toggle(
+        "active",
+        button.dataset.view === viewName
+      );
+    });
+}</pre><h3>Initial load</h3><pre>document.addEventListener(
+  "DOMContentLoaded",
+  () => {
+    initializeNavigation();
+    showView("intake");
+  }
+);</pre></section>
+<section id="migration"><h2>Migration order</h2><h3><span class="stage-number">A</span><span class="stage-title">Build the shell</span></h3><ul class="checklist"><li>Create <code>Dashboard.html</code>.</li><li>Add header, navigation, content container, and loading message.</li><li>Test navigation buttons without loading data.</li></ul><h3><span class="stage-number">B</span><span class="stage-title">Move Intake</span></h3><ul class="checklist"><li>Copy the intake renderer and actions.</li><li>Verify cards load.</li><li>Verify acknowledgment works.</li><li>Verify sorting works.</li><li>Verify persistent states remain.</li></ul><h3><span class="stage-number">C</span><span class="stage-title">Move Work Queue</span></h3><ul class="checklist"><li>Copy the Work Queue renderer and actions.</li><li>Verify pending cards load.</li><li>Verify Start Work.</li><li>Verify notes.</li><li>Verify Complete.</li><li>Verify completed work leaves the active view.</li></ul><h3><span class="stage-number">D</span><span class="stage-title">Move Recommendations</span></h3><ul class="checklist"><li>Verify unreviewed and reviewed records load.</li><li>Verify notes.</li><li>Verify review state.</li><li>Verify archive removes the card.</li></ul><h3><span class="stage-number">E</span><span class="stage-title">Move Completed Work</span></h3><ul class="checklist"><li>Verify completed cards load.</li><li>Verify duration displays.</li><li>Verify notes display.</li><li>Verify completion email state displays.</li></ul><h3><span class="stage-number">F</span><span class="stage-title">Replace the deployment page</span></h3><ul class="checklist"><li>Change <code>doGet()</code> to serve only <code>Dashboard.html</code>.</li><li>Update the Google Sites embed one final time.</li></ul></section>
+<section id="testing"><h2>Final testing</h2><p>Test repeated navigation inside the Google Sites embed:</p><div class="flow">Open Intake
+→ switch to Work Queue
+→ switch to Recommendations
+→ switch to Completed Work
+→ return to Intake
+→ repeat several times</div><p>Then test a full work lifecycle:</p><div class="flow">Submit form
+→ acknowledge
+→ sort to Work Queue
+→ navigate to Work Queue
+→ start task
+→ add note
+→ complete task
+→ navigate to Completed Work
+→ verify record and email state</div><h3>Required results</h3><ul class="checklist"><li>The Google Sites page never reloads.</li><li>The embedded tool never disappears.</li><li>The iframe URL never changes.</li><li>Navigation works repeatedly.</li><li>The mobile layout remains usable.</li></ul></section>
+<section id="cleanup"><h2>Cleanup after successful conversion</h2><p>Keep the older files temporarily as backups:</p><pre>Cards.html
+WorkQueue.html
+RecommendationsQueue.html
+CompletedWork.html</pre><p>After the dashboard has completed several real work cycles, rename or remove them:</p><pre>Legacy_Cards.html
+Legacy_WorkQueue.html
+Legacy_RecommendationsQueue.html
+Legacy_CompletedWork.html</pre><div class="warning-box">Leave the legacy files in the project until the new dashboard has been stable through several real submissions, acknowledgments, queue actions, completions, and recommendations.</div></section>
+</main></div>
+<footer>Meadows Housekeeping — Single-Page Viewer Conversion Plan</footer>
+</body>
+</html>
