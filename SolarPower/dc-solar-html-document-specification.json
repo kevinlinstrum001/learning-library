@@ -1,0 +1,426 @@
+{
+  "document_request": {
+    "command_intent": "Create a complete downloadable HTML document from this specification and the companion visual/technical diagram ruleset.",
+    "document_type": "single-file responsive HTML planning document",
+    "output_filename": "dc-solar-power-setup.html",
+    "language": "en",
+    "topic": "12-volt DC yard solar power setup using specific Renogy commercial products",
+    "primary_goal": "Explain the proposed system, recommended products, electrical relationships, expected performance, build sequence, and safety boundaries.",
+    "audience": "beginner-to-intermediate learner planning a small expandable off-grid solar system"
+  },
+  "companion_ruleset": {
+    "required": true,
+    "expected_filename": "html-visual-and-technical-diagram-ruleset-v2.json",
+    "instruction": "Apply this ruleset to all visual selection, product-image integration, SVG construction, connector sizing, layout, accessibility, and validation decisions."
+  },
+  "design_system": {
+    "visual_style": "clean technical planning document with warm paper background, white cards, dark blue headings, green accents, restrained shadows, rounded corners",
+    "responsive": true,
+    "print_friendly": true,
+    "single_file": true,
+    "external_dependencies": false,
+    "preferred_css_variables": {
+      "ink": "#17324d",
+      "muted": "#607286",
+      "paper": "#f7f4ea",
+      "card": "#ffffff",
+      "green": "#2f7d4a",
+      "blue": "#256ea8",
+      "gold": "#d69a22",
+      "orange": "#d86f2d",
+      "red": "#b84444",
+      "line": "#d9e0e6"
+    }
+  },
+  "page_structure": [
+    {
+      "id": "header",
+      "type": "hero",
+      "eyebrow": "Planning document • DC solar prototype",
+      "title": "Proposed 12-Volt Yard Solar Power Setup",
+      "subtitle": "A small, expandable off-grid system centered on one 200-watt rigid solar panel, a 30-amp MPPT controller, a 12.8-volt 100Ah LiFePO4 battery, and a 700-watt pure sine-wave inverter."
+    },
+    {
+      "id": "navigation",
+      "type": "sticky_anchor_nav",
+      "links": [
+        {
+          "label": "Concept",
+          "target": "#concept"
+        },
+        {
+          "label": "Power flow",
+          "target": "#power-flow"
+        },
+        {
+          "label": "Equipment",
+          "target": "#equipment"
+        },
+        {
+          "label": "Wiring",
+          "target": "#wiring"
+        },
+        {
+          "label": "Energy budget",
+          "target": "#energy"
+        },
+        {
+          "label": "Build sequence",
+          "target": "#build"
+        },
+        {
+          "label": "Safety",
+          "target": "#safety"
+        }
+      ]
+    },
+    {
+      "id": "concept",
+      "type": "section",
+      "heading": "System concept",
+      "content_requirements": [
+        "Explain that the system is intended for learning, backup power, lighting, charging electronics, communications equipment, and modest loads.",
+        "State clearly that it is not intended to power the entire house.",
+        "Show the charging path: Sunlight -> 200W solar panel -> 30A MPPT controller -> 12V 100Ah battery.",
+        "Show the load path: Battery -> fuse and disconnect -> 700W inverter -> small 120V loads.",
+        "Include a note that the inverter connects directly to the battery through its own protection and not to the controller load terminals."
+      ]
+    },
+    {
+      "id": "power-flow",
+      "type": "technical_diagram_section",
+      "heading": "System power-flow diagram",
+      "diagram_spec": {
+        "diagram_type": "branched_flow",
+        "implementation": "inline_svg",
+        "use_actual_product_images_inside_nodes": true,
+        "single_message": "Show how energy moves through the system and where the protected inverter branch begins.",
+        "layout": "single horizontal row for major commercial products with a compact protection node between battery and inverter",
+        "nodes": [
+          {
+            "id": "panel",
+            "kind": "commercial_product",
+            "functional_title": "Solar panel",
+            "product_name": "Renogy 200W N-Type rigid panel",
+            "image_url": "https://www.renogy.com/cdn/shop/files/1__73574.1751963554.1280.1280.jpg?v=1776240144&width=900"
+          },
+          {
+            "id": "controller",
+            "kind": "commercial_product",
+            "functional_title": "Charge controller",
+            "product_name": "Renogy Rover Li 30A MPPT",
+            "image_url": "https://www.renogy.com/cdn/shop/files/ROVER-30.jpg?v=1772784911&width=900"
+          },
+          {
+            "id": "battery",
+            "kind": "commercial_product",
+            "functional_title": "Battery",
+            "product_name": "Renogy Core Mini 12.8V 100Ah",
+            "image_url": "https://www.renogy.com/cdn/shop/files/1-1___19876.1751960681.1280.1280.jpg?v=1776236697&width=900"
+          },
+          {
+            "id": "protection",
+            "kind": "compact_device",
+            "functional_title": "Fuse + disconnect",
+            "product_name": "Protected DC branch"
+          },
+          {
+            "id": "inverter",
+            "kind": "commercial_product",
+            "functional_title": "Inverter",
+            "product_name": "Renogy 700W 12V pure sine wave",
+            "image_url": "https://www.renogy.com/cdn/shop/files/01__68853.1751960415.1280.1280.jpg?v=1764219909&width=900"
+          }
+        ],
+        "connections": [
+          {
+            "from": "panel",
+            "to": "controller",
+            "label": "PV power",
+            "type": "unregulated_dc_or_pv"
+          },
+          {
+            "from": "controller",
+            "to": "battery",
+            "label": "Battery charging",
+            "type": "unregulated_dc_or_pv"
+          },
+          {
+            "from": "battery",
+            "to": "protection",
+            "label": "Protected DC feed",
+            "type": "protected_dc_load_path"
+          },
+          {
+            "from": "protection",
+            "to": "inverter",
+            "label": "Inverter supply",
+            "type": "protected_dc_load_path"
+          }
+        ],
+        "diagram_rules": [
+          "Use thin connectors with small arrowheads.",
+          "Place connector labels above horizontal lines.",
+          "Keep arrowheads much smaller than product cards.",
+          "Use orange consistently for the entire protected battery-to-inverter branch.",
+          "Do not include decorative scenery such as a house or yard.",
+          "Normalize product image scale despite differing source whitespace.",
+          "Ensure all labels remain readable on a phone.",
+          "Add a short caption below the diagram stating that the inverter connects to the battery through its own protected branch."
+        ]
+      }
+    },
+    {
+      "id": "equipment",
+      "type": "commercial_product_grid",
+      "heading": "Recommended commercial products",
+      "intro": "Use real manufacturer-hosted product images linked to the corresponding Renogy product pages. Omit current prices because they change.",
+      "columns_desktop": 4,
+      "columns_tablet": 2,
+      "columns_mobile": 1,
+      "products": [
+        {
+          "category_tag": "Selected battery",
+          "functional_title": "Battery",
+          "product_name": "Renogy Core Mini 12.8V 100Ah",
+          "caption": "Renogy Core Mini 12.8V 100Ah LiFePO4 Battery",
+          "product_page_url": "https://www.renogy.com/products/core-mini-12-8v-100ah-lithium-iron-phosphate-battery",
+          "image_url": "https://www.renogy.com/cdn/shop/files/1-1___19876.1751960681.1280.1280.jpg?v=1776236697&width=900",
+          "alt": "Renogy Core Mini 12.8V 100Ah lithium iron phosphate battery",
+          "description": "Compact lithium-iron-phosphate storage for the first system. It provides about 1.28kWh of nominal stored energy before reserve limits and conversion losses.",
+          "specs": {
+            "Nominal voltage": "12.8V",
+            "Rated capacity": "100Ah",
+            "Nominal energy": "approximately 1,280Wh",
+            "Battery chemistry": "LiFePO4"
+          }
+        },
+        {
+          "category_tag": "Selected controller",
+          "functional_title": "Charge controller",
+          "product_name": "Renogy Rover Li 30A MPPT",
+          "caption": "Renogy Rover Li 30A MPPT Solar Charge Controller",
+          "product_page_url": "https://www.renogy.com/products/rover-li-30-amp-mppt-solar-charge-controller",
+          "image_url": "https://www.renogy.com/cdn/shop/files/ROVER-30.jpg?v=1772784911&width=900",
+          "alt": "Renogy Rover Li 30A MPPT solar charge controller with temperature sensor and mounting hardware",
+          "description": "The controller converts the higher panel voltage into the charging voltage needed by the 12V battery. Its 30A rating leaves room for later array expansion.",
+          "specs": {
+            "Charge rating": "30A",
+            "System voltage": "12V / 24V",
+            "Maximum PV voltage": "100VDC class",
+            "12V PV power class": "Up to 400W"
+          }
+        },
+        {
+          "category_tag": "Selected panel",
+          "functional_title": "Solar panel",
+          "product_name": "Renogy 200W N-Type rigid panel",
+          "caption": "Renogy 200W N-Type Rigid Monocrystalline Solar Panel",
+          "product_page_url": "https://www.renogy.com/products/200w-n-type-high-efficiency-solar-panel",
+          "image_url": "https://www.renogy.com/cdn/shop/files/1__73574.1751963554.1280.1280.jpg?v=1776240144&width=900",
+          "alt": "Renogy 200W N-Type rigid monocrystalline solar panel shown from the front and rear",
+          "description": "A high-voltage rigid module well suited to an MPPT controller. Verify the exact panel variant before purchase because dimensions and electrical values may vary.",
+          "specs": {
+            "Rated power": "200W",
+            "Cell type": "N-Type monocrystalline",
+            "System use": "12V or 24V systems",
+            "Mounting": "Rigid ground frame"
+          }
+        },
+        {
+          "category_tag": "Selected inverter",
+          "functional_title": "Inverter",
+          "product_name": "Renogy 700W 12V pure sine-wave inverter",
+          "caption": "Renogy 700W 12V Pure Sine Wave Inverter",
+          "product_page_url": "https://www.renogy.com/products/700w-12v-pure-sine-wave-inverter",
+          "image_url": "https://www.renogy.com/cdn/shop/files/01__68853.1751960415.1280.1280.jpg?v=1764219909&width=900",
+          "alt": "Renogy 700W 12V pure sine wave inverter with remote control and cables",
+          "description": "Converts battery DC into household-style AC for small appliances and electronics. Pure sine output is preferred for sensitive loads and motors.",
+          "specs": {
+            "Continuous output": "700W",
+            "Input voltage": "12VDC",
+            "Output type": "Pure sine wave",
+            "Connection": "Direct to battery through fuse and disconnect"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wiring",
+      "type": "section_with_table",
+      "heading": "Protection and wiring plan",
+      "intro": "State that final conductor sizes and fuse ratings depend on cable length, conductor temperature rating, installation method, and current manufacturer instructions.",
+      "rows": [
+        {
+          "connection": "Panel -> controller",
+          "protection": "UV-resistant PV wire, weather-rated connectors, cable support, and a PV disconnect.",
+          "planning_note": "Maintain polarity and remain below the controller maximum PV voltage."
+        },
+        {
+          "connection": "Controller -> battery",
+          "protection": "Short copper conductors with a battery-side fuse or breaker sized for the controller circuit.",
+          "planning_note": "The controller circuit requires external protection."
+        },
+        {
+          "connection": "Battery -> inverter",
+          "protection": "Very short heavy copper cables, a main fuse close to battery positive, and a DC-rated disconnect.",
+          "planning_note": "This is the highest-current branch in the system."
+        },
+        {
+          "connection": "Battery monitor",
+          "protection": "Place the shunt in the battery negative path so all charging and load current passes through it.",
+          "planning_note": "Only the battery side of the shunt should connect directly to battery negative."
+        }
+      ],
+      "warning": "At 700W output, the inverter may draw roughly 60A or more from a 12V battery after losses. Follow the inverter manual for cable and fuse sizing."
+    },
+    {
+      "id": "energy",
+      "type": "section_with_calculations_and_table",
+      "heading": "Energy budget",
+      "required_points": [
+        "Show nominal battery energy as 12.8V x 100Ah = approximately 1,280Wh.",
+        "Explain that practical AC energy is lower after inverter losses and reserve margin.",
+        "Use a planning estimate of roughly 500-800Wh of usable daily solar production on a good day.",
+        "State that actual production depends on season, tilt, shade, temperature, weather, wiring, and controller efficiency.",
+        "Explain watt-hours = watts x hours."
+      ],
+      "example_loads": [
+        {
+          "load": "LED lighting",
+          "power": "30W",
+          "time": "4 hours",
+          "energy": "120Wh"
+        },
+        {
+          "load": "Laptop",
+          "power": "65W",
+          "time": "3 hours",
+          "energy": "195Wh"
+        },
+        {
+          "load": "Internet equipment",
+          "power": "20W",
+          "time": "8 hours",
+          "energy": "160Wh"
+        },
+        {
+          "load": "Small television",
+          "power": "80W",
+          "time": "2 hours",
+          "energy": "160Wh"
+        }
+      ]
+    },
+    {
+      "id": "build",
+      "type": "shopping_list_and_sequence",
+      "heading": "Provisional shopping list and build sequence",
+      "shopping_list": [
+        "Renogy Core Mini 12.8V 100Ah LiFePO4 battery",
+        "Renogy Rover Li 30A MPPT controller",
+        "Renogy 200W N-Type rigid solar panel",
+        "Renogy 700W 12V pure sine-wave inverter",
+        "Shunt-based battery monitor",
+        "PV disconnect and required PV overcurrent protection",
+        "Controller-to-battery fuse or breaker",
+        "Battery main fuse and holder",
+        "DC-rated battery disconnect switch",
+        "Correctly sized copper battery cable",
+        "PV wire and compatible connectors",
+        "Crimped lugs, heat shrink, and terminal covers",
+        "Weatherproof cable-entry hardware",
+        "Ground-mount frame and anchoring hardware",
+        "Equipment backboard or enclosure",
+        "Labels and a printed one-line diagram"
+      ],
+      "sequence": [
+        {
+          "phase": "1 - Measure",
+          "description": "Measure panel-to-controller and battery-to-inverter cable lengths before selecting wire and protection."
+        },
+        {
+          "phase": "2 - Mount",
+          "description": "Install and anchor the panel frame while avoiding shade, impact, standing water, and accidental contact."
+        },
+        {
+          "phase": "3 - Assemble",
+          "description": "Mount the controller, battery, fuses, disconnects, monitor, and inverter on a durable surface or in a suitable enclosure."
+        },
+        {
+          "phase": "4 - Connect",
+          "description": "With PV isolated, connect the battery to the controller first, configure battery type, and then connect the panel. Confirm the exact sequence in the current manual."
+        },
+        {
+          "phase": "5 - Test",
+          "description": "Verify polarity, charging, terminal tightness, voltage, monitor readings, and temperature before applying larger loads."
+        }
+      ]
+    },
+    {
+      "id": "safety",
+      "type": "safety_section",
+      "heading": "Safety boundaries",
+      "items": [
+        "Do not connect the inverter to house wiring or an existing receptacle through a backfeed cord.",
+        "Use only DC-rated fuses, breakers, switches, connectors, and disconnects at the required voltage and current.",
+        "Place the main battery fuse close to the positive terminal.",
+        "Protect each conductor according to its ampacity and connected equipment.",
+        "Keep the battery within its permitted charging temperature range.",
+        "Confirm grounding, bonding, outdoor wiring, trenching, structural mounting, and local code requirements with a qualified installer or authority.",
+        "Recheck terminal torque and inspect periodically for heat, corrosion, abrasion, looseness, and water entry."
+      ]
+    },
+    {
+      "id": "references",
+      "type": "reference_links",
+      "heading": "Manufacturer references",
+      "links": [
+        {
+          "label": "Renogy Core Mini 12.8V 100Ah battery",
+          "url": "https://www.renogy.com/products/core-mini-12-8v-100ah-lithium-iron-phosphate-battery"
+        },
+        {
+          "label": "Renogy Rover Li 30A MPPT controller",
+          "url": "https://www.renogy.com/products/rover-li-30-amp-mppt-solar-charge-controller"
+        },
+        {
+          "label": "Renogy 200W N-Type rigid solar panel",
+          "url": "https://www.renogy.com/products/200w-n-type-high-efficiency-solar-panel"
+        },
+        {
+          "label": "Renogy 700W 12V pure sine-wave inverter",
+          "url": "https://www.renogy.com/products/700w-12v-pure-sine-wave-inverter"
+        }
+      ]
+    }
+  ],
+  "implementation_requirements": [
+    "Create one complete valid HTML5 document.",
+    "Embed all CSS in a style element.",
+    "Use no JavaScript unless strictly needed for graceful image fallback.",
+    "Use manufacturer-hosted image URLs for the product cards and SVG product nodes.",
+    "Use figure, anchor, image, and figcaption for commercial product cards.",
+    "Use inline SVG for the technical power-flow diagram.",
+    "Do not generate decorative images.",
+    "Do not include current prices.",
+    "Use responsive product-card layouts.",
+    "Use semantic headings and accessible alt text.",
+    "Include print styles.",
+    "Provide the resulting HTML as a downloadable file."
+  ],
+  "validation_requirements": [
+    "All four commercial product images match their corresponding labels and descriptions.",
+    "The battery card contains the battery image, not the inverter image.",
+    "The technical diagram main flow can be understood within five seconds.",
+    "Diagram arrowheads are smaller and visually lighter than the product nodes.",
+    "The fuse and disconnect appear explicitly between the battery and inverter.",
+    "Connection labels do not overlap cards, images, or arrowheads.",
+    "The battery-to-inverter path uses one consistent color.",
+    "Product images are visually normalized despite different source whitespace.",
+    "The smallest diagram text remains readable on a phone or through horizontal scrolling.",
+    "The document does not imply that this system powers the whole house.",
+    "The inverter is shown as connected directly to the battery through protection."
+  ],
+  "one_command_prompt": "Using the attached HTML visual and technical diagram ruleset, create the complete downloadable HTML document described by this JSON specification. Follow all implementation and validation requirements, use the listed manufacturer product-image URLs, build the power-flow graphic as inline SVG, and do not generate separate images."
+}

@@ -1,0 +1,254 @@
+{
+  "ruleset_name": "html_visual_integration_ruleset",
+  "version": "1.0",
+  "purpose": "Guide visual selection and integration when creating or updating HTML documents.",
+  "default_strategy": {
+    "commercial_products": "use_actual_product_image_pointer",
+    "systems_processes_layouts": "use_inline_svg_or_html_css",
+    "fictional_or_custom_art": "use_generated_image",
+    "long_term_or_offline_use": "prefer_local_image_files",
+    "core_principle": "Do not generate an image merely because a document would benefit from a visual. First determine whether an accurate existing image can be referenced directly."
+  },
+  "commercial_product_rules": {
+    "applies_to": [
+      "batteries",
+      "solar_panels",
+      "charge_controllers",
+      "inverters",
+      "tools",
+      "appliances",
+      "electronics",
+      "replacement_parts",
+      "sensors",
+      "industrial_equipment",
+      "commercial_supplies"
+    ],
+    "preferred_source_order": [
+      "official_manufacturer_image",
+      "official_distributor_or_reputable_retailer_image",
+      "local_project_image",
+      "generated_image_only_if_no_accurate_existing_image_is_available"
+    ],
+    "placement": "Place the linked product figure near the top of the relevant card or section, usually as the first child.",
+    "do_not": [
+      "generate_an_imitation_of_a_real_product_when_an_accurate_image_exists",
+      "use_a_visually_similar_but_incorrect_model_without_clear_labeling",
+      "mismatch_the_product_image_and_card_text"
+    ]
+  },
+  "standard_product_card": {
+    "child_order": [
+      "product_figure",
+      "product_category_tag",
+      "product_name",
+      "description",
+      "specifications",
+      "optional_product_link_or_note"
+    ],
+    "html_template": "<article class=\"card\">\n  <figure class=\"product-figure\">\n    <a href=\"PRODUCT_PAGE_URL\" target=\"_blank\" rel=\"noopener noreferrer\">\n      <img src=\"DIRECT_PRODUCT_IMAGE_URL\" alt=\"Accurate description of the product\" loading=\"lazy\" />\n    </a>\n    <figcaption>Manufacturer and exact product model</figcaption>\n  </figure>\n  <span class=\"tag\">Selected component type</span>\n  <strong>Product name</strong>\n  <p>Description of the product and its role in the system.</p>\n  <div class=\"specs\"><!-- Product specifications --></div>\n</article>"
+  },
+  "standard_product_css": {
+    "css": ".product-figure {\n  margin: 1.25rem 0;\n  text-align: center;\n}\n\n.product-figure a {\n  display: block;\n}\n\n.product-figure img {\n  display: block;\n  width: min(100%, 560px);\n  max-width: 100%;\n  height: 240px;\n  object-fit: contain;\n  margin: 0 auto;\n  border-radius: 14px;\n}\n\n.product-figure figcaption {\n  margin-top: 0.65rem;\n  color: var(--muted);\n  font-size: 0.9rem;\n}"
+  },
+  "image_accuracy_checks": [
+    "manufacturer_matches",
+    "product_family_matches",
+    "model_or_capacity_matches",
+    "caption_matches_image",
+    "description_matches_image",
+    "product_page_link_matches_image",
+    "card_tag_matches_component_type"
+  ],
+  "alt_text_rules": {
+    "required_for_meaningful_images": true,
+    "include_when_relevant": [
+      "manufacturer",
+      "product_name",
+      "model_or_capacity",
+      "visible_accessories",
+      "purpose_of_image"
+    ],
+    "good_example": "Renogy Rover Li 30A MPPT solar charge controller with temperature sensor and mounting hardware",
+    "bad_example": "image",
+    "decorative_image_alt": ""
+  },
+  "external_image_pointer_rules": {
+    "allowed_for": [
+      "drafts",
+      "prototypes",
+      "product_comparisons",
+      "connected_documents"
+    ],
+    "advantages": [
+      "fast_document_creation",
+      "no_image_generation_delay",
+      "accurate_product_representation",
+      "smaller_html_files",
+      "easy_product_page_linking"
+    ],
+    "limitations": [
+      "source_url_may_change",
+      "host_may_block_hotlinking",
+      "image_may_be_replaced",
+      "internet_connection_may_be_required",
+      "retailer_urls_may_be_less_stable"
+    ],
+    "preference": "manufacturer_hosted_image_url"
+  },
+  "local_image_rules": {
+    "prefer_when": [
+      "long_term_use",
+      "offline_use",
+      "archival_use",
+      "github_hosting",
+      "maximum_reliability"
+    ],
+    "directory_example": {
+      "root": "solar-system",
+      "html": "index.html",
+      "images": [
+        "images/renogy-rover-30a.jpg",
+        "images/renogy-200w-panel.jpg",
+        "images/renogy-700w-inverter.jpg"
+      ]
+    },
+    "path_style": "relative",
+    "example": "<img src=\"images/renogy-rover-30a.jpg\" alt=\"Renogy Rover Li 30A MPPT solar charge controller\" />",
+    "file_naming_rule": "Do not rename files inconsistently after they are referenced in HTML."
+  },
+  "inline_svg_rules": {
+    "use_for": [
+      "electrical_system_diagrams",
+      "building_layouts",
+      "yard_to_house_diagrams",
+      "wiring_paths",
+      "process_flows",
+      "block_diagrams",
+      "equipment_relationships",
+      "arrows_and_power_flow",
+      "simplified_conceptual_maps"
+    ],
+    "preferred_when": "The diagram should remain inside one self-contained HTML file.",
+    "benefits": [
+      "no_separate_image_file",
+      "scalable_text_and_shapes",
+      "editable_labels",
+      "responsive_rendering",
+      "easy_color_matching",
+      "no_image_generation_delay"
+    ]
+  },
+  "generated_image_rules": {
+    "use_for": [
+      "fictional_settings",
+      "story_scenes",
+      "mascots",
+      "educational_adventures",
+      "historical_or_imaginative_reconstructions",
+      "custom_illustrations",
+      "stylized_cover_art",
+      "emotional_or_atmospheric_scenes",
+      "visuals_not_suited_to_product_photography_or_svg"
+    ],
+    "do_not": "Do not generate an imitation of a real commercial product when an accurate product image is available.",
+    "storage_preference": "Save generated images locally using predictable filenames."
+  },
+  "decision_tree": [
+    {
+      "condition": "subject_is_real_commercial_product",
+      "action": "use_actual_product_image_pointer"
+    },
+    {
+      "condition": "visual_is_system_process_layout_or_diagram",
+      "action": "use_inline_svg_or_html_css"
+    },
+    {
+      "condition": "visual_is_fictional_artistic_or_custom",
+      "action": "generate_image"
+    },
+    {
+      "condition": "document_must_work_offline_or_remain_stable_long_term",
+      "action": "save_image_locally_and_use_relative_path"
+    }
+  ],
+  "responsive_design_rules": {
+    "grid_css": ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n\n@media (max-width: 800px) {\n  .grid {\n    grid-template-columns: 1fr;\n  }\n}",
+    "image_overflow_rule": "Images must never overflow their cards.",
+    "avoid": "Avoid important text embedded inside product images because it may become unreadable on small screens."
+  },
+  "visual_consistency_rules": [
+    "same_image_height_within_a_product_section",
+    "same_caption_style",
+    "same_card_padding",
+    "same_border_radius",
+    "same_background_treatment",
+    "same_link_behavior",
+    "consistent_product_naming",
+    "comparable_image_scale",
+    "use_object_fit_contain_for_different_product_shapes"
+  ],
+  "product_link_rules": {
+    "wrap_image_in_link": true,
+    "link_target": "_blank",
+    "rel": "noopener noreferrer",
+    "prefer": "exact_product_page",
+    "avoid": "generic_manufacturer_homepage_when_exact_page_is_available",
+    "warning": "Product pages, prices, availability, and specifications may change."
+  },
+  "product_information_rules": {
+    "use_exact_model_when_possible": true,
+    "possible_specs": [
+      "nominal_voltage",
+      "rated_capacity",
+      "continuous_output",
+      "surge_output",
+      "charge_current",
+      "maximum_input_voltage",
+      "panel_wattage",
+      "dimensions",
+      "connector_type",
+      "battery_chemistry",
+      "warranty"
+    ],
+    "mark_estimates_as_provisional": true,
+    "do_not": "Do not infer precise specifications solely from an image."
+  },
+  "fallback_rules": {
+    "simple_default": "Use clear alt text.",
+    "optional_onerror_example": "<img src=\"DIRECT_PRODUCT_IMAGE_URL\" alt=\"Renogy Rover Li 30A MPPT solar charge controller\" loading=\"lazy\" onerror=\"this.closest('figure').classList.add('image-unavailable')\" />",
+    "optional_css": ".image-unavailable::before {\n  content: \"Product image unavailable\";\n  display: grid;\n  place-items: center;\n  min-height: 220px;\n  border: 1px dashed var(--line);\n  border-radius: 14px;\n  color: var(--muted);\n}"
+  },
+  "attribution_and_usage_rules": {
+    "acceptable_purposes": [
+      "identification",
+      "explanation",
+      "comparison",
+      "documentation"
+    ],
+    "prefer": "official_promotional_images_from_manufacturers_or_retailers",
+    "do_not": [
+      "remove_watermarks",
+      "alter_trademarks",
+      "present_manufacturer_images_as_original_artwork"
+    ],
+    "caption_requirement": "Include manufacturer and exact model when known."
+  },
+  "performance_rules": {
+    "lazy_load_below_fold": true,
+    "avoid_extremely_large_sources": true,
+    "preferred_requested_width": 900,
+    "example_query_parameter": "&width=900"
+  },
+  "final_default_rule": {
+    "steps": [
+      "do_not_automatically_generate_images",
+      "identify_real_commercial_products",
+      "locate_accurate_product_images",
+      "insert_linked_image_pointers_into_relevant_cards",
+      "use_inline_svg_for_custom_diagrams",
+      "generate_images_only_when_product_images_or_diagrams_cannot_serve_the_purpose",
+      "keep_local_image_conversion_available_as_a_later_stabilization_step"
+    ],
+    "summary": "actual product image for products; inline SVG for systems; generated artwork for imaginative scenes"
+  }
+}

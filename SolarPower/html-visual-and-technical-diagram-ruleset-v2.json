@@ -1,0 +1,547 @@
+{
+  "ruleset_name": "html_visual_integration_ruleset",
+  "version": "2.0",
+  "purpose": "Guide visual selection, product-image integration, and reusable technical-diagram construction when creating or updating HTML documents.",
+  "default_strategy": {
+    "commercial_products": "use_actual_product_image_pointer",
+    "systems_processes_layouts": "use_inline_svg_or_html_css",
+    "fictional_or_custom_art": "use_generated_image",
+    "long_term_or_offline_use": "prefer_local_image_files",
+    "core_principle": "Do not generate an image merely because a document would benefit from a visual. First determine whether an accurate existing image can be referenced directly.",
+    "technical_diagrams": "model_relationships_first_then_build_with_inline_svg",
+    "diagram_core_principle": "Products are nodes, relationships are thin labeled connectors, protection devices are explicit intermediate nodes, and physical locations are subtle groups rather than decorative scenery."
+  },
+  "commercial_product_rules": {
+    "applies_to": [
+      "batteries",
+      "solar_panels",
+      "charge_controllers",
+      "inverters",
+      "tools",
+      "appliances",
+      "electronics",
+      "replacement_parts",
+      "sensors",
+      "industrial_equipment",
+      "commercial_supplies"
+    ],
+    "preferred_source_order": [
+      "official_manufacturer_image",
+      "official_distributor_or_reputable_retailer_image",
+      "local_project_image",
+      "generated_image_only_if_no_accurate_existing_image_is_available"
+    ],
+    "placement": "Place the linked product figure near the top of the relevant card or section, usually as the first child.",
+    "do_not": [
+      "generate_an_imitation_of_a_real_product_when_an_accurate_image_exists",
+      "use_a_visually_similar_but_incorrect_model_without_clear_labeling",
+      "mismatch_the_product_image_and_card_text"
+    ]
+  },
+  "standard_product_card": {
+    "child_order": [
+      "product_figure",
+      "product_category_tag",
+      "product_name",
+      "description",
+      "specifications",
+      "optional_product_link_or_note"
+    ],
+    "html_template": "<article class=\"card\">\n  <figure class=\"product-figure\">\n    <a href=\"PRODUCT_PAGE_URL\" target=\"_blank\" rel=\"noopener noreferrer\">\n      <img src=\"DIRECT_PRODUCT_IMAGE_URL\" alt=\"Accurate description of the product\" loading=\"lazy\" />\n    </a>\n    <figcaption>Manufacturer and exact product model</figcaption>\n  </figure>\n  <span class=\"tag\">Selected component type</span>\n  <strong>Product name</strong>\n  <p>Description of the product and its role in the system.</p>\n  <div class=\"specs\"><!-- Product specifications --></div>\n</article>"
+  },
+  "standard_product_css": {
+    "css": ".product-figure {\n  margin: 1.25rem 0;\n  text-align: center;\n}\n\n.product-figure a {\n  display: block;\n}\n\n.product-figure img {\n  display: block;\n  width: min(100%, 560px);\n  max-width: 100%;\n  height: 240px;\n  object-fit: contain;\n  margin: 0 auto;\n  border-radius: 14px;\n}\n\n.product-figure figcaption {\n  margin-top: 0.65rem;\n  color: var(--muted);\n  font-size: 0.9rem;\n}"
+  },
+  "image_accuracy_checks": [
+    "manufacturer_matches",
+    "product_family_matches",
+    "model_or_capacity_matches",
+    "caption_matches_image",
+    "description_matches_image",
+    "product_page_link_matches_image",
+    "card_tag_matches_component_type"
+  ],
+  "alt_text_rules": {
+    "required_for_meaningful_images": true,
+    "include_when_relevant": [
+      "manufacturer",
+      "product_name",
+      "model_or_capacity",
+      "visible_accessories",
+      "purpose_of_image"
+    ],
+    "good_example": "Renogy Rover Li 30A MPPT solar charge controller with temperature sensor and mounting hardware",
+    "bad_example": "image",
+    "decorative_image_alt": ""
+  },
+  "external_image_pointer_rules": {
+    "allowed_for": [
+      "drafts",
+      "prototypes",
+      "product_comparisons",
+      "connected_documents"
+    ],
+    "advantages": [
+      "fast_document_creation",
+      "no_image_generation_delay",
+      "accurate_product_representation",
+      "smaller_html_files",
+      "easy_product_page_linking"
+    ],
+    "limitations": [
+      "source_url_may_change",
+      "host_may_block_hotlinking",
+      "image_may_be_replaced",
+      "internet_connection_may_be_required",
+      "retailer_urls_may_be_less_stable"
+    ],
+    "preference": "manufacturer_hosted_image_url"
+  },
+  "local_image_rules": {
+    "prefer_when": [
+      "long_term_use",
+      "offline_use",
+      "archival_use",
+      "github_hosting",
+      "maximum_reliability"
+    ],
+    "directory_example": {
+      "root": "solar-system",
+      "html": "index.html",
+      "images": [
+        "images/renogy-rover-30a.jpg",
+        "images/renogy-200w-panel.jpg",
+        "images/renogy-700w-inverter.jpg"
+      ]
+    },
+    "path_style": "relative",
+    "example": "<img src=\"images/renogy-rover-30a.jpg\" alt=\"Renogy Rover Li 30A MPPT solar charge controller\" />",
+    "file_naming_rule": "Do not rename files inconsistently after they are referenced in HTML."
+  },
+  "inline_svg_rules": {
+    "use_for": [
+      "electrical_system_diagrams",
+      "building_layouts",
+      "yard_to_house_diagrams",
+      "wiring_paths",
+      "process_flows",
+      "block_diagrams",
+      "equipment_relationships",
+      "arrows_and_power_flow",
+      "simplified_conceptual_maps"
+    ],
+    "preferred_when": "The diagram should remain inside one self-contained HTML file.",
+    "benefits": [
+      "no_separate_image_file",
+      "scalable_text_and_shapes",
+      "editable_labels",
+      "responsive_rendering",
+      "easy_color_matching",
+      "no_image_generation_delay"
+    ],
+    "creation_policy": {
+      "default_for_technical_diagrams": true,
+      "statement": "When a required visual is a technical diagram, layout, process flow, block diagram, or labeled system illustration, create it with inline SVG by default unless another method is clearly better.",
+      "prefer_over_generated_images_for": [
+        "schematics",
+        "process_flows",
+        "wiring_diagrams",
+        "system_layouts",
+        "labeled_concept_diagrams",
+        "equipment_relationship_graphics"
+      ]
+    }
+  },
+  "generated_image_rules": {
+    "use_for": [
+      "fictional_settings",
+      "story_scenes",
+      "mascots",
+      "educational_adventures",
+      "historical_or_imaginative_reconstructions",
+      "custom_illustrations",
+      "stylized_cover_art",
+      "emotional_or_atmospheric_scenes",
+      "visuals_not_suited_to_product_photography_or_svg"
+    ],
+    "do_not": "Do not generate an imitation of a real commercial product when an accurate product image is available.",
+    "storage_preference": "Save generated images locally using predictable filenames."
+  },
+  "decision_tree": [
+    {
+      "condition": "subject_is_real_commercial_product",
+      "action": "use_actual_product_image_pointer"
+    },
+    {
+      "condition": "visual_is_technical_system_process_layout_or_diagram",
+      "action": "model_relationships_then_create_inline_svg"
+    },
+    {
+      "condition": "diagram_contains_commercial_products",
+      "action": "use_hybrid_svg_structure_with_actual_product_images_inside_nodes"
+    },
+    {
+      "condition": "diagram_has_multiple_distinct_messages",
+      "action": "split_into_multiple_diagrams"
+    },
+    {
+      "condition": "visual_is_fictional_artistic_or_custom",
+      "action": "generate_image"
+    },
+    {
+      "condition": "document_must_work_offline_or_remain_stable_long_term",
+      "action": "save_images_locally_and_use_relative_paths"
+    }
+  ],
+  "responsive_design_rules": {
+    "grid_css": ".grid {\n  display: grid;\n  grid-template-columns: repeat(3, 1fr);\n  gap: 1rem;\n}\n\n@media (max-width: 800px) {\n  .grid {\n    grid-template-columns: 1fr;\n  }\n}",
+    "image_overflow_rule": "Images must never overflow their cards.",
+    "avoid": "Avoid important text embedded inside product images because it may become unreadable on small screens."
+  },
+  "visual_consistency_rules": [
+    "same_image_height_within_a_product_section",
+    "same_caption_style",
+    "same_card_padding",
+    "same_border_radius",
+    "same_background_treatment",
+    "same_link_behavior",
+    "consistent_product_naming",
+    "comparable_image_scale",
+    "use_object_fit_contain_for_different_product_shapes"
+  ],
+  "product_link_rules": {
+    "wrap_image_in_link": true,
+    "link_target": "_blank",
+    "rel": "noopener noreferrer",
+    "prefer": "exact_product_page",
+    "avoid": "generic_manufacturer_homepage_when_exact_page_is_available",
+    "warning": "Product pages, prices, availability, and specifications may change."
+  },
+  "product_information_rules": {
+    "use_exact_model_when_possible": true,
+    "possible_specs": [
+      "nominal_voltage",
+      "rated_capacity",
+      "continuous_output",
+      "surge_output",
+      "charge_current",
+      "maximum_input_voltage",
+      "panel_wattage",
+      "dimensions",
+      "connector_type",
+      "battery_chemistry",
+      "warranty"
+    ],
+    "mark_estimates_as_provisional": true,
+    "do_not": "Do not infer precise specifications solely from an image."
+  },
+  "fallback_rules": {
+    "simple_default": "Use clear alt text.",
+    "optional_onerror_example": "<img src=\"DIRECT_PRODUCT_IMAGE_URL\" alt=\"Renogy Rover Li 30A MPPT solar charge controller\" loading=\"lazy\" onerror=\"this.closest('figure').classList.add('image-unavailable')\" />",
+    "optional_css": ".image-unavailable::before {\n  content: \"Product image unavailable\";\n  display: grid;\n  place-items: center;\n  min-height: 220px;\n  border: 1px dashed var(--line);\n  border-radius: 14px;\n  color: var(--muted);\n}"
+  },
+  "attribution_and_usage_rules": {
+    "acceptable_purposes": [
+      "identification",
+      "explanation",
+      "comparison",
+      "documentation"
+    ],
+    "prefer": "official_promotional_images_from_manufacturers_or_retailers",
+    "do_not": [
+      "remove_watermarks",
+      "alter_trademarks",
+      "present_manufacturer_images_as_original_artwork"
+    ],
+    "caption_requirement": "Include manufacturer and exact model when known."
+  },
+  "performance_rules": {
+    "lazy_load_below_fold": true,
+    "avoid_extremely_large_sources": true,
+    "preferred_requested_width": 900,
+    "example_query_parameter": "&width=900"
+  },
+  "final_default_rule": {
+    "steps": [
+      "do_not_automatically_generate_images",
+      "identify_real_commercial_products",
+      "locate_accurate_product_images",
+      "insert_linked_image_pointers_into_relevant_cards",
+      "model_technical_relationships_before_drawing",
+      "choose_one_primary_diagram_type",
+      "use_inline_svg_for_diagram_structure",
+      "use_actual_product_images_inside_svg_component_nodes_when_products_are_shown",
+      "use_thin_labeled_connectors_with_small_arrowheads",
+      "show_protection_and_switching_devices_as_explicit_intermediate_nodes",
+      "use_subtle_groups_for_location_instead_of_decorative_scenery",
+      "split_overloaded_diagrams",
+      "validate_clarity_accuracy_scale_and_mobile_readability",
+      "generate_images_only_when_product_images_or_svg_diagrams_cannot_serve_the_purpose",
+      "keep_local_image_conversion_available_as_a_later_stabilization_step"
+    ],
+    "summary": "Actual product images identify products; inline SVG explains systems; thin labeled connectors show relationships; explicit compact nodes show protection; generated artwork is reserved for imaginative scenes."
+  },
+  "technical_diagram_rules": {
+    "information_model": {
+      "identify_before_drawing": [
+        "components",
+        "connections",
+        "connection_types",
+        "direction_of_flow",
+        "protection_devices",
+        "input_and_output_boundaries",
+        "location_groups",
+        "important_exceptions"
+      ],
+      "rule": "Begin with system relationships rather than a decorative scene, building, room, yard, or machine illustration."
+    },
+    "diagram_type_selection": {
+      "one_primary_type_per_visual": true,
+      "types": {
+        "linear_flow": "Use when components form one main sequence.",
+        "branched_flow": "Use when one component feeds multiple paths.",
+        "location_layout": "Use when physical placement is essential.",
+        "wiring_diagram": "Use when terminals, conductors, polarity, protection, or connection details must be shown.",
+        "comparison_diagram": "Use when products or alternatives are being compared.",
+        "system_overview": "Use when functional relationships matter more than exact wiring."
+      },
+      "rule": "Do not combine a system overview, physical layout, and detailed wiring diagram into one crowded visual."
+    },
+    "commercial_product_nodes": {
+      "use_actual_product_images": true,
+      "image_source_preference": [
+        "official_manufacturer_image",
+        "official_distributor_or_reputable_retailer_image",
+        "local_project_image"
+      ],
+      "node_contents": [
+        "product_image",
+        "short_functional_title",
+        "exact_product_name",
+        "optional_single_critical_rating"
+      ],
+      "rules": [
+        "Use actual product images only inside component nodes.",
+        "Keep product images subordinate to the card or node.",
+        "Use preserveAspectRatio or object-fit contain.",
+        "Do not place long descriptions inside the diagram.",
+        "Normalize visible product scale when source images contain different amounts of whitespace."
+      ]
+    },
+    "label_hierarchy": {
+      "primary": "functional_name",
+      "secondary": "manufacturer_and_exact_model",
+      "optional_tertiary": "single_critical_rating",
+      "example": {
+        "primary": "BATTERY",
+        "secondary": "Renogy Core Mini 12.8V 100Ah",
+        "tertiary": "LiFePO4"
+      }
+    },
+    "proportional_scale_system": {
+      "base_unit": "component_card_width",
+      "recommended_defaults": {
+        "card_width_px": 240,
+        "card_height_px": 210,
+        "card_gap_px": 64,
+        "connector_stroke_px": "3_to_5",
+        "arrowhead_length_px": "10_to_16",
+        "arrowhead_width_px": "8_to_12",
+        "primary_font_px": "16_to_20",
+        "secondary_font_px": "12_to_15"
+      },
+      "rules": [
+        "Arrowheads must be visually smaller and lighter than component cards.",
+        "A connector should guide the eye rather than compete with a product node.",
+        "An arrowhead should occupy less than one quarter of the gap between nodes.",
+        "Do not use large triangular arrows unless arrow size intentionally represents quantity."
+      ]
+    },
+    "connector_rules": {
+      "default_style": {
+        "line": "thin",
+        "stroke_linecap": "round",
+        "stroke_linejoin": "round",
+        "arrowhead": "small",
+        "routing": "orthogonal_or_gently_curved"
+      },
+      "label_placement": {
+        "horizontal_connectors": "place_label_above_line",
+        "vertical_connectors": "place_label_beside_line",
+        "crossing_or_busy_areas": "use_small_background_plate_behind_label"
+      },
+      "rules": [
+        "Do not place labels inside arrowheads.",
+        "Do not overlap labels with cards or product images.",
+        "Keep connector wording concise.",
+        "Leave a clear connector corridor between nodes.",
+        "Do not allow arrowheads to touch card borders."
+      ],
+      "recommended_label_examples": [
+        "PV power",
+        "Battery charging",
+        "Protected DC feed",
+        "120V AC output",
+        "Sensor signal",
+        "Control command"
+      ]
+    },
+    "connection_color_system": {
+      "rule": "Assign color by connection type, not by component.",
+      "default_palette": {
+        "unregulated_dc_or_pv": "#256ea8",
+        "protected_dc_load_path": "#d86f2d",
+        "ac_output": "#7a4fa3",
+        "data_or_monitoring": "#607286",
+        "ground_or_bonding": "#2f7d4a",
+        "warning_or_fault": "#b84444"
+      },
+      "continuity_rule": "A connection must retain the same color and meaning from beginning to end, including its arrowhead."
+    },
+    "protection_device_nodes": {
+      "show_explicitly": [
+        "fuse",
+        "breaker",
+        "disconnect",
+        "relay",
+        "shunt",
+        "contactor",
+        "busbar"
+      ],
+      "style": "compact_intermediate_node",
+      "rules": [
+        "If the explanatory text says current passes through a protection or switching device, show it in the path.",
+        "Protection nodes should be smaller than commercial product nodes.",
+        "Protection nodes do not require product photography unless a specific commercial model is being recommended.",
+        "Place protection nodes directly on the relevant connection."
+      ]
+    },
+    "branching_rules": {
+      "rule": "Branch only where the actual system branches.",
+      "use_visible_junction_or_bus_node": true,
+      "avoid": "forcing_a_branched_system_into_one_false_linear_sequence"
+    },
+    "location_grouping_rules": {
+      "separate_physical_location_from_electrical_flow": true,
+      "preferred_methods": [
+        "faint_background_regions",
+        "small_group_headings",
+        "dashed_group_borders",
+        "subtle_location_labels"
+      ],
+      "avoid": "Do not draw a decorative house, factory, room, or landscape unless the physical setting is essential to understanding the installation."
+    },
+    "single_message_rule": {
+      "rule": "Each diagram should answer one principal question.",
+      "example_questions": [
+        "How does energy flow?",
+        "Where are the components located?",
+        "How is the inverter protected?",
+        "How are multiple panels connected?",
+        "What changes when the system expands?"
+      ],
+      "split_when_needed": [
+        "system_power_flow",
+        "physical_placement",
+        "protection_and_conductor_layout"
+      ]
+    },
+    "duplication_rule": {
+      "avoid_repeating_same_sequence_in": [
+        "arrows",
+        "large_callout_boxes",
+        "paragraph_text_inside_the_same_diagram"
+      ],
+      "preferred_pattern": "Show the sequence once in the diagram and use one short caption for an important exception."
+    },
+    "adaptive_layout_rules": {
+      "layout_by_node_count": {
+        "2_to_4": "single_horizontal_row",
+        "5_to_7": "two_row_flow_with_aligned_routing",
+        "8_to_12": "grouped_functional_zones",
+        "more_than_12": "split_into_multiple_diagrams"
+      },
+      "narrow_screen_behavior": [
+        "allow_horizontal_scrolling",
+        "or_switch_to_vertical_flow_layout"
+      ],
+      "avoid": "shrinking_everything_until_text_is_unreadable"
+    },
+    "layout_math_rules": {
+      "calculate_before_placing": [
+        "available_svg_width",
+        "total_node_width",
+        "total_gap_width",
+        "left_and_right_margins",
+        "centered_sequence_origin"
+      ],
+      "rule": "Position nodes from a repeatable layout calculation rather than approximate manual placement."
+    },
+    "connector_clearance_rules": {
+      "minimum_gap_formula": "gap >= 2.5 * arrowhead_length",
+      "prohibit": [
+        "arrows_through_text",
+        "labels_over_product_images",
+        "branch_lines_hidden_behind_cards",
+        "arrowheads_touching_card_borders",
+        "labels_squeezed_into_insufficient_gaps"
+      ]
+    },
+    "product_image_normalization": {
+      "rules": [
+        "Use a consistent image viewport for all product nodes.",
+        "Adjust x, y, width, and height individually when needed.",
+        "Preserve aspect ratio.",
+        "Normalize visible object size rather than relying only on equal image dimensions.",
+        "Avoid cropping important accessories."
+      ]
+    },
+    "legend_rules": {
+      "use_when": [
+        "three_or_more_connection_colors",
+        "solid_and_dashed_lines_have_different_meanings",
+        "multiple_flow_types_are_not_directly_labeled",
+        "symbols_are_not_self_evident"
+      ],
+      "avoid_when": "direct_labels_already_explain_one_or_two_connection_types"
+    },
+    "hybrid_svg_product_image_method": {
+      "svg_handles": [
+        "cards",
+        "borders",
+        "arrows",
+        "labels",
+        "grouping",
+        "protection_nodes",
+        "flow_paths"
+      ],
+      "external_or_local_images_handle": [
+        "actual_commercial_products"
+      ],
+      "purpose": "Avoid image generation while retaining accurate product identity and adaptable technical structure."
+    },
+    "diagram_accessibility": {
+      "requirements": [
+        "meaningful_role_and_aria_label_on_svg",
+        "readable_text_at_phone_scale",
+        "sufficient_text_and_line_contrast",
+        "do_not_rely_on_color_alone",
+        "provide_short_text_summary_near_diagram_when_needed"
+      ]
+    },
+    "validation_checklist": [
+      "main_flow_understandable_within_five_seconds",
+      "all_product_images_match_their_labels",
+      "arrows_are_smaller_and_visually_lighter_than_cards",
+      "connector_labels_are_unobstructed",
+      "each_line_retains_one_meaning_and_one_color",
+      "required_fuses_disconnects_shunts_breakers_or_busbars_are_shown",
+      "relationships_are_technically_accurate",
+      "smallest_text_is_readable_on_a_phone",
+      "product_images_are_visually_normalized",
+      "decorative_elements_do_not_compete_with_technical_information",
+      "unnecessary_elements_have_been_removed",
+      "diagram_has_been_split_if_one_visual_became_overloaded"
+    ]
+  }
+}

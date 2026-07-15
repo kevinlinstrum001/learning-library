@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Planning document for a small, expandable 12-volt Renogy yard solar power system.">
+  <title>Proposed 12-Volt Yard Solar Power Setup</title>
+  <style>
+    :root {
+      --ink: #17324d;
+      --muted: #607286;
+      --paper: #f7f4ea;
+      --card: #ffffff;
+      --green: #2f7d4a;
+      --blue: #256ea8;
+      --gold: #d69a22;
+      --orange: #d86f2d;
+      --red: #b84444;
+      --line: #d9e0e6;
+      --shadow: 0 14px 34px rgba(23, 50, 77, 0.09);
+      --radius: 18px;
+      --content: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 8% 2%, rgba(47, 125, 74, 0.08), transparent 28rem),
+        linear-gradient(180deg, #fbfaf5 0%, var(--paper) 40%, #f3f0e6 100%);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; }
+    a { color: var(--blue); }
+    a:hover { color: var(--green); }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 100;
+      background: var(--ink);
+      color: white;
+      padding: .75rem 1rem;
+    }
+    .skip-link:focus { left: 1rem; top: 1rem; }
+
+    .hero {
+      padding: clamp(3rem, 8vw, 6rem) 1.25rem 3rem;
+      border-bottom: 1px solid rgba(23, 50, 77, 0.08);
+    }
+    .hero-inner, main, .nav-inner, footer { width: min(var(--content), calc(100% - 2rem)); margin-inline: auto; }
+    .eyebrow {
+      margin: 0 0 .65rem;
+      color: var(--green);
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: .8rem;
+    }
+    h1, h2, h3 { line-height: 1.15; letter-spacing: -.025em; }
+    h1 { margin: 0; max-width: 900px; font-size: clamp(2.35rem, 6vw, 5rem); }
+    .subtitle { max-width: 840px; margin: 1.15rem 0 0; font-size: clamp(1.05rem, 2.1vw, 1.35rem); color: var(--muted); }
+    .scope-banner {
+      display: inline-flex;
+      gap: .55rem;
+      align-items: center;
+      margin-top: 1.5rem;
+      padding: .75rem 1rem;
+      border: 1px solid rgba(47, 125, 74, .25);
+      border-radius: 999px;
+      background: rgba(255,255,255,.72);
+      color: var(--green);
+      font-weight: 800;
+    }
+
+    .anchor-nav {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      backdrop-filter: blur(12px);
+      background: rgba(247, 244, 234, .92);
+      border-bottom: 1px solid rgba(23, 50, 77, .1);
+    }
+    .nav-inner { display: flex; gap: .4rem; overflow-x: auto; padding: .7rem 0; scrollbar-width: thin; }
+    .nav-inner a {
+      flex: 0 0 auto;
+      padding: .5rem .8rem;
+      border-radius: 999px;
+      color: var(--ink);
+      text-decoration: none;
+      font-weight: 750;
+      font-size: .92rem;
+    }
+    .nav-inner a:hover, .nav-inner a:focus-visible { background: white; box-shadow: 0 4px 16px rgba(23, 50, 77, .08); }
+
+    main { padding: 1rem 0 4rem; }
+    section { scroll-margin-top: 5.4rem; padding: clamp(2.2rem, 5vw, 4.3rem) 0; border-bottom: 1px solid rgba(23, 50, 77, .08); }
+    .section-kicker { color: var(--green); text-transform: uppercase; letter-spacing: .1em; font-weight: 800; font-size: .78rem; margin-bottom: .35rem; }
+    h2 { font-size: clamp(1.85rem, 4vw, 3rem); margin: 0 0 .85rem; }
+    h3 { font-size: 1.15rem; margin: 0; }
+    .lede { max-width: 820px; color: var(--muted); font-size: 1.05rem; }
+
+    .two-col { display: grid; grid-template-columns: 1.08fr .92fr; gap: 1.2rem; align-items: stretch; }
+    .panel, .callout, .card, .sequence-card, .reference-card {
+      background: var(--card);
+      border: 1px solid rgba(23, 50, 77, .1);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+    .panel, .callout { padding: clamp(1.15rem, 3vw, 1.6rem); }
+    .flow-lines { display: grid; gap: .75rem; margin-top: 1.25rem; }
+    .flow-line {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: .8rem;
+      align-items: start;
+      padding: .9rem 1rem;
+      border-radius: 14px;
+      background: #f8fafb;
+      border: 1px solid var(--line);
+    }
+    .flow-line strong { color: var(--blue); }
+    .flow-line.load strong { color: var(--orange); }
+    .number-dot {
+      width: 1.8rem; height: 1.8rem; display: grid; place-items: center;
+      border-radius: 50%; background: var(--ink); color: white; font-weight: 800; font-size: .83rem;
+    }
+    .boundary-list { margin: .9rem 0 0; padding-left: 1.2rem; }
+    .boundary-list li + li { margin-top: .5rem; }
+    .important-note { border-left: 5px solid var(--orange); background: #fff7f0; }
+
+    .diagram-shell {
+      margin-top: 1.5rem;
+      background: white;
+      border: 1px solid rgba(23, 50, 77, .12);
+      border-radius: 20px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .diagram-scroll { overflow-x: auto; padding: 1rem; background: linear-gradient(180deg, #fff, #f9fbfc); }
+    .power-svg { display: block; width: 1500px; min-width: 1500px; height: auto; margin: 0 auto; }
+    .diagram-caption { margin: 0; padding: 1rem 1.2rem 1.2rem; color: var(--muted); border-top: 1px solid var(--line); }
+    .diagram-key { display: flex; flex-wrap: wrap; gap: 1rem; padding: .85rem 1.1rem 0; color: var(--muted); font-size: .9rem; }
+    .key-item { display: inline-flex; align-items: center; gap: .45rem; }
+    .key-line { width: 2.2rem; height: 4px; border-radius: 99px; background: var(--blue); }
+    .key-line.protected { background: var(--orange); }
+
+    .product-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+    .card { padding: 1rem; display: flex; flex-direction: column; min-width: 0; }
+    .product-figure { margin: 0 0 1.15rem; text-align: center; }
+    .product-figure a { display: block; }
+    .product-figure img {
+      display: block;
+      width: 100%;
+      height: 220px;
+      object-fit: contain;
+      padding: .5rem;
+      margin: 0 auto;
+      border-radius: 14px;
+      background: linear-gradient(180deg, #fff, #f7f9fa);
+      border: 1px solid var(--line);
+    }
+    .product-figure figcaption { margin-top: .65rem; color: var(--muted); font-size: .85rem; min-height: 2.75em; }
+    .tag { align-self: flex-start; display: inline-flex; padding: .28rem .62rem; border-radius: 999px; color: var(--green); background: #edf7f0; font-size: .76rem; font-weight: 850; letter-spacing: .03em; }
+    .card h3 { margin-top: .7rem; }
+    .card p { color: var(--muted); }
+    .specs { margin-top: auto; display: grid; gap: .45rem; }
+    .spec-row { display: grid; grid-template-columns: 1fr; gap: .05rem; padding-top: .5rem; border-top: 1px solid var(--line); }
+    .spec-row span:first-child { color: var(--muted); font-size: .78rem; }
+    .spec-row strong { font-size: .92rem; }
+    .product-link { margin-top: 1rem; font-weight: 800; text-decoration: none; }
+
+    .table-wrap { overflow-x: auto; margin-top: 1.4rem; border: 1px solid rgba(23,50,77,.12); border-radius: 16px; background: white; box-shadow: var(--shadow); }
+    table { width: 100%; min-width: 760px; border-collapse: collapse; }
+    th, td { text-align: left; vertical-align: top; padding: 1rem; border-bottom: 1px solid var(--line); }
+    th { color: white; background: var(--ink); font-size: .86rem; letter-spacing: .035em; }
+    tr:last-child td { border-bottom: 0; }
+    tbody tr:nth-child(even) { background: #fafbfc; }
+    .warning { margin-top: 1rem; border-left: 5px solid var(--red); background: #fff5f5; }
+
+    .calculation-band { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.3rem 0; }
+    .metric { padding: 1.2rem; border-radius: 16px; background: white; border: 1px solid rgba(23,50,77,.11); box-shadow: var(--shadow); }
+    .metric .value { font-size: clamp(1.55rem, 3vw, 2.4rem); font-weight: 900; letter-spacing: -.04em; }
+    .metric .label { color: var(--muted); font-size: .9rem; }
+
+    .shopping-sequence { display: grid; grid-template-columns: .9fr 1.1fr; gap: 1rem; margin-top: 1.4rem; }
+    .check-list { list-style: none; padding: 0; margin: .9rem 0 0; columns: 2; column-gap: 1rem; }
+    .check-list li { break-inside: avoid; padding: .42rem 0 .42rem 1.55rem; position: relative; }
+    .check-list li::before { content: "✓"; position: absolute; left: 0; color: var(--green); font-weight: 900; }
+    .sequence { display: grid; gap: .8rem; margin-top: .9rem; }
+    .sequence-card { padding: 1rem; box-shadow: none; }
+    .sequence-card strong { color: var(--green); }
+
+    .safety-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-top: 1.3rem; }
+    .safety-item { padding: 1rem; border-radius: 14px; background: #fffafa; border: 1px solid #f0cccc; display: grid; grid-template-columns: auto 1fr; gap: .75rem; }
+    .safety-icon { width: 2rem; height: 2rem; border-radius: 50%; display: grid; place-items: center; background: var(--red); color: white; font-weight: 900; }
+
+    .reference-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: .8rem; margin-top: 1.2rem; }
+    .reference-card { padding: 1rem; box-shadow: none; }
+    .reference-card a { font-weight: 800; text-decoration: none; }
+    .small-print { color: var(--muted); font-size: .88rem; }
+
+    footer { padding: 2rem 0 3rem; color: var(--muted); font-size: .9rem; }
+
+    @media (max-width: 1000px) {
+      .product-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .two-col, .shopping-sequence { grid-template-columns: 1fr; }
+      .check-list { columns: 2; }
+    }
+    @media (max-width: 680px) {
+      .hero { padding-top: 2.5rem; }
+      .product-grid, .calculation-band, .safety-grid, .reference-grid { grid-template-columns: 1fr; }
+      .check-list { columns: 1; }
+      .product-figure img { height: 240px; }
+      .scope-banner { border-radius: 14px; align-items: flex-start; }
+    }
+
+    @media print {
+      :root { --paper: #fff; --shadow: none; }
+      body { background: white; color: #111; font-size: 10.5pt; }
+      .anchor-nav, .skip-link { display: none !important; }
+      .hero { padding: 1rem 0 1.4rem; }
+      main, .hero-inner, footer { width: 100%; }
+      section { padding: 1.2rem 0; break-inside: avoid; }
+      .card, .panel, .callout, .diagram-shell, .table-wrap, .metric { box-shadow: none; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-figure img { height: 160px; }
+      .diagram-scroll { overflow: visible; padding: 0; }
+      .power-svg { width: 100%; min-width: 0; }
+      a { color: inherit; text-decoration: none; }
+      a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 8pt; color: #555; word-break: break-all; }
+      .product-figure a::after { content: none; }
+      .reference-card a::after { display: block; margin-top: .25rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+
+  <header class="hero" id="header">
+    <div class="hero-inner">
+      <p class="eyebrow">Planning document • DC solar prototype</p>
+      <h1>Proposed 12-Volt Yard Solar Power Setup</h1>
+      <p class="subtitle">A small, expandable off-grid system centered on one 200-watt rigid solar panel, a 30-amp MPPT controller, a 12.8-volt 100Ah LiFePO4 battery, and a 700-watt pure sine-wave inverter.</p>
+      <div class="scope-banner"><span aria-hidden="true">●</span> Designed for modest loads and learning—not for powering the entire house.</div>
+    </div>
+  </header>
+
+  <nav class="anchor-nav" aria-label="Document sections">
+    <div class="nav-inner">
+      <a href="#concept">Concept</a>
+      <a href="#power-flow">Power flow</a>
+      <a href="#equipment">Equipment</a>
+      <a href="#wiring">Wiring</a>
+      <a href="#energy">Energy budget</a>
+      <a href="#build">Build sequence</a>
+      <a href="#safety">Safety</a>
+    </div>
+  </nav>
+
+  <main id="main">
+    <section id="concept">
+      <p class="section-kicker">Purpose and boundaries</p>
+      <h2>System concept</h2>
+      <p class="lede">This prototype is intended for learning, backup power, lighting, charging electronics, communications equipment, and other modest loads. It is deliberately small enough to understand and test, while leaving a reasonable path for later expansion.</p>
+      <div class="two-col">
+        <article class="panel">
+          <h3>Two paths define the system</h3>
+          <div class="flow-lines">
+            <div class="flow-line">
+              <span class="number-dot">1</span>
+              <div><strong>Charging path</strong><br>Sunlight → 200W solar panel → 30A MPPT controller → 12V 100Ah battery.</div>
+            </div>
+            <div class="flow-line load">
+              <span class="number-dot">2</span>
+              <div><strong>Load path</strong><br>Battery → fuse and disconnect → 700W inverter → small 120V loads.</div>
+            </div>
+          </div>
+        </article>
+        <aside class="callout important-note">
+          <h3>Critical inverter connection rule</h3>
+          <p>The inverter connects directly to the battery through its own correctly sized fuse, short heavy cables, and a DC-rated disconnect. It does <strong>not</strong> connect to the charge controller’s small “load” terminals.</p>
+          <ul class="boundary-list">
+            <li>Not a whole-house power system.</li>
+            <li>Not a grid-tied installation.</li>
+            <li>Not a substitute for code-compliant household wiring.</li>
+          </ul>
+        </aside>
+      </div>
+    </section>
+
+    <section id="power-flow">
+      <p class="section-kicker">One-line system overview</p>
+      <h2>System power-flow diagram</h2>
+      <p class="lede">The diagram follows the electrical relationships first: panel charging equipment in blue, followed by the protected high-current inverter branch in orange.</p>
+
+      <figure class="diagram-shell">
+        <div class="diagram-key" aria-hidden="true">
+          <span class="key-item"><span class="key-line"></span> PV and charging path</span>
+          <span class="key-item"><span class="key-line protected"></span> Protected battery load path</span>
+        </div>
+        <div class="diagram-scroll" tabindex="0" aria-label="Horizontally scrollable solar power-flow diagram">
+          <svg class="power-svg" viewBox="0 0 1500 420" role="img" aria-labelledby="flowTitle flowDesc" xmlns="http://www.w3.org/2000/svg">
+            <title id="flowTitle">Power flow for the proposed 12-volt solar system</title>
+            <desc id="flowDesc">A Renogy 200-watt solar panel sends PV power to a Renogy Rover 30-amp MPPT controller, which charges a Renogy 12.8-volt 100 amp-hour battery. The battery feeds a fuse and disconnect, then a Renogy 700-watt inverter. The protected battery-to-inverter branch is orange.</desc>
+            <defs>
+              <marker id="arrow-blue" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="10" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse">
+                <path d="M 0 0 L 12 5 L 0 10 z" fill="#256ea8"/>
+              </marker>
+              <marker id="arrow-orange" viewBox="0 0 12 10" refX="10" refY="5" markerWidth="10" markerHeight="8" orient="auto" markerUnits="userSpaceOnUse">
+                <path d="M 0 0 L 12 5 L 0 10 z" fill="#d86f2d"/>
+              </marker>
+              <filter id="nodeShadow" x="-20%" y="-20%" width="140%" height="150%">
+                <feDropShadow dx="0" dy="7" stdDeviation="7" flood-color="#17324d" flood-opacity="0.13"/>
+              </filter>
+              <clipPath id="clipPanel"><rect x="30" y="100" width="240" height="135" rx="10"/></clipPath>
+              <clipPath id="clipController"><rect x="355" y="100" width="240" height="135" rx="10"/></clipPath>
+              <clipPath id="clipBattery"><rect x="680" y="100" width="240" height="135" rx="10"/></clipPath>
+              <clipPath id="clipInverter"><rect x="1230" y="100" width="240" height="135" rx="10"/></clipPath>
+            </defs>
+
+            <!-- Connectors: corridors remain clear of cards and labels sit above lines. -->
+            <g fill="none" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M 285 205 H 340" stroke="#256ea8" stroke-width="4" marker-end="url(#arrow-blue)"/>
+              <path d="M 610 205 H 665" stroke="#256ea8" stroke-width="4" marker-end="url(#arrow-blue)"/>
+              <path d="M 935 205 H 985" stroke="#d86f2d" stroke-width="4" marker-end="url(#arrow-orange)"/>
+              <path d="M 1185 205 H 1215" stroke="#d86f2d" stroke-width="4" marker-end="url(#arrow-orange)"/>
+            </g>
+
+            <!-- Connector labels with light plates -->
+            <g font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="750" text-anchor="middle">
+              <rect x="281" y="158" width="64" height="27" rx="8" fill="#ffffff" stroke="#d9e0e6"/>
+              <text x="313" y="177" fill="#256ea8">PV power</text>
+              <rect x="602" y="158" width="72" height="27" rx="8" fill="#ffffff" stroke="#d9e0e6"/>
+              <text x="638" y="177" fill="#256ea8">Charging</text>
+              <rect x="922" y="150" width="104" height="35" rx="8" fill="#ffffff" stroke="#f2d7c7"/>
+              <text x="974" y="172" fill="#d86f2d">Protected DC</text>
+              <rect x="1175" y="150" width="77" height="35" rx="8" fill="#ffffff" stroke="#f2d7c7"/>
+              <text x="1213.5" y="172" fill="#d86f2d">Supply</text>
+            </g>
+
+            <!-- Product node: panel -->
+            <g filter="url(#nodeShadow)">
+              <rect x="20" y="65" width="260" height="270" rx="18" fill="#ffffff" stroke="#d9e0e6"/>
+              <rect x="30" y="100" width="240" height="135" rx="10" fill="#f7f9fa" stroke="#d9e0e6"/>
+              <image href="https://www.renogy.com/cdn/shop/files/1__73574.1751963554.1280.1280.jpg?v=1776240144&amp;width=900" x="48" y="108" width="204" height="119" preserveAspectRatio="xMidYMid meet" clip-path="url(#clipPanel)"/>
+              <text x="40" y="91" fill="#2f7d4a" font-size="13" font-weight="850" font-family="Inter, system-ui, sans-serif">SOLAR PANEL</text>
+              <text x="40" y="264" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">Renogy 200W N-Type</text>
+              <text x="40" y="287" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">rigid panel</text>
+              <text x="40" y="315" fill="#607286" font-size="14" font-family="Inter, system-ui, sans-serif">200W PV source</text>
+            </g>
+
+            <!-- Product node: controller -->
+            <g filter="url(#nodeShadow)">
+              <rect x="345" y="65" width="260" height="270" rx="18" fill="#ffffff" stroke="#d9e0e6"/>
+              <rect x="355" y="100" width="240" height="135" rx="10" fill="#f7f9fa" stroke="#d9e0e6"/>
+              <image href="https://www.renogy.com/cdn/shop/files/ROVER-30.jpg?v=1772784911&amp;width=900" x="370" y="106" width="210" height="123" preserveAspectRatio="xMidYMid meet" clip-path="url(#clipController)"/>
+              <text x="365" y="91" fill="#2f7d4a" font-size="13" font-weight="850" font-family="Inter, system-ui, sans-serif">CHARGE CONTROLLER</text>
+              <text x="365" y="264" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">Renogy Rover Li</text>
+              <text x="365" y="287" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">30A MPPT</text>
+              <text x="365" y="315" fill="#607286" font-size="14" font-family="Inter, system-ui, sans-serif">12V / 24V controller</text>
+            </g>
+
+            <!-- Product node: battery -->
+            <g filter="url(#nodeShadow)">
+              <rect x="670" y="65" width="260" height="270" rx="18" fill="#ffffff" stroke="#d9e0e6"/>
+              <rect x="680" y="100" width="240" height="135" rx="10" fill="#f7f9fa" stroke="#d9e0e6"/>
+              <image href="https://www.renogy.com/cdn/shop/files/1-1___19876.1751960681.1280.1280.jpg?v=1776236697&amp;width=900" x="704" y="111" width="192" height="112" preserveAspectRatio="xMidYMid meet" clip-path="url(#clipBattery)"/>
+              <text x="690" y="91" fill="#2f7d4a" font-size="13" font-weight="850" font-family="Inter, system-ui, sans-serif">BATTERY</text>
+              <text x="690" y="264" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">Renogy Core Mini</text>
+              <text x="690" y="287" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">12.8V 100Ah</text>
+              <text x="690" y="315" fill="#607286" font-size="14" font-family="Inter, system-ui, sans-serif">LiFePO4 • about 1,280Wh</text>
+            </g>
+
+            <!-- Compact protection node -->
+            <g filter="url(#nodeShadow)">
+              <rect x="995" y="120" width="180" height="170" rx="16" fill="#fff8f3" stroke="#d86f2d" stroke-width="2"/>
+              <circle cx="1033" cy="172" r="18" fill="#d86f2d"/>
+              <path d="M1025 172h16M1033 164v16" stroke="#fff" stroke-width="3" stroke-linecap="round"/>
+              <rect x="1081" y="156" width="43" height="31" rx="6" fill="#fff" stroke="#d86f2d" stroke-width="2"/>
+              <path d="M1124 171h20" stroke="#d86f2d" stroke-width="3" stroke-linecap="round"/>
+              <text x="1015" y="219" fill="#17324d" font-size="17" font-weight="850" font-family="Inter, system-ui, sans-serif">Fuse + disconnect</text>
+              <text x="1015" y="244" fill="#607286" font-size="14" font-family="Inter, system-ui, sans-serif">Protected DC branch</text>
+              <text x="1015" y="267" fill="#b84444" font-size="13" font-weight="750" font-family="Inter, system-ui, sans-serif">Fuse near battery +</text>
+            </g>
+
+            <!-- Product node: inverter -->
+            <g filter="url(#nodeShadow)">
+              <rect x="1220" y="65" width="260" height="270" rx="18" fill="#ffffff" stroke="#d9e0e6"/>
+              <rect x="1230" y="100" width="240" height="135" rx="10" fill="#f7f9fa" stroke="#d9e0e6"/>
+              <image href="https://www.renogy.com/cdn/shop/files/01__68853.1751960415.1280.1280.jpg?v=1764219909&amp;width=900" x="1246" y="110" width="208" height="115" preserveAspectRatio="xMidYMid meet" clip-path="url(#clipInverter)"/>
+              <text x="1240" y="91" fill="#2f7d4a" font-size="13" font-weight="850" font-family="Inter, system-ui, sans-serif">INVERTER</text>
+              <text x="1240" y="264" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">Renogy 700W 12V</text>
+              <text x="1240" y="287" fill="#17324d" font-size="18" font-weight="850" font-family="Inter, system-ui, sans-serif">pure sine wave</text>
+              <text x="1240" y="315" fill="#607286" font-size="14" font-family="Inter, system-ui, sans-serif">Small 120V AC loads</text>
+            </g>
+
+            <text x="750" y="386" text-anchor="middle" fill="#607286" font-size="15" font-family="Inter, system-ui, sans-serif">Energy moves left to right. The orange branch begins at the battery and remains protected through the inverter connection.</text>
+          </svg>
+        </div>
+        <figcaption class="diagram-caption"><strong>Important:</strong> the inverter connects to the battery through its own protected branch—not through the charge controller load terminals. On narrow screens, scroll horizontally rather than shrinking the labels to an unreadable size.</figcaption>
+      </figure>
+    </section>
+
+    <section id="equipment">
+      <p class="section-kicker">Selected components</p>
+      <h2>Recommended commercial products</h2>
+      <p class="lede">These cards use manufacturer-hosted images linked to the matching Renogy product pages. Current prices are intentionally omitted because availability, bundles, and pricing change.</p>
+
+      <div class="product-grid">
+        <article class="card">
+          <figure class="product-figure">
+            <a href="https://www.renogy.com/products/core-mini-12-8v-100ah-lithium-iron-phosphate-battery" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.renogy.com/cdn/shop/files/1-1___19876.1751960681.1280.1280.jpg?v=1776236697&amp;width=900" alt="Renogy Core Mini 12.8V 100Ah lithium iron phosphate battery" loading="lazy">
+            </a>
+            <figcaption>Renogy Core Mini 12.8V 100Ah LiFePO4 Battery</figcaption>
+          </figure>
+          <span class="tag">Selected battery</span>
+          <h3>Battery</h3>
+          <p>Compact lithium-iron-phosphate storage for the first system. It provides about 1.28kWh of nominal stored energy before reserve limits and conversion losses.</p>
+          <div class="specs">
+            <div class="spec-row"><span>Nominal voltage</span><strong>12.8V</strong></div>
+            <div class="spec-row"><span>Rated capacity</span><strong>100Ah</strong></div>
+            <div class="spec-row"><span>Nominal energy</span><strong>Approximately 1,280Wh</strong></div>
+            <div class="spec-row"><span>Battery chemistry</span><strong>LiFePO4</strong></div>
+          </div>
+          <a class="product-link" href="https://www.renogy.com/products/core-mini-12-8v-100ah-lithium-iron-phosphate-battery" target="_blank" rel="noopener noreferrer">View manufacturer page →</a>
+        </article>
+
+        <article class="card">
+          <figure class="product-figure">
+            <a href="https://www.renogy.com/products/rover-li-30-amp-mppt-solar-charge-controller" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.renogy.com/cdn/shop/files/ROVER-30.jpg?v=1772784911&amp;width=900" alt="Renogy Rover Li 30A MPPT solar charge controller with temperature sensor and mounting hardware" loading="lazy">
+            </a>
+            <figcaption>Renogy Rover Li 30A MPPT Solar Charge Controller</figcaption>
+          </figure>
+          <span class="tag">Selected controller</span>
+          <h3>Charge controller</h3>
+          <p>The controller converts the higher panel voltage into the charging voltage needed by the 12V battery. Its 30A rating leaves room for later array expansion.</p>
+          <div class="specs">
+            <div class="spec-row"><span>Charge rating</span><strong>30A</strong></div>
+            <div class="spec-row"><span>System voltage</span><strong>12V / 24V</strong></div>
+            <div class="spec-row"><span>Maximum PV voltage</span><strong>100VDC class</strong></div>
+            <div class="spec-row"><span>12V PV power class</span><strong>Up to 400W</strong></div>
+          </div>
+          <a class="product-link" href="https://www.renogy.com/products/rover-li-30-amp-mppt-solar-charge-controller" target="_blank" rel="noopener noreferrer">View manufacturer page →</a>
+        </article>
+
+        <article class="card">
+          <figure class="product-figure">
+            <a href="https://www.renogy.com/products/200w-n-type-high-efficiency-solar-panel" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.renogy.com/cdn/shop/files/1__73574.1751963554.1280.1280.jpg?v=1776240144&amp;width=900" alt="Renogy 200W N-Type rigid monocrystalline solar panel shown from the front and rear" loading="lazy">
+            </a>
+            <figcaption>Renogy 200W N-Type Rigid Monocrystalline Solar Panel</figcaption>
+          </figure>
+          <span class="tag">Selected panel</span>
+          <h3>Solar panel</h3>
+          <p>A high-voltage rigid module well suited to an MPPT controller. Verify the exact panel variant before purchase because dimensions and electrical values may vary.</p>
+          <div class="specs">
+            <div class="spec-row"><span>Rated power</span><strong>200W</strong></div>
+            <div class="spec-row"><span>Cell type</span><strong>N-Type monocrystalline</strong></div>
+            <div class="spec-row"><span>System use</span><strong>12V or 24V systems</strong></div>
+            <div class="spec-row"><span>Mounting</span><strong>Rigid ground frame</strong></div>
+          </div>
+          <a class="product-link" href="https://www.renogy.com/products/200w-n-type-high-efficiency-solar-panel" target="_blank" rel="noopener noreferrer">View manufacturer page →</a>
+        </article>
+
+        <article class="card">
+          <figure class="product-figure">
+            <a href="https://www.renogy.com/products/700w-12v-pure-sine-wave-inverter" target="_blank" rel="noopener noreferrer">
+              <img src="https://www.renogy.com/cdn/shop/files/01__68853.1751960415.1280.1280.jpg?v=1764219909&amp;width=900" alt="Renogy 700W 12V pure sine wave inverter with remote control and cables" loading="lazy">
+            </a>
+            <figcaption>Renogy 700W 12V Pure Sine Wave Inverter</figcaption>
+          </figure>
+          <span class="tag">Selected inverter</span>
+          <h3>Inverter</h3>
+          <p>Converts battery DC into household-style AC for small appliances and electronics. Pure sine output is preferred for sensitive loads and motors.</p>
+          <div class="specs">
+            <div class="spec-row"><span>Continuous output</span><strong>700W</strong></div>
+            <div class="spec-row"><span>Input voltage</span><strong>12VDC</strong></div>
+            <div class="spec-row"><span>Output type</span><strong>Pure sine wave</strong></div>
+            <div class="spec-row"><span>Connection</span><strong>Direct to battery through fuse and disconnect</strong></div>
+          </div>
+          <a class="product-link" href="https://www.renogy.com/products/700w-12v-pure-sine-wave-inverter" target="_blank" rel="noopener noreferrer">View manufacturer page →</a>
+        </article>
+      </div>
+    </section>
+
+    <section id="wiring">
+      <p class="section-kicker">Circuit protection</p>
+      <h2>Protection and wiring plan</h2>
+      <p class="lede">Final conductor sizes and fuse ratings depend on cable length, conductor temperature rating, installation method, connected equipment, and the current manufacturer instructions. Treat the following as a planning framework rather than a final construction schedule.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Connection</th><th>Protection and materials</th><th>Planning note</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Panel → controller</strong></td><td>UV-resistant PV wire, weather-rated connectors, cable support, and a PV disconnect.</td><td>Maintain polarity and remain below the controller maximum PV voltage.</td></tr>
+            <tr><td><strong>Controller → battery</strong></td><td>Short copper conductors with a battery-side fuse or breaker sized for the controller circuit.</td><td>The controller circuit requires external protection.</td></tr>
+            <tr><td><strong>Battery → inverter</strong></td><td>Very short heavy copper cables, a main fuse close to battery positive, and a DC-rated disconnect.</td><td>This is the highest-current branch in the system.</td></tr>
+            <tr><td><strong>Battery monitor</strong></td><td>Place the shunt in the battery negative path so all charging and load current passes through it.</td><td>Only the battery side of the shunt should connect directly to battery negative.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <aside class="callout warning"><strong>High-current warning:</strong> at 700W output, the inverter may draw roughly 60A or more from a 12V battery after losses. Follow the inverter manual for cable and fuse sizing.</aside>
+    </section>
+
+    <section id="energy">
+      <p class="section-kicker">Planning with watt-hours</p>
+      <h2>Energy budget</h2>
+      <p class="lede"><strong>Watt-hours = watts × hours.</strong> A load’s power tells you how fast it uses energy; the time tells you how long that draw continues.</p>
+      <div class="calculation-band">
+        <div class="metric"><div class="value">12.8V × 100Ah</div><div class="label">Battery rating calculation</div></div>
+        <div class="metric"><div class="value">≈ 1,280Wh</div><div class="label">Nominal stored battery energy</div></div>
+        <div class="metric"><div class="value">≈ 500–800Wh/day</div><div class="label">Good-day solar planning estimate</div></div>
+      </div>
+      <p>Practical AC energy is lower than the battery’s nominal 1,280Wh because the inverter consumes energy and a reserve margin helps avoid unnecessary deep discharge. Actual solar production varies with season, tilt, shade, temperature, weather, wiring losses, and controller efficiency.</p>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Example load</th><th>Power</th><th>Time</th><th>Energy</th></tr></thead>
+          <tbody>
+            <tr><td>LED lighting</td><td>30W</td><td>4 hours</td><td><strong>120Wh</strong></td></tr>
+            <tr><td>Laptop</td><td>65W</td><td>3 hours</td><td><strong>195Wh</strong></td></tr>
+            <tr><td>Internet equipment</td><td>20W</td><td>8 hours</td><td><strong>160Wh</strong></td></tr>
+            <tr><td>Small television</td><td>80W</td><td>2 hours</td><td><strong>160Wh</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="small-print">The four example loads total 635Wh. That total may be reasonable on a productive day, but weather and battery reserve still matter.</p>
+    </section>
+
+    <section id="build">
+      <p class="section-kicker">From measurements to testing</p>
+      <h2>Provisional shopping list and build sequence</h2>
+      <div class="shopping-sequence">
+        <article class="panel">
+          <h3>Shopping list</h3>
+          <ul class="check-list">
+            <li>Renogy Core Mini 12.8V 100Ah LiFePO4 battery</li>
+            <li>Renogy Rover Li 30A MPPT controller</li>
+            <li>Renogy 200W N-Type rigid solar panel</li>
+            <li>Renogy 700W 12V pure sine-wave inverter</li>
+            <li>Shunt-based battery monitor</li>
+            <li>PV disconnect and required PV overcurrent protection</li>
+            <li>Controller-to-battery fuse or breaker</li>
+            <li>Battery main fuse and holder</li>
+            <li>DC-rated battery disconnect switch</li>
+            <li>Correctly sized copper battery cable</li>
+            <li>PV wire and compatible connectors</li>
+            <li>Crimped lugs, heat shrink, and terminal covers</li>
+            <li>Weatherproof cable-entry hardware</li>
+            <li>Ground-mount frame and anchoring hardware</li>
+            <li>Equipment backboard or enclosure</li>
+            <li>Labels and a printed one-line diagram</li>
+          </ul>
+        </article>
+        <article class="panel">
+          <h3>Build sequence</h3>
+          <div class="sequence">
+            <div class="sequence-card"><strong>1 — Measure</strong><br>Measure panel-to-controller and battery-to-inverter cable lengths before selecting wire and protection.</div>
+            <div class="sequence-card"><strong>2 — Mount</strong><br>Install and anchor the panel frame while avoiding shade, impact, standing water, and accidental contact.</div>
+            <div class="sequence-card"><strong>3 — Assemble</strong><br>Mount the controller, battery, fuses, disconnects, monitor, and inverter on a durable surface or in a suitable enclosure.</div>
+            <div class="sequence-card"><strong>4 — Connect</strong><br>With PV isolated, connect the battery to the controller first, configure battery type, and then connect the panel. Confirm the exact sequence in the current manual.</div>
+            <div class="sequence-card"><strong>5 — Test</strong><br>Verify polarity, charging, terminal tightness, voltage, monitor readings, and temperature before applying larger loads.</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="safety">
+      <p class="section-kicker">Non-negotiable limits</p>
+      <h2>Safety boundaries</h2>
+      <p class="lede">A 12V battery can deliver very high fault current. Good protection, short cable runs, correct hardware, and careful verification are essential even in a small system.</p>
+      <div class="safety-grid">
+        <div class="safety-item"><span class="safety-icon">!</span><div>Do not connect the inverter to house wiring or an existing receptacle through a backfeed cord.</div></div>
+        <div class="safety-item"><span class="safety-icon">!</span><div>Use only DC-rated fuses, breakers, switches, connectors, and disconnects at the required voltage and current.</div></div>
+        <div class="safety-item"><span class="safety-icon">!</span><div>Place the main battery fuse close to the positive terminal.</div></div>
+        <div class="safety-item"><span class="safety-icon">!</span><div>Protect each conductor according to its ampacity and connected equipment.</div></div>
+        <div class="safety-item"><span class="safety-icon">!</span><div>Keep the battery within its permitted charging temperature range.</div></div>
+        <div class="safety-item"><span class="safety-icon">!</span><div>Confirm grounding, bonding, outdoor wiring, trenching, structural mounting, and local code requirements with a qualified installer or authority.</div></div>
+        <div class="safety-item"><span class="safety-icon">!</span><div>Recheck terminal torque and inspect periodically for heat, corrosion, abrasion, looseness, and water entry.</div></div>
+      </div>
+    </section>
+
+    <section id="references">
+      <p class="section-kicker">Source pages</p>
+      <h2>Manufacturer references</h2>
+      <div class="reference-grid">
+        <div class="reference-card"><a href="https://www.renogy.com/products/core-mini-12-8v-100ah-lithium-iron-phosphate-battery" target="_blank" rel="noopener noreferrer">Renogy Core Mini 12.8V 100Ah battery</a></div>
+        <div class="reference-card"><a href="https://www.renogy.com/products/rover-li-30-amp-mppt-solar-charge-controller" target="_blank" rel="noopener noreferrer">Renogy Rover Li 30A MPPT controller</a></div>
+        <div class="reference-card"><a href="https://www.renogy.com/products/200w-n-type-high-efficiency-solar-panel" target="_blank" rel="noopener noreferrer">Renogy 200W N-Type rigid solar panel</a></div>
+        <div class="reference-card"><a href="https://www.renogy.com/products/700w-12v-pure-sine-wave-inverter" target="_blank" rel="noopener noreferrer">Renogy 700W 12V pure sine-wave inverter</a></div>
+      </div>
+      <p class="small-print">Product pages, specifications, bundled accessories, pricing, and availability may change. Verify current manuals and the exact purchased variants before selecting protection or conductor sizes.</p>
+    </section>
+  </main>
+
+  <footer>
+    <strong>Planning status:</strong> conceptual prototype document. Final installation details should be checked against current manufacturer manuals and applicable electrical and structural requirements.
+  </footer>
+</body>
+</html>
