@@ -1,0 +1,16 @@
+{
+  "project": "Learning Library",
+  "workspace_folder": "textbooker",
+  "standard": "LL-EAS v4.0",
+  "ruleset": "config/learning-library-expandable-html-ruleset-v4.json",
+  "lesson_template": "templates/lesson-template.html",
+  "author_guide": "docs/learning-library-author-guide.md",
+  "prompt_primer": "docs/prompt-primer.md",
+  "course_index": "https://kevinlinstrum001.github.io/learning-library/",
+  "default_image_directory": "images/",
+  "default_asset_naming": {
+    "images": "{document_name}_imageNN.png",
+    "svg_elements": "{document-slug}-{section-number}-{element-role}-NN"
+  },
+  "lessons": []
+}

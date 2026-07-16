@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="LESSON_DESCRIPTION">
+  <title>LESSON_TITLE · Learning Library</title>
+
+  <script id="lesson-metadata" type="application/json">
+  {
+    "document_slug": "lesson-slug",
+    "document_title": "LESSON_TITLE",
+    "course": "COURSE_NAME",
+    "lesson_number": 1,
+    "version": 1,
+    "section_count": 1,
+    "image_count": 0,
+    "svg_count": 0,
+    "expansion_count": 0,
+    "prerequisites": [],
+    "previous_lesson": null,
+    "next_lesson": null
+  }
+  </script>
+
+  <style>
+    :root {
+      --bg: #f5f3ee;
+      --surface: #fffdf8;
+      --surface-2: #ece8df;
+      --ink: #1f252b;
+      --muted: #66717a;
+      --accent: #315c8c;
+      --accent-2: #8c5a31;
+      --line: #d8d2c7;
+      --radius: 18px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: system-ui, sans-serif;
+      line-height: 1.65;
+    }
+
+    a:focus-visible,
+    summary:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .course-nav {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem max(1rem, calc((100vw - 1100px) / 2));
+      border-bottom: 1px solid var(--line);
+      background: var(--surface);
+    }
+
+    .course-index-link {
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    header,
+    main,
+    footer {
+      width: min(1100px, calc(100% - 2rem));
+      margin-inline: auto;
+    }
+
+    header { padding: 4rem 0 2rem; }
+    main { padding-bottom: 4rem; }
+
+    .lesson-section {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .history-callout,
+    .concept-card,
+    .worked-example,
+    .summary-card,
+    .learning-prompt-card,
+    .image-placeholder {
+      margin: 1.25rem 0;
+      padding: 1.25rem;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .learning-prompt-card {
+      border-style: dashed;
+      background: color-mix(in srgb, var(--surface) 80%, var(--accent) 20%);
+    }
+
+    .learning-prompt-card pre {
+      overflow-x: auto;
+      white-space: pre-wrap;
+      padding: 1rem;
+      border-radius: 12px;
+      background: var(--surface-2);
+    }
+
+    .image-placeholder-box {
+      min-height: 220px;
+      display: grid;
+      place-items: center;
+      align-content: center;
+      gap: .5rem;
+      border: 1px dashed var(--line);
+      border-radius: 14px;
+      background: var(--surface-2);
+      color: var(--muted);
+    }
+
+    .lesson-figure img,
+    .lesson-figure svg {
+      display: block;
+      width: 100%;
+      max-width: 100%;
+      height: auto;
+    }
+
+    footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      padding: 2rem 0 4rem;
+    }
+
+    @media (max-width: 700px) {
+      header { padding-top: 2.5rem; }
+      .lesson-section { padding: 3rem 0; }
+    }
+
+    @media print {
+      .course-nav,
+      .learning-prompt-card {
+        display: none;
+      }
+
+      body { background: white; }
+    }
+  </style>
+</head>
+<body id="top">
+  <nav class="course-nav" aria-label="Course navigation">
+    <a class="course-index-link"
+       href="https://kevinlinstrum001.github.io/learning-library/">
+      ← Course Index
+    </a>
+  </nav>
+
+  <header>
+    <p>COURSE_NAME · Lesson 1</p>
+    <h1>LESSON_TITLE</h1>
+    <p>LESSON_INTRODUCTION</p>
+  </header>
+
+  <main>
+    <section class="lesson-section" id="section-01">
+      <h2>SECTION_TITLE</h2>
+
+      <aside class="history-callout">
+        <h3>Historical motivation</h3>
+        <p>HISTORICAL_CONTEXT</p>
+      </aside>
+
+      <div class="concept-card">
+        <h3>Core concept</h3>
+        <p>CORE_CONCEPT</p>
+      </div>
+
+      <article class="worked-example">
+        <h3>Worked example</h3>
+        <p>WORKED_EXAMPLE</p>
+      </article>
+
+      <aside class="summary-card">
+        <h3>Section summary</h3>
+        <p>SECTION_SUMMARY</p>
+      </aside>
+
+      <!-- Insert future explanation fragments immediately before this card. -->
+      <aside class="learning-prompt-card"
+             id="expand-section-01-01"
+             data-prompt-id="lesson-slug-section-01-explanation-01"
+             data-section-id="section-01"
+             data-prompt-type="explanation"
+             data-prompt-status="planned"
+             data-insert-position="before-this-card">
+        <h3>Expand this explanation</h3>
+        <details>
+          <summary>Copy expansion prompt</summary>
+          <pre><code>Expand the section titled "SECTION_TITLE" using the supplied section HTML as context. Deepen the explanation of SECTION_TOPIC, add one additional worked example, and clarify likely beginner confusion. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</code></pre>
+        </details>
+      </aside>
+
+      <!-- Insert future practice fragments immediately before this card. -->
+      <aside class="learning-prompt-card"
+             id="expand-practice-01-01"
+             data-prompt-id="lesson-slug-section-01-practice-01"
+             data-section-id="section-01"
+             data-prompt-type="practice"
+             data-prompt-status="planned"
+             data-insert-position="before-this-card">
+        <h3>Expand practice</h3>
+        <details>
+          <summary>Copy practice prompt</summary>
+          <pre><code>Using the supplied HTML for "SECTION_TITLE" as context, create a progressive practice block for SECTION_TOPIC. Include recognition, calculation, explanation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</code></pre>
+        </details>
+      </aside>
+
+      <!-- Add this card when the section has or may need a visual. -->
+      <aside class="learning-prompt-card"
+             id="expand-visual-01-01"
+             data-prompt-id="lesson-slug-section-01-visual-01"
+             data-section-id="section-01"
+             data-prompt-type="visual"
+             data-prompt-status="planned"
+             data-insert-position="before-this-card">
+        <h3>Expand the visual</h3>
+        <details>
+          <summary>Copy visual prompt</summary>
+          <pre><code>Review the supplied HTML for "SECTION_TITLE" and expand its visual explanation of SECTION_TOPIC. If relationships, structure, or sequence must be explained, return an accessible inline SVG. Otherwise return a named image placeholder using lesson_slug_image01.png. Preserve existing IDs and classes and return only the new HTML fragment to insert immediately before this visual card.</code></pre>
+        </details>
+      </aside>
+    </section>
+  </main>
+
+  <footer>
+    <a href="https://kevinlinstrum001.github.io/learning-library/">← Course Index</a>
+    <a href="#top">Back to top ↑</a>
+  </footer>
+</body>
+</html>

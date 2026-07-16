@@ -1,0 +1,1174 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The Learning Library course index: a structured path from mathematical foundations to Maxwell's Equations.">
+  <title>Learning Library — Course Index</title>
+
+  <script id="lesson-metadata" type="application/json">
+{
+  "document_slug": "index",
+  "document_title": "Learning Library — Course Index",
+  "course": "Learning Library",
+  "lesson_number": 0,
+  "version": "1.0",
+  "section_count": 7,
+  "image_count": 0,
+  "svg_count": 1,
+  "expansion_count": 0,
+  "prerequisites": [],
+  "previous_lesson": null,
+  "next_lesson": "course-01-lesson-01-scalars.html",
+  "document_type": "course index",
+  "curriculum_source": "CURRICULUM.md",
+  "authoring_standard": "LL-EAS 4.3"
+}
+  </script>
+
+  <style>
+    :root {
+      --ink: #14233a;
+      --muted: #5a687b;
+      --paper: #f7f5ef;
+      --surface: #ffffff;
+      --line: #d8dde5;
+      --navy: #16385f;
+      --blue: #2d648f;
+      --sky: #dcecf5;
+      --gold: #c7973c;
+      --gold-soft: #f3e7c9;
+      --green: #416f62;
+      --shadow: 0 14px 34px rgba(20, 35, 58, 0.10);
+      --radius: 18px;
+      --content-width: 1180px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(22, 56, 95, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(22, 56, 95, 0.025) 1px, transparent 1px),
+        var(--paper);
+      background-size: 32px 32px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible,
+    button:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -5rem;
+      z-index: 1000;
+      padding: .75rem 1rem;
+      color: #fff;
+      background: var(--navy);
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    .reading-progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 999;
+      height: 5px;
+      background: rgba(255,255,255,.45);
+    }
+
+    .reading-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--blue));
+    }
+
+    .course-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: .25rem;
+      overflow-x: auto;
+      padding: .65rem max(1rem, calc((100vw - var(--content-width)) / 2));
+      color: #fff;
+      background: rgba(20, 35, 58, .96);
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(12px);
+      scrollbar-width: thin;
+    }
+
+    .course-nav a {
+      flex: 0 0 auto;
+      padding: .45rem .75rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 750;
+      letter-spacing: .01em;
+    }
+
+    .course-nav a:hover { background: rgba(255,255,255,.12); }
+    .course-nav .course-index-link {
+      margin-right: .5rem;
+      color: var(--gold-soft);
+      border: 1px solid rgba(243,231,201,.35);
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      color: #fff;
+      background:
+        radial-gradient(circle at 86% 18%, rgba(199,151,60,.30), transparent 23rem),
+        linear-gradient(135deg, #102943 0%, #17486d 58%, #2b6677 100%);
+    }
+
+    .hero-inner {
+      width: min(var(--content-width), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(4.5rem, 8vw, 8rem) 0 clamp(3.5rem, 7vw, 6rem);
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr);
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: center;
+    }
+
+    .kicker,
+    .eyebrow {
+      margin: 0 0 .6rem;
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    .kicker { color: var(--gold-soft); }
+
+    h1 {
+      max-width: 850px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 8vw, 6.9rem);
+      line-height: .93;
+      letter-spacing: -.045em;
+      text-wrap: balance;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 1.5rem 0 0;
+      color: #e5eef4;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+    }
+
+    .goal-card {
+      padding: 1.5rem;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--radius);
+      box-shadow: 0 24px 48px rgba(0,0,0,.18);
+      backdrop-filter: blur(8px);
+    }
+
+    .goal-card strong {
+      display: block;
+      margin-bottom: .5rem;
+      color: var(--gold-soft);
+      font-size: .78rem;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+    }
+
+    .goal-card p {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.25rem, 2.5vw, 1.8rem);
+      line-height: 1.35;
+    }
+
+    .path-diagram {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin-top: 1.25rem;
+    }
+
+    main {
+      width: min(var(--content-width), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 3rem 0 5rem;
+    }
+
+    .intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .intro article {
+      padding: clamp(1.25rem, 3vw, 2rem);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .intro h2 {
+      margin: 0 0 .5rem;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(1.5rem, 3vw, 2.15rem);
+    }
+
+    .intro p { margin: 0; color: var(--muted); }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin: 0 0 3rem;
+    }
+
+    .stat {
+      padding: 1.2rem;
+      text-align: center;
+      background: var(--navy);
+      color: #fff;
+      border-radius: 14px;
+    }
+
+    .stat strong {
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 2rem;
+      color: var(--gold-soft);
+    }
+
+    .stat span {
+      display: block;
+      font-size: .85rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .course-section {
+      scroll-margin-top: 5rem;
+      margin: 0 0 2rem;
+      padding: clamp(1.25rem, 4vw, 2.5rem);
+      background: rgba(255,255,255,.92);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .course-heading {
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 1.25rem;
+      align-items: start;
+    }
+
+    .course-number {
+      display: grid;
+      place-items: center;
+      width: 4rem;
+      aspect-ratio: 1;
+      color: #fff;
+      background: var(--navy);
+      border-radius: 50%;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.35rem;
+      font-weight: 800;
+      box-shadow: inset 0 0 0 5px rgba(255,255,255,.12);
+    }
+
+    .course-heading .eyebrow { color: var(--blue); }
+
+    .course-heading h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+    }
+
+    .course-purpose {
+      max-width: 720px;
+      margin: .6rem 0 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .course-page-link {
+      align-self: center;
+      padding: .7rem .9rem;
+      color: var(--navy);
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .course-page-link:hover {
+      color: #fff;
+      background: var(--navy);
+      border-color: var(--navy);
+    }
+
+    .course-facts {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      padding: 1rem 1.1rem;
+      background: #f3f6f8;
+      border-left: 4px solid var(--gold);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .course-facts div { min-width: 0; }
+    .course-facts dt {
+      font-size: .72rem;
+      font-weight: 850;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--blue);
+    }
+    .course-facts dd { margin: .15rem 0 0; color: var(--muted); }
+
+    .lesson-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: .65rem;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .lesson-item a {
+      display: grid;
+      grid-template-columns: 2.75rem 1fr auto;
+      gap: .8rem;
+      align-items: center;
+      min-height: 3.3rem;
+      padding: .65rem .8rem;
+      color: var(--ink);
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 11px;
+      text-decoration: none;
+      transition: transform .16s ease, box-shadow .16s ease, border-color .16s ease;
+    }
+
+    .lesson-item a:hover {
+      transform: translateY(-2px);
+      border-color: #9bb7c9;
+      box-shadow: 0 8px 18px rgba(20,35,58,.09);
+    }
+
+    .lesson-number {
+      display: grid;
+      place-items: center;
+      min-height: 2rem;
+      color: var(--navy);
+      background: var(--sky);
+      border-radius: 7px;
+      font-size: .78rem;
+      font-weight: 900;
+      letter-spacing: .05em;
+    }
+
+    .lesson-title { font-weight: 760; }
+    .lesson-arrow { color: var(--gold); font-size: 1.1rem; font-weight: 900; }
+
+    .future-section {
+      margin-top: 3rem;
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      color: #fff;
+      background: linear-gradient(145deg, #173552, #274f66);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .future-section h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+    }
+
+    .future-section > p {
+      max-width: 760px;
+      color: #d8e5ec;
+    }
+
+    .future-list {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: .75rem;
+      margin: 1.5rem 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .future-list li {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: .8rem 1rem;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 10px;
+    }
+
+    .future-list span { font-weight: 720; }
+    .future-list small { color: var(--gold-soft); white-space: nowrap; }
+
+    .footer-nav {
+      width: min(var(--content-width), calc(100% - 2rem));
+      margin: 0 auto 2rem;
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-nav a {
+      text-decoration: none;
+      font-weight: 800;
+      color: var(--navy);
+    }
+
+    footer {
+      padding: 1.25rem 1rem 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .noscript {
+      margin: 0;
+      padding: .75rem 1rem;
+      text-align: center;
+      color: #fff;
+      background: #7a3f28;
+    }
+
+    @media (max-width: 820px) {
+      .hero-inner,
+      .intro {
+        grid-template-columns: 1fr;
+      }
+
+      .course-heading {
+        grid-template-columns: auto 1fr;
+      }
+
+      .course-page-link {
+        grid-column: 1 / -1;
+        justify-self: start;
+      }
+
+      .course-facts,
+      .future-list {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .lesson-grid,
+      .summary-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-inner {
+        width: min(100% - 1.25rem, var(--content-width));
+      }
+
+      main,
+      .footer-nav {
+        width: min(100% - 1.25rem, var(--content-width));
+      }
+
+      .course-section {
+        border-radius: 16px;
+      }
+
+      .course-heading {
+        gap: .8rem;
+      }
+
+      .course-number {
+        width: 3rem;
+      }
+
+      .course-facts {
+        padding: .85rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+      }
+    }
+
+    @media print {
+      .reading-progress,
+      .course-nav,
+      .skip-link {
+        display: none !important;
+      }
+
+      body {
+        background: #fff;
+        color: #000;
+      }
+
+      .hero {
+        color: #000;
+        background: #fff;
+        border-bottom: 2px solid #000;
+      }
+
+      .hero-copy,
+      .goal-card,
+      .future-section,
+      .future-section > p {
+        color: #000;
+        background: #fff;
+      }
+
+      .course-section,
+      .intro article,
+      .future-section {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      .lesson-item a {
+        color: #000;
+      }
+
+      a::after {
+        content: "";
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a class="skip-link" href="#main-content">Skip to course index</a>
+
+  <div class="reading-progress" aria-hidden="true">
+    <span id="reading-progress-bar"></span>
+  </div>
+
+  <nav class="course-nav" aria-label="Course navigation">
+    <a class="course-index-link" href="https://kevinlinstrum001.github.io/learning-library/" aria-current="page">← Course Index</a>
+    <a href="#course-1">Course 1</a>
+<a href="#course-2">Course 2</a>
+<a href="#course-3">Course 3</a>
+<a href="#course-4">Course 4</a>
+<a href="#course-5">Course 5</a>
+    <a href="#future-courses">Future Courses</a>
+  </nav>
+
+  <header class="hero">
+    <div class="hero-inner">
+      <div>
+        <p class="kicker">Learning Library · Curriculum Map</p>
+        <h1>From first principles to Maxwell’s Equations.</h1>
+        <p class="hero-copy">
+          A structured, expandable program in mathematics, physics, and engineering.
+          Every lesson establishes one durable idea, then remains open for deeper explanations,
+          practice, diagrams, and future connections.
+        </p>
+      </div>
+
+      <aside class="goal-card" aria-labelledby="ultimate-goal-title">
+        <strong id="ultimate-goal-title">Ultimate goal</strong>
+        <p>Develop the knowledge required to understand Maxwell’s Equations and advanced technical subjects from first principles.</p>
+
+        <svg class="path-diagram" viewBox="0 0 520 170" role="img"
+             aria-label="A learning path from mathematical foundations through mechanics, electricity, and magnetism to electromagnetism"
+             preserveAspectRatio="xMidYMid meet">
+          <defs>
+            <marker id="path-arrow" viewBox="0 0 10 10" refX="8" refY="5"
+                    markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#f3e7c9"></path>
+            </marker>
+          </defs>
+          <g fill="none" stroke="#f3e7c9" stroke-width="2" marker-end="url(#path-arrow)">
+            <path d="M104 53 H184"></path>
+            <path d="M294 53 H374"></path>
+            <path d="M429 78 V117"></path>
+            <path d="M374 142 H294"></path>
+          </g>
+          <g font-family="Inter, sans-serif" font-size="15" text-anchor="middle">
+            <rect x="10" y="28" width="94" height="50" rx="10" fill="#ffffff18" stroke="#ffffff55"></rect>
+            <text x="57" y="49" fill="#ffffff">Math</text>
+            <text x="57" y="67" fill="#dcecf5">Foundations</text>
+
+            <rect x="184" y="28" width="110" height="50" rx="10" fill="#ffffff18" stroke="#ffffff55"></rect>
+            <text x="239" y="49" fill="#ffffff">Classical</text>
+            <text x="239" y="67" fill="#dcecf5">Mechanics</text>
+
+            <rect x="374" y="28" width="110" height="50" rx="10" fill="#ffffff18" stroke="#ffffff55"></rect>
+            <text x="429" y="58" fill="#ffffff">Electricity</text>
+
+            <rect x="374" y="117" width="110" height="50" rx="10" fill="#ffffff18" stroke="#ffffff55"></rect>
+            <text x="429" y="147" fill="#ffffff">Magnetism</text>
+
+            <rect x="174" y="117" width="120" height="50" rx="10" fill="#c7973c33" stroke="#f3e7c9"></rect>
+            <text x="234" y="147" fill="#ffffff">Electromagnetism</text>
+          </g>
+        </svg>
+      </aside>
+    </div>
+  </header>
+
+  <noscript>
+    <p class="noscript">This page remains fully usable without JavaScript. Only the reading-progress indicator is disabled.</p>
+  </noscript>
+
+  <main id="main-content">
+    <section class="intro" aria-label="About the Learning Library">
+      <article>
+        <p class="eyebrow">Purpose</p>
+        <h2>Learn in a deliberate order.</h2>
+        <p>
+          Later topics build on earlier ones. The sequence begins with mathematical language,
+          applies it to motion and forces, and then uses both to study electric and magnetic fields.
+        </p>
+      </article>
+
+      <article>
+        <p class="eyebrow">Expandable design</p>
+        <h2>Begin clearly. Expand permanently.</h2>
+        <p>
+          Each HTML lesson starts with a strong core explanation and a compact worked example.
+          Learning-prompt cards allow the lesson to grow without replacing its existing material.
+        </p>
+      </article>
+    </section>
+
+    <section class="summary-strip" aria-label="Curriculum summary">
+      <div class="stat"><strong>5</strong><span>Core courses</span></div>
+      <div class="stat"><strong>44</strong><span>Ordered lessons</span></div>
+      <div class="stat"><strong>9</strong><span>Future courses</span></div>
+    </section>
+
+    
+      <section class="course-section" id="course-1" aria-labelledby="course-1-title">
+        <div class="course-heading">
+          <div class="course-number" aria-hidden="true">01</div>
+          <div>
+            <p class="eyebrow">Course 1 · 17 lessons</p>
+            <h2 id="course-1-title">Mathematical Foundations</h2>
+            <p class="course-purpose">Develop the mathematical language used throughout science and engineering.</p>
+          </div>
+          <a class="course-page-link" href="mathematics/course-01-mathematical-foundations.html">Open course overview <span aria-hidden="true">→</span></a>
+        </div>
+
+        <dl class="course-facts">
+          <div>
+            <dt>Prerequisites</dt>
+            <dd>None</dd>
+          </div>
+          <div>
+            <dt>Builds toward</dt>
+            <dd>Classical Mechanics · Electricity · Magnetism · Electromagnetism · Electronics · Control Systems</dd>
+          </div>
+        </dl>
+
+        <ol class="lesson-grid" aria-label="Mathematical Foundations lessons">
+          
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-01-scalars.html" aria-label="Course 1, Lesson 1: Scalars">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Scalars</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-02-vectors.html" aria-label="Course 1, Lesson 2: Vectors">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Vectors</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-03-vector-components.html" aria-label="Course 1, Lesson 3: Vector Components">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Vector Components</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-04-unit-vectors.html" aria-label="Course 1, Lesson 4: Unit Vectors">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Unit Vectors</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-05-vector-addition.html" aria-label="Course 1, Lesson 5: Vector Addition">
+                <span class="lesson-number">05</span>
+                <span class="lesson-title">Vector Addition</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-06-scalar-multiplication.html" aria-label="Course 1, Lesson 6: Scalar Multiplication">
+                <span class="lesson-number">06</span>
+                <span class="lesson-title">Scalar Multiplication</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-07-dot-product.html" aria-label="Course 1, Lesson 7: Dot Product">
+                <span class="lesson-number">07</span>
+                <span class="lesson-title">Dot Product</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-08-cross-product.html" aria-label="Course 1, Lesson 8: Cross Product">
+                <span class="lesson-number">08</span>
+                <span class="lesson-title">Cross Product</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-09-matrices.html" aria-label="Course 1, Lesson 9: Matrices">
+                <span class="lesson-number">09</span>
+                <span class="lesson-title">Matrices</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-10-functions.html" aria-label="Course 1, Lesson 10: Functions">
+                <span class="lesson-number">10</span>
+                <span class="lesson-title">Functions</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-11-limits.html" aria-label="Course 1, Lesson 11: Limits">
+                <span class="lesson-number">11</span>
+                <span class="lesson-title">Limits</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-12-derivatives.html" aria-label="Course 1, Lesson 12: Derivatives">
+                <span class="lesson-number">12</span>
+                <span class="lesson-title">Derivatives</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-13-integrals.html" aria-label="Course 1, Lesson 13: Integrals">
+                <span class="lesson-number">13</span>
+                <span class="lesson-title">Integrals</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-14-partial-derivatives.html" aria-label="Course 1, Lesson 14: Partial Derivatives">
+                <span class="lesson-number">14</span>
+                <span class="lesson-title">Partial Derivatives</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-15-vector-fields.html" aria-label="Course 1, Lesson 15: Vector Fields">
+                <span class="lesson-number">15</span>
+                <span class="lesson-title">Vector Fields</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-16-divergence.html" aria-label="Course 1, Lesson 16: Divergence">
+                <span class="lesson-number">16</span>
+                <span class="lesson-title">Divergence</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="mathematics/course-01-lesson-17-curl.html" aria-label="Course 1, Lesson 17: Curl">
+                <span class="lesson-number">17</span>
+                <span class="lesson-title">Curl</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+        </ol>
+      </section>
+      <section class="course-section" id="course-2" aria-labelledby="course-2-title">
+        <div class="course-heading">
+          <div class="course-number" aria-hidden="true">02</div>
+          <div>
+            <p class="eyebrow">Course 2 · 9 lessons</p>
+            <h2 id="course-2-title">Classical Mechanics</h2>
+            <p class="course-purpose">Understand how objects move and why they move.</p>
+          </div>
+          <a class="course-page-link" href="course-02-classical-mechanics.html">Open course overview <span aria-hidden="true">→</span></a>
+        </div>
+
+        <dl class="course-facts">
+          <div>
+            <dt>Prerequisites</dt>
+            <dd>Course 1</dd>
+          </div>
+          <div>
+            <dt>Builds toward</dt>
+            <dd>Electricity · Magnetism · Engineering</dd>
+          </div>
+        </dl>
+
+        <ol class="lesson-grid" aria-label="Classical Mechanics lessons">
+          
+            <li class="lesson-item">
+              <a href="course-02-lesson-01-position.html" aria-label="Course 2, Lesson 1: Position">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Position</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-02-velocity.html" aria-label="Course 2, Lesson 2: Velocity">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Velocity</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-03-acceleration.html" aria-label="Course 2, Lesson 3: Acceleration">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Acceleration</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-04-force.html" aria-label="Course 2, Lesson 4: Force">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Force</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-05-newtons-laws.html" aria-label="Course 2, Lesson 5: Newton&#x27;s Laws">
+                <span class="lesson-number">05</span>
+                <span class="lesson-title">Newton&#x27;s Laws</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-06-work.html" aria-label="Course 2, Lesson 6: Work">
+                <span class="lesson-number">06</span>
+                <span class="lesson-title">Work</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-07-energy.html" aria-label="Course 2, Lesson 7: Energy">
+                <span class="lesson-number">07</span>
+                <span class="lesson-title">Energy</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-08-momentum.html" aria-label="Course 2, Lesson 8: Momentum">
+                <span class="lesson-number">08</span>
+                <span class="lesson-title">Momentum</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-02-lesson-09-rotational-motion.html" aria-label="Course 2, Lesson 9: Rotational Motion">
+                <span class="lesson-number">09</span>
+                <span class="lesson-title">Rotational Motion</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+        </ol>
+      </section>
+      <section class="course-section" id="course-3" aria-labelledby="course-3-title">
+        <div class="course-heading">
+          <div class="course-number" aria-hidden="true">03</div>
+          <div>
+            <p class="eyebrow">Course 3 · 8 lessons</p>
+            <h2 id="course-3-title">Electricity</h2>
+            <p class="course-purpose">Understand electric charge and electric fields.</p>
+          </div>
+          <a class="course-page-link" href="course-03-electricity.html">Open course overview <span aria-hidden="true">→</span></a>
+        </div>
+
+        <dl class="course-facts">
+          <div>
+            <dt>Prerequisites</dt>
+            <dd>Course 1 · Course 2</dd>
+          </div>
+          <div>
+            <dt>Builds toward</dt>
+            <dd>Magnetism · Electronics · Electromagnetism</dd>
+          </div>
+        </dl>
+
+        <ol class="lesson-grid" aria-label="Electricity lessons">
+          
+            <li class="lesson-item">
+              <a href="course-03-lesson-01-electric-charge.html" aria-label="Course 3, Lesson 1: Electric Charge">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Electric Charge</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-03-lesson-02-coulombs-law.html" aria-label="Course 3, Lesson 2: Coulomb&#x27;s Law">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Coulomb&#x27;s Law</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-03-lesson-03-electric-field.html" aria-label="Course 3, Lesson 3: Electric Field">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Electric Field</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-03-lesson-04-electric-potential.html" aria-label="Course 3, Lesson 4: Electric Potential">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Electric Potential</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-03-lesson-05-voltage.html" aria-label="Course 3, Lesson 5: Voltage">
+                <span class="lesson-number">05</span>
+                <span class="lesson-title">Voltage</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-03-lesson-06-current.html" aria-label="Course 3, Lesson 6: Current">
+                <span class="lesson-number">06</span>
+                <span class="lesson-title">Current</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-03-lesson-07-resistance.html" aria-label="Course 3, Lesson 7: Resistance">
+                <span class="lesson-number">07</span>
+                <span class="lesson-title">Resistance</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-03-lesson-08-capacitance.html" aria-label="Course 3, Lesson 8: Capacitance">
+                <span class="lesson-number">08</span>
+                <span class="lesson-title">Capacitance</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+        </ol>
+      </section>
+      <section class="course-section" id="course-4" aria-labelledby="course-4-title">
+        <div class="course-heading">
+          <div class="course-number" aria-hidden="true">04</div>
+          <div>
+            <p class="eyebrow">Course 4 · 6 lessons</p>
+            <h2 id="course-4-title">Magnetism</h2>
+            <p class="course-purpose">Understand magnetic fields and moving charges.</p>
+          </div>
+          <a class="course-page-link" href="course-04-magnetism.html">Open course overview <span aria-hidden="true">→</span></a>
+        </div>
+
+        <dl class="course-facts">
+          <div>
+            <dt>Prerequisites</dt>
+            <dd>Course 1 · Course 3</dd>
+          </div>
+          <div>
+            <dt>Builds toward</dt>
+            <dd>Electromagnetism</dd>
+          </div>
+        </dl>
+
+        <ol class="lesson-grid" aria-label="Magnetism lessons">
+          
+            <li class="lesson-item">
+              <a href="course-04-lesson-01-magnetic-fields.html" aria-label="Course 4, Lesson 1: Magnetic Fields">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Magnetic Fields</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-04-lesson-02-magnetic-force.html" aria-label="Course 4, Lesson 2: Magnetic Force">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Magnetic Force</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-04-lesson-03-magnetic-flux.html" aria-label="Course 4, Lesson 3: Magnetic Flux">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Magnetic Flux</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-04-lesson-04-induction.html" aria-label="Course 4, Lesson 4: Induction">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Induction</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-04-lesson-05-faraday-s-law.html" aria-label="Course 4, Lesson 5: Faraday&#x27;s Law">
+                <span class="lesson-number">05</span>
+                <span class="lesson-title">Faraday&#x27;s Law</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-04-lesson-06-ampere-s-law.html" aria-label="Course 4, Lesson 6: Ampère&#x27;s Law">
+                <span class="lesson-number">06</span>
+                <span class="lesson-title">Ampère&#x27;s Law</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+        </ol>
+      </section>
+      <section class="course-section" id="course-5" aria-labelledby="course-5-title">
+        <div class="course-heading">
+          <div class="course-number" aria-hidden="true">05</div>
+          <div>
+            <p class="eyebrow">Course 5 · 4 lessons</p>
+            <h2 id="course-5-title">Electromagnetism</h2>
+            <p class="course-purpose">Unify electricity and magnetism.</p>
+          </div>
+          <a class="course-page-link" href="course-05-electromagnetism.html">Open course overview <span aria-hidden="true">→</span></a>
+        </div>
+
+        <dl class="course-facts">
+          <div>
+            <dt>Prerequisites</dt>
+            <dd>Courses 1–4</dd>
+          </div>
+          <div>
+            <dt>Builds toward</dt>
+            <dd>Electronics · Signals and Systems · Control Theory · Advanced Physics</dd>
+          </div>
+        </dl>
+
+        <ol class="lesson-grid" aria-label="Electromagnetism lessons">
+          
+            <li class="lesson-item">
+              <a href="course-05-lesson-01-maxwells-equations.html" aria-label="Course 5, Lesson 1: Maxwell&#x27;s Equations">
+                <span class="lesson-number">01</span>
+                <span class="lesson-title">Maxwell&#x27;s Equations</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-05-lesson-02-electromagnetic-waves.html" aria-label="Course 5, Lesson 2: Electromagnetic Waves">
+                <span class="lesson-number">02</span>
+                <span class="lesson-title">Electromagnetic Waves</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-05-lesson-03-wave-propagation.html" aria-label="Course 5, Lesson 3: Wave Propagation">
+                <span class="lesson-number">03</span>
+                <span class="lesson-title">Wave Propagation</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+            <li class="lesson-item">
+              <a href="course-05-lesson-04-light-as-an-electromagnetic-wave.html" aria-label="Course 5, Lesson 4: Light as an Electromagnetic Wave">
+                <span class="lesson-number">04</span>
+                <span class="lesson-title">Light as an Electromagnetic Wave</span>
+                <span class="lesson-arrow" aria-hidden="true">→</span>
+              </a>
+            </li>
+        </ol>
+      </section>
+
+    <section class="future-section" id="future-courses" aria-labelledby="future-courses-title">
+      <p class="kicker">Long-range curriculum</p>
+      <h2 id="future-courses-title">Future Courses</h2>
+      <p>
+        These subjects will extend the same first-principles learning path after the five-course core sequence.
+        Their exact order and lesson structures may evolve as the library grows.
+      </p>
+      <ul class="future-list">
+        <li><span>Electronics</span><small>Future course</small></li>
+<li><span>Signals and Systems</span><small>Future course</small></li>
+<li><span>Control Theory</span><small>Future course</small></li>
+<li><span>Digital Logic</span><small>Future course</small></li>
+<li><span>Computer Architecture</span><small>Future course</small></li>
+<li><span>Numerical Methods</span><small>Future course</small></li>
+<li><span>Chemistry</span><small>Future course</small></li>
+<li><span>Thermodynamics</span><small>Future course</small></li>
+<li><span>Quantum Mechanics</span><small>Future course</small></li>
+      </ul>
+    </section>
+  </main>
+
+  <nav class="footer-nav" aria-label="Footer navigation">
+    <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">↑ Back to top</a>
+    <a href="mathematics/course-01-lesson-01-scalars.html">Begin Course 1: Scalars →</a>
+  </nav>
+
+  <footer>
+    Learning Library · Curriculum aligned with LL-EAS version 4.3
+  </footer>
+
+  <script>
+    (function () {
+      const bar = document.getElementById("reading-progress-bar");
+      if (!bar) return;
+
+      function updateProgress() {
+        const scrollTop = window.scrollY || document.documentElement.scrollTop;
+        const scrollHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const percent = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+        bar.style.width = percent + "%";
+      }
+
+      updateProgress();
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress);
+    })();
+  </script>
+</body>
+</html>

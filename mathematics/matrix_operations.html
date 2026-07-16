@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A historically motivated introduction to matrices, from systems of equations to mappings, patterns, composition, and inverses.">
+  <title>Introduction to Matrices</title>
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(','\\)']], displayMath: [['\\[','\\]']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+  <style>
+    :root {
+      --bg: #f5f3ee;
+      --surface: #fffdf8;
+      --surface-2: #ece8df;
+      --ink: #1f252b;
+      --muted: #66717a;
+      --accent: #315c8c;
+      --accent-2: #8c5a31;
+      --line: #d8d2c7;
+      --success: #2f6b3b;
+      --shadow: 0 18px 50px rgba(30, 38, 44, 0.08);
+      --radius: 20px;
+      --sidebar: 290px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 15% 10%, rgba(49,92,140,.08), transparent 32rem),
+        radial-gradient(circle at 90% 15%, rgba(140,90,49,.08), transparent 28rem),
+        var(--bg);
+      color: var(--ink);
+      line-height: 1.65;
+    }
+    a { color: inherit; }
+    .progress {
+      position: fixed;
+      top: 0; left: 0;
+      width: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      z-index: 100;
+    }
+    .hero {
+      padding: 5.5rem max(1.5rem, calc((100vw - 1180px)/2)) 4rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .hero-inner {
+      max-width: 980px;
+    }
+    .hero .label {
+      display: inline-flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .45rem .75rem;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      color: var(--accent);
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: .76rem;
+    }
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3rem, 7vw, 6.7rem);
+      line-height: .96;
+      margin: 1.25rem 0 1.5rem;
+      max-width: 12ch;
+      letter-spacing: -.04em;
+    }
+    .hero p {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.35rem);
+    }
+    .hero-diagram {
+      margin-top: 2.5rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+      overflow-x: auto;
+    }
+    .hero-diagram svg { width: 100%; min-width: 720px; height: auto; display: block; }
+    .layout {
+      display: grid;
+      grid-template-columns: var(--sidebar) minmax(0, 1fr);
+      gap: 3rem;
+      width: min(1180px, calc(100% - 3rem));
+      margin: 0 auto;
+      align-items: start;
+    }
+    .toc {
+      position: sticky;
+      top: 1.5rem;
+      margin-top: 3rem;
+      max-height: calc(100vh - 3rem);
+      overflow: auto;
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      background: rgba(255,253,248,.88);
+      backdrop-filter: blur(14px);
+    }
+    .toc h2 {
+      margin: .25rem .5rem 1rem;
+      font-size: .85rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+    .toc a {
+      display: grid;
+      grid-template-columns: 2rem 1fr;
+      gap: .55rem;
+      align-items: start;
+      padding: .7rem .6rem;
+      text-decoration: none;
+      border-radius: 10px;
+      color: var(--muted);
+      font-size: .9rem;
+      line-height: 1.35;
+    }
+    .toc a:hover, .toc a.active { background: var(--surface-2); color: var(--ink); }
+    .toc a span { color: var(--accent); font-variant-numeric: tabular-nums; }
+    main { min-width: 0; }
+    .lesson-section {
+      padding: 5rem 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 1rem;
+    }
+    .section-heading {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      margin-bottom: 2rem;
+    }
+    .section-number {
+      display: grid;
+      place-items: center;
+      width: 4rem;
+      height: 4rem;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--ink);
+      color: white;
+      font-weight: 800;
+      font-variant-numeric: tabular-nums;
+    }
+    .kicker, .eyebrow, .mini-label {
+      margin: 0;
+      color: var(--accent);
+      font-weight: 800;
+      letter-spacing: .11em;
+      text-transform: uppercase;
+      font-size: .75rem;
+    }
+    h2 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      line-height: 1.05;
+      margin: .2rem 0 0;
+      letter-spacing: -.025em;
+    }
+    h3 { margin: 0 0 .35rem; }
+    .history-callout {
+      display: grid;
+      grid-template-columns: 3rem 1fr;
+      gap: 1rem;
+      padding: 1.3rem;
+      margin: 1.5rem 0;
+      background: #f0e7dc;
+      border-left: 4px solid var(--accent-2);
+      border-radius: 0 16px 16px 0;
+    }
+    .history-callout p { margin: 0; color: #4f4a44; }
+    .history-icon {
+      width: 2.6rem;
+      height: 2.6rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--accent-2);
+      color: white;
+      font-family: Georgia, serif;
+      font-weight: 700;
+    }
+    .concept-block {
+      margin: 1.5rem 0;
+      padding: 1.3rem 1.4rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.52);
+    }
+    .concept-block p { font-size: 1.18rem; margin: .4rem 0 0; }
+    .math-card, .flow-card {
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius);
+      background: var(--surface);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+      overflow-x: auto;
+    }
+    .display-math { font-size: clamp(1.1rem, 2.4vw, 1.45rem); text-align: center; }
+    .display-math.small { font-size: 1rem; }
+    .equation-stack { font-family: Georgia, serif; font-size: 1.15rem; line-height: 2; }
+    .flow-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: .7rem;
+      align-items: center;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 1rem;
+    }
+    .flow-line span { color: var(--accent); font-size: 1.6rem; }
+    .problem-grid, .example-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    .example-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+    .problem-card, .example-tile {
+      padding: 1.2rem;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255,255,255,.58);
+    }
+    .problem-card p, .example-tile p { margin: .5rem 0; }
+    details {
+      margin-top: .8rem;
+      border-top: 1px solid var(--line);
+      padding-top: .7rem;
+    }
+    summary { cursor: pointer; color: var(--accent); font-weight: 700; }
+    .chip-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .7rem;
+      margin: 1.5rem 0;
+    }
+    .chip-grid span {
+      padding: .55rem .85rem;
+      border-radius: 999px;
+      background: var(--surface-2);
+      border: 1px solid var(--line);
+    }
+    .final-project {
+      margin-top: 1.5rem;
+      padding: 1.5rem;
+      background: #e8efe9;
+      border: 1px solid #c9dccd;
+      border-radius: var(--radius);
+    }
+    .final-project li { margin: .45rem 0; }
+    .muted { color: var(--muted); }
+    footer {
+      width: min(1180px, calc(100% - 3rem));
+      margin: 0 auto;
+      padding: 3rem 0 5rem;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    .back-top {
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+    }
+    @media (max-width: 920px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc {
+        position: relative;
+        top: auto;
+        max-height: none;
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0,1fr));
+      }
+      .toc h2 { grid-column: 1 / -1; }
+      .example-grid { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+      .hero { padding-top: 4rem; }
+      .layout, footer { width: min(100% - 1.25rem, 1180px); }
+      .toc { grid-template-columns: 1fr; }
+      .problem-grid { grid-template-columns: 1fr; }
+      .section-heading { align-items: flex-start; }
+      .section-number { width: 3.25rem; height: 3.25rem; }
+      .lesson-section { padding: 3.5rem 0; }
+    }
+    @media print {
+      .progress, .toc, .back-top { display: none !important; }
+      .layout { display: block; width: 100%; }
+      .hero, .lesson-section { break-inside: avoid; }
+      body { background: white; }
+      .math-card, .problem-card, .example-tile, .history-callout { box-shadow: none; }
+    }
+  </style>
+</head>
+<body id="top">
+  <div class="progress" id="progress" aria-hidden="true"></div>
+  <header class="hero">
+    <div class="hero-inner">
+      <span class="label">Historical introduction · Interactive lesson</span>
+      <h1>Introduction to Matrices</h1>
+      <p>Matrices began as a practical way to organize coefficients. This lesson follows their evolution from systems of equations to mappings, patterns, composition, inverses, and modern applications.</p>
+      <div class="hero-diagram">
+        <svg viewBox="0 0 980 260" role="img" aria-label="A conceptual flow from equations to coefficient tables to mappings to matrix algebra">
+          <defs>
+            <marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#315c8c"></path>
+            </marker>
+          </defs>
+          <rect x="40" y="75" width="190" height="110" rx="18" fill="#fffdf8" stroke="#d8d2c7"/>
+          <text x="135" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1f252b">Systems of equations</text>
+          <text x="135" y="145" text-anchor="middle" font-size="15" fill="#66717a">Repeated coefficients</text>
+          <path d="M250 130 H335" stroke="#315c8c" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+          <text x="292" y="111" text-anchor="middle" font-size="13" fill="#315c8c">compress</text>
+
+          <rect x="355" y="75" width="190" height="110" rx="18" fill="#fffdf8" stroke="#d8d2c7"/>
+          <text x="450" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1f252b">Coefficient matrix</text>
+          <text x="450" y="145" text-anchor="middle" font-size="15" fill="#66717a">Rows preserve equations</text>
+          <path d="M565 130 H650" stroke="#315c8c" stroke-width="4" stroke-linecap="round" marker-end="url(#arrow)"/>
+          <text x="607" y="111" text-anchor="middle" font-size="13" fill="#315c8c">interpret</text>
+
+          <rect x="670" y="75" width="190" height="110" rx="18" fill="#fffdf8" stroke="#d8d2c7"/>
+          <text x="765" y="112" text-anchor="middle" font-size="18" font-weight="700" fill="#1f252b">Input-output mapping</text>
+          <text x="765" y="145" text-anchor="middle" font-size="15" fill="#66717a">A reusable transformation</text>
+
+          <path d="M765 200 C765 235 450 240 450 205" fill="none" stroke="#8c5a31" stroke-width="3" stroke-dasharray="7 7" marker-end="url(#arrow)"/>
+          <text x="610" y="241" text-anchor="middle" font-size="13" fill="#8c5a31">composition, identity, inverse</text>
+        </svg>
+      </div>
+    </div>
+  </header>
+
+  <div class="layout">
+    <nav class="toc" aria-label="Lesson sections">
+      <h2>Contents</h2>
+      <a href="#section-1" data-target="section-1"><span>01</span>Why Were Matrices Invented?</a>
+<a href="#section-2" data-target="section-2"><span>02</span>The Matrix as Shorthand</a>
+<a href="#section-3" data-target="section-3"><span>03</span>Reading Rows as Equations</a>
+<a href="#section-4" data-target="section-4"><span>04</span>Feeding Inputs into a Matrix</a>
+<a href="#section-5" data-target="section-5"><span>05</span>Matrices as Mappings</a>
+<a href="#section-6" data-target="section-6"><span>06</span>Recognizing Special Patterns</a>
+<a href="#section-7" data-target="section-7"><span>07</span>Extending to x, y, and z</a>
+<a href="#section-8" data-target="section-8"><span>08</span>Patterns in Larger Matrices</a>
+<a href="#section-9" data-target="section-9"><span>09</span>Composition and Matrix Multiplication</a>
+<a href="#section-10" data-target="section-10"><span>10</span>Identity, Inverses, and Lost Information</a>
+<a href="#section-11" data-target="section-11"><span>11</span>From Notation to Mathematical Object</a>
+<a href="#section-12" data-target="section-12"><span>12</span>Modern Applications and Final Investigation</a>
+    </nav>
+    <main>
+      
+    <section id="section-1" class="lesson-section" data-section="1">
+      <div class="section-heading">
+        <span class="section-number">01</span>
+        <div>
+          <p class="kicker">Chapter 1</p>
+          <h2>Why Were Matrices Invented?</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Astronomers, surveyors, engineers, and mathematicians often needed to solve several linear equations at once. Rewriting every variable and coefficient made large calculations cumbersome.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>Begin with a system of equations before introducing matrix notation.</p>
+      </div>
+      
+        <div class="math-card">
+          <p class="mini-label">Starting system</p>
+          <div class="equation-stack">\(2x + 3y - z = 7\)<br>\(x - 4y + 2z = -1\)<br>\(5x + y + z = 12\)</div>
+        </div>
+        
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Underline the coefficients of x, y, and z in each equation.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Identify which parts of the system are repeated bookkeeping.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-2" class="lesson-section" data-section="2">
+      <div class="section-heading">
+        <span class="section-number">02</span>
+        <div>
+          <p class="kicker">Chapter 2</p>
+          <h2>The Matrix as Shorthand</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Coefficient arrays first served as compact notation. The equations came first; the rectangular array came later.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>A matrix can record the coefficients of a system without repeatedly writing the variables.</p>
+      </div>
+      
+        <div class="math-card">
+          <p class="mini-label">Coefficient matrix</p>
+          <div class="display-math">\[\begin{bmatrix}2 & 3 & -1\\1 & -4 & 2\\5 & 1 & 1\end{bmatrix}\]</div>
+          <p>Each row preserves the coefficients from one original equation.</p>
+        </div>
+        
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Write the coefficient matrix for a supplied system.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Translate a coefficient matrix back into equations using x, y, and z.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-3" class="lesson-section" data-section="3">
+      <div class="section-heading">
+        <span class="section-number">03</span>
+        <div>
+          <p class="kicker">Chapter 3</p>
+          <h2>Reading Rows as Equations</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>The usefulness of coefficient notation depends on preserving the meaning of the original equations.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>Each row is a recipe for producing one output from the inputs.</p>
+      </div>
+      <div class="math-card"><p class="mini-label">Worked example</p><div class="display-math">\[\begin{bmatrix}3 & 2\\1 & 4\end{bmatrix}\]</div><div class="equation-stack">\(u = 3x + 2y\)<br>\(v = x + 4y\)</div></div>
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Translate five matrices into systems of equations.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Translate five systems of equations into matrices.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-4" class="lesson-section" data-section="4">
+      <div class="section-heading">
+        <span class="section-number">04</span>
+        <div>
+          <p class="kicker">Chapter 4</p>
+          <h2>Feeding Inputs into a Matrix</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Once coefficients were organized, the same system could be evaluated repeatedly for different measurements or observations.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>A matrix describes how an input list is converted into an output list.</p>
+      </div>
+      <div class="math-card"><p class="mini-label">Worked example</p><div class="display-math">\[\begin{bmatrix}3 & 2\\1 & 4\end{bmatrix}\]</div><p><strong>Input:</strong> \((2, 5)\)</p><div class="equation-stack">\(u = 3(2) + 2(5) = 16\)<br>\(v = 1(2) + 4(5) = 22\)</div><p><strong>Output:</strong> \((16, 22)\)</p></div>
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Evaluate the matrix for input (1, 0).</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Change only y and describe which outputs change.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-5" class="lesson-section" data-section="5">
+      <div class="section-heading">
+        <span class="section-number">05</span>
+        <div>
+          <p class="kicker">Chapter 5</p>
+          <h2>Matrices as Mappings</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Mathematicians eventually recognized that coefficient arrays describe repeatable transformations, not merely stored numbers.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>A matrix maps an input vector to an output vector using weighted sums.</p>
+      </div>
+      
+        <div class="flow-card">
+          <p class="mini-label">Concept flow</p>
+          <div class="flow-line">(x, y) <span aria-hidden="true">→</span> matrix <span aria-hidden="true">→</span> (u, v)</div>
+        </div>
+        
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Describe a matrix in words as an input-output machine.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Identify which input affects each output.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-6" class="lesson-section" data-section="6">
+      <div class="section-heading">
+        <span class="section-number">06</span>
+        <div>
+          <p class="kicker">Chapter 6</p>
+          <h2>Recognizing Special Patterns</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Repeated calculations revealed that certain coefficient arrangements always produced recognizable behavior.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>Zeros, diagonals, and off-diagonal entries reveal the structure of a mapping.</p>
+      </div>
+      <div class="example-grid"><article class="example-tile"><h3>Identity</h3><div class="display-math small">\[\begin{bmatrix}1 & 0\\0 & 1\end{bmatrix}\]</div><p><strong>Behavior:</strong> (x, y) -&gt; (x, y)</p></article><article class="example-tile"><h3>Swap</h3><div class="display-math small">\[\begin{bmatrix}0 & 1\\1 & 0\end{bmatrix}\]</div><p><strong>Behavior:</strong> (x, y) -&gt; (y, x)</p></article><article class="example-tile"><h3>Scaling</h3><div class="display-math small">\[\begin{bmatrix}2 & 0\\0 & 3\end{bmatrix}\]</div><p><strong>Behavior:</strong> (x, y) -&gt; (2x, 3y)</p></article></div>
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Describe what each matrix does without numerical calculation.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Create a matrix that keeps x unchanged and multiplies y by 5.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-7" class="lesson-section" data-section="7">
+      <div class="section-heading">
+        <span class="section-number">07</span>
+        <div>
+          <p class="kicker">Chapter 7</p>
+          <h2>Extending to x, y, and z</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Real scientific systems often involved more than two unknown quantities, making compact notation increasingly valuable.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>The same row-as-equation interpretation works in three or more dimensions.</p>
+      </div>
+      <div class="math-card"><p class="mini-label">Worked example</p><div class="display-math">\[\begin{bmatrix}2 & 1 & 0\\0 & 3 & 1\\1 & 0 & 4\end{bmatrix}\]</div><div class="equation-stack">\(u = 2x + y\)<br>\(v = 3y + z\)<br>\(w = x + 4z\)</div></div>
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Identify which inputs influence u, v, and w.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Explain the meaning of every zero in the matrix.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-8" class="lesson-section" data-section="8">
+      <div class="section-heading">
+        <span class="section-number">08</span>
+        <div>
+          <p class="kicker">Chapter 8</p>
+          <h2>Patterns in Larger Matrices</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>As matrices were used in mechanics, statistics, and physics, recurring forms became objects of study in their own right.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>Diagonal, triangular, symmetric, and sparse matrices encode different dependency patterns.</p>
+      </div>
+      
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Classify supplied matrices as diagonal, triangular, symmetric, or sparse.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Explain what symmetry could mean in a table of pairwise relationships.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-9" class="lesson-section" data-section="9">
+      <div class="section-heading">
+        <span class="section-number">09</span>
+        <div>
+          <p class="kicker">Chapter 9</p>
+          <h2>Composition and Matrix Multiplication</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Scientific calculations were often performed in stages. The output of one system became the input of another.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>Matrix multiplication records the substitution that occurs when two linear mappings are chained.</p>
+      </div>
+      
+        <div class="flow-card">
+          <p class="mini-label">Concept flow</p>
+          <div class="flow-line">inputs <span aria-hidden="true">→</span> first mapping <span aria-hidden="true">→</span> intermediate values <span aria-hidden="true">→</span> second mapping <span aria-hidden="true">→</span> final outputs</div>
+        </div>
+        
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Compose two systems by ordinary substitution.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Multiply the corresponding matrices and compare the result.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-10" class="lesson-section" data-section="10">
+      <div class="section-heading">
+        <span class="section-number">10</span>
+        <div>
+          <p class="kicker">Chapter 10</p>
+          <h2>Identity, Inverses, and Lost Information</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Solving equations often means reversing a calculation to recover unknown inputs.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>An inverse matrix undoes a mapping. A matrix has no inverse when the original mapping loses information.</p>
+      </div>
+      <div class="example-grid"><article class="example-tile"><h3>Example</h3><p><strong>Mapping:</strong> (x, y) -&gt; (2x, 3y)</p><p><strong>Inverse:</strong> (u, v) -&gt; (u/2, v/3)</p></article><article class="example-tile"><h3>Example</h3><p><strong>Mapping:</strong> (x, y) -&gt; (x, 0)</p><p><strong>Inverse:</strong> none</p><p class="muted">The original y value was discarded.</p></article></div>
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Find the inverse of a diagonal scaling matrix.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Explain why a supplied matrix cannot be inverted.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-11" class="lesson-section" data-section="11">
+      <div class="section-heading">
+        <span class="section-number">11</span>
+        <div>
+          <p class="kicker">Chapter 11</p>
+          <h2>From Notation to Mathematical Object</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>During the nineteenth century, mathematicians such as Arthur Cayley developed an algebra of matrices, treating them as objects that could be added, multiplied, and inverted.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>Matrices gained mathematical status because their operations consistently represented composition, reversal, and combination of mappings.</p>
+      </div>
+      
+      <div class="problem-grid">
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 1</span>
+          <p>Compare a matrix used as a data table with the same array used as a transformation.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        
+
+        <article class="problem-card">
+          <span class="eyebrow">Sample problem 2</span>
+          <p>Explain why the notation alone is not the full mathematical meaning.</p>
+          <details>
+            <summary>Teaching prompt</summary>
+            <p>Ask the learner to explain the reasoning in words before calculating. Encourage translation back to ordinary equations whenever possible.</p>
+          </details>
+        </article>
+        </div>
+      
+    </section>
+    
+
+    <section id="section-12" class="lesson-section" data-section="12">
+      <div class="section-heading">
+        <span class="section-number">12</span>
+        <div>
+          <p class="kicker">Chapter 12</p>
+          <h2>Modern Applications and Final Investigation</h2>
+        </div>
+      </div>
+      <aside class="history-callout">
+        <div class="history-icon" aria-hidden="true">H</div>
+        <div>
+          <h3>Historical motivation</h3>
+          <p>Matrices became central wherever many quantities interact: engineering, economics, computer graphics, statistics, quantum mechanics, networks, and machine learning.</p>
+        </div>
+      </aside>
+      <div class="concept-block">
+        <span class="eyebrow">Central idea</span>
+        <p>The arrangement of entries can reveal structure in a real system.</p>
+      </div>
+      <div class="chip-grid"><span>friction coefficient tables</span><span>road-distance matrices</span><span>electrical networks</span><span>probability transition matrices</span><span>image-processing kernels</span><span>computer graphics transformations</span></div>
+      
+      
+        <div class="final-project">
+          <span class="eyebrow">Final investigation</span>
+          <ol><li>What do the rows represent?</li><li>What do the columns represent?</li><li>What does each entry mean?</li><li>Where are the zeros and what do they signify?</li><li>Are there diagonal, symmetric, repeated, or sparse patterns?</li><li>Is the matrix storing data, acting as a transformation, or both?</li><li>What does its pattern reveal about the underlying system?</li></ol>
+        </div>
+        
+    </section>
+    
+    </main>
+  </div>
+
+  <footer>
+    <span>Introduction to Matrices · From equations to mappings</span>
+    <a class="back-top" href="#top">Back to top ↑</a>
+  </footer>
+
+  <script>
+    const progress = document.getElementById('progress');
+    const links = [...document.querySelectorAll('.toc a')];
+    const sections = [...document.querySelectorAll('.lesson-section')];
+
+    function updateProgress() {
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - doc.clientHeight;
+      const ratio = max > 0 ? doc.scrollTop / max : 0;
+      progress.style.width = `${Math.min(100, Math.max(0, ratio * 100))}%`;
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          links.forEach(link => link.classList.toggle('active', link.dataset.target === entry.target.id));
+        }
+      });
+    }, { rootMargin: '-25% 0px -65% 0px', threshold: 0 });
+
+    sections.forEach(section => observer.observe(section));
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+  </script>
+</body>
+</html>

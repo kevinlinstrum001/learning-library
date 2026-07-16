@@ -1,0 +1,204 @@
+{
+  "ruleset_name": "learning_library_expandable_authoring_standard",
+  "short_name": "LL-EAS",
+  "version": "4.2",
+  "purpose": "Define the structure, navigation, visuals, metadata, expansion workflow, and reusable authoring conventions for expandable Learning Library HTML lessons.",
+  "site": {
+    "default_document_type": "expandable educational lesson"
+  },
+  "authoring_philosophy": {
+    "core_rule": "Every section must teach the core idea clearly while remaining permanently expandable.",
+    "first_draft_rule": "Create a compact first draft with one strong explanation and one worked example. Do not attempt to anticipate every future explanation or problem set.",
+    "growth_rule": "Expand lessons by inserting new semantic HTML fragments before permanent learning-prompt cards.",
+    "preserve_existing_content": true,
+    "rewrite_whole_page_during_expansion": false
+  },
+  "required_page_regions": [
+    "page metadata block",
+    "reading progress indicator",
+    "header or hero",
+    "primary navbar",
+    "optional table of contents",
+    "main lesson content",
+    "footer navigation"
+  ],
+  "navbar_rules": {
+    "required": true,
+    "course_index_link_required": true,
+    "course_index_label": "Course Index",
+    "placement": "First or leftmost persistent navbar item",
+    "open_in_same_tab": true,
+    "required_html": "<nav class=\"course-nav\" aria-label=\"Course navigation\">\n  <a class=\"course-index-link\" href=\"{{COURSE_INDEX_URL}}\">← Course Index</a>\n</nav>"
+  },
+  "document_metadata": {
+    "storage": "Embedded application/json script in the page head",
+    "script_id": "lesson-metadata",
+    "required_fields": [
+      "document_slug",
+      "document_title",
+      "course",
+      "lesson_number",
+      "version",
+      "section_count",
+      "image_count",
+      "svg_count",
+      "expansion_count",
+      "prerequisites",
+      "previous_lesson",
+      "next_lesson"
+    ]
+  },
+  "section_structure": {
+    "required_order": [
+      "section heading",
+      "historical motivation when relevant",
+      "core concept",
+      "one compact worked example",
+      "brief summary",
+      "optional visual",
+      "section learning prompt",
+      "practice learning prompt",
+      "visual learning prompt when a visual exists or is planned"
+    ],
+    "default_permanent_practice_problem_count": 0
+  },
+  "learning_prompt_cards": {
+    "required_for_every_section": true,
+    "card_types": [
+      "explanation",
+      "practice",
+      "visual"
+    ],
+    "placement": "At the bottom of the section immediately before the closing section tag",
+    "preservation_rule": "Never remove a learning-prompt card after using it",
+    "insertion_rule": "Insert returned HTML immediately before the matching card",
+    "fragment_rule": "Prompts must request only the new HTML fragment, with no html, head, body, global CSS, or unrelated JavaScript.",
+    "required_data_attributes": [
+      "data-prompt-id",
+      "data-section-id",
+      "data-prompt-type",
+      "data-prompt-status",
+      "data-insert-position"
+    ],
+    "status_values": [
+      "planned",
+      "copied",
+      "drafted",
+      "inserted",
+      "retired"
+    ]
+  },
+  "smart_prompt_requirements": {
+    "rule": "Each prompt must be specific to its section rather than generic",
+    "must_include": [
+      "section title",
+      "current concept",
+      "requested expansion type",
+      "instruction to preserve IDs and CSS classes",
+      "exact insertion location",
+      "HTML fragment only requirement"
+    ],
+    "explanation_prompt_template": "Expand the section titled \"SECTION_TITLE\" using the supplied section HTML as context. Deepen the explanation of SECTION_TOPIC, add one additional worked example, and clarify likely beginner confusion. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.",
+    "practice_prompt_template": "Using the supplied HTML for \"SECTION_TITLE\" as context, create a progressive practice block for SECTION_TOPIC. Include recognition, calculation, explanation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.",
+    "visual_prompt_template": "Review the supplied HTML for \"SECTION_TITLE\" and expand its visual explanation of SECTION_TOPIC. If relationships, structure, or sequence must be explained, return an accessible inline SVG. Otherwise return a named image placeholder. Preserve existing IDs and classes and return only the new HTML fragment to insert immediately before this visual card."
+  },
+  "visual_rules": {
+    "diagram_required": "Use accessible inline SVG",
+    "diagram_examples": [
+      "process flow",
+      "concept map",
+      "transformation",
+      "system relationship",
+      "labeled technical diagram"
+    ],
+    "non_diagram_visual": "Use a named image placeholder for later generation",
+    "do_not_generate_raster_images_in_first_draft": true
+  },
+  "svg_rules": {
+    "embedding": "Inline in the HTML",
+    "single_message_rule": true,
+    "required_attributes": [
+      "viewBox",
+      "role=\"img\"",
+      "aria-label or aria-labelledby",
+      "preserveAspectRatio"
+    ],
+    "connector_rules": [
+      "Use thin connectors",
+      "Use small arrowheads",
+      "Keep labels outside arrowheads",
+      "Do not route lines through text",
+      "Leave clear node-to-node corridors",
+      "Use direct labels where possible"
+    ],
+    "layout_rules": [
+      "Calculate widths, gaps, and margins before placement",
+      "Use one row for two to four nodes",
+      "Use an aligned two-row layout for five to seven nodes",
+      "Split diagrams with more than twelve nodes",
+      "Use horizontal scrolling or vertical stacking on narrow screens"
+    ],
+    "element_id_pattern": "{document-slug}-{section-number}-{element-role}-{two-digit-sequence}"
+  },
+  "image_placeholder_rules": {
+    "filename_pattern": "{document_name}_image{two-digit-sequence}.png",
+    "document_name_style": "lowercase snake_case",
+    "sequence_start": 1,
+    "reuse_numbers": false,
+    "examples": [
+      "introduction_to_matrices_image01.png",
+      "introduction_to_matrices_image02.png"
+    ],
+    "required_fields": [
+      "stable figure id",
+      "data-image-file",
+      "data-image-status",
+      "accessible description",
+      "caption",
+      "copyable future image prompt"
+    ],
+    "replacement_rule": "Replace only the placeholder box with an img element using the exact reserved filename. Preserve the figure ID, caption, and prompt details.",
+    "directory_variable": "IMAGE_DIRECTORY"
+  },
+  "accessibility": {
+    "target": "WCAG AA",
+    "requirements": [
+      "semantic landmarks",
+      "keyboard-accessible navigation",
+      "visible focus styles",
+      "meaningful link labels",
+      "alt text for meaningful images",
+      "accessible SVG labeling",
+      "responsive readable text",
+      "do not rely on color alone"
+    ]
+  },
+  "javascript": {
+    "progressive_enhancement": true,
+    "allowed": [
+      "reading progress",
+      "table of contents highlighting",
+      "copy prompt buttons",
+      "show and hide prompt details"
+    ],
+    "must_work_without_javascript": true
+  },
+  "validation_checklist": [
+    "Navbar includes a visible Course Index link",
+    "Every section has explanation and practice learning-prompt cards",
+    "Every visual has a visual learning-prompt card",
+    "All expansion prompts request HTML fragments only",
+    "Required diagrams use accessible inline SVG",
+    "Optional illustrations use reserved document_name_imageNN.png placeholders",
+    "Existing content is preserved during expansion",
+    "The page remains usable without JavaScript",
+    "Print output remains readable"
+  ],
+  "project_variables": {
+    "SITE_NAME": "Learning Library",
+    "SITE_ROOT_URL": "https://kevinlinstrum001.github.io/learning-library/",
+    "COURSE_INDEX_URL": "https://kevinlinstrum001.github.io/learning-library/",
+    "IMAGE_DIRECTORY": "images/",
+    "DEFAULT_LANGUAGE": "en"
+  }
+}
