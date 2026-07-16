@@ -1,16 +1,20 @@
-<!DOCTYPE html>
-
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<meta content="Klin's Learning Library — an expandable collection of courses, lessons, experiments, technical notes, diagrams, and reference material." name="description"/>
-<link href="./icon-192.png?v=7" rel="icon" type="image/png"/>
-<link href="./site.webmanifest" rel="manifest"/>
-<link href="./icon-192.png" rel="apple-touch-icon"/>
-<meta content="#071b3d" name="theme-color"/>
-<title>Klin's Learning Library</title>
-<style>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Klin's Learning Library — a personal collection of lessons, experiments, notes, and technical references."
+    />
+    <link rel="icon" type="image/png" href="./icon-192.png?v=7" />
+    <link rel="manifest" href="./site.webmanifest" />
+    <link rel="apple-touch-icon" href="./icon-192.png" />
+    <meta name="theme-color" content="#071b3d" />
+
+    <title>Klin's Learning Library</title>
+
+    <style>
       :root {
         --navy: #17233b;
         --navy-light: #25385d;
@@ -309,183 +313,153 @@
           flex-direction: column;
         }
       }
-    
+    </style>
+  </head>
 
-      /* Catalog refinements */
-      .skip-link {
-        position: fixed;
-        left: 1rem;
-        top: -5rem;
-        z-index: 2000;
-        padding: 0.75rem 1rem;
-        color: var(--white);
-        background: var(--blue);
-        border-radius: 8px;
-        font-weight: 800;
-        text-decoration: none;
-      }
+  <body>
+    <header class="site-header">
+      <div class="brand" aria-label="Learning Library">
+        <span class="brand-mark" aria-hidden="true">⌘</span>
+        <span class="brand-text">Klin's Learning Library</span>
+      </div>
 
-      .skip-link:focus {
-        top: 1rem;
-      }
-
-      a:focus-visible {
-        outline: 3px solid var(--blue);
-        outline-offset: 3px;
-        border-radius: 5px;
-      }
-
-      .hero-copy a,
-      .card-status a {
-        text-underline-offset: 0.2em;
-        text-decoration-thickness: 1.5px;
-      }
-
-      .card-status a {
-        display: inline-flex;
-        align-items: center;
-        min-height: 2.4rem;
-      }
-
-      .library-card:focus-within {
-        transform: translateY(-4px);
-        border-color: rgba(61, 111, 168, 0.55);
-        box-shadow: var(--shadow);
-      }
-
-      @media (prefers-reduced-motion: reduce) {
-        html {
-          scroll-behavior: auto;
-        }
-
-        *, *::before, *::after {
-          transition-duration: 0.01ms !important;
-          animation-duration: 0.01ms !important;
-        }
-      }
-
-      @media print {
-        .site-header,
-        .skip-link {
-          display: none !important;
-        }
-
-        body {
-          background: #fff;
-        }
-
-        .library-card,
-        .hero-panel {
-          box-shadow: none;
-          break-inside: avoid;
-        }
-      }
-        </style>
-</head>
-<body><a class="skip-link" href="#main-content">Skip to course catalog</a>
-<header class="site-header">
-<div aria-label="Learning Library" class="brand">
-<span aria-hidden="true" class="brand-mark">⌘</span>
-<span class="brand-text">Klin's Learning Library</span>
-</div>
-<nav aria-label="Main navigation">
-<a class="back-link" href="https://sites.google.com/view/klinstech-learning-library/home">
-<span aria-hidden="true">←</span>
+      <nav aria-label="Main navigation">
+        <a
+          class="back-link"
+          href="https://sites.google.com/view/klinstech-learning-library/home"
+        >
+          <span aria-hidden="true">←</span>
           Back to Learning Library
         </a>
-</nav>
-</header>
-<main id="main-content">
-<section aria-labelledby="page-title" class="hero">
-<div>
-<p class="eyebrow">Personal Codex</p>
-<h1 id="page-title">Learning Library</h1>
-<p class="hero-copy">A growing collection of expandable courses, lessons, experiments, technical notes, diagrams, and explanations gathered while learning how systems work. <a href="https://sites.google.com/view/klinstech-learning-library/home">The original Google Sites library</a> remains available as an additional navigation hub.</p>
-</div>
-<aside aria-label="Library purpose" class="hero-panel">
-<h2>Purpose</h2>
-<p>Course material is designed to remain readable as a first draft and expandable through structured prompts, examples, diagrams, and future revisions.</p>
-</aside>
-</section>
-<section aria-labelledby="collections-title">
-<div class="section-heading">
-<h2 id="collections-title">Courses</h2>
-<p>Choose a course, project, or reference collection.</p>
-</div>
-<div class="library-grid">
-<article class="library-card">
-<div aria-hidden="true" class="card-icon">&lt;/&gt;</div>
-<h3>History of the Transistor</h3>
-<p>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero" aria-labelledby="page-title">
+        <div>
+          <p class="eyebrow">Personal Codex</p>
+          <h1 id="page-title">Learning Library</h1>
+          <p class="hero-copy">
+            A growing collection of lessons, experiments, technical notes,
+            diagrams, and explanations gathered while learning how systems work.
+            While landing page is under construction, use
+            <span style="font-weight: bold"
+              ><a
+                href="https://sites.google.com/view/klinstech-learning-library/home"
+                >link</a
+              ></span
+            >
+            to access google sites page.
+          </p>
+        </div>
+
+        <aside class="hero-panel" aria-label="Library purpose">
+          <h2>Purpose</h2>
+          <p>
+            This collection contains course material that can be easily expanded using ai tools.
+          </p>
+        </aside>
+      </section>
+
+      <section aria-labelledby="collections-title">
+        <div class="section-heading">
+          <h2 id="collections-title">Courses</h2>
+          <p>Peruse the collection.</p>
+        </div>
+
+        <div class="library-grid">
+          <article class="library-card">
+            <div class="card-icon" aria-hidden="true">&lt;/&gt;</div>
+            <h3>History of the Transistor</h3>
+            <p>
               A tour of the transistor's development from concept to
               application.
             </p>
-<div class="card-status">
-<a href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor">Take the Tour</a>
-</div>
-</article>
-<article class="library-card">
-<div aria-hidden="true" class="card-icon">⚙</div>
-<h3>Chemistry</h3>
-<p>Explore the available chemistry course material and supporting lessons.</p>
-<div class="card-status">
-<a href="https://sites.google.com/view/klinstech-learning-library/home/chemistry">
-                See course here.</a>
-</div>
-</article>
-<article class="library-card">
-<div aria-hidden="true" class="card-icon">⌁</div>
-<h3>Electromagnetism</h3>
-<p>
+            <div class="card-status">
+              <a
+                href="https://sites.google.com/view/klinstech-learning-library/home/history-of-the-transistor"
+                >Take the Tour</a
+              >
+            </div>
+          </article>
+
+          <article class="library-card">
+            <div class="card-icon" aria-hidden="true">⚙</div>
+            <h3>Chemistry</h3>
+            <p>See the course material</p>
+            <div class="card-status">
+              <a
+                href="https://sites.google.com/view/klinstech-learning-library/home/chemistry"
+              >
+                See course here.</a
+              >
+            </div>
+          </article>
+
+          <article class="library-card">
+            <div class="card-icon" aria-hidden="true">⌁</div>
+            <h3>Electromagnetism</h3>
+            <p>
               Follow Monkey and Robot as they learn about electromagnetism
               together in the impossibly quaint town.
             </p>
-<div class="card-status">
-<a href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism">Set a course for adventure</a>
-</div>
-</article>
-<article class="library-card">
-<div aria-hidden="true" class="card-icon">▦</div>
-<h3>Mathematical Foundations</h3>
-<p>Build the mathematical language needed to work toward Maxwell's equations from first principles.</p>
-<div class="card-status">
-<a href="https://kevinlinstrum001.github.io/learning-library/mathematics/course-01-mathematical-foundations/course-01-mathematical-foundations.html">See the course overview</a>
-</div>
-</article><article class="library-card">
-<div aria-hidden="true" class="card-icon">⟲</div>
-<h3>Systems, Operations, and Control</h3>
-<p>
-            Explore how complex human and technical systems turn intent into
-            coordinated action, verify results, respond to feedback, and manage
-            exceptions.
-          </p>
-<div class="card-status">
-<a href="https://kevinlinstrum001.github.io/learning-library/Course%206%20-%20Systems,%20Operations,%20and%20Control/course-06-systems-operations-and-control.html">
-              See the course overview
-            </a>
-</div>
-</article>
-<article class="library-card">
-<div aria-hidden="true" class="card-icon">◎</div>
-<h3>Solar Power Plan</h3>
-<p>Review a practical solar-power plan, reusable planning template, and cost-saving approach.</p>
-<div class="card-status">
-<a href="https://kevinlinstrum001.github.io/learning-library/SolarPower/dc-solar-power-setup-2min-36sec.html">See plan details</a>
-</div>
-</article>
-<article class="library-card">
-<div aria-hidden="true" class="card-icon">✎</div>
-<h3>Notes &amp; Reflections</h3>
-<p>
+            <div class="card-status">
+              <a
+                href="https://sites.google.com/view/klinstech-learning-library/home/electromagnetism"
+                >Set a course for adventure</a
+              >
+            </div>
+          </article>
+
+          <article class="library-card">
+            <div class="card-icon" aria-hidden="true">▦</div>
+            <h3>Mathematical Foundations</h3>
+            <p>
+              Study your way through Maxwell's equations, starting from easy principles.
+            </p>
+            <div class="card-status">
+              <a
+                href="https://kevinlinstrum001.github.io/learning-library/mathematics/course-01-mathematical-foundations/course-01-mathematical-foundations.html"
+                >See the course overview</a
+              >
+            </div>
+          </article>
+
+          <article class="library-card">
+            <div class="card-icon" aria-hidden="true">◎</div>
+            <h3>Solar Power Plan</h3>
+            <p>
+              It's a solar power plan, it's a plan template, it's money saved.
+            </p>
+            <div class="card-status">
+              <a
+                href="https://kevinlinstrum001.github.io/learning-library/SolarPower/dc-solar-power-setup-2min-36sec.html"
+                >See plan details</a
+              >
+            </div>
+          </article>
+
+          <article class="library-card">
+            <div class="card-icon" aria-hidden="true">✎</div>
+            <h3>Notes &amp; Reflections</h3>
+            <p>
               Learning journals, discoveries, questions, milestones, and
               connections between topics.
             </p>
-<div class="card-status">Under construction</div>
-</article>
-</div>
-</section>
-<div class="note"><strong>How this page grows:</strong> each course or project can live in its own folder with a dedicated overview page. This catalog remains the stable entry point while individual documents expand independently.</div>
-</main>
-<footer>Klin's Learning Library · Expandable courses, personal learning materials, and technical references</footer>
-</body>
+            <div class="card-status">Under construction</div>
+          </article>
+        </div>
+      </section>
+
+      <div class="note">
+        <strong>How this page grows:</strong> each new lesson can be stored as a
+        separate HTML file in this repository, then linked from one of the
+        collection cards above or directly from the Google Sites navigation hub.
+      </div>
+    </main>
+
+    <footer>
+      Klin's Learning Library · Personal learning materials and technical codex
+    </footer>
+  </body>
 </html>

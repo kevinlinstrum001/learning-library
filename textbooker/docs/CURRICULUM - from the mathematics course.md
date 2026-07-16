@@ -158,48 +158,11 @@ Unify electricity and magnetism.
 
 ---
 
-# Course 6 — Systems, Operations, and Control
-
-**Purpose**
-
-Understand how complex human and technical systems translate intent into coordinated action, verify execution, respond to physical feedback, and manage exceptions.
-
-**Prerequisites**
-
-None required.
-
-Helpful background:
-
-- experience with organized work processes;
-- basic familiarity with software or technical systems;
-- Course 1 when mathematical control theory is introduced.
-
-**Supports**
-
-- Control Theory
-- Software Architecture
-- Systems Engineering
-- Industrial Operations
-- Safety-Critical Operations
-- Human–Machine Systems
-
-## Lessons
-
-1. Systems, Boundaries, and Responsibilities
-2. Intent, Procedure, and Execution
-3. Verification and Closed-Loop Reporting
-4. State, Conditions, and Configuration
-5. Sensors and Physical Feedback
-6. Automatic Response and Control
-7. Exceptions, Overrides, and Modified Conditions
-8. Distributed Coordination
-9. Human Operators in Safety-Critical Systems
-10. Case Studies in Ships, Hospitals, Utilities, and Software
-
 # Future Courses
 
 - Electronics
 - Signals and Systems
+- Control Theory
 - Digital Logic
 - Computer Architecture
 - Numerical Methods

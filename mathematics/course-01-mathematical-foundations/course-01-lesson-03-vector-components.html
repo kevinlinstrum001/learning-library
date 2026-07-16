@@ -1,0 +1,981 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Course 1, Lesson 3 of the Learning Library: an introduction to vector components, horizontal and vertical decomposition, and reconstruction of vectors.">
+  <title>Vector Components | Course 1 — Mathematical Foundations</title>
+
+  <script id="lesson-metadata" type="application/json">
+{
+  "document_slug": "course-01-lesson-03-vector-components",
+  "document_title": "Vector Components",
+  "course": "Course 1 — Mathematical Foundations",
+  "lesson_number": 3,
+  "version": "1.0",
+  "section_count": 4,
+  "image_count": 0,
+  "svg_count": 1,
+  "expansion_count": 0,
+  "prerequisites": ["Course 1, Lesson 1 — Scalars", "Course 1, Lesson 2 — Vectors"],
+  "previous_lesson": "course-01-lesson-02-vectors.html",
+  "next_lesson": "course-01-lesson-04-unit-vectors.html",
+  "document_type": "lesson",
+  "authoring_standard": "LL-EAS 4.3"
+}
+  </script>
+
+  <link rel="stylesheet" href="../textbooker/css/lesson.css">
+
+  <style>
+    /* Compact fallback styles keep the page readable even before lesson.css is loaded. */
+    :root {
+      --ink: #162033;
+      --muted: #5d6878;
+      --paper: #f6f4ee;
+      --surface: #ffffff;
+      --line: #d9dee6;
+      --navy: #173b63;
+      --blue: #2b658e;
+      --sky: #e3f0f7;
+      --gold: #c79a45;
+      --green: #447464;
+      --danger: #8a4d38;
+      --radius: 18px;
+      --shadow: 0 14px 34px rgba(22, 32, 51, .09);
+      --content-width: 980px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html {
+      scroll-behavior: smooth;
+      background: var(--paper);
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        linear-gradient(rgba(23, 59, 99, .025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(23, 59, 99, .025) 1px, transparent 1px),
+        var(--paper);
+      background-size: 32px 32px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.65;
+    }
+
+    a { color: inherit; }
+
+    a:focus-visible,
+    button:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 6px;
+    }
+
+    .skip-link {
+      position: fixed;
+      left: 1rem;
+      top: -5rem;
+      z-index: 1000;
+      padding: .75rem 1rem;
+      color: #fff;
+      background: var(--navy);
+      border-radius: 8px;
+      font-weight: 800;
+    }
+
+    .skip-link:focus { top: 1rem; }
+
+    .reading-progress {
+      position: fixed;
+      inset: 0 0 auto 0;
+      z-index: 999;
+      height: 5px;
+      background: rgba(255,255,255,.45);
+    }
+
+    .reading-progress span {
+      display: block;
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--gold), var(--blue));
+    }
+
+    .course-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      overflow-x: auto;
+      padding: .65rem max(1rem, calc((100vw - var(--content-width)) / 2));
+      color: #fff;
+      background: rgba(22, 32, 51, .96);
+      border-bottom: 1px solid rgba(255,255,255,.14);
+      backdrop-filter: blur(12px);
+    }
+
+    .course-nav a {
+      flex: 0 0 auto;
+      padding: .45rem .72rem;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: .9rem;
+      font-weight: 780;
+    }
+
+    .course-nav a:hover { background: rgba(255,255,255,.12); }
+
+    .course-nav .course-index-link {
+      color: #f4e9cf;
+      border: 1px solid rgba(244,233,207,.35);
+    }
+
+    .lesson-hero {
+      color: #fff;
+      background:
+        radial-gradient(circle at 84% 20%, rgba(199,154,69,.28), transparent 21rem),
+        linear-gradient(135deg, #102a49 0%, #174a70 62%, #2b6875 100%);
+    }
+
+    .hero-inner {
+      width: min(var(--content-width), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: clamp(4rem, 8vw, 7rem) 0 clamp(3rem, 6vw, 5rem);
+    }
+
+    .eyebrow {
+      margin: 0 0 .65rem;
+      color: #f2e5c8;
+      font-size: .78rem;
+      font-weight: 850;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(3.5rem, 10vw, 7.5rem);
+      line-height: .92;
+      letter-spacing: -.05em;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 1.4rem 0 0;
+      color: #e4edf3;
+      font-size: clamp(1.05rem, 2vw, 1.3rem);
+    }
+
+    .lesson-meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .75rem;
+      margin-top: 1.5rem;
+    }
+
+    .lesson-meta-strip span {
+      padding: .45rem .7rem;
+      color: #eef5f8;
+      background: rgba(255,255,255,.09);
+      border: 1px solid rgba(255,255,255,.18);
+      border-radius: 999px;
+      font-size: .86rem;
+      font-weight: 760;
+    }
+
+    main {
+      width: min(var(--content-width), calc(100% - 2rem));
+      margin: 0 auto;
+      padding: 2.5rem 0 5rem;
+    }
+
+    .toc {
+      margin-bottom: 2rem;
+      padding: 1.25rem 1.4rem;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .toc h2 {
+      margin: 0 0 .8rem;
+      font-family: Georgia, "Times New Roman", serif;
+    }
+
+    .toc ol {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: .5rem 1rem;
+      margin: 0;
+      padding-left: 1.3rem;
+    }
+
+    .toc a {
+      color: var(--navy);
+      font-weight: 760;
+      text-decoration-thickness: 1px;
+      text-underline-offset: .2em;
+    }
+
+    .lesson-section {
+      scroll-margin-top: 5.5rem;
+      margin: 0 0 2rem;
+      padding: clamp(1.25rem, 4vw, 2.4rem);
+      background: rgba(255,255,255,.94);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      box-shadow: var(--shadow);
+    }
+
+    .section-kicker {
+      margin: 0 0 .45rem;
+      color: var(--blue);
+      font-size: .76rem;
+      font-weight: 850;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .lesson-section h2 {
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: clamp(2rem, 4.8vw, 3.25rem);
+      line-height: 1.05;
+      letter-spacing: -.025em;
+    }
+
+    .lesson-section h3 {
+      margin-top: 1.6rem;
+      color: var(--navy);
+      font-size: 1.2rem;
+    }
+
+    .lead {
+      max-width: 780px;
+      color: var(--muted);
+      font-size: 1.08rem;
+    }
+
+    .definition {
+      margin: 1.3rem 0;
+      padding: 1.1rem 1.25rem;
+      background: var(--sky);
+      border-left: 5px solid var(--blue);
+      border-radius: 0 12px 12px 0;
+      font-size: 1.06rem;
+    }
+
+    .definition strong { color: var(--navy); }
+
+    .example-card,
+    .summary-card,
+    .notice-card {
+      margin: 1.25rem 0;
+      padding: 1.15rem 1.25rem;
+      border-radius: 14px;
+    }
+
+    .example-card {
+      background: #fbf7ed;
+      border: 1px solid #ead9b5;
+    }
+
+    .summary-card {
+      background: #edf5f1;
+      border: 1px solid #c8ddd4;
+    }
+
+    .notice-card {
+      background: #f8efec;
+      border: 1px solid #e1c5bb;
+    }
+
+    .example-card h3,
+    .summary-card h3,
+    .notice-card h3 { margin-top: 0; }
+
+    .math {
+      display: block;
+      overflow-x: auto;
+      margin: .8rem 0;
+      padding: .8rem 1rem;
+      color: #102a49;
+      background: #f5f7f9;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-family: "Cambria Math", "Times New Roman", serif;
+      font-size: 1.1rem;
+      white-space: nowrap;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 1rem;
+      margin: 1.3rem 0;
+    }
+
+    .comparison-card {
+      padding: 1rem;
+      border: 1px solid var(--line);
+      border-radius: 13px;
+    }
+
+    .comparison-card h3 { margin: 0 0 .55rem; }
+
+    .comparison-card ul {
+      margin: 0;
+      padding-left: 1.2rem;
+    }
+
+    .diagram {
+      margin: 1.5rem 0;
+      padding: 1rem;
+      background: #f8fafb;
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      overflow-x: auto;
+    }
+
+    .diagram svg {
+      display: block;
+      min-width: 680px;
+      width: 100%;
+      height: auto;
+    }
+
+    figcaption {
+      margin-top: .75rem;
+      color: var(--muted);
+      font-size: .92rem;
+    }
+
+    .prompt-stack {
+      display: grid;
+      gap: .8rem;
+      margin-top: 2rem;
+      padding-top: 1.4rem;
+      border-top: 1px dashed #bdc7d2;
+    }
+
+    .learning-prompt {
+      background: #f7f8fa;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+    }
+
+    .learning-prompt summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      cursor: pointer;
+      padding: .85rem 1rem;
+      color: var(--navy);
+      font-weight: 820;
+    }
+
+    .learning-prompt summary::marker { color: var(--gold); }
+
+    .prompt-body {
+      padding: 0 1rem 1rem;
+      color: var(--muted);
+    }
+
+    .prompt-text {
+      margin: .5rem 0 .9rem;
+      padding: .85rem;
+      background: #fff;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      white-space: pre-wrap;
+      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+      font-size: .86rem;
+      line-height: 1.5;
+    }
+
+    .copy-prompt {
+      appearance: none;
+      padding: .55rem .8rem;
+      color: #fff;
+      background: var(--navy);
+      border: 0;
+      border-radius: 8px;
+      cursor: pointer;
+      font: inherit;
+      font-weight: 780;
+    }
+
+    .copy-prompt:hover { background: var(--blue); }
+
+    .footer-nav {
+      width: min(var(--content-width), calc(100% - 2rem));
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 1rem;
+      align-items: center;
+      padding: 1.4rem 0 2rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .footer-nav a {
+      color: var(--navy);
+      text-decoration: none;
+      font-weight: 820;
+    }
+
+    .footer-nav .next { text-align: right; }
+    .footer-nav .course { text-align: center; }
+
+    footer {
+      padding: 0 1rem 2.5rem;
+      text-align: center;
+      color: var(--muted);
+      font-size: .88rem;
+    }
+
+    @media (max-width: 680px) {
+      .toc ol,
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-nav {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-nav .course,
+      .footer-nav .next {
+        text-align: left;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+
+    @media print {
+      .reading-progress,
+      .course-nav,
+      .skip-link,
+      .copy-prompt {
+        display: none !important;
+      }
+
+      body { background: #fff; }
+
+      .lesson-hero {
+        color: #000;
+        background: #fff;
+        border-bottom: 2px solid #000;
+      }
+
+      .hero-copy,
+      .eyebrow { color: #000; }
+
+      .lesson-section,
+      .toc {
+        box-shadow: none;
+        break-inside: avoid;
+      }
+
+      details.learning-prompt { display: none; }
+    }
+  </style>
+</head>
+
+<body id="top">
+  <a class="skip-link" href="#main-content">Skip to lesson content</a>
+
+  <div class="reading-progress" aria-hidden="true">
+    <span id="reading-progress-bar"></span>
+  </div>
+
+  <nav class="course-nav" aria-label="Course navigation">
+    <a class="course-index-link" href="https://kevinlinstrum001.github.io/learning-library/course-index.html">← Course Index</a>
+    <a href="https://kevinlinstrum001.github.io/learning-library/mathematics/course-01-mathematical-foundations/course-01-mathematical-foundations.html">Course 1 Overview</a>
+    <a href="#meaning">Meaning</a>
+    <a href="#decomposition">Decomposition</a>
+    <a href="#reconstruction">Reconstruction</a>
+    <a href="#check">Check Understanding</a>
+  </nav>
+
+  <header class="lesson-hero">
+    <div class="hero-inner">
+      <p class="eyebrow">Course 1 · Mathematical Foundations · Lesson 03</p>
+      <h1>Vector Components</h1>
+      <p class="hero-copy">
+        An angled vector can be separated into simpler horizontal and vertical parts.
+        These components allow us to calculate with direction using ordinary numbers.
+      </p>
+      <div class="lesson-meta-strip" aria-label="Lesson information">
+        <span>Prerequisite: vectors</span>
+        <span>Core idea: resolve into perpendicular parts</span>
+        <span>Next: unit vectors</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="main-content">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">Lesson contents</h2>
+      <ol>
+        <li><a href="#meaning">What components mean</a></li>
+        <li><a href="#decomposition">Resolving a vector</a></li>
+        <li><a href="#reconstruction">Rebuilding a vector</a></li>
+        <li><a href="#check">Check your understanding</a></li>
+      </ol>
+    </nav>
+
+    <section class="lesson-section" id="meaning" aria-labelledby="meaning-title">
+      <p class="section-kicker">Section 1</p>
+      <h2 id="meaning-title">Components describe one vector in two directions</h2>
+
+      <p class="lead">
+        A vector that points diagonally can be understood as the combined effect of one horizontal vector
+        and one vertical vector.
+      </p>
+
+      <div class="definition">
+        <strong>Vector components:</strong> perpendicular vectors that combine to produce the original vector.
+      </div>
+
+      <p>
+        In two dimensions, we usually choose a horizontal <strong>x-component</strong> and a vertical
+        <strong>y-component</strong>. The original vector is not being replaced by two unrelated vectors.
+        The two components are a different description of the same vector.
+      </p>
+
+      <div class="comparison-grid">
+        <article class="comparison-card">
+          <h3>Original vector</h3>
+          <ul>
+            <li>One magnitude</li>
+            <li>One overall direction</li>
+            <li>Often drawn diagonally</li>
+          </ul>
+        </article>
+
+        <article class="comparison-card">
+          <h3>Component form</h3>
+          <ul>
+            <li>Horizontal part</li>
+            <li>Vertical part</li>
+            <li>Together produce the original vector</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="example-card">
+        <h3>Worked example: reading components</h3>
+        <p>
+          A displacement has an x-component of <strong>4 meters east</strong> and a y-component of
+          <strong>3 meters north</strong>.
+        </p>
+        <p>
+          The object has moved both east and north. The combined displacement points northeast.
+        </p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Section summary</h3>
+        <p>
+          Components separate a vector into perpendicular directions while preserving the original vector.
+        </p>
+      </div>
+
+      <div class="prompt-stack">
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-meaning-explanation"
+                 data-section-id="meaning"
+                 data-prompt-type="explanation"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Expand this explanation</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Expand the section titled "Components describe one vector in two directions" using the supplied section HTML as context. Deepen the explanation of x- and y-components, add one additional worked example, and clarify likely beginner confusion about whether components are separate physical motions or a mathematical description of one vector. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-meaning-practice"
+                 data-section-id="meaning"
+                 data-prompt-type="practice"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Add progressive practice</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Using the supplied HTML for "Components describe one vector in two directions" as context, create a progressive practice block about identifying horizontal and vertical vector components. Include recognition, direction description, interpretation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="lesson-section" id="decomposition" aria-labelledby="decomposition-title">
+      <p class="section-kicker">Section 2</p>
+      <h2 id="decomposition-title">Resolving a vector into components</h2>
+
+      <p class="lead">
+        To resolve a vector means to determine the horizontal and vertical vectors that combine to form it.
+      </p>
+
+      <p>
+        When a vector of magnitude <strong>V</strong> makes an angle <strong>θ</strong> above the positive
+        horizontal direction, its components are:
+      </p>
+
+      <span class="math">Vx = V cos(θ)</span>
+      <span class="math">Vy = V sin(θ)</span>
+
+      <p>
+        The cosine gives the horizontal share of the vector, while the sine gives the vertical share.
+        Signs indicate direction: right and up are commonly positive; left and down are commonly negative.
+      </p>
+
+      <figure class="diagram" id="course-01-lesson-03-vector-components-02-concept-diagram-01">
+        <svg viewBox="0 0 920 430" role="img"
+             aria-labelledby="components-diagram-title components-diagram-desc"
+             preserveAspectRatio="xMidYMid meet">
+          <title id="components-diagram-title">A vector resolved into horizontal and vertical components</title>
+          <desc id="components-diagram-desc">
+            A diagonal vector points up and right from the origin. A horizontal component runs right,
+            a vertical component runs upward, and together they form a right triangle.
+          </desc>
+
+          <defs>
+            <marker id="component-arrowhead" viewBox="0 0 10 10" refX="8.5" refY="5"
+                    markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#173b63"></path>
+            </marker>
+            <marker id="component-arrowhead-gold" viewBox="0 0 10 10" refX="8.5" refY="5"
+                    markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#c79a45"></path>
+            </marker>
+            <marker id="component-arrowhead-green" viewBox="0 0 10 10" refX="8.5" refY="5"
+                    markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#447464"></path>
+            </marker>
+          </defs>
+
+          <rect x="40" y="35" width="840" height="345" rx="18" fill="#f8fafb" stroke="#d9dee6" stroke-width="2"></rect>
+
+          <line x1="165" y1="320" x2="735" y2="320" stroke="#bdc7d2" stroke-width="2"></line>
+          <line x1="165" y1="320" x2="165" y2="85" stroke="#bdc7d2" stroke-width="2"></line>
+
+          <line x1="165" y1="320" x2="650" y2="320"
+                stroke="#c79a45" stroke-width="5" marker-end="url(#component-arrowhead-gold)"></line>
+
+          <line x1="650" y1="320" x2="650" y2="135"
+                stroke="#447464" stroke-width="5" marker-end="url(#component-arrowhead-green)"></line>
+
+          <line x1="165" y1="320" x2="650" y2="135"
+                stroke="#173b63" stroke-width="6" marker-end="url(#component-arrowhead)"></line>
+
+          <path d="M 245 320 A 80 80 0 0 0 234 287" fill="none" stroke="#8fb4ca" stroke-width="2"></path>
+
+          <text x="410" y="353" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#7a6030">Vx</text>
+          <text x="685" y="235" text-anchor="start" font-family="Inter, sans-serif" font-size="20" fill="#447464">Vy</text>
+          <text x="422" y="205" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#173b63">V</text>
+          <text x="250" y="286" text-anchor="middle" font-family="Inter, sans-serif" font-size="19" fill="#5d6878">θ</text>
+
+          <rect x="615" y="285" width="35" height="35" fill="none" stroke="#8fb4ca" stroke-width="2"></rect>
+          <text x="165" y="350" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#5d6878">origin</text>
+        </svg>
+        <figcaption>
+          The horizontal and vertical components form the legs of a right triangle whose hypotenuse is the original vector.
+        </figcaption>
+      </figure>
+
+      <div class="example-card">
+        <h3>Worked example: resolve a vector</h3>
+        <p>
+          A force of 10 newtons acts at 30° above the horizontal.
+        </p>
+
+        <span class="math">Fx = 10 cos(30°) ≈ 8.66 N</span>
+        <span class="math">Fy = 10 sin(30°) = 5.00 N</span>
+
+        <p>
+          The force is equivalent to a horizontal component of approximately
+          <strong>8.66 newtons</strong> and a vertical component of <strong>5.00 newtons</strong>.
+        </p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Section summary</h3>
+        <p>
+          Use cosine for the component adjacent to the angle and sine for the component opposite the angle.
+        </p>
+      </div>
+
+      <div class="prompt-stack">
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-decomposition-explanation"
+                 data-section-id="decomposition"
+                 data-prompt-type="explanation"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Expand this explanation</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Expand the section titled "Resolving a vector into components" using the supplied section HTML as context. Deepen the explanation of why cosine gives the adjacent component and sine gives the opposite component, add one additional worked example in a different quadrant, and clarify sign conventions. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-decomposition-practice"
+                 data-section-id="decomposition"
+                 data-prompt-type="practice"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Add progressive practice</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Using the supplied HTML for "Resolving a vector into components" as context, create a progressive practice block on calculating x- and y-components with sine and cosine. Include recognition, calculation, quadrant signs, interpretation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-decomposition-visual"
+                 data-section-id="decomposition"
+                 data-prompt-type="visual"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Expand the visual explanation</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Review the supplied HTML for "Resolving a vector into components" and expand its visual explanation of the original vector, x-component, y-component, angle, and right-triangle relationship. Return an accessible inline SVG with thin connectors, small arrowheads, clear labels, and no lines crossing text. Preserve existing IDs and classes and return only the new HTML fragment to insert immediately before this visual card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="lesson-section" id="reconstruction" aria-labelledby="reconstruction-title">
+      <p class="section-kicker">Section 3</p>
+      <h2 id="reconstruction-title">Rebuilding a vector from its components</h2>
+
+      <p class="lead">
+        If the horizontal and vertical components are known, the original magnitude and direction can be recovered.
+      </p>
+
+      <h3>Magnitude</h3>
+      <p>
+        Because the components form a right triangle, the Pythagorean theorem gives the vector magnitude.
+      </p>
+
+      <span class="math">V = √(Vx² + Vy²)</span>
+
+      <h3>Direction</h3>
+      <p>
+        The angle can be found from the ratio of the vertical component to the horizontal component.
+      </p>
+
+      <span class="math">θ = tan⁻¹(Vy / Vx)</span>
+
+      <div class="notice-card">
+        <h3>Quadrant matters</h3>
+        <p>
+          A calculator may return an angle that does not identify the correct quadrant by itself.
+          The signs of Vx and Vy must also be checked to determine the actual direction.
+        </p>
+      </div>
+
+      <div class="example-card">
+        <h3>Worked example: reconstruct a vector</h3>
+        <p>
+          A displacement has components <strong>Vx = 6 meters</strong> and <strong>Vy = 8 meters</strong>.
+        </p>
+
+        <span class="math">V = √(6² + 8²) = √100 = 10 m</span>
+        <span class="math">θ = tan⁻¹(8 / 6) ≈ 53.1°</span>
+
+        <p>
+          The displacement has a magnitude of <strong>10 meters</strong> and points approximately
+          <strong>53.1° above the positive horizontal direction</strong>.
+        </p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Section summary</h3>
+        <p>
+          Components and vector form contain the same information. Either description can be reconstructed from the other.
+        </p>
+      </div>
+
+      <div class="prompt-stack">
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-reconstruction-explanation"
+                 data-section-id="reconstruction"
+                 data-prompt-type="explanation"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Expand this explanation</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Expand the section titled "Rebuilding a vector from its components" using the supplied section HTML as context. Deepen the explanation of the Pythagorean theorem, inverse tangent, and quadrant checks. Add one additional worked example with one negative component and clarify likely beginner confusion about calculator angles. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-reconstruction-practice"
+                 data-section-id="reconstruction"
+                 data-prompt-type="practice"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Add progressive practice</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Using the supplied HTML for "Rebuilding a vector from its components" as context, create a progressive practice block on finding vector magnitude and direction from components. Include Pythagorean calculation, inverse tangent, quadrant interpretation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="lesson-section" id="check" aria-labelledby="check-title">
+      <p class="section-kicker">Section 4</p>
+      <h2 id="check-title">Check your understanding</h2>
+
+      <p class="lead">
+        Before moving to unit vectors, make sure you can interpret, calculate, and reconstruct vector components.
+      </p>
+
+      <div class="example-card">
+        <h3>Quick check</h3>
+        <ol>
+          <li>What do the x- and y-components of a vector represent?</li>
+          <li>A 12-newton vector acts at 0°. What are its components?</li>
+          <li>A 12-newton vector acts at 90°. What are its components?</li>
+          <li>Find the magnitude of a vector with components 5 and 12.</li>
+          <li>Why must the signs of the components be checked when finding direction?</li>
+        </ol>
+
+        <details>
+          <summary><strong>Show answers</strong></summary>
+          <ol>
+            <li>The perpendicular horizontal and vertical parts that combine to form the vector.</li>
+            <li>Vx = 12 N and Vy = 0 N.</li>
+            <li>Vx = 0 N and Vy = 12 N.</li>
+            <li>13 units.</li>
+            <li>Because inverse tangent alone may return an angle in the wrong quadrant.</li>
+          </ol>
+        </details>
+      </div>
+
+      <div class="summary-card">
+        <h3>Lesson summary</h3>
+        <ul>
+          <li>A two-dimensional vector can be described by horizontal and vertical components.</li>
+          <li>For an angle measured from the positive horizontal axis, Vx = V cos(θ) and Vy = V sin(θ).</li>
+          <li>Component signs indicate direction.</li>
+          <li>The original magnitude is found with the Pythagorean theorem.</li>
+          <li>The original direction is found with inverse tangent plus a quadrant check.</li>
+        </ul>
+      </div>
+
+      <div class="prompt-stack">
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-check-explanation"
+                 data-section-id="check"
+                 data-prompt-type="explanation"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Expand the lesson review</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Expand the section titled "Check your understanding" using the supplied section HTML as context. Add a compact review connecting component meaning, trigonometric decomposition, sign conventions, magnitude reconstruction, direction reconstruction, and the transition to unit vectors. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-03-vector-components-check-practice"
+                 data-section-id="check"
+                 data-prompt-type="practice"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Add a full practice set</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Using the supplied HTML for "Check your understanding" as context, create a progressive end-of-lesson practice block for vector components. Include identification, decomposition, reconstruction, sign interpretation, mixed applications, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+      </div>
+    </section>
+  </main>
+
+  <nav class="footer-nav" aria-label="Lesson navigation">
+    <a class="previous" href="course-01-lesson-02-vectors.html">← Lesson 2: Vectors</a>
+    <a class="course" href="https://kevinlinstrum001.github.io/learning-library/mathematics/course-01-mathematical-foundations/course-01-mathematical-foundations.html">Course 1 Overview</a>
+    <a class="next" href="course-01-lesson-04-unit-vectors.html">Lesson 4: Unit Vectors →</a>
+  </nav>
+
+  <footer>
+    Learning Library · Course 1 — Mathematical Foundations · Lesson 03 · LL-EAS 4.3
+  </footer>
+
+  <script>
+    (function () {
+      const progressBar = document.getElementById("reading-progress-bar");
+
+      function updateProgress() {
+        if (!progressBar) return;
+        const top = window.scrollY || document.documentElement.scrollTop;
+        const height = document.documentElement.scrollHeight - window.innerHeight;
+        const percentage = height > 0 ? Math.min(100, Math.max(0, top / height * 100)) : 0;
+        progressBar.style.width = percentage + "%";
+      }
+
+      async function copyPrompt(button) {
+        const card = button.closest(".learning-prompt");
+        const prompt = card ? card.querySelector(".prompt-text") : null;
+        if (!prompt) return;
+
+        const text = prompt.textContent.trim();
+        const originalLabel = button.textContent;
+
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copied";
+          if (card.dataset.promptStatus === "planned") {
+            card.dataset.promptStatus = "copied";
+          }
+        } catch (error) {
+          const range = document.createRange();
+          range.selectNodeContents(prompt);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          button.textContent = "Select and copy";
+        }
+
+        window.setTimeout(function () {
+          button.textContent = originalLabel;
+        }, 1800);
+      }
+
+      document.querySelectorAll(".copy-prompt").forEach(function (button) {
+        button.addEventListener("click", function () {
+          copyPrompt(button);
+        });
+      });
+
+      updateProgress();
+      window.addEventListener("scroll", updateProgress, { passive: true });
+      window.addEventListener("resize", updateProgress);
+    })();
+  </script>
+</body>
+</html>
