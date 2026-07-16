@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Course 1, Lesson 1 of the Learning Library: an introduction to scalars, units, measurement, and scalar calculations.">
-  <title>Scalars | Course 1 — Mathematical Foundations</title>
+  <meta name="description" content="Course 1, Lesson 2 of the Learning Library: an introduction to vectors, magnitude, direction, notation, and basic interpretation.">
+  <title>Vectors | Course 1 — Mathematical Foundations</title>
 
   <script id="lesson-metadata" type="application/json">
 {
-  "document_slug": "course-01-lesson-01-scalars",
-  "document_title": "Scalars",
+  "document_slug": "course-01-lesson-02-vectors",
+  "document_title": "Vectors",
   "course": "Course 1 — Mathematical Foundations",
-  "lesson_number": 1,
+  "lesson_number": 2,
   "version": "1.0",
   "section_count": 4,
   "image_count": 0,
   "svg_count": 1,
   "expansion_count": 0,
-  "prerequisites": [],
-  "previous_lesson": "course-01-mathematical-foundations.html",
-  "next_lesson": "course-01-lesson-02-vectors.html",
+  "prerequisites": ["Course 1, Lesson 1 — Scalars"],
+  "previous_lesson": "course-01-lesson-01-scalars.html",
+  "next_lesson": "course-01-lesson-03-vector-components.html",
   "document_type": "lesson",
   "authoring_standard": "LL-EAS 4.3"
 }
@@ -505,25 +505,25 @@
 
   <nav class="course-nav" aria-label="Course navigation">
     <a class="course-index-link" href="https://kevinlinstrum001.github.io/learning-library/course-index.html">← Course Index</a>
-    <a href="course-01-mathematical-foundations.html">Course 1 Overview</a>
+    <a href="https://kevinlinstrum001.github.io/learning-library/mathematics/course-01-mathematical-foundations/course-01-mathematical-foundations.html">Course 1 Overview</a>
     <a href="#meaning">Meaning</a>
-    <a href="#units">Units</a>
-    <a href="#calculations">Calculations</a>
+    <a href="#representation">Representation</a>
+    <a href="#interpretation">Interpretation</a>
     <a href="#check">Check Understanding</a>
   </nav>
 
   <header class="lesson-hero">
     <div class="hero-inner">
-      <p class="eyebrow">Course 1 · Mathematical Foundations · Lesson 01</p>
-      <h1>Scalars</h1>
+      <p class="eyebrow">Course 1 · Mathematical Foundations · Lesson 02</p>
+      <h1>Vectors</h1>
       <p class="hero-copy">
-        A scalar is the simplest kind of mathematical quantity: it tells us how much.
-        Scalars are the foundation for measurement, calculation, physical formulas, and the vector quantities introduced in the next lesson.
+        A vector describes both how much and which way. Vectors are the mathematical language of displacement,
+        velocity, acceleration, force, electric fields, magnetic fields, and many other directional quantities.
       </p>
       <div class="lesson-meta-strip" aria-label="Lesson information">
-        <span>Prerequisites: none</span>
-        <span>Core idea: magnitude only</span>
-        <span>Next: vectors</span>
+        <span>Prerequisite: scalars</span>
+        <span>Core idea: magnitude + direction</span>
+        <span>Next: vector components</span>
       </div>
     </div>
   </header>
@@ -532,306 +532,280 @@
     <nav class="toc" aria-labelledby="toc-title">
       <h2 id="toc-title">Lesson contents</h2>
       <ol>
-        <li><a href="#meaning">What a scalar is</a></li>
-        <li><a href="#units">Scalars and units</a></li>
-        <li><a href="#calculations">Calculating with scalars</a></li>
+        <li><a href="#meaning">What a vector is</a></li>
+        <li><a href="#representation">How vectors are represented</a></li>
+        <li><a href="#interpretation">How to interpret vectors</a></li>
         <li><a href="#check">Check your understanding</a></li>
       </ol>
     </nav>
 
     <section class="lesson-section" id="meaning" aria-labelledby="meaning-title">
       <p class="section-kicker">Section 1</p>
-      <h2 id="meaning-title">A scalar tells us how much</h2>
+      <h2 id="meaning-title">A vector tells us how much and which way</h2>
 
       <p class="lead">
-        Many measurements can be completely described by one number and its unit.
-        When that is true, the quantity is a scalar.
+        A scalar gives magnitude only. A vector adds direction, allowing mathematics to describe motion,
+        forces, fields, and changes that point through space.
       </p>
 
       <div class="definition">
-        <strong>Scalar:</strong> a quantity described by magnitude alone.
-        Its magnitude is its numerical size, normally written together with a unit.
+        <strong>Vector:</strong> a quantity with both magnitude and direction.
       </div>
 
       <p>
-        Temperature, mass, time, distance, energy, and volume are common scalar quantities.
-        Saying that a room is <strong>22 °C</strong> is enough to describe its temperature.
-        No direction is required. Saying that a toolbox has a mass of <strong>18 kg</strong>
-        is also complete: the number and unit tell us everything needed about its mass.
+        The statements <strong>5 meters</strong> and <strong>5 meters east</strong> do not describe the same kind
+        of quantity. The first is a scalar distance. The second is a vector displacement because it includes
+        a size and a direction.
       </p>
 
       <div class="comparison-grid">
         <article class="comparison-card">
-          <h3>Complete scalar descriptions</h3>
+          <h3>Scalar</h3>
           <ul>
-            <li>12 seconds</li>
-            <li>5 kilograms</li>
-            <li>24 degrees Celsius</li>
-            <li>3.5 liters</li>
+            <li>Magnitude only</li>
+            <li>Example: 12 seconds</li>
+            <li>Example: 8 kilograms</li>
+            <li>Example: 20 meters of distance</li>
           </ul>
         </article>
 
         <article class="comparison-card">
-          <h3>Not complete without direction</h3>
+          <h3>Vector</h3>
           <ul>
-            <li>5 meters per second north</li>
-            <li>20 newtons downward</li>
-            <li>3 meters east</li>
-            <li>9 meters per second squared upward</li>
+            <li>Magnitude and direction</li>
+            <li>Example: 6 meters north</li>
+            <li>Example: 15 newtons downward</li>
+            <li>Example: 20 meters east of the start</li>
           </ul>
         </article>
       </div>
 
-      <figure class="diagram" id="course-01-lesson-01-scalars-01-concept-diagram-01">
-        <svg viewBox="0 0 920 300" role="img"
-             aria-labelledby="scalar-diagram-title scalar-diagram-desc"
-             preserveAspectRatio="xMidYMid meet">
-          <title id="scalar-diagram-title">Scalar and vector comparison</title>
-          <desc id="scalar-diagram-desc">
-            A scalar is shown as a number and unit only. A vector is shown as a number, unit, and direction.
-          </desc>
-
-          <defs>
-            <marker id="small-arrowhead" viewBox="0 0 10 10" refX="8.5" refY="5"
-                    markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#173b63"></path>
-            </marker>
-          </defs>
-
-          <rect x="40" y="50" width="360" height="190" rx="18" fill="#e3f0f7" stroke="#8fb4ca" stroke-width="2"></rect>
-          <text x="220" y="92" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#173b63">Scalar</text>
-          <text x="220" y="145" text-anchor="middle" font-family="Inter, sans-serif" font-size="32" font-weight="700" fill="#162033">18 kg</text>
-          <text x="220" y="184" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#5d6878">number + unit</text>
-          <text x="220" y="214" text-anchor="middle" font-family="Inter, sans-serif" font-size="16" fill="#447464">complete description</text>
-
-          <line x1="438" y1="145" x2="482" y2="145" stroke="#c79a45" stroke-width="2"></line>
-
-          <rect x="520" y="50" width="360" height="190" rx="18" fill="#fbf7ed" stroke="#d6bc82" stroke-width="2"></rect>
-          <text x="700" y="92" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#173b63">Vector</text>
-          <text x="700" y="137" text-anchor="middle" font-family="Inter, sans-serif" font-size="30" font-weight="700" fill="#162033">5 m/s east</text>
-          <line x1="617" y1="172" x2="783" y2="172" stroke="#173b63" stroke-width="3" marker-end="url(#small-arrowhead)"></line>
-          <text x="700" y="210" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" fill="#5d6878">number + unit + direction</text>
-        </svg>
-        <figcaption>
-          Scalars require magnitude only. Vectors, introduced in Lesson 2, require both magnitude and direction.
-        </figcaption>
-      </figure>
-
       <div class="example-card">
-        <h3>Worked example: identifying scalars</h3>
-        <p>Classify each quantity:</p>
+        <h3>Worked example: scalar or vector?</h3>
         <ol>
-          <li><strong>8 minutes</strong> — scalar, because time has magnitude only.</li>
-          <li><strong>15 meters west</strong> — not scalar; the direction makes it a vector.</li>
-          <li><strong>72 kilograms</strong> — scalar, because mass has magnitude only.</li>
-          <li><strong>30 newtons upward</strong> — not scalar; force includes direction.</li>
+          <li><strong>40 kilometers</strong> — scalar distance.</li>
+          <li><strong>40 kilometers west</strong> — vector displacement.</li>
+          <li><strong>12 meters per second</strong> — scalar speed.</li>
+          <li><strong>12 meters per second upward</strong> — vector velocity.</li>
         </ol>
       </div>
 
       <div class="summary-card">
         <h3>Section summary</h3>
         <p>
-          A scalar is completely described by magnitude. When direction is necessary,
-          the quantity is not a scalar.
+          A vector is not merely a number with a unit. Its direction is an essential part of the quantity.
         </p>
       </div>
 
       <div class="prompt-stack">
         <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-meaning-explanation"
+                 data-prompt-id="course-01-lesson-02-vectors-meaning-explanation"
                  data-section-id="meaning"
                  data-prompt-type="explanation"
                  data-prompt-status="planned"
                  data-insert-position="before-card">
           <summary>Expand this explanation</summary>
           <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "A scalar tells us how much" using the supplied section HTML as context. Deepen the explanation of scalar magnitude, add one additional worked example, and clarify likely beginner confusion about the difference between a scalar and a vector. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+            <pre class="prompt-text">Expand the section titled "A vector tells us how much and which way" using the supplied section HTML as context. Deepen the explanation of vector magnitude and direction, add one additional worked example, and clarify likely beginner confusion between distance and displacement or speed and velocity. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
             <button class="copy-prompt" type="button">Copy prompt</button>
           </div>
         </details>
 
         <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-meaning-practice"
+                 data-prompt-id="course-01-lesson-02-vectors-meaning-practice"
                  data-section-id="meaning"
                  data-prompt-type="practice"
                  data-prompt-status="planned"
                  data-insert-position="before-card">
           <summary>Add progressive practice</summary>
           <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "A scalar tells us how much" as context, create a progressive practice block about identifying scalar quantities. Include recognition, classification, explanation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <pre class="prompt-text">Using the supplied HTML for "A vector tells us how much and which way" as context, create a progressive practice block about distinguishing vectors from scalars. Include recognition, classification, explanation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section class="lesson-section" id="representation" aria-labelledby="representation-title">
+      <p class="section-kicker">Section 2</p>
+      <h2 id="representation-title">Vectors are represented by arrows</h2>
+
+      <p class="lead">
+        An arrow gives a vector a visible form: its length represents magnitude, and its arrowhead shows direction.
+      </p>
+
+      <p>
+        Vectors are often written with bold symbols such as <strong>v</strong>, or with an arrow over the symbol,
+        such as <strong>v⃗</strong>. The magnitude of a vector is written with vertical bars, such as
+        <strong>|v⃗|</strong>.
+      </p>
+
+      <figure class="diagram" id="course-01-lesson-02-vectors-02-concept-diagram-01">
+        <svg viewBox="0 0 920 330" role="img"
+             aria-labelledby="vector-diagram-title vector-diagram-desc"
+             preserveAspectRatio="xMidYMid meet">
+          <title id="vector-diagram-title">An arrow representing a vector</title>
+          <desc id="vector-diagram-desc">
+            A horizontal arrow points to the right. Its length is labeled magnitude, its arrowhead indicates direction,
+            and its starting point is labeled tail.
+          </desc>
+
+          <defs>
+            <marker id="vector-arrowhead" viewBox="0 0 10 10" refX="8.5" refY="5"
+                    markerWidth="6" markerHeight="6" orient="auto">
+              <path d="M 0 0 L 10 5 L 0 10 z" fill="#173b63"></path>
+            </marker>
+          </defs>
+
+          <rect x="40" y="38" width="840" height="250" rx="18" fill="#f8fafb" stroke="#d9dee6" stroke-width="2"></rect>
+
+          <circle cx="185" cy="165" r="8" fill="#c79a45"></circle>
+          <line x1="185" y1="165" x2="730" y2="165"
+                stroke="#173b63" stroke-width="6" marker-end="url(#vector-arrowhead)"></line>
+
+          <line x1="185" y1="218" x2="730" y2="218" stroke="#8fb4ca" stroke-width="2"></line>
+          <line x1="185" y1="207" x2="185" y2="229" stroke="#8fb4ca" stroke-width="2"></line>
+          <line x1="730" y1="207" x2="730" y2="229" stroke="#8fb4ca" stroke-width="2"></line>
+
+          <text x="458" y="252" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#5d6878">magnitude</text>
+          <text x="185" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#5d6878">tail</text>
+          <text x="738" y="120" text-anchor="middle" font-family="Inter, sans-serif" font-size="20" fill="#5d6878">direction</text>
+          <text x="458" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="30" fill="#173b63">vector v⃗</text>
+        </svg>
+        <figcaption>
+          The arrow’s length represents magnitude; its orientation and arrowhead represent direction.
+        </figcaption>
+      </figure>
+
+      <div class="example-card">
+        <h3>Worked example: reading a vector arrow</h3>
+        <p>
+          Suppose a diagram uses a scale of 1 centimeter = 2 newtons. An arrow is 4 centimeters long and points left.
+        </p>
+        <span class="math">magnitude = 4 cm × 2 N/cm = 8 N</span>
+        <p>The vector represents a force of <strong>8 newtons to the left</strong>.</p>
+      </div>
+
+      <div class="summary-card">
+        <h3>Section summary</h3>
+        <p>
+          A vector arrow encodes both parts of the quantity: length for magnitude and orientation for direction.
+        </p>
+      </div>
+
+      <div class="prompt-stack">
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-02-vectors-representation-explanation"
+                 data-section-id="representation"
+                 data-prompt-type="explanation"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Expand this explanation</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Expand the section titled "Vectors are represented by arrows" using the supplied section HTML as context. Deepen the explanation of vector notation, arrow length, scale, tail, and arrowhead. Add one additional worked example and clarify why moving an arrow without rotating or resizing it does not change the represented free vector. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
             <button class="copy-prompt" type="button">Copy prompt</button>
           </div>
         </details>
 
         <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-meaning-visual"
-                 data-section-id="meaning"
+                 data-prompt-id="course-01-lesson-02-vectors-representation-practice"
+                 data-section-id="representation"
+                 data-prompt-type="practice"
+                 data-prompt-status="planned"
+                 data-insert-position="before-card">
+          <summary>Add progressive practice</summary>
+          <div class="prompt-body">
+            <pre class="prompt-text">Using the supplied HTML for "Vectors are represented by arrows" as context, create a progressive practice block on reading vector arrows and scales. Include recognition, magnitude calculation, direction description, notation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <button class="copy-prompt" type="button">Copy prompt</button>
+          </div>
+        </details>
+
+        <details class="learning-prompt"
+                 data-prompt-id="course-01-lesson-02-vectors-representation-visual"
+                 data-section-id="representation"
                  data-prompt-type="visual"
                  data-prompt-status="planned"
                  data-insert-position="before-card">
           <summary>Expand the visual explanation</summary>
           <div class="prompt-body">
-            <pre class="prompt-text">Review the supplied HTML for "A scalar tells us how much" and expand its visual explanation of scalar magnitude versus vector direction. Return an accessible inline SVG with thin connectors, small arrowheads, clear labels, and no lines crossing text. Preserve existing IDs and classes and return only the new HTML fragment to insert immediately before this visual card.</pre>
+            <pre class="prompt-text">Review the supplied HTML for "Vectors are represented by arrows" and expand its visual explanation of vector magnitude, direction, scale, tail, and arrowhead. Return an accessible inline SVG with thin connectors, small arrowheads, clear labels, and no lines crossing text. Preserve existing IDs and classes and return only the new HTML fragment to insert immediately before this visual card.</pre>
             <button class="copy-prompt" type="button">Copy prompt</button>
           </div>
         </details>
       </div>
     </section>
 
-    <section class="lesson-section" id="units" aria-labelledby="units-title">
-      <p class="section-kicker">Section 2</p>
-      <h2 id="units-title">Scalars need meaningful units</h2>
-
-      <p class="lead">
-        A number alone is often incomplete. Units tell us what the number measures
-        and allow us to compare or calculate quantities correctly.
-      </p>
-
-      <p>
-        The number <strong>12</strong> could represent 12 seconds, 12 meters, 12 kilograms,
-        or 12 volts. The numerical value is the same, but each unit represents a different quantity.
-      </p>
-
-      <div class="notice-card">
-        <h3>Magnitude is more than the bare number</h3>
-        <p>
-          In practical science and engineering, magnitude usually means the numerical value
-          together with its unit. The scalar <strong>12 kg</strong> is not interchangeable with
-          <strong>12 s</strong>.
-        </p>
-      </div>
-
-      <h3>Compatible units</h3>
-      <p>
-        Scalars can be added or subtracted only when they represent the same kind of quantity
-        and use compatible units.
-      </p>
-
-      <div class="example-card">
-        <h3>Worked example: adding lengths</h3>
-        <p>A board is 2 meters long. Another board is 75 centimeters long.</p>
-
-        <span class="math">75 cm = 0.75 m</span>
-        <span class="math">2 m + 0.75 m = 2.75 m</span>
-
-        <p>
-          The units were converted before addition. The final scalar is
-          <strong>2.75 meters</strong>.
-        </p>
-      </div>
-
-      <div class="summary-card">
-        <h3>Section summary</h3>
-        <p>
-          Units give scalar values meaning. Convert quantities to compatible units before combining them.
-        </p>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-units-explanation"
-                 data-section-id="units"
-                 data-prompt-type="explanation"
-                 data-prompt-status="planned"
-                 data-insert-position="before-card">
-          <summary>Expand this explanation</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Scalars need meaningful units" using the supplied section HTML as context. Deepen the explanation of units, compatible quantities, and unit conversion. Add one additional worked example and clarify why a bare number is often incomplete. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-
-        <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-units-practice"
-                 data-section-id="units"
-                 data-prompt-type="practice"
-                 data-prompt-status="planned"
-                 data-insert-position="before-card">
-          <summary>Add progressive practice</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Scalars need meaningful units" as context, create a progressive practice block on scalar units and unit conversion. Include recognition, conversion, calculation, explanation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="lesson-section" id="calculations" aria-labelledby="calculations-title">
+    <section class="lesson-section" id="interpretation" aria-labelledby="interpretation-title">
       <p class="section-kicker">Section 3</p>
-      <h2 id="calculations-title">Calculating with scalars</h2>
+      <h2 id="interpretation-title">Vectors can be compared and interpreted</h2>
 
       <p class="lead">
-        Scalars can be added, subtracted, multiplied, and divided.
-        The meaning of the result depends on both the operation and the units.
+        Two vectors are equal when they have the same magnitude and the same direction, even if they are drawn in different places.
       </p>
 
-      <h3>Addition and subtraction</h3>
+      <h3>Equal vectors</h3>
       <p>
-        Addition combines like quantities. Subtraction compares them or finds what remains.
+        If two arrows have the same length and point the same way, they represent equal vectors.
+        Their position on the page does not matter unless the problem specifically concerns a fixed point of application.
       </p>
 
-      <span class="math">8 kg + 3 kg = 11 kg</span>
-      <span class="math">25 min − 7 min = 18 min</span>
-
-      <h3>Multiplication and division</h3>
+      <h3>Opposite vectors</h3>
       <p>
-        Multiplication and division can produce a new kind of scalar quantity.
-        For example, distance divided by time produces speed.
+        Two vectors with equal magnitude but opposite directions are negatives of one another.
       </p>
+
+      <span class="math">if a⃗ points east, then −a⃗ points west with the same magnitude</span>
 
       <div class="example-card">
-        <h3>Worked example: average speed</h3>
+        <h3>Worked example: equal or opposite?</h3>
         <p>
-          A cyclist travels a scalar distance of 36 kilometers in a scalar time of 2 hours.
+          Vector <strong>a⃗</strong> is 7 meters north. Vector <strong>b⃗</strong> is also 7 meters north.
+          Vector <strong>c⃗</strong> is 7 meters south.
         </p>
-
-        <span class="math">average speed = distance ÷ time</span>
-        <span class="math">average speed = 36 km ÷ 2 h = 18 km/h</span>
-
-        <p>
-          Average speed is a scalar because it tells us how fast the cyclist traveled,
-          without specifying a direction.
-        </p>
+        <ul>
+          <li><strong>a⃗ = b⃗</strong> because their magnitudes and directions match.</li>
+          <li><strong>c⃗ = −a⃗</strong> because it has the same magnitude but the opposite direction.</li>
+        </ul>
       </div>
 
       <div class="notice-card">
-        <h3>Speed and velocity are different</h3>
+        <h3>A preview of components</h3>
         <p>
-          Speed is a scalar. Velocity is a vector because velocity includes direction.
-          “18 km/h” is a speed; “18 km/h east” is a velocity.
+          Directions do not always line up exactly with north, south, east, or west. In the next lesson,
+          a vector will be separated into horizontal and vertical components so that angled vectors can be calculated precisely.
         </p>
       </div>
 
       <div class="summary-card">
         <h3>Section summary</h3>
         <p>
-          Scalar operations follow ordinary arithmetic, but the units determine what the result means.
+          Equal vectors share magnitude and direction. Opposite vectors share magnitude but point in opposite directions.
         </p>
       </div>
 
       <div class="prompt-stack">
         <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-calculations-explanation"
-                 data-section-id="calculations"
+                 data-prompt-id="course-01-lesson-02-vectors-interpretation-explanation"
+                 data-section-id="interpretation"
                  data-prompt-type="explanation"
                  data-prompt-status="planned"
                  data-insert-position="before-card">
           <summary>Expand this explanation</summary>
           <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Calculating with scalars" using the supplied section HTML as context. Deepen the explanation of scalar arithmetic and dimensional meaning, add one additional worked example, and clarify the difference between speed and velocity. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+            <pre class="prompt-text">Expand the section titled "Vectors can be compared and interpreted" using the supplied section HTML as context. Deepen the explanation of equal vectors, opposite vectors, and the distinction between a free vector and a vector tied to a point of application. Add one additional worked example and clarify likely beginner confusion. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
             <button class="copy-prompt" type="button">Copy prompt</button>
           </div>
         </details>
 
         <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-calculations-practice"
-                 data-section-id="calculations"
+                 data-prompt-id="course-01-lesson-02-vectors-interpretation-practice"
+                 data-section-id="interpretation"
                  data-prompt-type="practice"
                  data-prompt-status="planned"
                  data-insert-position="before-card">
           <summary>Add progressive practice</summary>
           <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Calculating with scalars" as context, create a progressive practice block for scalar arithmetic. Include recognition, addition, subtraction, multiplication, division, unit interpretation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <pre class="prompt-text">Using the supplied HTML for "Vectors can be compared and interpreted" as context, create a progressive practice block on equal and opposite vectors. Include comparison, notation, explanation, diagram interpretation, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
             <button class="copy-prompt" type="button">Copy prompt</button>
           </div>
         </details>
@@ -843,28 +817,29 @@
       <h2 id="check-title">Check your understanding</h2>
 
       <p class="lead">
-        Before moving to vectors, make sure you can identify a scalar, preserve its units,
-        and explain what its value means.
+        Before moving to components, make sure you can identify vectors, describe their arrows, and compare their magnitude and direction.
       </p>
 
       <div class="example-card">
         <h3>Quick check</h3>
         <ol>
-          <li>Is <strong>42 °C</strong> a scalar?</li>
-          <li>Is <strong>6 meters south</strong> a scalar?</li>
-          <li>Convert 250 centimeters to meters.</li>
-          <li>A machine runs for 3 hours each day for 4 days. What total scalar time does it run?</li>
-          <li>Explain why “20” by itself may be an incomplete measurement.</li>
+          <li>Is <strong>18 kilograms</strong> a scalar or vector?</li>
+          <li>Is <strong>9 meters per second east</strong> a scalar or vector?</li>
+          <li>What feature of a vector arrow represents magnitude?</li>
+          <li>What feature represents direction?</li>
+          <li>Are two 5-newton arrows equal if one points north and the other points south?</li>
+          <li>What vector is opposite to 12 meters west?</li>
         </ol>
 
         <details>
           <summary><strong>Show answers</strong></summary>
           <ol>
-            <li>Yes. Temperature has magnitude only.</li>
-            <li>No. The direction makes it a vector quantity.</li>
-            <li>2.5 meters.</li>
-            <li>12 hours.</li>
-            <li>The unit and measured quantity are missing.</li>
+            <li>Scalar.</li>
+            <li>Vector.</li>
+            <li>The arrow’s length, interpreted using the diagram’s scale.</li>
+            <li>The arrow’s orientation and arrowhead.</li>
+            <li>No. Their magnitudes match, but their directions are opposite.</li>
+            <li>12 meters east.</li>
           </ol>
         </details>
       </div>
@@ -872,37 +847,37 @@
       <div class="summary-card">
         <h3>Lesson summary</h3>
         <ul>
-          <li>A scalar has magnitude but no direction.</li>
-          <li>Units give scalar values their physical meaning.</li>
-          <li>Compatible scalar quantities can be added or subtracted.</li>
-          <li>Multiplication and division can create new scalar quantities.</li>
-          <li>Vectors extend scalars by adding direction.</li>
+          <li>A vector has magnitude and direction.</li>
+          <li>Vector arrows use length to show magnitude and an arrowhead to show direction.</li>
+          <li>Two vectors are equal only when both magnitude and direction match.</li>
+          <li>Opposite vectors have equal magnitudes and opposite directions.</li>
+          <li>Vector components will provide a numerical way to describe angled vectors.</li>
         </ul>
       </div>
 
       <div class="prompt-stack">
         <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-check-explanation"
+                 data-prompt-id="course-01-lesson-02-vectors-check-explanation"
                  data-section-id="check"
                  data-prompt-type="explanation"
                  data-prompt-status="planned"
                  data-insert-position="before-card">
           <summary>Expand the lesson review</summary>
           <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Check your understanding" using the supplied section HTML as context. Add a compact review that connects magnitude, units, scalar arithmetic, speed, and the transition to vectors. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+            <pre class="prompt-text">Expand the section titled "Check your understanding" using the supplied section HTML as context. Add a compact review connecting scalar-versus-vector classification, magnitude, direction, arrow representation, equal vectors, opposite vectors, and the transition to vector components. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
             <button class="copy-prompt" type="button">Copy prompt</button>
           </div>
         </details>
 
         <details class="learning-prompt"
-                 data-prompt-id="course-01-lesson-01-scalars-check-practice"
+                 data-prompt-id="course-01-lesson-02-vectors-check-practice"
                  data-section-id="check"
                  data-prompt-type="practice"
                  data-prompt-status="planned"
                  data-insert-position="before-card">
           <summary>Add a full practice set</summary>
           <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Check your understanding" as context, create a progressive end-of-lesson practice block for scalars. Include identification, unit conversion, arithmetic, explanation, mixed application problems, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
+            <pre class="prompt-text">Using the supplied HTML for "Check your understanding" as context, create a progressive end-of-lesson practice block for vectors. Include identification, arrow interpretation, equality, opposites, notation, mixed applications, hints, and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
             <button class="copy-prompt" type="button">Copy prompt</button>
           </div>
         </details>
@@ -911,13 +886,13 @@
   </main>
 
   <nav class="footer-nav" aria-label="Lesson navigation">
-    <a class="previous" href="course-01-mathematical-foundations.html">← Course 1 Overview</a>
-    <a class="course" href="../index.html">Course Index</a>
-    <a class="next" href="course-01-lesson-02-vectors.html">Lesson 2: Vectors →</a>
+    <a class="previous" href="course-01-lesson-01-scalars.html">← Lesson 1: Scalars</a>
+    <a class="course" href="https://kevinlinstrum001.github.io/learning-library/mathematics/course-01-mathematical-foundations/course-01-mathematical-foundations.html">Course 1 Overview</a>
+    <a class="next" href="course-01-lesson-03-vector-components.html">Lesson 3: Vector Components →</a>
   </nav>
 
   <footer>
-    Learning Library · Course 1 — Mathematical Foundations · Lesson 01 · LL-EAS 4.3
+    Learning Library · Course 1 — Mathematical Foundations · Lesson 02 · LL-EAS 4.3
   </footer>
 
   <script>
