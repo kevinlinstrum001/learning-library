@@ -1,0 +1,441 @@
+{
+  "ruleset": {
+    "name": "Structured Problem Solving and Goal Tracking",
+    "short_name": "SPSGT",
+    "version": "1.0",
+    "status": "initial",
+    "date": "2026-07-16",
+    "purpose": "Convert confusing real-world problems and goals into documented, testable cases with clear outcomes, evidence, action plans, checkpoints, escalation paths, and closure criteria.",
+    "design_principles": [
+      {
+        "id": "DP-01",
+        "rule": "Begin with the user's actual need, not the structure of the institution or system."
+      },
+      {
+        "id": "DP-02",
+        "rule": "Preserve context so the user does not have to repeatedly reconstruct the problem."
+      },
+      {
+        "id": "DP-03",
+        "rule": "Separate confirmed facts, interpretations, hypotheses, and unknowns."
+      },
+      {
+        "id": "DP-04",
+        "rule": "Define success before choosing actions."
+      },
+      {
+        "id": "DP-05",
+        "rule": "Treat every action as a test with an observable result."
+      },
+      {
+        "id": "DP-06",
+        "rule": "Prefer written, trackable communication when it reduces stress or preserves accuracy."
+      },
+      {
+        "id": "DP-07",
+        "rule": "Do not confuse a reply, referral, or activity with resolution."
+      },
+      {
+        "id": "DP-08",
+        "rule": "Keep the user in control of consequential communications and decisions."
+      },
+      {
+        "id": "DP-09",
+        "rule": "Revise the ruleset from real cases rather than attempting to anticipate every situation."
+      }
+    ],
+    "influences": {
+      "scientific_method": [
+        "Observe the situation.",
+        "Formulate a testable problem statement.",
+        "Develop competing hypotheses.",
+        "Choose actions that produce evidence.",
+        "Evaluate results.",
+        "Revise the model."
+      ],
+      "problem_solving_therapy": [
+        "Clarify and define the problem.",
+        "Generate multiple options.",
+        "Evaluate practical advantages and disadvantages.",
+        "Select an achievable plan.",
+        "Carry out the plan.",
+        "Review the outcome and revise."
+      ],
+      "case_management": [
+        "Preserve history.",
+        "Identify ownership.",
+        "Track handoffs.",
+        "Maintain next actions.",
+        "Escalate when progress stops.",
+        "Close only when the original need is met."
+      ]
+    },
+    "case_schema": {
+      "case_id": "Unique human-readable identifier.",
+      "title": "Short description of the problem or goal.",
+      "case_type": [
+        "problem",
+        "goal",
+        "decision",
+        "project",
+        "access_issue",
+        "administrative_issue",
+        "technical_issue",
+        "healthcare_navigation",
+        "other"
+      ],
+      "status": [
+        "intake",
+        "defining",
+        "investigating",
+        "planning",
+        "acting",
+        "waiting",
+        "testing",
+        "escalating",
+        "resolved",
+        "closed",
+        "paused"
+      ],
+      "priority": [
+        "low",
+        "normal",
+        "high",
+        "urgent"
+      ],
+      "triggering_event": "What happened that caused the case to be opened.",
+      "user_goal": "What the user is actually trying to accomplish.",
+      "problem_statement": "I am trying to accomplish X, but Y is preventing it, resulting in Z.",
+      "desired_outcome": "Observable condition that would count as success.",
+      "constraints": [
+        "Time",
+        "Money",
+        "Access",
+        "Communication",
+        "Technology",
+        "Health",
+        "Emotional load",
+        "Legal or policy limits",
+        "Other"
+      ],
+      "communication_preferences": {
+        "preferred_channels": [],
+        "avoid_channels": [],
+        "accessibility_needs": [],
+        "notes": ""
+      },
+      "known_facts": [],
+      "unknowns": [],
+      "assumptions": [],
+      "hypotheses": [],
+      "evidence": [],
+      "stakeholders": [],
+      "process_map": [],
+      "barriers": [],
+      "roadmap": [],
+      "test_points": [],
+      "case_log": [],
+      "open_questions": [],
+      "current_state": "",
+      "next_action": "",
+      "escalation_path": [],
+      "closure_criteria": [],
+      "lessons_learned": [],
+      "ruleset_feedback": []
+    },
+    "workflow": [
+      {
+        "phase": 1,
+        "name": "Capture",
+        "objective": "Record the triggering event before details are lost.",
+        "required_actions": [
+          "Record what the user was trying to accomplish.",
+          "Record what was expected.",
+          "Record what actually happened.",
+          "Record the consequence.",
+          "Preserve available emails, screenshots, messages, dates, names, links, and error text."
+        ],
+        "output": "Initial case record"
+      },
+      {
+        "phase": 2,
+        "name": "Formulate",
+        "objective": "Turn the situation into a clear, bounded problem statement.",
+        "required_actions": [
+          "Separate symptoms from the operational problem.",
+          "Identify the user's underlying need.",
+          "Write a one-sentence problem statement.",
+          "State what is outside the current scope."
+        ],
+        "output": "Problem statement and scope"
+      },
+      {
+        "phase": 3,
+        "name": "Define Success",
+        "objective": "Describe the observable result that would resolve the case.",
+        "required_actions": [
+          "State the desired outcome.",
+          "Define minimum acceptable resolution.",
+          "Define ideal resolution.",
+          "List closure criteria."
+        ],
+        "output": "Success criteria"
+      },
+      {
+        "phase": 4,
+        "name": "Inventory Context",
+        "objective": "Build a reliable model from existing information.",
+        "required_actions": [
+          "List confirmed facts.",
+          "List unknowns.",
+          "List assumptions separately.",
+          "Identify constraints and communication needs.",
+          "Search existing records before asking the user to repeat information."
+        ],
+        "output": "Known/unknown inventory"
+      },
+      {
+        "phase": 5,
+        "name": "Map the Process",
+        "objective": "Make the existing system or path visible.",
+        "required_actions": [
+          "Identify the entry point.",
+          "List each step, handoff, requirement, and decision.",
+          "Mark the first failure point.",
+          "Mark loops, dead ends, and unclear ownership.",
+          "Identify where context is lost."
+        ],
+        "output": "Current-state process map"
+      },
+      {
+        "phase": 6,
+        "name": "Develop Hypotheses",
+        "objective": "Create plausible explanations without prematurely choosing one.",
+        "required_actions": [
+          "List at least one plausible explanation.",
+          "When useful, list competing explanations.",
+          "For each hypothesis, state what evidence would support or weaken it.",
+          "Do not present an untested hypothesis as fact."
+        ],
+        "output": "Testable hypotheses"
+      },
+      {
+        "phase": 7,
+        "name": "Generate Options",
+        "objective": "Create multiple practical routes toward the desired outcome.",
+        "required_actions": [
+          "Generate more than one option when possible.",
+          "Include low-cost and low-stress options first.",
+          "Evaluate time, effort, risk, reversibility, and likelihood of success.",
+          "Respect the user's communication and accessibility constraints."
+        ],
+        "output": "Option set"
+      },
+      {
+        "phase": 8,
+        "name": "Build the Roadmap",
+        "objective": "Convert the selected option into ordered actions.",
+        "required_actions": [
+          "Assign a purpose to each action.",
+          "Define required evidence or preparation.",
+          "Define a success condition.",
+          "Define a fallback if the action fails.",
+          "Identify dependencies and waiting periods."
+        ],
+        "output": "Action roadmap"
+      },
+      {
+        "phase": 9,
+        "name": "Execute and Record",
+        "objective": "Carry out actions while preserving the full case history.",
+        "required_actions": [
+          "Prepare communications from the case record.",
+          "Obtain user approval before sending consequential messages.",
+          "Record each action, date, recipient, response, and attachment.",
+          "Update the current state and next action."
+        ],
+        "output": "Updated case log"
+      },
+      {
+        "phase": 10,
+        "name": "Test",
+        "objective": "Determine whether the action produced meaningful progress.",
+        "required_actions": [
+          "Evaluate the predefined test point.",
+          "Mark the result as pass, partial, or fail.",
+          "Record what was learned.",
+          "Choose the next branch of the roadmap."
+        ],
+        "output": "Test result and decision"
+      },
+      {
+        "phase": 11,
+        "name": "Escalate or Revise",
+        "objective": "Respond systematically when progress stops.",
+        "required_actions": [
+          "Identify whether the failure is informational, technical, procedural, or ownership-related.",
+          "Revise the hypothesis if evidence contradicts it.",
+          "Escalate with the existing case history attached.",
+          "Avoid making the user restart or repeat the entire explanation."
+        ],
+        "output": "Revised plan or escalation"
+      },
+      {
+        "phase": 12,
+        "name": "Close and Learn",
+        "objective": "Confirm the original goal was achieved and improve the framework.",
+        "required_actions": [
+          "Test the final outcome in practice.",
+          "Confirm all closure criteria.",
+          "Summarize the resolution.",
+          "Record remaining risks or follow-up needs.",
+          "Add lessons and proposed ruleset changes."
+        ],
+        "output": "Closed case and improvement notes"
+      }
+    ],
+    "roadmap_step_schema": {
+      "step_id": "",
+      "action": "",
+      "purpose": "",
+      "owner": "",
+      "dependencies": [],
+      "required_inputs": [],
+      "expected_output": "",
+      "success_condition": "",
+      "test_point_id": "",
+      "fallback_if_failed": "",
+      "status": "not_started",
+      "notes": ""
+    },
+    "test_point_schema": {
+      "test_point_id": "",
+      "question": "What observable fact will show whether this step worked?",
+      "evidence_required": [],
+      "pass_condition": "",
+      "partial_condition": "",
+      "fail_condition": "",
+      "result": "not_tested",
+      "result_notes": "",
+      "decision_after_test": ""
+    },
+    "case_log_entry_schema": {
+      "timestamp": "",
+      "action": "",
+      "channel": "",
+      "contact_or_system": "",
+      "summary": "",
+      "evidence_added": [],
+      "response_received": "",
+      "status_change": "",
+      "next_action": ""
+    },
+    "communication_rules": [
+      {
+        "id": "CR-01",
+        "rule": "Build messages from the documented case rather than asking the user to reconstruct the story under pressure."
+      },
+      {
+        "id": "CR-02",
+        "rule": "State identity and relevant history, the immediate goal, what happened, what has already been attempted, the consequence, and the requested resolution."
+      },
+      {
+        "id": "CR-03",
+        "rule": "Request a specific next action, responsible contact, or written decision."
+      },
+      {
+        "id": "CR-04",
+        "rule": "When communication preferences matter, state them explicitly in every new case or escalation."
+      },
+      {
+        "id": "CR-05",
+        "rule": "Do not expose sensitive identifying information in ordinary email unless the user explicitly chooses a secure channel."
+      },
+      {
+        "id": "CR-06",
+        "rule": "Preserve case numbers, subject lines, dates, and prior correspondence."
+      }
+    ],
+    "escalation_rules": [
+      {
+        "id": "ER-01",
+        "trigger": "No acknowledgment within the expected time.",
+        "action": "Send a concise follow-up referencing the original request and case number."
+      },
+      {
+        "id": "ER-02",
+        "trigger": "Response does not answer the actual question.",
+        "action": "Restate the unresolved question and request a concrete answer or responsible owner."
+      },
+      {
+        "id": "ER-03",
+        "trigger": "User is redirected without transfer of context.",
+        "action": "Request that the current office forward the existing case rather than requiring a new intake."
+      },
+      {
+        "id": "ER-04",
+        "trigger": "The process requires the broken service in order to report that it is broken.",
+        "action": "Document the circular failure and seek an alternate unauthenticated or external escalation route."
+      },
+      {
+        "id": "ER-05",
+        "trigger": "The issue causes loss of care, safety, housing, income, legal rights, or essential services.",
+        "action": "Raise priority, preserve the timeline, and seek an accountable human owner."
+      }
+    ],
+    "closure_rules": [
+      {
+        "id": "CL-01",
+        "rule": "Do not close a case because someone replied."
+      },
+      {
+        "id": "CL-02",
+        "rule": "Do not close a case because a referral or ticket was created."
+      },
+      {
+        "id": "CL-03",
+        "rule": "Close only when the original desired outcome has been achieved and tested, or when the user explicitly chooses to stop."
+      },
+      {
+        "id": "CL-04",
+        "rule": "Record unresolved limitations even when the case is closed."
+      }
+    ],
+    "version_control": {
+      "versioning_model": "semantic-style",
+      "major": "Structural changes, incompatible case schema changes, or substantial workflow redesign.",
+      "minor": "New rules, phases, schemas, or capabilities that preserve the overall structure.",
+      "patch": "Clarifications, examples, wording improvements, and corrections.",
+      "required_changelog_fields": [
+        "version",
+        "date",
+        "summary",
+        "rules_added",
+        "rules_changed",
+        "rules_removed",
+        "reason_for_change",
+        "cases_that_revealed_the_need",
+        "known_limitations"
+      ],
+      "initial_known_limitations": [
+        "The framework has not yet been tested across multiple case types.",
+        "No user interface or case-file template has yet been implemented.",
+        "No automated prioritization model has yet been defined.",
+        "The framework does not replace professional medical, legal, financial, or emergency judgment.",
+        "Escalation timing must currently be chosen case by case."
+      ]
+    },
+    "first_pilot": {
+      "case": "Obtaining dental care",
+      "purpose": "Test the ruleset on a real administrative and healthcare-navigation problem.",
+      "expected_outputs": [
+        "A defined dental-care goal.",
+        "A reconstructed history from existing records.",
+        "A map of eligibility, referral, scheduling, and communication barriers.",
+        "A written roadmap with test points.",
+        "A reusable case interface concept.",
+        "Ruleset feedback for version 1.1."
+      ]
+    }
+  }
+}
