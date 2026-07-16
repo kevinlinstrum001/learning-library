@@ -1,1003 +1,1659 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Course 1 of the Learning Library: Mathematical Foundations, a 17-lesson course covering scalars, vectors, matrices, functions, calculus, and vector fields.">
-  <title>Course 1 — Mathematical Foundations | Learning Library</title>
-
-  <script id="lesson-metadata" type="application/json">
-{
-  "document_slug": "course-01-mathematical-foundations",
-  "document_title": "Mathematical Foundations",
-  "course": "Course 1 — Mathematical Foundations",
-  "lesson_number": 0,
-  "version": "1.0",
-  "section_count": 6,
-  "image_count": 0,
-  "svg_count": 1,
-  "expansion_count": 0,
-  "prerequisites": [],
-  "previous_lesson": "../../course-index.html",
-  "next_lesson": "course-01-lesson-01-scalars.html",
-  "document_type": "course",
-  "authoring_standard": "LL-EAS 4.3"
-}
-  </script>
-
-  <link rel="stylesheet" href="../../textbooker/css/lesson.css">
-
-  <style>
-    :root {
-      --ink: #162033;
-      --muted: #5d6878;
-      --paper: #f6f4ee;
-      --surface: #ffffff;
-      --line: #d9dee6;
-      --navy: #173b63;
-      --blue: #2b658e;
-      --sky: #e3f0f7;
-      --gold: #c79a45;
-      --green: #447464;
-      --soft-green: #edf5f1;
-      --soft-gold: #fbf7ed;
-      --radius: 18px;
-      --shadow: 0 14px 34px rgba(22, 32, 51, .09);
-      --content-width: 1040px;
-    }
-
-    * { box-sizing: border-box; }
-
-    html {
-      scroll-behavior: smooth;
-      background: var(--paper);
-    }
-
-    body {
-      margin: 0;
-      color: var(--ink);
-      background:
-        linear-gradient(rgba(23, 59, 99, .025) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(23, 59, 99, .025) 1px, transparent 1px),
-        var(--paper);
-      background-size: 32px 32px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      line-height: 1.65;
-    }
-
-    a { color: inherit; }
-
-    a:focus-visible,
-    button:focus-visible,
-    summary:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 4px;
-      border-radius: 6px;
-    }
-
-    .skip-link {
-      position: fixed;
-      left: 1rem;
-      top: -5rem;
-      z-index: 1000;
-      padding: .75rem 1rem;
-      color: #fff;
-      background: var(--navy);
-      border-radius: 8px;
-      font-weight: 800;
-    }
-
-    .skip-link:focus { top: 1rem; }
-
-    .reading-progress {
-      position: fixed;
-      inset: 0 0 auto 0;
-      z-index: 999;
-      height: 5px;
-      background: rgba(255,255,255,.45);
-    }
-
-    .reading-progress span {
-      display: block;
-      width: 0;
-      height: 100%;
-      background: linear-gradient(90deg, var(--gold), var(--blue));
-    }
-
-    .course-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      display: flex;
-      align-items: center;
-      gap: .35rem;
-      overflow-x: auto;
-      padding: .65rem max(1rem, calc((100vw - var(--content-width)) / 2));
-      color: #fff;
-      background: rgba(22, 32, 51, .96);
-      border-bottom: 1px solid rgba(255,255,255,.14);
-      backdrop-filter: blur(12px);
-    }
-
-    .course-nav a {
-      flex: 0 0 auto;
-      padding: .45rem .72rem;
-      border-radius: 999px;
-      text-decoration: none;
-      font-size: .9rem;
-      font-weight: 780;
-    }
-
-    .course-nav a:hover { background: rgba(255,255,255,.12); }
-
-    .course-nav .course-index-link {
-      color: #f4e9cf;
-      border: 1px solid rgba(244,233,207,.35);
-    }
-
-    .course-hero {
-      color: #fff;
-      background:
-        radial-gradient(circle at 82% 24%, rgba(199,154,69,.28), transparent 22rem),
-        radial-gradient(circle at 15% 88%, rgba(73,151,167,.22), transparent 24rem),
-        linear-gradient(135deg, #102a49 0%, #174a70 58%, #2b6875 100%);
-    }
-
-    .hero-inner {
-      width: min(var(--content-width), calc(100% - 2rem));
-      margin: 0 auto;
-      padding: clamp(4rem, 8vw, 7rem) 0 clamp(3.5rem, 7vw, 5.5rem);
-    }
-
-    .eyebrow {
-      margin: 0 0 .65rem;
-      color: #f2e5c8;
-      font-size: .78rem;
-      font-weight: 850;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-    }
-
-    h1 {
-      max-width: 900px;
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: clamp(3rem, 8vw, 6.5rem);
-      line-height: .95;
-      letter-spacing: -.045em;
-    }
-
-    .hero-copy {
-      max-width: 790px;
-      margin: 1.4rem 0 0;
-      color: #e4edf3;
-      font-size: clamp(1.05rem, 2vw, 1.3rem);
-    }
-
-    .course-meta-strip {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .75rem;
-      margin-top: 1.6rem;
-    }
-
-    .course-meta-strip span {
-      padding: .45rem .72rem;
-      color: #eef5f8;
-      background: rgba(255,255,255,.09);
-      border: 1px solid rgba(255,255,255,.18);
-      border-radius: 999px;
-      font-size: .86rem;
-      font-weight: 760;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: .8rem;
-      margin-top: 2rem;
-    }
-
-    .hero-actions a {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 46px;
-      padding: .72rem 1rem;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: 820;
-    }
-
-    .hero-actions .primary {
-      color: var(--navy);
-      background: #f4e9cf;
-    }
-
-    .hero-actions .secondary {
-      color: #fff;
-      border: 1px solid rgba(255,255,255,.32);
-      background: rgba(255,255,255,.08);
-    }
-
-    main {
-      width: min(var(--content-width), calc(100% - 2rem));
-      margin: 0 auto;
-      padding: 2.5rem 0 5rem;
-    }
-
-    .toc,
-    .course-section {
-      margin: 0 0 2rem;
-      padding: clamp(1.25rem, 4vw, 2.4rem);
-      background: rgba(255,255,255,.95);
-      border: 1px solid var(--line);
-      border-radius: 22px;
-      box-shadow: var(--shadow);
-    }
-
-    .toc h2,
-    .course-section h2 {
-      margin: 0;
-      font-family: Georgia, "Times New Roman", serif;
-      color: var(--ink);
-    }
-
-    .toc h2 { margin-bottom: .8rem; }
-
-    .toc ol {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: .5rem 1rem;
-      margin: 0;
-      padding-left: 1.3rem;
-    }
-
-    .toc a {
-      color: var(--navy);
-      font-weight: 760;
-      text-underline-offset: .2em;
-    }
-
-    .course-section {
-      scroll-margin-top: 5.5rem;
-    }
-
-    .section-kicker {
-      margin: 0 0 .45rem;
-      color: var(--blue);
-      font-size: .76rem;
-      font-weight: 850;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-    }
-
-    .course-section h2 {
-      font-size: clamp(2rem, 4.8vw, 3.25rem);
-      line-height: 1.05;
-      letter-spacing: -.025em;
-    }
-
-    .lead {
-      max-width: 820px;
-      color: var(--muted);
-      font-size: 1.08rem;
-    }
-
-    .info-grid,
-    .skills-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1rem;
-      margin-top: 1.3rem;
-    }
-
-    .info-card,
-    .skill-card {
-      padding: 1.1rem 1.2rem;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-    }
-
-    .info-card { background: var(--soft-gold); }
-    .skill-card { background: var(--soft-green); }
-
-    .info-card h3,
-    .skill-card h3 {
-      margin: 0 0 .5rem;
-      color: var(--navy);
-      font-size: 1.08rem;
-    }
-
-    .info-card p,
-    .skill-card p { margin: 0; }
-
-    .pathway-diagram {
-      margin: 1.5rem 0 0;
-      padding: 1rem;
-      background: #f8fafb;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      overflow-x: auto;
-    }
-
-    .pathway-diagram svg {
-      display: block;
-      min-width: 820px;
-      width: 100%;
-      height: auto;
-    }
-
-    figcaption {
-      margin-top: .75rem;
-      color: var(--muted);
-      font-size: .92rem;
-    }
-
-    .lesson-list {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: .85rem;
-      margin-top: 1.4rem;
-    }
-
-    .lesson-card {
-      display: grid;
-      grid-template-columns: auto 1fr auto;
-      gap: .9rem;
-      align-items: center;
-      min-height: 92px;
-      padding: 1rem;
-      color: inherit;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 14px;
-      text-decoration: none;
-      transition: transform .15s ease, box-shadow .15s ease, border-color .15s ease;
-    }
-
-    .lesson-card:hover {
-      transform: translateY(-2px);
-      border-color: #aebdca;
-      box-shadow: 0 10px 24px rgba(22,32,51,.08);
-    }
-
-    .lesson-card.is-planned {
-      color: #596575;
-      background: #f7f8fa;
-    }
-
-    .lesson-number {
-      display: grid;
-      place-items: center;
-      width: 44px;
-      height: 44px;
-      color: #fff;
-      background: var(--navy);
-      border-radius: 50%;
-      font-weight: 850;
-    }
-
-    .is-planned .lesson-number { background: #788594; }
-
-    .lesson-title {
-      display: block;
-      color: var(--navy);
-      font-size: 1.06rem;
-      font-weight: 820;
-    }
-
-    .lesson-description {
-      display: block;
-      margin-top: .12rem;
-      color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.45;
-    }
-
-    .lesson-status {
-      padding: .32rem .52rem;
-      border-radius: 999px;
-      color: #285945;
-      background: #e1f0e9;
-      border: 1px solid #bfd8ca;
-      font-size: .75rem;
-      font-weight: 820;
-      white-space: nowrap;
-    }
-
-    .is-planned .lesson-status {
-      color: #647080;
-      background: #eef0f3;
-      border-color: #d7dce2;
-    }
-
-    .connection-card {
-      margin-top: 1.3rem;
-      padding: 1.2rem 1.3rem;
-      background: var(--sky);
-      border-left: 5px solid var(--blue);
-      border-radius: 0 14px 14px 0;
-    }
-
-    .connection-card h3 {
-      margin: 0 0 .45rem;
-      color: var(--navy);
-    }
-
-    .connection-card p { margin: 0; }
-
-    .prompt-stack {
-      display: grid;
-      gap: .8rem;
-      margin-top: 2rem;
-      padding-top: 1.4rem;
-      border-top: 1px dashed #bdc7d2;
-    }
-
-    .learning-prompt {
-      background: #f7f8fa;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-    }
-
-    .learning-prompt summary {
-      cursor: pointer;
-      padding: .85rem 1rem;
-      color: var(--navy);
-      font-weight: 820;
-    }
-
-    .prompt-body {
-      padding: 0 1rem 1rem;
-      color: var(--muted);
-    }
-
-    .prompt-text {
-      margin: .5rem 0 .9rem;
-      padding: .85rem;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 9px;
-      white-space: pre-wrap;
-      font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
-      font-size: .86rem;
-      line-height: 1.5;
-    }
-
-    .copy-prompt {
-      appearance: none;
-      padding: .55rem .8rem;
-      color: #fff;
-      background: var(--navy);
-      border: 0;
-      border-radius: 8px;
-      cursor: pointer;
-      font: inherit;
-      font-weight: 780;
-    }
-
-    .footer-nav {
-      width: min(var(--content-width), calc(100% - 2rem));
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      gap: 1rem;
-      align-items: center;
-      padding: 1.4rem 0 2rem;
-      border-top: 1px solid var(--line);
-    }
-
-    .footer-nav a {
-      color: var(--navy);
-      text-decoration: none;
-      font-weight: 820;
-    }
-
-    .footer-nav .course { text-align: center; }
-    .footer-nav .next { text-align: right; }
-
-    footer {
-      padding: 0 1rem 2.5rem;
-      text-align: center;
-      color: var(--muted);
-      font-size: .88rem;
-    }
-
-    @media (max-width: 760px) {
-      .toc ol,
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Course 1 of the Learning Library: Mathematical Foundations, a 17-lesson course covering scalars, vectors, matrices, functions, calculus, and vector fields."
+    />
+    <title>Course 1 — Mathematical Foundations | Learning Library</title>
+
+    <script id="lesson-metadata" type="application/json">
+      {
+        "document_slug": "course-01-mathematical-foundations",
+        "document_title": "Mathematical Foundations",
+        "course": "Course 1 — Mathematical Foundations",
+        "lesson_number": 0,
+        "version": "1.0",
+        "section_count": 6,
+        "image_count": 0,
+        "svg_count": 1,
+        "expansion_count": 0,
+        "prerequisites": [],
+        "previous_lesson": "../../course-index.html",
+        "next_lesson": "course-01-lesson-01-scalars.html",
+        "document_type": "course",
+        "authoring_standard": "LL-EAS 4.3"
+      }
+    </script>
+
+    <link rel="stylesheet" href="../../textbooker/css/lesson.css" />
+
+    <style>
+      :root {
+        --ink: #162033;
+        --muted: #5d6878;
+        --paper: #f6f4ee;
+        --surface: #ffffff;
+        --line: #d9dee6;
+        --navy: #173b63;
+        --blue: #2b658e;
+        --sky: #e3f0f7;
+        --gold: #c79a45;
+        --green: #447464;
+        --soft-green: #edf5f1;
+        --soft-gold: #fbf7ed;
+        --radius: 18px;
+        --shadow: 0 14px 34px rgba(22, 32, 51, 0.09);
+        --content-width: 1040px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+        background: var(--paper);
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        background:
+          linear-gradient(rgba(23, 59, 99, 0.025) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(23, 59, 99, 0.025) 1px, transparent 1px),
+          var(--paper);
+        background-size: 32px 32px;
+        font-family:
+          Inter,
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          BlinkMacSystemFont,
+          "Segoe UI",
+          sans-serif;
+        line-height: 1.65;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible,
+      button:focus-visible,
+      summary:focus-visible {
+        outline: 3px solid var(--gold);
+        outline-offset: 4px;
+        border-radius: 6px;
+      }
+
+      .skip-link {
+        position: fixed;
+        left: 1rem;
+        top: -5rem;
+        z-index: 1000;
+        padding: 0.75rem 1rem;
+        color: #fff;
+        background: var(--navy);
+        border-radius: 8px;
+        font-weight: 800;
+      }
+
+      .skip-link:focus {
+        top: 1rem;
+      }
+
+      .reading-progress {
+        position: fixed;
+        inset: 0 0 auto 0;
+        z-index: 999;
+        height: 5px;
+        background: rgba(255, 255, 255, 0.45);
+      }
+
+      .reading-progress span {
+        display: block;
+        width: 0;
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold), var(--blue));
+      }
+
+      .course-nav {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        gap: 0.35rem;
+        overflow-x: auto;
+        padding: 0.65rem max(1rem, calc((100vw - var(--content-width)) / 2));
+        color: #fff;
+        background: rgba(22, 32, 51, 0.96);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+        backdrop-filter: blur(12px);
+      }
+
+      .course-nav a {
+        flex: 0 0 auto;
+        padding: 0.45rem 0.72rem;
+        border-radius: 999px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 780;
+      }
+
+      .course-nav a:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+
+      .course-nav .course-index-link {
+        color: #f4e9cf;
+        border: 1px solid rgba(244, 233, 207, 0.35);
+      }
+
+      .course-hero {
+        color: #fff;
+        background:
+          radial-gradient(
+            circle at 82% 24%,
+            rgba(199, 154, 69, 0.28),
+            transparent 22rem
+          ),
+          radial-gradient(
+            circle at 15% 88%,
+            rgba(73, 151, 167, 0.22),
+            transparent 24rem
+          ),
+          linear-gradient(135deg, #102a49 0%, #174a70 58%, #2b6875 100%);
+      }
+
+      .hero-inner {
+        width: min(var(--content-width), calc(100% - 2rem));
+        margin: 0 auto;
+        padding: clamp(4rem, 8vw, 7rem) 0 clamp(3.5rem, 7vw, 5.5rem);
+      }
+
+      .eyebrow {
+        margin: 0 0 0.65rem;
+        color: #f2e5c8;
+        font-size: 0.78rem;
+        font-weight: 850;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 900px;
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(3rem, 8vw, 6.5rem);
+        line-height: 0.95;
+        letter-spacing: -0.045em;
+      }
+
+      .hero-copy {
+        max-width: 790px;
+        margin: 1.4rem 0 0;
+        color: #e4edf3;
+        font-size: clamp(1.05rem, 2vw, 1.3rem);
+      }
+
+      .course-meta-strip {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        margin-top: 1.6rem;
+      }
+
+      .course-meta-strip span {
+        padding: 0.45rem 0.72rem;
+        color: #eef5f8;
+        background: rgba(255, 255, 255, 0.09);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 999px;
+        font-size: 0.86rem;
+        font-weight: 760;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+        margin-top: 2rem;
+      }
+
+      .hero-actions a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 46px;
+        padding: 0.72rem 1rem;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: 820;
+      }
+
+      .hero-actions .primary {
+        color: var(--navy);
+        background: #f4e9cf;
+      }
+
+      .hero-actions .secondary {
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.32);
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      main {
+        width: min(var(--content-width), calc(100% - 2rem));
+        margin: 0 auto;
+        padding: 2.5rem 0 5rem;
+      }
+
+      .toc,
+      .course-section {
+        margin: 0 0 2rem;
+        padding: clamp(1.25rem, 4vw, 2.4rem);
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        box-shadow: var(--shadow);
+      }
+
+      .toc h2,
+      .course-section h2 {
+        margin: 0;
+        font-family: Georgia, "Times New Roman", serif;
+        color: var(--ink);
+      }
+
+      .toc h2 {
+        margin-bottom: 0.8rem;
+      }
+
+      .toc ol {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.5rem 1rem;
+        margin: 0;
+        padding-left: 1.3rem;
+      }
+
+      .toc a {
+        color: var(--navy);
+        font-weight: 760;
+        text-underline-offset: 0.2em;
+      }
+
+      .course-section {
+        scroll-margin-top: 5.5rem;
+      }
+
+      .section-kicker {
+        margin: 0 0 0.45rem;
+        color: var(--blue);
+        font-size: 0.76rem;
+        font-weight: 850;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+      }
+
+      .course-section h2 {
+        font-size: clamp(2rem, 4.8vw, 3.25rem);
+        line-height: 1.05;
+        letter-spacing: -0.025em;
+      }
+
+      .lead {
+        max-width: 820px;
+        color: var(--muted);
+        font-size: 1.08rem;
+      }
+
       .info-grid,
-      .skills-grid,
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+        margin-top: 1.3rem;
+      }
+
+      .info-card,
+      .skill-card {
+        padding: 1.1rem 1.2rem;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+      }
+
+      .info-card {
+        background: var(--soft-gold);
+      }
+      .skill-card {
+        background: var(--soft-green);
+      }
+
+      .info-card h3,
+      .skill-card h3 {
+        margin: 0 0 0.5rem;
+        color: var(--navy);
+        font-size: 1.08rem;
+      }
+
+      .info-card p,
+      .skill-card p {
+        margin: 0;
+      }
+
+      .pathway-diagram {
+        margin: 1.5rem 0 0;
+        padding: 1rem;
+        background: #f8fafb;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow-x: auto;
+      }
+
+      .pathway-diagram svg {
+        display: block;
+        min-width: 820px;
+        width: 100%;
+        height: auto;
+      }
+
+      figcaption {
+        margin-top: 0.75rem;
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
       .lesson-list {
-        grid-template-columns: 1fr;
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.85rem;
+        margin-top: 1.4rem;
       }
 
       .lesson-card {
-        grid-template-columns: auto 1fr;
+        display: grid;
+        grid-template-columns: auto 1fr auto;
+        gap: 0.9rem;
+        align-items: center;
+        min-height: 92px;
+        padding: 1rem;
+        color: inherit;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        text-decoration: none;
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      .lesson-card:hover {
+        transform: translateY(-2px);
+        border-color: #aebdca;
+        box-shadow: 0 10px 24px rgba(22, 32, 51, 0.08);
+      }
+
+      .lesson-card.is-planned {
+        color: #596575;
+        background: #f7f8fa;
+      }
+
+      .lesson-number {
+        display: grid;
+        place-items: center;
+        width: 44px;
+        height: 44px;
+        color: #fff;
+        background: var(--navy);
+        border-radius: 50%;
+        font-weight: 850;
+      }
+
+      .is-planned .lesson-number {
+        background: #788594;
+      }
+
+      .lesson-title {
+        display: block;
+        color: var(--navy);
+        font-size: 1.06rem;
+        font-weight: 820;
+      }
+
+      .lesson-description {
+        display: block;
+        margin-top: 0.12rem;
+        color: var(--muted);
+        font-size: 0.9rem;
+        line-height: 1.45;
       }
 
       .lesson-status {
-        grid-column: 2;
-        justify-self: start;
+        padding: 0.32rem 0.52rem;
+        border-radius: 999px;
+        color: #285945;
+        background: #e1f0e9;
+        border: 1px solid #bfd8ca;
+        font-size: 0.75rem;
+        font-weight: 820;
+        white-space: nowrap;
       }
 
-      .footer-nav { grid-template-columns: 1fr; }
-      .footer-nav .course,
-      .footer-nav .next { text-align: left; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      html { scroll-behavior: auto; }
-      *, *::before, *::after {
-        transition-duration: .01ms !important;
-        animation-duration: .01ms !important;
-      }
-    }
-
-    @media print {
-      .reading-progress,
-      .course-nav,
-      .skip-link,
-      .copy-prompt,
-      .hero-actions { display: none !important; }
-
-      body { background: #fff; }
-      .course-hero { color: #000; background: #fff; border-bottom: 2px solid #000; }
-      .hero-copy, .eyebrow { color: #000; }
-      .course-section, .toc { box-shadow: none; break-inside: avoid; }
-      .lesson-card { break-inside: avoid; }
-      details.learning-prompt { display: none; }
-    }
-  </style>
-</head>
-
-<body id="top">
-  <a class="skip-link" href="#main-content">Skip to course content</a>
-
-  <div class="reading-progress" aria-hidden="true">
-    <span id="reading-progress-bar"></span>
-  </div>
-
-  <nav class="course-nav" aria-label="Course navigation">
-    <a class="course-index-link" href="../../course-index.html">← Course Index</a>
-    <a href="#purpose">Purpose</a>
-    <a href="#prerequisites">Prerequisites</a>
-    <a href="#skills">Skills</a>
-    <a href="#lessons">Lessons</a>
-    <a href="#next-course">Next Course</a>
-  </nav>
-
-  <header class="course-hero">
-    <div class="hero-inner">
-      <p class="eyebrow">Learning Library · Course 01</p>
-      <h1>Mathematical Foundations</h1>
-      <p class="hero-copy">
-        Build the mathematical language needed to describe quantities, directions, transformations,
-        change, and fields—the core ideas used throughout physics, electronics, and engineering.
-      </p>
-      <div class="course-meta-strip" aria-label="Course information">
-        <span>Prerequisites: none</span>
-        <span>17 lessons</span>
-        <span>Begins with scalars</span>
-        <span>Ends with divergence and curl</span>
-      </div>
-      <div class="hero-actions">
-        <a class="primary" href="course-01-lesson-01-scalars.html">Begin Lesson 1: Scalars</a>
-        <a class="secondary" href="#lessons">View all lessons</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="main-content">
-    <nav class="toc" aria-labelledby="toc-title">
-      <h2 id="toc-title">Course contents</h2>
-      <ol>
-        <li><a href="#purpose">Course purpose</a></li>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#skills">Skills gained</a></li>
-        <li><a href="#pathway">Learning pathway</a></li>
-        <li><a href="#lessons">Lesson index</a></li>
-        <li><a href="#next-course">Next course connection</a></li>
-      </ol>
-    </nav>
-
-    <section class="course-section" id="purpose" aria-labelledby="purpose-title">
-      <p class="section-kicker">Course purpose</p>
-      <h2 id="purpose-title">Learn the language beneath science and engineering</h2>
-      <p class="lead">
-        Mathematical Foundations develops the concepts needed to express measurements, motion,
-        relationships, rates of change, and spatial fields. Rather than treating mathematics as a
-        collection of disconnected procedures, the course builds a continuous path from simple
-        quantities to the operators used in Maxwell's equations.
-      </p>
-      <p>
-        The course begins with scalars and vectors, then develops components, vector operations,
-        matrices, and functions. It continues through limits, derivatives, integrals, and partial
-        derivatives before introducing vector fields, divergence, and curl.
-      </p>
-
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>Starting point</h3>
-          <p>No formal prerequisite is required. The course begins with the basic idea of a measurable quantity.</p>
-        </article>
-        <article class="info-card">
-          <h3>Destination</h3>
-          <p>You will be prepared to understand the mathematical structure used in mechanics, electricity, magnetism, and electromagnetism.</p>
-        </article>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-01-overview-purpose-explanation" data-section-id="purpose" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the course purpose</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Learn the language beneath science and engineering" using the supplied section HTML as context. Deepen the explanation of why mathematical foundations are necessary for physics and engineering, add one concrete example connecting an elementary concept to Maxwell's equations, and clarify likely beginner confusion about the course sequence. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-01-overview-purpose-practice" data-section-id="purpose" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a course-orientation activity</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Learn the language beneath science and engineering" as context, create a brief course-orientation activity that helps the learner identify where scalars, vectors, calculus, and vector fields appear in everyday technical systems. Include hints and collapsible explanations. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="prerequisites" aria-labelledby="prerequisites-title">
-      <p class="section-kicker">Prerequisites</p>
-      <h2 id="prerequisites-title">No prior course is required</h2>
-      <p class="lead">
-        This is the entry point for the Learning Library's mathematics sequence. Familiarity with basic arithmetic is useful, but every major idea is introduced from first principles.
-      </p>
-
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>Useful background</h3>
-          <p>Comfort with addition, subtraction, multiplication, division, fractions, and simple algebra will help, but these skills can be reviewed as needed.</p>
-        </article>
-        <article class="info-card">
-          <h3>Study approach</h3>
-          <p>Move in order, work through examples, and expand any section using its permanent learning-prompt cards whenever a concept needs more depth.</p>
-        </article>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-01-overview-prerequisites-explanation" data-section-id="prerequisites" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand prerequisite guidance</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "No prior course is required" using the supplied section HTML as context. Add a compact readiness guide for arithmetic and algebra skills, explain how to proceed when a prerequisite skill is weak, and preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-01-overview-prerequisites-practice" data-section-id="prerequisites" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a readiness check</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "No prior course is required" as context, create a short optional readiness check covering arithmetic, fractions, unit conversion, and simple algebra. Include hints, collapsible solutions, and guidance linking each skill to later course topics. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="skills" aria-labelledby="skills-title">
-      <p class="section-kicker">Skills gained</p>
-      <h2 id="skills-title">What you will be able to do</h2>
-      <p class="lead">
-        By the end of the course, you will be able to interpret and use the mathematical objects that describe physical systems.
-      </p>
-
-      <div class="skills-grid">
-        <article class="skill-card"><h3>Describe quantities</h3><p>Distinguish scalars from vectors and represent vectors using components and unit vectors.</p></article>
-        <article class="skill-card"><h3>Operate on vectors</h3><p>Add vectors, scale them, and use dot and cross products to describe geometric and physical relationships.</p></article>
-        <article class="skill-card"><h3>Use transformations</h3><p>Interpret matrices as structured operations that transform vectors and organize systems of equations.</p></article>
-        <article class="skill-card"><h3>Model relationships</h3><p>Understand functions as mappings between inputs and outputs and use them to describe systems.</p></article>
-        <article class="skill-card"><h3>Analyze change</h3><p>Use limits, derivatives, integrals, and partial derivatives to study rates, accumulation, and multivariable behavior.</p></article>
-        <article class="skill-card"><h3>Understand fields</h3><p>Interpret vector fields and the meanings of divergence and curl in physical space.</p></article>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-01-overview-skills-explanation" data-section-id="skills" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the skills map</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "What you will be able to do" using the supplied section HTML as context. Connect each skill group to one practical application in mechanics, electricity, magnetism, electronics, or control systems. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-01-overview-skills-practice" data-section-id="skills" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a skills self-assessment</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "What you will be able to do" as context, create a learner self-assessment that asks the student to rate familiarity with quantities, vectors, matrices, functions, calculus, and fields. Include a suggested study response for each rating. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="pathway" aria-labelledby="pathway-title">
-      <p class="section-kicker">Learning pathway</p>
-      <h2 id="pathway-title">From quantities to fields</h2>
-      <p class="lead">
-        The course is arranged in four connected stages. Each stage supplies tools needed by the next.
-      </p>
-
-      <figure class="pathway-diagram" id="course-01-mathematical-foundations-04-concept-diagram-01">
-        <svg viewBox="0 0 1040 330" role="img" aria-labelledby="path-title path-desc" preserveAspectRatio="xMidYMid meet">
-          <title id="path-title">Course 1 learning pathway</title>
-          <desc id="path-desc">Four stages progress from quantities and vectors to transformations and functions, then calculus, then vector fields and field operators.</desc>
-          <defs>
-            <marker id="course-arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#173b63"></path>
-            </marker>
-          </defs>
-
-          <rect x="35" y="68" width="210" height="180" rx="18" fill="#e3f0f7" stroke="#8fb4ca" stroke-width="2"></rect>
-          <text x="140" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#173b63">Stage 1</text>
-          <text x="140" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#162033">Quantities &amp; Vectors</text>
-          <text x="140" y="176" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Scalars · Vectors</text>
-          <text x="140" y="202" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Components · Products</text>
-
-          <line x1="262" y1="158" x2="302" y2="158" stroke="#173b63" stroke-width="2" marker-end="url(#course-arrowhead)"></line>
-
-          <rect x="315" y="68" width="210" height="180" rx="18" fill="#fbf7ed" stroke="#d6bc82" stroke-width="2"></rect>
-          <text x="420" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#173b63">Stage 2</text>
-          <text x="420" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#162033">Structures &amp; Mappings</text>
-          <text x="420" y="176" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Matrices</text>
-          <text x="420" y="202" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Functions</text>
-
-          <line x1="542" y1="158" x2="582" y2="158" stroke="#173b63" stroke-width="2" marker-end="url(#course-arrowhead)"></line>
-
-          <rect x="595" y="68" width="210" height="180" rx="18" fill="#edf5f1" stroke="#a9cabc" stroke-width="2"></rect>
-          <text x="700" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#173b63">Stage 3</text>
-          <text x="700" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#162033">Calculus</text>
-          <text x="700" y="176" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Limits · Derivatives</text>
-          <text x="700" y="202" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Integrals · Partial derivatives</text>
-
-          <line x1="822" y1="158" x2="862" y2="158" stroke="#173b63" stroke-width="2" marker-end="url(#course-arrowhead)"></line>
-
-          <rect x="875" y="68" width="130" height="180" rx="18" fill="#f3edf7" stroke="#c3acd0" stroke-width="2"></rect>
-          <text x="940" y="105" text-anchor="middle" font-family="Georgia, serif" font-size="24" fill="#173b63">Stage 4</text>
-          <text x="940" y="140" text-anchor="middle" font-family="Inter, sans-serif" font-size="18" font-weight="700" fill="#162033">Fields</text>
-          <text x="940" y="176" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Vector fields</text>
-          <text x="940" y="202" text-anchor="middle" font-family="Inter, sans-serif" font-size="15" fill="#5d6878">Divergence · Curl</text>
-        </svg>
-        <figcaption>
-          The sequence moves from describing individual quantities to describing how quantities vary throughout space.
-        </figcaption>
-      </figure>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-01-overview-pathway-explanation" data-section-id="pathway" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the learning pathway</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "From quantities to fields" using the supplied section HTML as context. Explain the dependency between the four stages, add one example showing how a vector field requires earlier vector and calculus concepts, and preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-01-overview-pathway-practice" data-section-id="pathway" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a sequencing activity</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "From quantities to fields" as context, create a short sequencing activity in which the learner orders concepts from scalar through curl and explains why each depends on earlier ideas. Include hints and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-01-overview-pathway-visual" data-section-id="pathway" data-prompt-type="visual" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the pathway diagram</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Review the supplied HTML for "From quantities to fields" and expand its visual explanation of the four-stage course pathway. Return an accessible inline SVG using thin connectors, small arrowheads, clear labels, and no lines crossing text. Show how specific lessons feed into later physical applications. Preserve existing IDs and classes and return only the new HTML fragment to insert immediately before this visual card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="lessons" aria-labelledby="lessons-title">
-      <p class="section-kicker">Lesson index</p>
-      <h2 id="lessons-title">Seventeen lessons in sequence</h2>
-      <p class="lead">
-        Lesson 1 is available now. Later lesson links use their reserved filenames so each page can be added without changing this overview.
-      </p>
-
-      <div class="lesson-list">
-        <a class="lesson-card" href="course-01-lesson-01-scalars.html">
-          <span class="lesson-number">01</span>
-          <span><span class="lesson-title">Scalars</span><span class="lesson-description">Quantities described by magnitude alone.</span></span>
-          <span class="lesson-status">Available</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-02-vectors.html">
-          <span class="lesson-number">02</span>
-          <span><span class="lesson-title">Vectors</span><span class="lesson-description">Quantities with magnitude and direction.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-03-vector-components.html">
-          <span class="lesson-number">03</span>
-          <span><span class="lesson-title">Vector Components</span><span class="lesson-description">Resolving vectors along coordinate directions.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-04-unit-vectors.html">
-          <span class="lesson-number">04</span>
-          <span><span class="lesson-title">Unit Vectors</span><span class="lesson-description">Direction represented with vectors of length one.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-05-vector-addition.html">
-          <span class="lesson-number">05</span>
-          <span><span class="lesson-title">Vector Addition</span><span class="lesson-description">Combining displacements, forces, and other directed quantities.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-06-scalar-multiplication.html">
-          <span class="lesson-number">06</span>
-          <span><span class="lesson-title">Scalar Multiplication</span><span class="lesson-description">Changing vector magnitude and possibly direction.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-07-dot-product.html">
-          <span class="lesson-number">07</span>
-          <span><span class="lesson-title">Dot Product</span><span class="lesson-description">Measuring alignment and producing scalar results.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-08-cross-product.html">
-          <span class="lesson-number">08</span>
-          <span><span class="lesson-title">Cross Product</span><span class="lesson-description">Producing a perpendicular vector from two vectors.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-09-matrices.html">
-          <span class="lesson-number">09</span>
-          <span><span class="lesson-title">Matrices</span><span class="lesson-description">Structured arrays that represent transformations and systems.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-10-functions.html">
-          <span class="lesson-number">10</span>
-          <span><span class="lesson-title">Functions</span><span class="lesson-description">Mappings that connect inputs to outputs.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-11-limits.html">
-          <span class="lesson-number">11</span>
-          <span><span class="lesson-title">Limits</span><span class="lesson-description">Describing values approached by changing quantities.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-12-derivatives.html">
-          <span class="lesson-number">12</span>
-          <span><span class="lesson-title">Derivatives</span><span class="lesson-description">Instantaneous rates of change and local slope.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-13-integrals.html">
-          <span class="lesson-number">13</span>
-          <span><span class="lesson-title">Integrals</span><span class="lesson-description">Accumulation, area, and continuous summation.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-14-partial-derivatives.html">
-          <span class="lesson-number">14</span>
-          <span><span class="lesson-title">Partial Derivatives</span><span class="lesson-description">Rates of change in multivariable systems.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-15-vector-fields.html">
-          <span class="lesson-number">15</span>
-          <span><span class="lesson-title">Vector Fields</span><span class="lesson-description">A vector assigned to every point in a region.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-16-divergence.html">
-          <span class="lesson-number">16</span>
-          <span><span class="lesson-title">Divergence</span><span class="lesson-description">Measuring local source-like or sink-like field behavior.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-        <a class="lesson-card is-planned" href="course-01-lesson-17-curl.html">
-          <span class="lesson-number">17</span>
-          <span><span class="lesson-title">Curl</span><span class="lesson-description">Measuring local rotational behavior in a vector field.</span></span>
-          <span class="lesson-status">Planned</span>
-        </a>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-01-overview-lessons-explanation" data-section-id="lessons" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the lesson index</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Seventeen lessons in sequence" using the supplied section HTML as context. Add a compact explanation of how each lesson cluster supports the next and identify the major conceptual transitions in the sequence. Preserve all existing IDs, classes, links, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-01-overview-lessons-practice" data-section-id="lessons" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a lesson-planning worksheet</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Seventeen lessons in sequence" as context, create a compact lesson-planning worksheet where the learner can mark lessons as not started, studying, reviewed, or mastered. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="next-course" aria-labelledby="next-course-title">
-      <p class="section-kicker">Next course connection</p>
-      <h2 id="next-course-title">Course 2 applies the mathematics to motion</h2>
-      <p class="lead">
-        Classical Mechanics uses the language developed here to describe position, velocity,
-        acceleration, force, work, energy, momentum, and rotation.
-      </p>
-
-      <div class="connection-card">
-        <h3>Why this course comes first</h3>
-        <p>
-          Mechanics immediately depends on vectors and derivatives: position is represented with coordinates,
-          velocity is the rate of change of position, acceleration is the rate of change of velocity, and forces
-          combine through vector addition. The later courses on electricity and magnetism then extend those same
-          mathematical ideas to electric and magnetic fields.
-        </p>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-01-overview-next-explanation" data-section-id="next-course" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the next-course connection</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Course 2 applies the mathematics to motion" using the supplied section HTML as context. Add a worked conceptual chain connecting position, velocity, acceleration, and force to vectors and derivatives. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-01-overview-next-practice" data-section-id="next-course" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a transition activity</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Course 2 applies the mathematics to motion" as context, create a short transition activity that asks the learner to match Course 1 concepts with mechanics applications. Include hints and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <nav class="footer-nav" aria-label="Course navigation">
-    <a class="previous" href="../../course-index.html">← Course Index</a>
-    <a class="course" href="#top">Course 1 Overview</a>
-    <a class="next" href="course-01-lesson-01-scalars.html">Lesson 1: Scalars →</a>
-  </nav>
-
-  <footer>
-    Learning Library · Course 1 — Mathematical Foundations · LL-EAS 4.3
-  </footer>
-
-  <script>
-    (function () {
-      const progressBar = document.getElementById("reading-progress-bar");
-
-      function updateProgress() {
-        if (!progressBar) return;
-        const top = window.scrollY || document.documentElement.scrollTop;
-        const height = document.documentElement.scrollHeight - window.innerHeight;
-        const percentage = height > 0 ? Math.min(100, Math.max(0, top / height * 100)) : 0;
-        progressBar.style.width = percentage + "%";
+      .is-planned .lesson-status {
+        color: #647080;
+        background: #eef0f3;
+        border-color: #d7dce2;
       }
 
-      async function copyPrompt(button) {
-        const card = button.closest(".learning-prompt");
-        const prompt = card ? card.querySelector(".prompt-text") : null;
-        if (!prompt) return;
+      .connection-card {
+        margin-top: 1.3rem;
+        padding: 1.2rem 1.3rem;
+        background: var(--sky);
+        border-left: 5px solid var(--blue);
+        border-radius: 0 14px 14px 0;
+      }
 
-        const text = prompt.textContent.trim();
-        const originalLabel = button.textContent;
+      .connection-card h3 {
+        margin: 0 0 0.45rem;
+        color: var(--navy);
+      }
 
-        try {
-          await navigator.clipboard.writeText(text);
-          button.textContent = "Copied";
-          if (card.dataset.promptStatus === "planned") card.dataset.promptStatus = "copied";
-        } catch (error) {
-          const range = document.createRange();
-          range.selectNodeContents(prompt);
-          const selection = window.getSelection();
-          selection.removeAllRanges();
-          selection.addRange(range);
-          button.textContent = "Select and copy";
+      .connection-card p {
+        margin: 0;
+      }
+
+      .prompt-stack {
+        display: grid;
+        gap: 0.8rem;
+        margin-top: 2rem;
+        padding-top: 1.4rem;
+        border-top: 1px dashed #bdc7d2;
+      }
+
+      .learning-prompt {
+        background: #f7f8fa;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+      }
+
+      .learning-prompt summary {
+        cursor: pointer;
+        padding: 0.85rem 1rem;
+        color: var(--navy);
+        font-weight: 820;
+      }
+
+      .prompt-body {
+        padding: 0 1rem 1rem;
+        color: var(--muted);
+      }
+
+      .prompt-text {
+        margin: 0.5rem 0 0.9rem;
+        padding: 0.85rem;
+        background: #fff;
+        border: 1px solid var(--line);
+        border-radius: 9px;
+        white-space: pre-wrap;
+        font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+        font-size: 0.86rem;
+        line-height: 1.5;
+      }
+
+      .copy-prompt {
+        appearance: none;
+        padding: 0.55rem 0.8rem;
+        color: #fff;
+        background: var(--navy);
+        border: 0;
+        border-radius: 8px;
+        cursor: pointer;
+        font: inherit;
+        font-weight: 780;
+      }
+
+      .footer-nav {
+        width: min(var(--content-width), calc(100% - 2rem));
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        gap: 1rem;
+        align-items: center;
+        padding: 1.4rem 0 2rem;
+        border-top: 1px solid var(--line);
+      }
+
+      .footer-nav a {
+        color: var(--navy);
+        text-decoration: none;
+        font-weight: 820;
+      }
+
+      .footer-nav .course {
+        text-align: center;
+      }
+      .footer-nav .next {
+        text-align: right;
+      }
+
+      footer {
+        padding: 0 1rem 2.5rem;
+        text-align: center;
+        color: var(--muted);
+        font-size: 0.88rem;
+      }
+
+      @media (max-width: 760px) {
+        .toc ol,
+        .info-grid,
+        .skills-grid,
+        .lesson-list {
+          grid-template-columns: 1fr;
         }
 
-        window.setTimeout(function () {
-          button.textContent = originalLabel;
-        }, 1800);
+        .lesson-card {
+          grid-template-columns: auto 1fr;
+        }
+
+        .lesson-status {
+          grid-column: 2;
+          justify-self: start;
+        }
+
+        .footer-nav {
+          grid-template-columns: 1fr;
+        }
+        .footer-nav .course,
+        .footer-nav .next {
+          text-align: left;
+        }
       }
 
-      document.querySelectorAll(".copy-prompt").forEach(function (button) {
-        button.addEventListener("click", function () { copyPrompt(button); });
-      });
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+        *,
+        *::before,
+        *::after {
+          transition-duration: 0.01ms !important;
+          animation-duration: 0.01ms !important;
+        }
+      }
 
-      updateProgress();
-      window.addEventListener("scroll", updateProgress, { passive: true });
-      window.addEventListener("resize", updateProgress);
-    })();
-  </script>
-</body>
+      @media print {
+        .reading-progress,
+        .course-nav,
+        .skip-link,
+        .copy-prompt,
+        .hero-actions {
+          display: none !important;
+        }
+
+        body {
+          background: #fff;
+        }
+        .course-hero {
+          color: #000;
+          background: #fff;
+          border-bottom: 2px solid #000;
+        }
+        .hero-copy,
+        .eyebrow {
+          color: #000;
+        }
+        .course-section,
+        .toc {
+          box-shadow: none;
+          break-inside: avoid;
+        }
+        .lesson-card {
+          break-inside: avoid;
+        }
+        details.learning-prompt {
+          display: none;
+        }
+      }
+    </style>
+  </head>
+
+  <body id="top">
+    <a class="skip-link" href="#main-content">Skip to course content</a>
+
+    <div class="reading-progress" aria-hidden="true">
+      <span id="reading-progress-bar"></span>
+    </div>
+
+    <nav class="course-nav" aria-label="Course navigation">
+      <a
+        class="course-index-link"
+        href="https://kevinlinstrum001.github.io/learning-library/course-index.html"
+      >
+        ← Course Index
+      </a>
+      <a href="#purpose">Purpose</a>
+      <a href="#prerequisites">Prerequisites</a>
+      <a href="#skills">Skills</a>
+      <a href="#lessons">Lessons</a>
+      <a href="#next-course">Next Course</a>
+    </nav>
+
+    <header class="course-hero">
+      <div class="hero-inner">
+        <p class="eyebrow">Learning Library · Course 01</p>
+        <h1>Mathematical Foundations</h1>
+        <p class="hero-copy">
+          Build the mathematical language needed to describe quantities,
+          directions, transformations, change, and fields—the core ideas used
+          throughout physics, electronics, and engineering.
+        </p>
+        <div class="course-meta-strip" aria-label="Course information">
+          <span>Prerequisites: none</span>
+          <span>17 lessons</span>
+          <span>Begins with scalars</span>
+          <span>Ends with divergence and curl</span>
+        </div>
+        <div class="hero-actions">
+          <a class="primary" href="course-01-lesson-01-scalars.html"
+            >Begin Lesson 1: Scalars</a
+          >
+          <a class="secondary" href="#lessons">View all lessons</a>
+        </div>
+      </div>
+    </header>
+
+    <main id="main-content">
+      <nav class="toc" aria-labelledby="toc-title">
+        <h2 id="toc-title">Course contents</h2>
+        <ol>
+          <li><a href="#purpose">Course purpose</a></li>
+          <li><a href="#prerequisites">Prerequisites</a></li>
+          <li><a href="#skills">Skills gained</a></li>
+          <li><a href="#pathway">Learning pathway</a></li>
+          <li><a href="#lessons">Lesson index</a></li>
+          <li><a href="#next-course">Next course connection</a></li>
+        </ol>
+      </nav>
+
+      <section
+        class="course-section"
+        id="purpose"
+        aria-labelledby="purpose-title"
+      >
+        <p class="section-kicker">Course purpose</p>
+        <h2 id="purpose-title">
+          Learn the language beneath science and engineering
+        </h2>
+        <p class="lead">
+          Mathematical Foundations develops the concepts needed to express
+          measurements, motion, relationships, rates of change, and spatial
+          fields. Rather than treating mathematics as a collection of
+          disconnected procedures, the course builds a continuous path from
+          simple quantities to the operators used in Maxwell's equations.
+        </p>
+        <p>
+          The course begins with scalars and vectors, then develops components,
+          vector operations, matrices, and functions. It continues through
+          limits, derivatives, integrals, and partial derivatives before
+          introducing vector fields, divergence, and curl.
+        </p>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>Starting point</h3>
+            <p>
+              No formal prerequisite is required. The course begins with the
+              basic idea of a measurable quantity.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Destination</h3>
+            <p>
+              You will be prepared to understand the mathematical structure used
+              in mechanics, electricity, magnetism, and electromagnetism.
+            </p>
+          </article>
+        </div>
+
+        <div class="prompt-stack">
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-purpose-explanation"
+            data-section-id="purpose"
+            data-prompt-type="explanation"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Expand the course purpose</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Expand the section titled "Learn the language beneath science and engineering" using the supplied section HTML as context. Deepen the explanation of why mathematical foundations are necessary for physics and engineering, add one concrete example connecting an elementary concept to Maxwell's equations, and clarify likely beginner confusion about the course sequence. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-purpose-practice"
+            data-section-id="purpose"
+            data-prompt-type="practice"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Add a course-orientation activity</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Using the supplied HTML for "Learn the language beneath science and engineering" as context, create a brief course-orientation activity that helps the learner identify where scalars, vectors, calculus, and vector fields appear in everyday technical systems. Include hints and collapsible explanations. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section
+        class="course-section"
+        id="prerequisites"
+        aria-labelledby="prerequisites-title"
+      >
+        <p class="section-kicker">Prerequisites</p>
+        <h2 id="prerequisites-title">No prior course is required</h2>
+        <p class="lead">
+          This is the entry point for the Learning Library's mathematics
+          sequence. Familiarity with basic arithmetic is useful, but every major
+          idea is introduced from first principles.
+        </p>
+
+        <div class="info-grid">
+          <article class="info-card">
+            <h3>Useful background</h3>
+            <p>
+              Comfort with addition, subtraction, multiplication, division,
+              fractions, and simple algebra will help, but these skills can be
+              reviewed as needed.
+            </p>
+          </article>
+          <article class="info-card">
+            <h3>Study approach</h3>
+            <p>
+              Move in order, work through examples, and expand any section using
+              its permanent learning-prompt cards whenever a concept needs more
+              depth.
+            </p>
+          </article>
+        </div>
+
+        <div class="prompt-stack">
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-prerequisites-explanation"
+            data-section-id="prerequisites"
+            data-prompt-type="explanation"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Expand prerequisite guidance</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Expand the section titled "No prior course is required" using the supplied section HTML as context. Add a compact readiness guide for arithmetic and algebra skills, explain how to proceed when a prerequisite skill is weak, and preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-prerequisites-practice"
+            data-section-id="prerequisites"
+            data-prompt-type="practice"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Add a readiness check</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Using the supplied HTML for "No prior course is required" as context, create a short optional readiness check covering arithmetic, fractions, unit conversion, and simple algebra. Include hints, collapsible solutions, and guidance linking each skill to later course topics. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section
+        class="course-section"
+        id="skills"
+        aria-labelledby="skills-title"
+      >
+        <p class="section-kicker">Skills gained</p>
+        <h2 id="skills-title">What you will be able to do</h2>
+        <p class="lead">
+          By the end of the course, you will be able to interpret and use the
+          mathematical objects that describe physical systems.
+        </p>
+
+        <div class="skills-grid">
+          <article class="skill-card">
+            <h3>Describe quantities</h3>
+            <p>
+              Distinguish scalars from vectors and represent vectors using
+              components and unit vectors.
+            </p>
+          </article>
+          <article class="skill-card">
+            <h3>Operate on vectors</h3>
+            <p>
+              Add vectors, scale them, and use dot and cross products to
+              describe geometric and physical relationships.
+            </p>
+          </article>
+          <article class="skill-card">
+            <h3>Use transformations</h3>
+            <p>
+              Interpret matrices as structured operations that transform vectors
+              and organize systems of equations.
+            </p>
+          </article>
+          <article class="skill-card">
+            <h3>Model relationships</h3>
+            <p>
+              Understand functions as mappings between inputs and outputs and
+              use them to describe systems.
+            </p>
+          </article>
+          <article class="skill-card">
+            <h3>Analyze change</h3>
+            <p>
+              Use limits, derivatives, integrals, and partial derivatives to
+              study rates, accumulation, and multivariable behavior.
+            </p>
+          </article>
+          <article class="skill-card">
+            <h3>Understand fields</h3>
+            <p>
+              Interpret vector fields and the meanings of divergence and curl in
+              physical space.
+            </p>
+          </article>
+        </div>
+
+        <div class="prompt-stack">
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-skills-explanation"
+            data-section-id="skills"
+            data-prompt-type="explanation"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Expand the skills map</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Expand the section titled "What you will be able to do" using the supplied section HTML as context. Connect each skill group to one practical application in mechanics, electricity, magnetism, electronics, or control systems. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-skills-practice"
+            data-section-id="skills"
+            data-prompt-type="practice"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Add a skills self-assessment</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Using the supplied HTML for "What you will be able to do" as context, create a learner self-assessment that asks the student to rate familiarity with quantities, vectors, matrices, functions, calculus, and fields. Include a suggested study response for each rating. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section
+        class="course-section"
+        id="pathway"
+        aria-labelledby="pathway-title"
+      >
+        <p class="section-kicker">Learning pathway</p>
+        <h2 id="pathway-title">From quantities to fields</h2>
+        <p class="lead">
+          The course is arranged in four connected stages. Each stage supplies
+          tools needed by the next.
+        </p>
+
+        <figure
+          class="pathway-diagram"
+          id="course-01-mathematical-foundations-04-concept-diagram-01"
+        >
+          <svg
+            viewBox="0 0 1040 330"
+            role="img"
+            aria-labelledby="path-title path-desc"
+            preserveAspectRatio="xMidYMid meet"
+          >
+            <title id="path-title">Course 1 learning pathway</title>
+            <desc id="path-desc">
+              Four stages progress from quantities and vectors to
+              transformations and functions, then calculus, then vector fields
+              and field operators.
+            </desc>
+            <defs>
+              <marker
+                id="course-arrowhead"
+                viewBox="0 0 10 10"
+                refX="8"
+                refY="5"
+                markerWidth="5"
+                markerHeight="5"
+                orient="auto-start-reverse"
+              >
+                <path d="M 0 0 L 10 5 L 0 10 z" fill="#173b63"></path>
+              </marker>
+            </defs>
+
+            <rect
+              x="35"
+              y="68"
+              width="210"
+              height="180"
+              rx="18"
+              fill="#e3f0f7"
+              stroke="#8fb4ca"
+              stroke-width="2"
+            ></rect>
+            <text
+              x="140"
+              y="105"
+              text-anchor="middle"
+              font-family="Georgia, serif"
+              font-size="24"
+              fill="#173b63"
+            >
+              Stage 1
+            </text>
+            <text
+              x="140"
+              y="140"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="18"
+              font-weight="700"
+              fill="#162033"
+            >
+              Quantities &amp; Vectors
+            </text>
+            <text
+              x="140"
+              y="176"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Scalars · Vectors
+            </text>
+            <text
+              x="140"
+              y="202"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Components · Products
+            </text>
+
+            <line
+              x1="262"
+              y1="158"
+              x2="302"
+              y2="158"
+              stroke="#173b63"
+              stroke-width="2"
+              marker-end="url(#course-arrowhead)"
+            ></line>
+
+            <rect
+              x="315"
+              y="68"
+              width="210"
+              height="180"
+              rx="18"
+              fill="#fbf7ed"
+              stroke="#d6bc82"
+              stroke-width="2"
+            ></rect>
+            <text
+              x="420"
+              y="105"
+              text-anchor="middle"
+              font-family="Georgia, serif"
+              font-size="24"
+              fill="#173b63"
+            >
+              Stage 2
+            </text>
+            <text
+              x="420"
+              y="140"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="18"
+              font-weight="700"
+              fill="#162033"
+            >
+              Structures &amp; Mappings
+            </text>
+            <text
+              x="420"
+              y="176"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Matrices
+            </text>
+            <text
+              x="420"
+              y="202"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Functions
+            </text>
+
+            <line
+              x1="542"
+              y1="158"
+              x2="582"
+              y2="158"
+              stroke="#173b63"
+              stroke-width="2"
+              marker-end="url(#course-arrowhead)"
+            ></line>
+
+            <rect
+              x="595"
+              y="68"
+              width="210"
+              height="180"
+              rx="18"
+              fill="#edf5f1"
+              stroke="#a9cabc"
+              stroke-width="2"
+            ></rect>
+            <text
+              x="700"
+              y="105"
+              text-anchor="middle"
+              font-family="Georgia, serif"
+              font-size="24"
+              fill="#173b63"
+            >
+              Stage 3
+            </text>
+            <text
+              x="700"
+              y="140"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="18"
+              font-weight="700"
+              fill="#162033"
+            >
+              Calculus
+            </text>
+            <text
+              x="700"
+              y="176"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Limits · Derivatives
+            </text>
+            <text
+              x="700"
+              y="202"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Integrals · Partial derivatives
+            </text>
+
+            <line
+              x1="822"
+              y1="158"
+              x2="862"
+              y2="158"
+              stroke="#173b63"
+              stroke-width="2"
+              marker-end="url(#course-arrowhead)"
+            ></line>
+
+            <rect
+              x="875"
+              y="68"
+              width="130"
+              height="180"
+              rx="18"
+              fill="#f3edf7"
+              stroke="#c3acd0"
+              stroke-width="2"
+            ></rect>
+            <text
+              x="940"
+              y="105"
+              text-anchor="middle"
+              font-family="Georgia, serif"
+              font-size="24"
+              fill="#173b63"
+            >
+              Stage 4
+            </text>
+            <text
+              x="940"
+              y="140"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="18"
+              font-weight="700"
+              fill="#162033"
+            >
+              Fields
+            </text>
+            <text
+              x="940"
+              y="176"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Vector fields
+            </text>
+            <text
+              x="940"
+              y="202"
+              text-anchor="middle"
+              font-family="Inter, sans-serif"
+              font-size="15"
+              fill="#5d6878"
+            >
+              Divergence · Curl
+            </text>
+          </svg>
+          <figcaption>
+            The sequence moves from describing individual quantities to
+            describing how quantities vary throughout space.
+          </figcaption>
+        </figure>
+
+        <div class="prompt-stack">
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-pathway-explanation"
+            data-section-id="pathway"
+            data-prompt-type="explanation"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Expand the learning pathway</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Expand the section titled "From quantities to fields" using the supplied section HTML as context. Explain the dependency between the four stages, add one example showing how a vector field requires earlier vector and calculus concepts, and preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-pathway-practice"
+            data-section-id="pathway"
+            data-prompt-type="practice"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Add a sequencing activity</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Using the supplied HTML for "From quantities to fields" as context, create a short sequencing activity in which the learner orders concepts from scalar through curl and explains why each depends on earlier ideas. Include hints and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-pathway-visual"
+            data-section-id="pathway"
+            data-prompt-type="visual"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Expand the pathway diagram</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Review the supplied HTML for "From quantities to fields" and expand its visual explanation of the four-stage course pathway. Return an accessible inline SVG using thin connectors, small arrowheads, clear labels, and no lines crossing text. Show how specific lessons feed into later physical applications. Preserve existing IDs and classes and return only the new HTML fragment to insert immediately before this visual card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section
+        class="course-section"
+        id="lessons"
+        aria-labelledby="lessons-title"
+      >
+        <p class="section-kicker">Lesson index</p>
+        <h2 id="lessons-title">Seventeen lessons in sequence</h2>
+        <p class="lead">
+          Lesson 1 is available now. Later lesson links use their reserved
+          filenames so each page can be added without changing this overview.
+        </p>
+
+        <div class="lesson-list">
+          <a class="lesson-card" href="course-01-lesson-01-scalars.html">
+            <span class="lesson-number">01</span>
+            <span
+              ><span class="lesson-title">Scalars</span
+              ><span class="lesson-description"
+                >Quantities described by magnitude alone.</span
+              ></span
+            >
+            <span class="lesson-status">Available</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-02-vectors.html"
+          >
+            <span class="lesson-number">02</span>
+            <span
+              ><span class="lesson-title">Vectors</span
+              ><span class="lesson-description"
+                >Quantities with magnitude and direction.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-03-vector-components.html"
+          >
+            <span class="lesson-number">03</span>
+            <span
+              ><span class="lesson-title">Vector Components</span
+              ><span class="lesson-description"
+                >Resolving vectors along coordinate directions.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-04-unit-vectors.html"
+          >
+            <span class="lesson-number">04</span>
+            <span
+              ><span class="lesson-title">Unit Vectors</span
+              ><span class="lesson-description"
+                >Direction represented with vectors of length one.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-05-vector-addition.html"
+          >
+            <span class="lesson-number">05</span>
+            <span
+              ><span class="lesson-title">Vector Addition</span
+              ><span class="lesson-description"
+                >Combining displacements, forces, and other directed
+                quantities.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-06-scalar-multiplication.html"
+          >
+            <span class="lesson-number">06</span>
+            <span
+              ><span class="lesson-title">Scalar Multiplication</span
+              ><span class="lesson-description"
+                >Changing vector magnitude and possibly direction.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-07-dot-product.html"
+          >
+            <span class="lesson-number">07</span>
+            <span
+              ><span class="lesson-title">Dot Product</span
+              ><span class="lesson-description"
+                >Measuring alignment and producing scalar results.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-08-cross-product.html"
+          >
+            <span class="lesson-number">08</span>
+            <span
+              ><span class="lesson-title">Cross Product</span
+              ><span class="lesson-description"
+                >Producing a perpendicular vector from two vectors.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-09-matrices.html"
+          >
+            <span class="lesson-number">09</span>
+            <span
+              ><span class="lesson-title">Matrices</span
+              ><span class="lesson-description"
+                >Structured arrays that represent transformations and
+                systems.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-10-functions.html"
+          >
+            <span class="lesson-number">10</span>
+            <span
+              ><span class="lesson-title">Functions</span
+              ><span class="lesson-description"
+                >Mappings that connect inputs to outputs.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-11-limits.html"
+          >
+            <span class="lesson-number">11</span>
+            <span
+              ><span class="lesson-title">Limits</span
+              ><span class="lesson-description"
+                >Describing values approached by changing quantities.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-12-derivatives.html"
+          >
+            <span class="lesson-number">12</span>
+            <span
+              ><span class="lesson-title">Derivatives</span
+              ><span class="lesson-description"
+                >Instantaneous rates of change and local slope.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-13-integrals.html"
+          >
+            <span class="lesson-number">13</span>
+            <span
+              ><span class="lesson-title">Integrals</span
+              ><span class="lesson-description"
+                >Accumulation, area, and continuous summation.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-14-partial-derivatives.html"
+          >
+            <span class="lesson-number">14</span>
+            <span
+              ><span class="lesson-title">Partial Derivatives</span
+              ><span class="lesson-description"
+                >Rates of change in multivariable systems.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-15-vector-fields.html"
+          >
+            <span class="lesson-number">15</span>
+            <span
+              ><span class="lesson-title">Vector Fields</span
+              ><span class="lesson-description"
+                >A vector assigned to every point in a region.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-16-divergence.html"
+          >
+            <span class="lesson-number">16</span>
+            <span
+              ><span class="lesson-title">Divergence</span
+              ><span class="lesson-description"
+                >Measuring local source-like or sink-like field behavior.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+          <a
+            class="lesson-card is-planned"
+            href="course-01-lesson-17-curl.html"
+          >
+            <span class="lesson-number">17</span>
+            <span
+              ><span class="lesson-title">Curl</span
+              ><span class="lesson-description"
+                >Measuring local rotational behavior in a vector field.</span
+              ></span
+            >
+            <span class="lesson-status">Planned</span>
+          </a>
+        </div>
+
+        <div class="prompt-stack">
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-lessons-explanation"
+            data-section-id="lessons"
+            data-prompt-type="explanation"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Expand the lesson index</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Expand the section titled "Seventeen lessons in sequence" using the supplied section HTML as context. Add a compact explanation of how each lesson cluster supports the next and identify the major conceptual transitions in the sequence. Preserve all existing IDs, classes, links, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-lessons-practice"
+            data-section-id="lessons"
+            data-prompt-type="practice"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Add a lesson-planning worksheet</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Using the supplied HTML for "Seventeen lessons in sequence" as context, create a compact lesson-planning worksheet where the learner can mark lessons as not started, studying, reviewed, or mastered. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+        </div>
+      </section>
+
+      <section
+        class="course-section"
+        id="next-course"
+        aria-labelledby="next-course-title"
+      >
+        <p class="section-kicker">Next course connection</p>
+        <h2 id="next-course-title">
+          Course 2 applies the mathematics to motion
+        </h2>
+        <p class="lead">
+          Classical Mechanics uses the language developed here to describe
+          position, velocity, acceleration, force, work, energy, momentum, and
+          rotation.
+        </p>
+
+        <div class="connection-card">
+          <h3>Why this course comes first</h3>
+          <p>
+            Mechanics immediately depends on vectors and derivatives: position
+            is represented with coordinates, velocity is the rate of change of
+            position, acceleration is the rate of change of velocity, and forces
+            combine through vector addition. The later courses on electricity
+            and magnetism then extend those same mathematical ideas to electric
+            and magnetic fields.
+          </p>
+        </div>
+
+        <div class="prompt-stack">
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-next-explanation"
+            data-section-id="next-course"
+            data-prompt-type="explanation"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Expand the next-course connection</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Expand the section titled "Course 2 applies the mathematics to motion" using the supplied section HTML as context. Add a worked conceptual chain connecting position, velocity, acceleration, and force to vectors and derivatives. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+          <details
+            class="learning-prompt"
+            data-prompt-id="course-01-overview-next-practice"
+            data-section-id="next-course"
+            data-prompt-type="practice"
+            data-prompt-status="planned"
+            data-insert-position="before-card"
+          >
+            <summary>Add a transition activity</summary>
+            <div class="prompt-body">
+              <pre class="prompt-text">
+Using the supplied HTML for "Course 2 applies the mathematics to motion" as context, create a short transition activity that asks the learner to match Course 1 concepts with mechanics applications. Include hints and collapsible solutions. Preserve the current style and return only the new HTML fragment to insert immediately before this practice card.</pre
+              >
+              <button class="copy-prompt" type="button">Copy prompt</button>
+            </div>
+          </details>
+        </div>
+      </section>
+    </main>
+
+    <nav class="footer-nav" aria-label="Course navigation">
+      <a class="previous" href="../../course-index.html">← Course Index</a>
+      <a class="course" href="#top">Course 1 Overview</a>
+      <a class="next" href="course-01-lesson-01-scalars.html"
+        >Lesson 1: Scalars →</a
+      >
+    </nav>
+
+    <footer>
+      Learning Library · Course 1 — Mathematical Foundations · LL-EAS 4.3
+    </footer>
+
+    <script>
+      (function () {
+        const progressBar = document.getElementById("reading-progress-bar");
+
+        function updateProgress() {
+          if (!progressBar) return;
+          const top = window.scrollY || document.documentElement.scrollTop;
+          const height =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const percentage =
+            height > 0 ? Math.min(100, Math.max(0, (top / height) * 100)) : 0;
+          progressBar.style.width = percentage + "%";
+        }
+
+        async function copyPrompt(button) {
+          const card = button.closest(".learning-prompt");
+          const prompt = card ? card.querySelector(".prompt-text") : null;
+          if (!prompt) return;
+
+          const text = prompt.textContent.trim();
+          const originalLabel = button.textContent;
+
+          try {
+            await navigator.clipboard.writeText(text);
+            button.textContent = "Copied";
+            if (card.dataset.promptStatus === "planned")
+              card.dataset.promptStatus = "copied";
+          } catch (error) {
+            const range = document.createRange();
+            range.selectNodeContents(prompt);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            button.textContent = "Select and copy";
+          }
+
+          window.setTimeout(function () {
+            button.textContent = originalLabel;
+          }, 1800);
+        }
+
+        document.querySelectorAll(".copy-prompt").forEach(function (button) {
+          button.addEventListener("click", function () {
+            copyPrompt(button);
+          });
+        });
+
+        updateProgress();
+        window.addEventListener("scroll", updateProgress, { passive: true });
+        window.addEventListener("resize", updateProgress);
+      })();
+    </script>
+  </body>
 </html>
