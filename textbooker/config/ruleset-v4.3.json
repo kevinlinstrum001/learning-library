@@ -1,7 +1,7 @@
 {
   "ruleset_name": "learning_library_expandable_authoring_standard",
   "short_name": "LL-EAS",
-  "version": "4.5",
+  "version": "4.3",
   "purpose": "Define the structure, navigation, visuals, metadata, expansion workflow, and reusable authoring conventions for expandable Learning Library HTML lessons.",
   "site": {
     "default_document_type": "expandable educational lesson"
@@ -22,6 +22,14 @@
     "main lesson content",
     "footer navigation"
   ],
+  "navbar_rules": {
+    "required": true,
+    "course_index_link_required": true,
+    "course_index_label": "Course Index",
+    "placement": "First or leftmost persistent navbar item",
+    "open_in_same_tab": true,
+    "required_html": "<nav class=\"course-nav\" aria-label=\"Course navigation\">\n  <a class=\"course-index-link\" href=\"{{COURSE_INDEX_URL}}\">← Course Index</a>\n</nav>"
+  },
   "document_metadata": {
     "storage": "Embedded application/json script in the page head",
     "script_id": "lesson-metadata",
@@ -37,20 +45,8 @@
       "expansion_count",
       "prerequisites",
       "previous_lesson",
-      "next_lesson",
-      "site_home",
-      "course_overview"
-    ],
-    "navigation_field_rules": {
-      "site_home": {
-        "course": "Absolute Learning Library catalog URL",
-        "lesson": "Absolute Learning Library catalog URL"
-      },
-      "course_overview": {
-        "course": null,
-        "lesson": "Relative or absolute URL of the lesson's course overview page"
-      }
-    }
+      "next_lesson"
+    ]
   },
   "section_structure": {
     "required_order": [
@@ -188,10 +184,7 @@
     "must_work_without_javascript": true
   },
   "validation_checklist": [
-    "Every course and lesson page includes a visible Learning Library home link",
-    "Every lesson page includes a visible link to its course overview",
-    "Learning Library and Course Overview are not labeled interchangeably",
-    "All persistent navigation links open in the same tab",
+    "Navbar includes a visible Course Index link",
     "Every section has explanation and practice learning-prompt cards",
     "Every visual has a visual learning-prompt card",
     "All expansion prompts request HTML fragments only",
@@ -199,22 +192,14 @@
     "Optional illustrations use reserved document_name_imageNN.png placeholders",
     "Existing content is preserved during expansion",
     "The page remains usable without JavaScript",
-    "Print output remains readable",
-    "Downloadable complete HTML documents are delivered in ZIP archives with their exact repository filenames"
+    "Print output remains readable"
   ],
   "project_variables": {
     "SITE_NAME": "Learning Library",
     "SITE_ROOT_URL": "https://kevinlinstrum001.github.io/learning-library/",
-    "COURSE_INDEX_URL": {
-      "status": "deprecated",
-      "replacement": "SITE_ROOT_URL",
-      "reason": "The old name ambiguously referred to both the Learning Library catalog and a course overview page."
-    },
+    "COURSE_INDEX_URL": "https://kevinlinstrum001.github.io/learning-library/",
     "IMAGE_DIRECTORY": "images/",
-    "DEFAULT_LANGUAGE": "en",
-    "SITE_HOME_LABEL": "Learning Library",
-    "COURSE_OVERVIEW_LABEL": "Course Overview",
-    "COURSE_OVERVIEW_URL": "{{DOCUMENT_SPECIFIC}}"
+    "DEFAULT_LANGUAGE": "en"
   },
   "document_types": {
     "course": {
@@ -236,73 +221,5 @@
     "required": true,
     "source_file": "CURRICULUM.md",
     "rule": "Course pages and lesson generation must align with the curriculum."
-  },
-  "navigation_rules": {
-    "required": true,
-    "open_in_same_tab": true,
-    "site_home": {
-      "required_for": [
-        "course",
-        "lesson"
-      ],
-      "label": "Learning Library",
-      "url_variable": "SITE_ROOT_URL",
-      "placement": "First or leftmost persistent navbar item",
-      "css_class": "site-home-link"
-    },
-    "course_overview": {
-      "required_for": [
-        "lesson"
-      ],
-      "label": "Course Overview",
-      "url_source": "document metadata field course_overview",
-      "placement": "Immediately after the Learning Library link",
-      "css_class": "course-overview-link"
-    },
-    "labeling_rule": "Learning Library identifies the site-level course catalog. Course Overview identifies the overview page for the lesson's own course. Do not use the labels interchangeably.",
-    "course_page_required_html": "<nav class=\"course-nav\" aria-label=\"Course navigation\">\n  <a class=\"site-home-link\" href=\"{{SITE_ROOT_URL}}\">← Learning Library</a>\n</nav>",
-    "lesson_page_required_html": "<nav class=\"course-nav\" aria-label=\"Course navigation\">\n  <a class=\"site-home-link\" href=\"{{SITE_ROOT_URL}}\">← Learning Library</a>\n  <a class=\"course-overview-link\" href=\"{{COURSE_OVERVIEW_URL}}\">Course Overview</a>\n</nav>"
-  },
-  "release_notes": {
-    "version": "4.5",
-    "change_type": "minor artifact-delivery update",
-    "changes": [
-      "Retained the LL-EAS 4.4 navigation contract",
-      "Added ZIP delivery as the default for complete downloadable HTML documents",
-      "Added archive naming, filename preservation, and ZIP validation requirements",
-      "Excluded fragment-only expansions and explicitly requested inline HTML from the ZIP requirement"
-    ],
-    "migration": [
-      "No existing HTML documents require content changes",
-      "Future complete HTML downloads should be packaged in ZIP archives",
-      "Use the intended repository filename for the HTML file inside each archive"
-    ]
-  },
-  "artifact_delivery": {
-    "html_delivery_format": "zip",
-    "rule": "When generating or revising an HTML document for download, package the HTML file inside a ZIP archive instead of delivering the HTML file directly.",
-    "purpose": [
-      "Preserve the exact intended filename",
-      "Reduce browser- or platform-generated filename changes",
-      "Reduce manual renaming work",
-      "Reduce the chance of path and filename typographical errors"
-    ],
-    "zip_requirements": {
-      "archive_name": "Use the intended document basename with a .zip extension",
-      "contained_html_name": "Use the exact repository filename specified for the document",
-      "preserve_directory_structure": "Include only the minimum required relative directory structure when multiple files must be delivered together; otherwise place the HTML document at the archive root.",
-      "no_unrequested_renaming": true,
-      "validate_before_delivery": [
-        "Confirm the ZIP opens successfully",
-        "Confirm the expected HTML filename is present exactly once",
-        "Confirm the HTML content is encoded as UTF-8",
-        "Confirm linked asset paths have not been rewritten unintentionally"
-      ]
-    },
-    "exceptions": [
-      "Return a raw HTML fragment when an expansion prompt explicitly requests fragment-only output",
-      "Return source text directly when the user explicitly requests inline code rather than a downloadable artifact",
-      "Use another format when the user explicitly requests it"
-    ]
   }
 }

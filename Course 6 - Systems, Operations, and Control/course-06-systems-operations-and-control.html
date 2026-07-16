@@ -1,33 +1,36 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Course 6 of the Learning Library: Systems, Operations, and Control, a conceptual course on responsibility, coordination, verification, feedback, automation, and exception handling in complex systems.">
-  <title>Course 6 — Systems, Operations, and Control | Learning Library</title>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="Course 6 of the Learning Library: Systems, Operations, and Control, a conceptual course on responsibility, coordination, verification, feedback, automation, and exception handling in complex systems." name="description"/>
+<title>Course 6 — Systems, Operations, and Control | Learning Library</title>
 
+  &lt;!-- Navigation metadata conforms to LL-EAS 4.5. --&gt;
   <script id="lesson-metadata" type="application/json">
-  {
-    "document_slug": "course-06-systems-operations-and-control",
-    "document_title": "Systems, Operations, and Control",
-    "course": "Course 6 — Systems, Operations, and Control",
-    "lesson_number": 0,
-    "version": "1.0",
-    "section_count": 6,
-    "image_count": 0,
-    "svg_count": 1,
-    "expansion_count": 0,
-    "prerequisites": [],
-    "previous_lesson": "https://kevinlinstrum001.github.io/learning-library/course-index.html",
-    "next_lesson": "course-06-lesson-01-systems-boundaries-and-responsibilities.html",
-    "document_type": "course",
-    "authoring_standard": "LL-EAS 4.3"
-  }
+{
+  "document_slug": "course-06-systems-operations-and-control",
+  "document_title": "Systems, Operations, and Control",
+  "course": "Course 6 — Systems, Operations, and Control",
+  "lesson_number": 0,
+  "version": "1.1",
+  "section_count": 6,
+  "image_count": 0,
+  "svg_count": 1,
+  "expansion_count": 0,
+  "prerequisites": [],
+  "previous_lesson": "https://kevinlinstrum001.github.io/learning-library/course-index.html",
+  "next_lesson": "course-06-lesson-01-systems-boundaries-and-responsibilities.html",
+  "document_type": "course",
+  "authoring_standard": "LL-EAS 4.5",
+  "site_root": "https://kevinlinstrum001.github.io/learning-library/",
+  "site_home": "https://kevinlinstrum001.github.io/learning-library/",
+  "course_overview": null
+}
   </script>
-
-  <link rel="stylesheet" href="../textbooker/css/lesson.css">
-
-  <style>
+<link href="../textbooker/css/lesson.css" rel="stylesheet"/>
+<style>
     :root {
       --ink: #162033;
       --muted: #5d6878;
@@ -131,7 +134,7 @@
 
     .course-nav a:hover { background: rgba(255,255,255,.12); }
 
-    .course-nav .course-index-link {
+    .course-nav .site-home-link {
       color: #f4e9cf;
       border: 1px solid rgba(244,233,207,.35);
     }
@@ -554,400 +557,365 @@
     }
   </style>
 </head>
-
 <body id="top">
-  <a class="skip-link" href="#main-content">Skip to course content</a>
+<a class="skip-link" href="#main-content">Skip to course content</a>
+<div aria-hidden="true" class="reading-progress">
+<span id="reading-progress-bar"></span>
+</div>
+<nav aria-label="Course navigation" class="course-nav"><a class="site-home-link" href="https://kevinlinstrum001.github.io/learning-library/">← Learning Library</a>
 
-  <div class="reading-progress" aria-hidden="true">
-    <span id="reading-progress-bar"></span>
-  </div>
 
-  <nav class="course-nav" aria-label="Course navigation">
-    <a class="course-index-link" href="https://kevinlinstrum001.github.io/learning-library/course-index.html">← Course Index</a>
-    <a href="#purpose">Purpose</a>
-    <a href="#prerequisites">Prerequisites</a>
-    <a href="#skills">Skills</a>
-    <a href="#pathway">Core Model</a>
-    <a href="#lessons">Lessons</a>
-    <a href="#next-course">Next Connection</a>
-  </nav>
-
-  <header class="course-hero">
-    <div class="hero-inner">
-      <p class="eyebrow">Learning Library · Course 06</p>
-      <h1>Systems, Operations, and Control</h1>
-      <p class="hero-copy">
+<a href="#purpose">Purpose</a>
+<a href="#prerequisites">Prerequisites</a>
+<a href="#skills">Skills</a>
+<a href="#pathway">Core Model</a>
+<a href="#lessons">Lessons</a>
+<a href="#next-course">Next Connection</a>
+</nav>
+<header class="course-hero">
+<div class="hero-inner">
+<p class="eyebrow">Learning Library · Course 06</p>
+<h1>Systems, Operations, and Control</h1>
+<p class="hero-copy">
         Learn how complex human and technical systems convert intent into coordinated action,
         verify execution, respond to physical feedback, and manage exceptions without requiring
         one person or component to perform the entire job.
       </p>
-      <div class="course-meta-strip" aria-label="Course information">
-        <span>Prerequisites: none</span>
-        <span>10 lessons</span>
-        <span>Human and technical systems</span>
-        <span>Conceptual before mathematical</span>
-      </div>
-      <div class="hero-actions">
-        <a class="primary" href="course-06-lesson-01-systems-boundaries-and-responsibilities.html">Begin Lesson 1</a>
-        <a class="secondary" href="#lessons">View all lessons</a>
-      </div>
-    </div>
-  </header>
-
-  <main id="main-content">
-    <nav class="toc" aria-labelledby="toc-title">
-      <h2 id="toc-title">Course contents</h2>
-      <ol>
-        <li><a href="#purpose">Course purpose</a></li>
-        <li><a href="#prerequisites">Prerequisites</a></li>
-        <li><a href="#skills">Skills gained</a></li>
-        <li><a href="#pathway">Core model</a></li>
-        <li><a href="#lessons">Lesson index</a></li>
-        <li><a href="#next-course">Next connection</a></li>
-      </ol>
-    </nav>
-
-    <section class="course-section" id="purpose" aria-labelledby="purpose-title">
-      <p class="section-kicker">Course purpose</p>
-      <h2 id="purpose-title">Understand how coordinated systems actually work</h2>
-      <p class="lead">
+<div aria-label="Course information" class="course-meta-strip">
+<span>Prerequisites: none</span>
+<span>10 lessons</span>
+<span>Human and technical systems</span>
+<span>Conceptual before mathematical</span>
+</div>
+<div class="hero-actions">
+<a class="primary" href="course-06-lesson-01-systems-boundaries-and-responsibilities.html">Begin Lesson 1</a>
+<a class="secondary" href="#lessons">View all lessons</a>
+</div>
+</div>
+</header>
+<main id="main-content">
+<nav aria-labelledby="toc-title" class="toc">
+<h2 id="toc-title">Course contents</h2>
+<ol>
+<li><a href="#purpose">Course purpose</a></li>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#skills">Skills gained</a></li>
+<li><a href="#pathway">Core model</a></li>
+<li><a href="#lessons">Lesson index</a></li>
+<li><a href="#next-course">Next connection</a></li>
+</ol>
+</nav>
+<section aria-labelledby="purpose-title" class="course-section" id="purpose">
+<p class="section-kicker">Course purpose</p>
+<h2 id="purpose-title">Understand how coordinated systems actually work</h2>
+<p class="lead">
         Complex systems succeed by dividing responsibility, defining interfaces, and keeping
         declared intent connected to physical reality. This course studies that structure across
         organizations, machinery, software, and automated control.
       </p>
-      <p>
+<p>
         The course begins with system boundaries and responsibility, then follows the path from
         intent through procedure, execution, verification, feedback, and automatic response. It
         also examines operating states, exceptions, overrides, distributed coordination, and the
         role of qualified human operators in safety-critical environments.
       </p>
-
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>Human systems</h3>
-          <p>Naval watch teams, hospital response teams, utilities, and industrial organizations show how authority and work are distributed.</p>
-        </article>
-        <article class="info-card">
-          <h3>Technical systems</h3>
-          <p>Software, sensors, controllers, interlocks, and machines show how state and feedback move through engineered interfaces.</p>
-        </article>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-06-overview-purpose-explanation" data-section-id="purpose" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the course purpose</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Understand how coordinated systems actually work" using the supplied section HTML as context. Deepen the explanation of why complex systems divide authority, responsibility, execution, and feedback. Add one comparative example involving a ship, hospital, utility, industrial process, or software service. Clarify likely beginner confusion between an organization and a system. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-06-overview-purpose-practice" data-section-id="purpose" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a system-recognition activity</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Understand how coordinated systems actually work" as context, create a short activity that asks the learner to identify purpose, boundary, environment, responsibility, and feedback in three everyday systems. Include hints and collapsible explanations. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="prerequisites" aria-labelledby="prerequisites-title">
-      <p class="section-kicker">Prerequisites</p>
-      <h2 id="prerequisites-title">Begin with experience, not equations</h2>
-      <p class="lead">
+<div class="info-grid">
+<article class="info-card">
+<h3>Human systems</h3>
+<p>Naval watch teams, hospital response teams, utilities, and industrial organizations show how authority and work are distributed.</p>
+</article>
+<article class="info-card">
+<h3>Technical systems</h3>
+<p>Software, sensors, controllers, interlocks, and machines show how state and feedback move through engineered interfaces.</p>
+</article>
+</div>
+<div class="prompt-stack">
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-purpose-explanation" data-prompt-status="planned" data-prompt-type="explanation" data-section-id="purpose">
+<summary>Expand the course purpose</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Expand the section titled "Understand how coordinated systems actually work" using the supplied section HTML as context. Deepen the explanation of why complex systems divide authority, responsibility, execution, and feedback. Add one comparative example involving a ship, hospital, utility, industrial process, or software service. Clarify likely beginner confusion between an organization and a system. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-purpose-practice" data-prompt-status="planned" data-prompt-type="practice" data-section-id="purpose">
+<summary>Add a system-recognition activity</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Using the supplied HTML for "Understand how coordinated systems actually work" as context, create a short activity that asks the learner to identify purpose, boundary, environment, responsibility, and feedback in three everyday systems. Include hints and collapsible explanations. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+</div>
+</section>
+<section aria-labelledby="prerequisites-title" class="course-section" id="prerequisites">
+<p class="section-kicker">Prerequisites</p>
+<h2 id="prerequisites-title">Begin with experience, not equations</h2>
+<p class="lead">
         No prior course is required for the conceptual lessons. Familiarity with organized work,
         technical equipment, software, or procedures is useful, but the course introduces its
         vocabulary from first principles.
       </p>
-
-      <div class="info-grid">
-        <article class="info-card">
-          <h3>Useful background</h3>
-          <p>Any experience following procedures, coordinating with others, troubleshooting equipment, or using software can supply examples.</p>
-        </article>
-        <article class="info-card">
-          <h3>Later mathematical work</h3>
-          <p>Course 1 becomes useful when the subject reaches signals, quantitative feedback, stability, or formal control theory.</p>
-        </article>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-06-overview-prerequisites-explanation" data-section-id="prerequisites" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand prerequisite guidance</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Begin with experience, not equations" using the supplied section HTML as context. Explain how ordinary experience with work, tools, teams, and software provides enough background for the conceptual lessons. Distinguish those lessons from later mathematical control theory. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-06-overview-prerequisites-practice" data-section-id="prerequisites" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add an experience inventory</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Begin with experience, not equations" as context, create a brief learner inventory asking for examples of procedures, handoffs, status reports, sensors, automatic responses, and exceptions from the learner's experience. Include guidance for learners who cannot think of technical examples. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="skills" aria-labelledby="skills-title">
-      <p class="section-kicker">Skills gained</p>
-      <h2 id="skills-title">What you will be able to analyze</h2>
-      <p class="lead">
+<div class="info-grid">
+<article class="info-card">
+<h3>Useful background</h3>
+<p>Any experience following procedures, coordinating with others, troubleshooting equipment, or using software can supply examples.</p>
+</article>
+<article class="info-card">
+<h3>Later mathematical work</h3>
+<p>Course 1 becomes useful when the subject reaches signals, quantitative feedback, stability, or formal control theory.</p>
+</article>
+</div>
+<div class="prompt-stack">
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-prerequisites-explanation" data-prompt-status="planned" data-prompt-type="explanation" data-section-id="prerequisites">
+<summary>Expand prerequisite guidance</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Expand the section titled "Begin with experience, not equations" using the supplied section HTML as context. Explain how ordinary experience with work, tools, teams, and software provides enough background for the conceptual lessons. Distinguish those lessons from later mathematical control theory. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-prerequisites-practice" data-prompt-status="planned" data-prompt-type="practice" data-section-id="prerequisites">
+<summary>Add an experience inventory</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Using the supplied HTML for "Begin with experience, not equations" as context, create a brief learner inventory asking for examples of procedures, handoffs, status reports, sensors, automatic responses, and exceptions from the learner's experience. Include guidance for learners who cannot think of technical examples. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+</div>
+</section>
+<section aria-labelledby="skills-title" class="course-section" id="skills">
+<p class="section-kicker">Skills gained</p>
+<h2 id="skills-title">What you will be able to analyze</h2>
+<p class="lead">
         By the end of the course, you will be able to describe how responsibility, state,
         information, feedback, and control are distributed through a complex system.
       </p>
-
-      <div class="skills-grid">
-        <article class="skill-card"><h3>Define the system</h3><p>Identify purpose, boundary, environment, components, interfaces, and assigned responsibilities.</p></article>
-        <article class="skill-card"><h3>Trace intent into action</h3><p>Explain how commands or goals become procedures, tasks, acknowledgments, and reports.</p></article>
-        <article class="skill-card"><h3>Compare state and reality</h3><p>Distinguish declared conditions, configured state, measured state, and actual physical behavior.</p></article>
-        <article class="skill-card"><h3>Analyze feedback</h3><p>Recognize sensors, reports, alarms, verification steps, and other channels that close the loop.</p></article>
-        <article class="skill-card"><h3>Evaluate automation</h3><p>Separate human authority from automatic response, limits, interlocks, and machine supervision.</p></article>
-        <article class="skill-card"><h3>Manage exceptions</h3><p>Describe overrides, modified conditions, degraded modes, restoration, and failure containment.</p></article>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-06-overview-skills-explanation" data-section-id="skills" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the skills map</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "What you will be able to analyze" using the supplied section HTML as context. Connect each skill to one practical example from naval operations, hospitals, utilities, industrial systems, software, or automated control. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-06-overview-skills-practice" data-section-id="skills" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a skills self-assessment</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "What you will be able to analyze" as context, create a learner self-assessment covering system boundaries, responsibility, state, feedback, automation, and exception handling. Include a suggested study response for each rating. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="pathway" aria-labelledby="pathway-title">
-      <p class="section-kicker">Core model</p>
-      <h2 id="pathway-title">From intent to verified response</h2>
-      <p class="lead">
+<div class="skills-grid">
+<article class="skill-card"><h3>Define the system</h3><p>Identify purpose, boundary, environment, components, interfaces, and assigned responsibilities.</p></article>
+<article class="skill-card"><h3>Trace intent into action</h3><p>Explain how commands or goals become procedures, tasks, acknowledgments, and reports.</p></article>
+<article class="skill-card"><h3>Compare state and reality</h3><p>Distinguish declared conditions, configured state, measured state, and actual physical behavior.</p></article>
+<article class="skill-card"><h3>Analyze feedback</h3><p>Recognize sensors, reports, alarms, verification steps, and other channels that close the loop.</p></article>
+<article class="skill-card"><h3>Evaluate automation</h3><p>Separate human authority from automatic response, limits, interlocks, and machine supervision.</p></article>
+<article class="skill-card"><h3>Manage exceptions</h3><p>Describe overrides, modified conditions, degraded modes, restoration, and failure containment.</p></article>
+</div>
+<div class="prompt-stack">
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-skills-explanation" data-prompt-status="planned" data-prompt-type="explanation" data-section-id="skills">
+<summary>Expand the skills map</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Expand the section titled "What you will be able to analyze" using the supplied section HTML as context. Connect each skill to one practical example from naval operations, hospitals, utilities, industrial systems, software, or automated control. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-skills-practice" data-prompt-status="planned" data-prompt-type="practice" data-section-id="skills">
+<summary>Add a skills self-assessment</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Using the supplied HTML for "What you will be able to analyze" as context, create a learner self-assessment covering system boundaries, responsibility, state, feedback, automation, and exception handling. Include a suggested study response for each rating. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+</div>
+</section>
+<section aria-labelledby="pathway-title" class="course-section" id="pathway">
+<p class="section-kicker">Core model</p>
+<h2 id="pathway-title">From intent to verified response</h2>
+<p class="lead">
         The course uses a six-part model to connect human authority, organized work, physical
         reality, and automatic behavior. Later lessons separate these layers so their interfaces
         and responsibilities can be examined clearly.
       </p>
-
-      <div class="model-grid">
-        <article class="model-card"><h3>1. Intent</h3><p>The desired condition, goal, command, or outcome.</p></article>
-        <article class="model-card"><h3>2. Procedure</h3><p>The authorized method that translates intent into required actions.</p></article>
-        <article class="model-card"><h3>3. Execution</h3><p>The distributed work performed by people, teams, software, or equipment.</p></article>
-        <article class="model-card"><h3>4. Verification</h3><p>Acknowledgments, completion reports, tests, and discrepancy tracking.</p></article>
-        <article class="model-card"><h3>5. Physical feedback</h3><p>Measurements and observations showing what the system is actually doing.</p></article>
-        <article class="model-card"><h3>6. Automatic response</h3><p>Defined machine or software reactions to state, inputs, limits, or feedback.</p></article>
-      </div>
-
-      <figure class="pathway-diagram" id="course-06-systems-operations-and-control-04-concept-diagram-01">
-        <svg viewBox="0 0 1180 470" role="img" aria-labelledby="core-model-title core-model-desc" preserveAspectRatio="xMidYMid meet">
-          <title id="core-model-title">Course 6 core model from intent to automatic response</title>
-          <desc id="core-model-desc">Six labeled nodes show intent, procedure, execution, verification, physical feedback, and automatic response. Arrows show forward coordination and a return feedback path to the operational picture.</desc>
-          <defs>
-            <marker id="course-06-arrowhead" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
-              <path d="M 0 0 L 10 5 L 0 10 z" fill="#173b63"></path>
-            </marker>
-          </defs>
-
-          <g font-family="Inter, system-ui, sans-serif">
-            <rect x="40" y="70" width="300" height="105" rx="18" fill="#fbf7ed" stroke="#d6bc82" stroke-width="2"></rect>
-            <text x="190" y="112" text-anchor="middle" font-size="25" font-weight="800" fill="#173b63">Intent</text>
-            <text x="190" y="143" text-anchor="middle" font-size="16" fill="#5d6878">Desired condition or outcome</text>
-
-            <rect x="440" y="70" width="300" height="105" rx="18" fill="#e3f0f7" stroke="#8fb4ca" stroke-width="2"></rect>
-            <text x="590" y="112" text-anchor="middle" font-size="25" font-weight="800" fill="#173b63">Procedure</text>
-            <text x="590" y="143" text-anchor="middle" font-size="16" fill="#5d6878">Authorized method and sequence</text>
-
-            <rect x="840" y="70" width="300" height="105" rx="18" fill="#edf5f1" stroke="#a8c7ba" stroke-width="2"></rect>
-            <text x="990" y="112" text-anchor="middle" font-size="25" font-weight="800" fill="#173b63">Execution</text>
-            <text x="990" y="143" text-anchor="middle" font-size="16" fill="#5d6878">Distributed work by assigned parts</text>
-
-            <rect x="840" y="285" width="300" height="105" rx="18" fill="#eef4f8" stroke="#9bb7c9" stroke-width="2"></rect>
-            <text x="990" y="327" text-anchor="middle" font-size="25" font-weight="800" fill="#173b63">Verification</text>
-            <text x="990" y="358" text-anchor="middle" font-size="16" fill="#5d6878">Reports, tests, and discrepancies</text>
-
-            <rect x="440" y="285" width="300" height="105" rx="18" fill="#f8efec" stroke="#d4afa2" stroke-width="2"></rect>
-            <text x="590" y="327" text-anchor="middle" font-size="25" font-weight="800" fill="#173b63">Physical feedback</text>
-            <text x="590" y="358" text-anchor="middle" font-size="16" fill="#5d6878">Measured or observed reality</text>
-
-            <rect x="40" y="285" width="300" height="105" rx="18" fill="#f1eef7" stroke="#b8acd0" stroke-width="2"></rect>
-            <text x="190" y="327" text-anchor="middle" font-size="25" font-weight="800" fill="#173b63">Automatic response</text>
-            <text x="190" y="358" text-anchor="middle" font-size="16" fill="#5d6878">Defined machine or software action</text>
-
-            <line x1="340" y1="122" x2="425" y2="122" stroke="#173b63" stroke-width="2" marker-end="url(#course-06-arrowhead)"></line>
-            <line x1="740" y1="122" x2="825" y2="122" stroke="#173b63" stroke-width="2" marker-end="url(#course-06-arrowhead)"></line>
-            <line x1="990" y1="175" x2="990" y2="270" stroke="#173b63" stroke-width="2" marker-end="url(#course-06-arrowhead)"></line>
-            <line x1="840" y1="337" x2="755" y2="337" stroke="#173b63" stroke-width="2" marker-end="url(#course-06-arrowhead)"></line>
-            <line x1="440" y1="337" x2="355" y2="337" stroke="#173b63" stroke-width="2" marker-end="url(#course-06-arrowhead)"></line>
-
-            <path d="M 190 285 C 190 235, 590 235, 590 190" fill="none" stroke="#447464" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#course-06-arrowhead)"></path>
-            <text x="390" y="224" text-anchor="middle" font-size="15" font-weight="700" fill="#447464">response changes system state</text>
-
-            <path d="M 590 285 C 590 235, 190 235, 190 190" fill="none" stroke="#c79a45" stroke-width="2" stroke-dasharray="7 6" marker-end="url(#course-06-arrowhead)"></path>
-            <text x="392" y="259" text-anchor="middle" font-size="15" font-weight="700" fill="#8a6a2d">feedback updates the operational picture</text>
-          </g>
-        </svg>
-        <figcaption>
+<div class="model-grid">
+<article class="model-card"><h3>1. Intent</h3><p>The desired condition, goal, command, or outcome.</p></article>
+<article class="model-card"><h3>2. Procedure</h3><p>The authorized method that translates intent into required actions.</p></article>
+<article class="model-card"><h3>3. Execution</h3><p>The distributed work performed by people, teams, software, or equipment.</p></article>
+<article class="model-card"><h3>4. Verification</h3><p>Acknowledgments, completion reports, tests, and discrepancy tracking.</p></article>
+<article class="model-card"><h3>5. Physical feedback</h3><p>Measurements and observations showing what the system is actually doing.</p></article>
+<article class="model-card"><h3>6. Automatic response</h3><p>Defined machine or software reactions to state, inputs, limits, or feedback.</p></article>
+</div>
+<figure class="pathway-diagram" id="course-06-systems-operations-and-control-04-concept-diagram-01">
+<svg aria-labelledby="core-model-title core-model-desc" preserveaspectratio="xMidYMid meet" role="img" viewbox="0 0 1180 470">
+<title id="core-model-title">Course 6 core model from intent to automatic response</title>
+<desc id="core-model-desc">Six labeled nodes show intent, procedure, execution, verification, physical feedback, and automatic response. Arrows show forward coordination and a return feedback path to the operational picture.</desc>
+<defs>
+<marker id="course-06-arrowhead" markerheight="5" markerwidth="5" orient="auto-start-reverse" refx="8" refy="5" viewbox="0 0 10 10">
+<path d="M 0 0 L 10 5 L 0 10 z" fill="#173b63"></path>
+</marker>
+</defs>
+<g font-family="Inter, system-ui, sans-serif">
+<rect fill="#fbf7ed" height="105" rx="18" stroke="#d6bc82" stroke-width="2" width="300" x="40" y="70"></rect>
+<text fill="#173b63" font-size="25" font-weight="800" text-anchor="middle" x="190" y="112">Intent</text>
+<text fill="#5d6878" font-size="16" text-anchor="middle" x="190" y="143">Desired condition or outcome</text>
+<rect fill="#e3f0f7" height="105" rx="18" stroke="#8fb4ca" stroke-width="2" width="300" x="440" y="70"></rect>
+<text fill="#173b63" font-size="25" font-weight="800" text-anchor="middle" x="590" y="112">Procedure</text>
+<text fill="#5d6878" font-size="16" text-anchor="middle" x="590" y="143">Authorized method and sequence</text>
+<rect fill="#edf5f1" height="105" rx="18" stroke="#a8c7ba" stroke-width="2" width="300" x="840" y="70"></rect>
+<text fill="#173b63" font-size="25" font-weight="800" text-anchor="middle" x="990" y="112">Execution</text>
+<text fill="#5d6878" font-size="16" text-anchor="middle" x="990" y="143">Distributed work by assigned parts</text>
+<rect fill="#eef4f8" height="105" rx="18" stroke="#9bb7c9" stroke-width="2" width="300" x="840" y="285"></rect>
+<text fill="#173b63" font-size="25" font-weight="800" text-anchor="middle" x="990" y="327">Verification</text>
+<text fill="#5d6878" font-size="16" text-anchor="middle" x="990" y="358">Reports, tests, and discrepancies</text>
+<rect fill="#f8efec" height="105" rx="18" stroke="#d4afa2" stroke-width="2" width="300" x="440" y="285"></rect>
+<text fill="#173b63" font-size="25" font-weight="800" text-anchor="middle" x="590" y="327">Physical feedback</text>
+<text fill="#5d6878" font-size="16" text-anchor="middle" x="590" y="358">Measured or observed reality</text>
+<rect fill="#f1eef7" height="105" rx="18" stroke="#b8acd0" stroke-width="2" width="300" x="40" y="285"></rect>
+<text fill="#173b63" font-size="25" font-weight="800" text-anchor="middle" x="190" y="327">Automatic response</text>
+<text fill="#5d6878" font-size="16" text-anchor="middle" x="190" y="358">Defined machine or software action</text>
+<line marker-end="url(#course-06-arrowhead)" stroke="#173b63" stroke-width="2" x1="340" x2="425" y1="122" y2="122"></line>
+<line marker-end="url(#course-06-arrowhead)" stroke="#173b63" stroke-width="2" x1="740" x2="825" y1="122" y2="122"></line>
+<line marker-end="url(#course-06-arrowhead)" stroke="#173b63" stroke-width="2" x1="990" x2="990" y1="175" y2="270"></line>
+<line marker-end="url(#course-06-arrowhead)" stroke="#173b63" stroke-width="2" x1="840" x2="755" y1="337" y2="337"></line>
+<line marker-end="url(#course-06-arrowhead)" stroke="#173b63" stroke-width="2" x1="440" x2="355" y1="337" y2="337"></line>
+<path d="M 190 285 C 190 235, 590 235, 590 190" fill="none" marker-end="url(#course-06-arrowhead)" stroke="#447464" stroke-dasharray="7 6" stroke-width="2"></path>
+<text fill="#447464" font-size="15" font-weight="700" text-anchor="middle" x="390" y="224">response changes system state</text>
+<path d="M 590 285 C 590 235, 190 235, 190 190" fill="none" marker-end="url(#course-06-arrowhead)" stroke="#c79a45" stroke-dasharray="7 6" stroke-width="2"></path>
+<text fill="#8a6a2d" font-size="15" font-weight="700" text-anchor="middle" x="392" y="259">feedback updates the operational picture</text>
+</g>
+</svg>
+<figcaption>
           The layers are separated by responsibility, but they operate as one connected system. Verification and physical feedback keep declared intent tied to actual conditions.
         </figcaption>
-      </figure>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-06-overview-pathway-explanation" data-section-id="pathway" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the core model</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "From intent to verified response" using the supplied section HTML as context. Deepen the explanation of the six-layer model, show why each layer has a distinct responsibility, and add one compact worked comparison across a ship, hospital, or software system. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-06-overview-pathway-practice" data-section-id="pathway" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a layer-mapping activity</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "From intent to verified response" as context, create a progressive activity that asks learners to map intent, procedure, execution, verification, physical feedback, and automatic response in two unfamiliar systems. Include hints and collapsible solutions. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-06-overview-pathway-visual" data-section-id="pathway" data-prompt-type="visual" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the visual model</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Review the supplied HTML for "From intent to verified response" and expand its visual explanation of the six-layer systems model. Return an accessible inline SVG with thin connectors, small arrowheads, direct labels, clear node-to-node corridors, and no lines crossing text. Preserve the existing figure, IDs, and classes. Return only the new semantic HTML fragment to insert immediately before this visual card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="lessons" aria-labelledby="lessons-title">
-      <p class="section-kicker">Lesson index</p>
-      <h2 id="lessons-title">Ten lessons from boundaries to comparative analysis</h2>
-      <p class="lead">
+</figure>
+<div class="prompt-stack">
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-pathway-explanation" data-prompt-status="planned" data-prompt-type="explanation" data-section-id="pathway">
+<summary>Expand the core model</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Expand the section titled "From intent to verified response" using the supplied section HTML as context. Deepen the explanation of the six-layer model, show why each layer has a distinct responsibility, and add one compact worked comparison across a ship, hospital, or software system. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-pathway-practice" data-prompt-status="planned" data-prompt-type="practice" data-section-id="pathway">
+<summary>Add a layer-mapping activity</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Using the supplied HTML for "From intent to verified response" as context, create a progressive activity that asks learners to map intent, procedure, execution, verification, physical feedback, and automatic response in two unfamiliar systems. Include hints and collapsible solutions. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-pathway-visual" data-prompt-status="planned" data-prompt-type="visual" data-section-id="pathway">
+<summary>Expand the visual model</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Review the supplied HTML for "From intent to verified response" and expand its visual explanation of the six-layer systems model. Return an accessible inline SVG with thin connectors, small arrowheads, direct labels, clear node-to-node corridors, and no lines crossing text. Preserve the existing figure, IDs, and classes. Return only the new semantic HTML fragment to insert immediately before this visual card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+</div>
+</section>
+<section aria-labelledby="lessons-title" class="course-section" id="lessons">
+<p class="section-kicker">Lesson index</p>
+<h2 id="lessons-title">Ten lessons from boundaries to comparative analysis</h2>
+<p class="lead">
         The sequence begins by defining systems and responsibilities, then adds state, feedback,
         automation, exceptions, human operators, and cross-domain comparison.
       </p>
-
-      <div class="lesson-list">
-        <a class="lesson-card" href="course-06-lesson-01-systems-boundaries-and-responsibilities.html">
-          <span class="lesson-number">1</span>
-          <span><span class="lesson-title">Systems, Boundaries, and Responsibilities</span><span class="lesson-description">Define a system, its purpose, environment, interfaces, and assigned responsibilities.</span></span>
-          <span class="lesson-status">Begin</span>
-        </a>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">2</span>
-          <span><span class="lesson-title">Intent, Procedure, and Execution</span><span class="lesson-description">Follow high-level intent into authorized procedure and distributed action.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">3</span>
-          <span><span class="lesson-title">Verification and Closed-Loop Reporting</span><span class="lesson-description">Study acknowledgments, completion reports, discrepancies, and confirmation.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">4</span>
-          <span><span class="lesson-title">State, Conditions, and Configuration</span><span class="lesson-description">Separate declared state, configured state, and actual state.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">5</span>
-          <span><span class="lesson-title">Sensors and Physical Feedback</span><span class="lesson-description">Examine how systems observe physical reality and return information.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">6</span>
-          <span><span class="lesson-title">Automatic Response and Control</span><span class="lesson-description">Explain controllers, interlocks, limits, automatic reactions, and supervision.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">7</span>
-          <span><span class="lesson-title">Exceptions, Overrides, and Modified Conditions</span><span class="lesson-description">Study authorized deviations, degraded modes, overrides, and restoration.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">8</span>
-          <span><span class="lesson-title">Distributed Coordination</span><span class="lesson-description">Coordinate departments, stations, services, and components through interfaces.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">9</span>
-          <span><span class="lesson-title">Human Operators in Safety-Critical Systems</span><span class="lesson-description">Analyze qualification, authority, workload, communication, and human-machine boundaries.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-        <div class="lesson-card is-planned">
-          <span class="lesson-number">10</span>
-          <span><span class="lesson-title">Comparative Case Studies</span><span class="lesson-description">Compare ships, hospitals, utilities, industry, and software with one model.</span></span>
-          <span class="lesson-status">Planned</span>
-        </div>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-06-overview-lessons-explanation" data-section-id="lessons" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the lesson sequence</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "Ten lessons from boundaries to comparative analysis" using the supplied section HTML as context. Explain why the lesson order moves from system definition to coordination, feedback, automation, exceptions, human operators, and comparative case studies. Preserve all existing IDs, classes, lesson titles, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-06-overview-lessons-practice" data-section-id="lessons" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a course-planning activity</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "Ten lessons from boundaries to comparative analysis" as context, create a short planning activity that asks learners to predict which lessons will help analyze a chosen system and explain why. Include hints and a collapsible model response. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-
-    <section class="course-section" id="next-course" aria-labelledby="next-course-title">
-      <p class="section-kicker">Next connection</p>
-      <h2 id="next-course-title">From conceptual control to formal control theory</h2>
-      <p class="lead">
+<div class="lesson-list">
+<a class="lesson-card" href="course-06-lesson-01-systems-boundaries-and-responsibilities.html">
+<span class="lesson-number">1</span>
+<span><span class="lesson-title">Systems, Boundaries, and Responsibilities</span><span class="lesson-description">Define a system, its purpose, environment, interfaces, and assigned responsibilities.</span></span>
+<span class="lesson-status">Begin</span>
+</a>
+<div class="lesson-card is-planned">
+<span class="lesson-number">2</span>
+<span><span class="lesson-title">Intent, Procedure, and Execution</span><span class="lesson-description">Follow high-level intent into authorized procedure and distributed action.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">3</span>
+<span><span class="lesson-title">Verification and Closed-Loop Reporting</span><span class="lesson-description">Study acknowledgments, completion reports, discrepancies, and confirmation.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">4</span>
+<span><span class="lesson-title">State, Conditions, and Configuration</span><span class="lesson-description">Separate declared state, configured state, and actual state.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">5</span>
+<span><span class="lesson-title">Sensors and Physical Feedback</span><span class="lesson-description">Examine how systems observe physical reality and return information.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">6</span>
+<span><span class="lesson-title">Automatic Response and Control</span><span class="lesson-description">Explain controllers, interlocks, limits, automatic reactions, and supervision.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">7</span>
+<span><span class="lesson-title">Exceptions, Overrides, and Modified Conditions</span><span class="lesson-description">Study authorized deviations, degraded modes, overrides, and restoration.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">8</span>
+<span><span class="lesson-title">Distributed Coordination</span><span class="lesson-description">Coordinate departments, stations, services, and components through interfaces.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">9</span>
+<span><span class="lesson-title">Human Operators in Safety-Critical Systems</span><span class="lesson-description">Analyze qualification, authority, workload, communication, and human-machine boundaries.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+<div class="lesson-card is-planned">
+<span class="lesson-number">10</span>
+<span><span class="lesson-title">Comparative Case Studies</span><span class="lesson-description">Compare ships, hospitals, utilities, industry, and software with one model.</span></span>
+<span class="lesson-status">Planned</span>
+</div>
+</div>
+<div class="prompt-stack">
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-lessons-explanation" data-prompt-status="planned" data-prompt-type="explanation" data-section-id="lessons">
+<summary>Expand the lesson sequence</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Expand the section titled "Ten lessons from boundaries to comparative analysis" using the supplied section HTML as context. Explain why the lesson order moves from system definition to coordination, feedback, automation, exceptions, human operators, and comparative case studies. Preserve all existing IDs, classes, lesson titles, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-lessons-practice" data-prompt-status="planned" data-prompt-type="practice" data-section-id="lessons">
+<summary>Add a course-planning activity</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Using the supplied HTML for "Ten lessons from boundaries to comparative analysis" as context, create a short planning activity that asks learners to predict which lessons will help analyze a chosen system and explain why. Include hints and a collapsible model response. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+</div>
+</section>
+<section aria-labelledby="next-course-title" class="course-section" id="next-course">
+<p class="section-kicker">Next connection</p>
+<h2 id="next-course-title">From conceptual control to formal control theory</h2>
+<p class="lead">
         This course establishes the language of state, responsibility, interfaces, feedback,
         disturbances, and response. Those concepts prepare the learner for later work in signals,
         control theory, software architecture, and systems engineering.
       </p>
-
-      <div class="connection-card">
-        <h3>Why the conceptual model comes first</h3>
-        <p>
+<div class="connection-card">
+<h3>Why the conceptual model comes first</h3>
+<p>
           Equations can describe gain, stability, delay, and response, but they do not by themselves
           identify who has authority, where a boundary belongs, what a sensor represents, or how an
           exception is reported and restored. The operational model supplies that context before the
           mathematics becomes formal.
         </p>
-      </div>
-
-      <div class="prompt-stack">
-        <details class="learning-prompt" data-prompt-id="course-06-overview-next-explanation" data-section-id="next-course" data-prompt-type="explanation" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Expand the next-course connection</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Expand the section titled "From conceptual control to formal control theory" using the supplied section HTML as context. Connect the course vocabulary of state, feedback, disturbance, response, and interfaces to later study in signals, mathematical control theory, software architecture, and systems engineering. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-        <details class="learning-prompt" data-prompt-id="course-06-overview-next-practice" data-section-id="next-course" data-prompt-type="practice" data-prompt-status="planned" data-insert-position="before-card">
-          <summary>Add a transition activity</summary>
-          <div class="prompt-body">
-            <pre class="prompt-text">Using the supplied HTML for "From conceptual control to formal control theory" as context, create a short transition activity that asks learners to match Course 6 concepts with later topics in signals, control theory, software architecture, and systems engineering. Include hints and collapsible explanations. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
-            <button class="copy-prompt" type="button">Copy prompt</button>
-          </div>
-        </details>
-      </div>
-    </section>
-  </main>
-
-  <nav class="footer-nav" aria-label="Course navigation">
-    <a class="previous" href="https://kevinlinstrum001.github.io/learning-library/course-index.html">← Course Index</a>
-    <a class="course" href="#top">Course 6 Overview</a>
-    <a class="next" href="course-06-lesson-01-systems-boundaries-and-responsibilities.html">Lesson 1: Systems and Boundaries →</a>
-  </nav>
-
-  <footer>
-    Learning Library · Course 6 — Systems, Operations, and Control · LL-EAS 4.3
+</div>
+<div class="prompt-stack">
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-next-explanation" data-prompt-status="planned" data-prompt-type="explanation" data-section-id="next-course">
+<summary>Expand the next-course connection</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Expand the section titled "From conceptual control to formal control theory" using the supplied section HTML as context. Connect the course vocabulary of state, feedback, disturbance, response, and interfaces to later study in signals, mathematical control theory, software architecture, and systems engineering. Preserve all existing IDs, classes, and content. Return only the new semantic HTML fragment to insert immediately before this explanation card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+<details class="learning-prompt" data-insert-position="before-card" data-prompt-id="course-06-overview-next-practice" data-prompt-status="planned" data-prompt-type="practice" data-section-id="next-course">
+<summary>Add a transition activity</summary>
+<div class="prompt-body">
+<pre class="prompt-text">Using the supplied HTML for "From conceptual control to formal control theory" as context, create a short transition activity that asks learners to match Course 6 concepts with later topics in signals, control theory, software architecture, and systems engineering. Include hints and collapsible explanations. Preserve all existing IDs and classes. Return only the new semantic HTML fragment to insert immediately before this practice card.</pre>
+<button class="copy-prompt" type="button">Copy prompt</button>
+</div>
+</details>
+</div>
+</section>
+</main>
+<nav aria-label="Course navigation" class="footer-nav">
+<a class="previous site-home-link" href="https://kevinlinstrum001.github.io/learning-library/">← Learning Library</a>
+<a class="course" href="#top">Course 6 Overview</a>
+<a class="next" href="course-06-lesson-01-systems-boundaries-and-responsibilities.html">Lesson 1: Systems and Boundaries →</a>
+</nav>
+<footer>
+<a href="https://kevinlinstrum001.github.io/learning-library/">Learning Library</a> · Course 6 — Systems, Operations, and Control · LL-EAS 4.5
   </footer>
-
-  <script>
+<script>
     (function () {
       const progressBar = document.getElementById("reading-progress-bar");
 

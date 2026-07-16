@@ -1,7 +1,7 @@
 {
   "ruleset_name": "learning_library_expandable_authoring_standard",
   "short_name": "LL-EAS",
-  "version": "4.5",
+  "version": "4.4",
   "purpose": "Define the structure, navigation, visuals, metadata, expansion workflow, and reusable authoring conventions for expandable Learning Library HTML lessons.",
   "site": {
     "default_document_type": "expandable educational lesson"
@@ -199,8 +199,7 @@
     "Optional illustrations use reserved document_name_imageNN.png placeholders",
     "Existing content is preserved during expansion",
     "The page remains usable without JavaScript",
-    "Print output remains readable",
-    "Downloadable complete HTML documents are delivered in ZIP archives with their exact repository filenames"
+    "Print output remains readable"
   ],
   "project_variables": {
     "SITE_NAME": "Learning Library",
@@ -264,45 +263,20 @@
     "lesson_page_required_html": "<nav class=\"course-nav\" aria-label=\"Course navigation\">\n  <a class=\"site-home-link\" href=\"{{SITE_ROOT_URL}}\">← Learning Library</a>\n  <a class=\"course-overview-link\" href=\"{{COURSE_OVERVIEW_URL}}\">Course Overview</a>\n</nav>"
   },
   "release_notes": {
-    "version": "4.5",
-    "change_type": "minor artifact-delivery update",
+    "version": "4.4",
+    "change_type": "minor navigation contract update",
     "changes": [
-      "Retained the LL-EAS 4.4 navigation contract",
-      "Added ZIP delivery as the default for complete downloadable HTML documents",
-      "Added archive naming, filename preservation, and ZIP validation requirements",
-      "Excluded fragment-only expansions and explicitly requested inline HTML from the ZIP requirement"
+      "Replaced the single Course Index navigation concept with distinct Learning Library and Course Overview destinations",
+      "Added site_home and course_overview metadata requirements",
+      "Added separate required navigation markup for course pages and lesson pages",
+      "Deprecated COURSE_INDEX_URL in favor of SITE_ROOT_URL and document-specific course overview URLs",
+      "Expanded navigation validation checks"
     ],
     "migration": [
-      "No existing HTML documents require content changes",
-      "Future complete HTML downloads should be packaged in ZIP archives",
-      "Use the intended repository filename for the HTML file inside each archive"
-    ]
-  },
-  "artifact_delivery": {
-    "html_delivery_format": "zip",
-    "rule": "When generating or revising an HTML document for download, package the HTML file inside a ZIP archive instead of delivering the HTML file directly.",
-    "purpose": [
-      "Preserve the exact intended filename",
-      "Reduce browser- or platform-generated filename changes",
-      "Reduce manual renaming work",
-      "Reduce the chance of path and filename typographical errors"
-    ],
-    "zip_requirements": {
-      "archive_name": "Use the intended document basename with a .zip extension",
-      "contained_html_name": "Use the exact repository filename specified for the document",
-      "preserve_directory_structure": "Include only the minimum required relative directory structure when multiple files must be delivered together; otherwise place the HTML document at the archive root.",
-      "no_unrequested_renaming": true,
-      "validate_before_delivery": [
-        "Confirm the ZIP opens successfully",
-        "Confirm the expected HTML filename is present exactly once",
-        "Confirm the HTML content is encoded as UTF-8",
-        "Confirm linked asset paths have not been rewritten unintentionally"
-      ]
-    },
-    "exceptions": [
-      "Return a raw HTML fragment when an expansion prompt explicitly requests fragment-only output",
-      "Return source text directly when the user explicitly requests inline code rather than a downloadable artifact",
-      "Use another format when the user explicitly requests it"
+      "On course overview pages, replace the Course Index link with a Learning Library link to SITE_ROOT_URL",
+      "On lesson pages, add Learning Library as the first persistent link and Course Overview immediately after it",
+      "Add site_home and course_overview fields to embedded document metadata",
+      "Preserve all other links, IDs, classes, content, and expansion cards during migration"
     ]
   }
 }
